@@ -17,6 +17,15 @@ Page({
   onLoad: function (options) {
   
   },
+  previewImage:function(e){
+    console.log(e)
+    let current=e.currentTarget.dataset.item
+    let arr1=this.data.arr1
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: arr1 // 需要预览的图片http链接列表
+    })
+  },
   addDetail() {
     var _this = this
     wx.chooseLocation({
@@ -24,8 +33,6 @@ Page({
         _this.setData({
           addDetail: res.address, 
         })
-        console.log(res)
-       
       }
     })
   },
@@ -92,7 +99,7 @@ Page({
     var value = e.detail.value;
 
 
-    value = value.replace(/\ /g, "");
+    // value = value.replace(/\ /g, "");
     this.setData({
       content: value
     })

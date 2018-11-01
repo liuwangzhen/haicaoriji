@@ -13,43 +13,55 @@
   <view class="cancel" bindtap="hideInput">取消</view>
   <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="getList">搜索</view>
 </view>
-<view wx:if="{{list!=null}}" class='body'>
+<view class='body'>
   <view class='title'>
     #{{title}}
   </view>
   <view class='number'>搜索到{{list.length}}篇笔记</view>
-  <view class="content">
+  <view wx:if="{{list!=null}}" class="content">
     <view class="left">
-      <navigator url="../detail/detail?id={{item.id}}" wx:for="{{list}}" wx:key="">
-        <template is="item" data="{{...item}}" wx:if="{{index%2==0}}"></template>
-      </navigator>
+      <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+        <!-- <template is="item" data="{{...item}}" ></template> -->
+        <navigator url="../detail/detail?id={{item.id}}" class="item">
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view class="item-title-box">
+            <view class="item-title">{{item.content}}</view>
+          </view>
+        </navigator>
+        <view class='headimg'>
+          <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
+          <view class='nick'>{{item.created_by.nick}}</view>
+          <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+          <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+          <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
+          <view class='numb' wx:if="{{item.collection==null}}">0</view>
+        </view>
+
+      </view>
     </view>
     <view class="right">
-      <navigator url="../detail/detail?id={{item.id}}" wx:for="{{list}}" wx:key="">
-        <template is="item" data="{{...item}}" wx:if="{{index%2==1}}"></template>
-      </navigator>
+      <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+        <!-- <template is="item" data="{{...item}}" wx:if="{{index%2==1}}"></template> -->
+        <navigator url="../detail/detail?id={{item.id}}" class="item">
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view class="item-title-box">
+            <view class="item-title">{{item.content}}</view>
+          </view>
+        </navigator>
+        <view class='headimg'>
+          <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
+          <view class='nick'>{{item.created_by.nick}}</view>
+          <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+          <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+          <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
+          <view class='numb' wx:if="{{item.collection==null}}">0</view>
+        </view>
+
+      </view>
     </view>
   </view>
-  <!--  下面是一个模块 -->
-  <template name="item">
-    <view class="item">
-      <image class="item-img" src="{{img[0]}}" mode="widthFix"></image>
-      <view class="item-title-box">
-        <view class="item-title">{{content}}</view>
-        <!-- <image class="arrow" src="{{arr2[inedx].headimg}}"></image>   -->
-        <view class='headimg'>
-          <image class='img2' src='{{created_by.headimg}}'></image>
-          <view class='nick'>{{created_by.nick}}</view>
-          <view style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-          <!-- <view style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view> -->
-        </view>
-      </view>
 
-    </view>
-
-  </template>
-
-</view>
-<view wx:if="{{list==null}}" class='body'>
-  对不起，暂无搜索结果
+  <view wx:if="{{list==null}}" class='body'>
+    对不起，暂无搜索结果
+  </view>
 </view>

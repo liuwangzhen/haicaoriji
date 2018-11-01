@@ -1,7 +1,7 @@
 /* pages/search/search.wxss */
 @import '../indexo/indexo.wxss';
 .title{
-  width:100%;
+width:730rpx;
 height:60rpx;
 margin-top:20rpx;
 background-color:#fff;
@@ -12,7 +12,7 @@ font-size:32rpx;
 
 }
 .number{
-  width:100%;
+width:730rpx;
 height:60rpx;
 margin-top:20rpx;
 background-color:#fff;

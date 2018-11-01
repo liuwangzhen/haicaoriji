@@ -185,7 +185,7 @@ Page({
       let list0=res.data.objects
       
       for (var i = 0; i < res.data.objects.length; i++) {
-        console.log(res)
+       
         let collection = that.data.collection
         
         if (collection.indexOf(list0[i].id)>-1){
@@ -222,9 +222,16 @@ Page({
   userinfo:function(e){
     console.log(e)
     let id=e.currentTarget.dataset.user
+    if(id==getApp().globalData.userId){
+      wx.switchTab({
+         url: '../mine/mine',
+      })
+    }
+    else{
     wx.navigateTo({
       url: '../userinfo/userinfo?id='+id,
     })
+    }
   },
   getList2: function () {
     let tableID = 55960
@@ -284,8 +291,7 @@ Page({
 
       MyUser.get(res.id).then(res => {
         // success
-        console.log(res)
-        let avatar = res.data.avatar
+       
         that.setData({
           collection: res.data.collection
         })

@@ -18,18 +18,19 @@
   </view>
   <view class='r2 zan'>
     <view style='margin-top:10rpx;'>{{date}}</view>
-    <view style='font-size:50rpx' class='iconfont icon-tubiao_wuxing-1'></view>
+    <!-- <view style='font-size:50rpx' class='iconfont icon-tubiao_wuxing-1'></view> -->
   </view>
 </view>
-<view class='footer r3'>
+<view class='footer'>
   <view class='r1'>
-    <view style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'></view>
-    <view style='color:#fff;'>2333</view>
+    <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" bindtap='collect' style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'></view>
+    <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" bindtap="nocollect" style='color:red;font-size:50rpx;' class='iconfont icon-xin'></view>
+    <view style='color:#fff;margin-left:10rpx;'>{{list.collection}}</view>
   </view>
   <view class='line'>
   </view>
   <view class='r1'>
     <view style='color:#fff;font-size:50rpx;' class='iconfont icon-zhuanfa'></view>
-    <view style='color:#fff;'>2533</view>
+    <view style='color:#fff;margin-left:10rpx;'>{{list.share}}</view>
   </view>
 </view>

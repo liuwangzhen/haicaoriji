@@ -13,6 +13,7 @@ Page({
     count:"",
     current:0,
     userid:"",
+    collection:[0],
   },
 
   /**
@@ -25,7 +26,7 @@ Page({
     that.setData({
       id:id
     })
-    that.getPic(id);
+    
 
   },
 
@@ -36,22 +37,40 @@ Page({
 
   },
   goUser:function(){
-    var userid=this.data.userid;
-    wx.navigateTo({
-      url: '../userinfo/userinfo?id='+userid,
-    })
+    var id=this.data.userid;
+    
+      
+     
+      if (id == getApp().globalData.userId) {
+        wx.switchTab({
+          url: '../mine/mine',
+        })
+      }
+      else {
+        wx.navigateTo({
+          url: '../userinfo/userinfo?id='+ id,
+        })}
+     
   },
-  getPic: function(id) {
+  getPic: function() {
     let that = this
     let tableID = 55960
-    let recordID = id
-
+    let recordID = that.data.id
+   
     let Product = new wx.BaaS.TableObject(tableID)
-
+    
     Product.get(recordID).then(res => {
       // success
-     
+      let list = res.data
       
+      let collection = that.data.collection
+     
+      if (collection.indexOf(recordID) > -1) {
+        list.collect = 1;}
+        else{
+          list.collect=0;
+        }
+
       var datetime = new Date(res.data.updated_at * 1000);
      
       let id = res.data.created_by
@@ -63,6 +82,7 @@ Page({
       MyUser.get(id).then(res => {
         
        that.setData({
+
          headimg:res.data.headimg,
          nick:res.data.nick,
        })
@@ -72,13 +92,6 @@ Page({
         // err
       })
     
-     
-     
-     
-      
-   
- 
-  
       var year = datetime.getFullYear();
       var month = datetime.getMonth() + 1;
       var hours = datetime.getHours();
@@ -98,10 +111,11 @@ Page({
       }
       var dateformat = year + "-" + month + "-" + date +" "+hours+":"+minutes;
       that.setData({
-        list: res.data,
+        list: list,
         date:dateformat,
         count: res.data.img.length
       })
+      
       wx.getImageInfo({
         src: res.data.img[0],
         success: function(res) {
@@ -139,12 +153,115 @@ Page({
     })
 
   },
+  collect: function (e) {
+    
+    let that = this
+    let id = e.currentTarget.dataset.id
+    let collection = that.data.collection.concat(id)
+    let MyUser = new wx.BaaS.User()
+    let currentUser = MyUser.getCurrentUserWithoutData()
+    let list = that.data.list
+    currentUser.set('collection', collection).update().then(res => {
+      list.collect = 1;
+      list.collection = parseInt(list.collection) + 1;
+      let collection = list.collection
+      
+      that.setData({
+        list: list
+      })
+      that.getUserInfoByToken()
+      that.updatacollect(collection)
+      wx.showToast({
+        title: '收藏成功',
+        icon: 'success',
+        duration: 2000
+      })
+
+    }, err => {
+      // err
+    })
+  },
+  updatacollect: function (collection) {
+    let that=this
+    let tableID = 55960
+    let recordID = that.data.id
+    let Product = new wx.BaaS.TableObject(tableID)
+    let product = Product.getWithoutData(recordID)
+    product.set('collection', collection)
+    product.update().then(res => {
+      // success
+    
+    }, err => {
+      // err
+    })
+  },
+  nocollect: function (e) {
+    let that = this
+    let id = e.currentTarget.dataset.id
+    let collection=that.data.collection
+    let index = collection.indexOf(id)
+   
+    // 作孽啊 不能赋值 大爷的
+    collection.splice(index, 1);
+    let MyUser = new wx.BaaS.User()
+    let currentUser = MyUser.getCurrentUserWithoutData()
+    let list = that.data.list
+    currentUser.set('collection', collection).update().then(res => {
+      // success
+      list.collect = 0;
+      list.collection = parseInt(list.collection) - 1;
+      let collection = list.collection
+      that.setData({
+        list: list
+      })
+      
+      that.getUserInfoByToken()
+      that.updatacollect(collection)
+      wx.showToast({
+        title: '取消成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }, err => {
+      // err
+    })
+  },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    let that = this
+    that.getUserInfoByToken();
+  },
+  getUserInfoByToken(){
+  let MyUser = new wx.BaaS.User()
+    let that = this
+    let id = that.data.id
+    wx.BaaS.login(false).then(res => {
+    MyUser.get(res.id).then(res => {
 
+      that.setData({
+        collection: res.data.collection
+      })
+     
+      if (res.data.is_authorized == false) {
+        wx.redirectTo({
+          url: '../../pages/login/login',
+        })
+      }
+     
+      that.getPic();
+
+
+    }, err => {
+      // err
+    })
+    // 登录成功
+
+  }, err => {
+    // 登录失败
+  })
   },
 
   /**

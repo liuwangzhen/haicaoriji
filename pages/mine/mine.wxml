@@ -36,7 +36,7 @@
       </view>
     </view>
   </view>
-  <view class='w1 r1 mt20 f28 ml20'>
+  <view style='width:730rpx;' class='r1 mt20 f28 ml20'>
     <view wx:if="{{userInfo.sex==1}}" style='color:blue;' class='iconfont icon-nan'></view>
     <view wx:if="{{userInfo.sex==2}}" style='color:pink;' class='iconfont icon-nv'></view>
     <view wx:if="{{userInfo.sex==null}}">
@@ -101,7 +101,7 @@
 </view>
 <!-- 收藏 -->
 <view wx:if="{{select=='collect'}}" class="content">
-   <view class="left">
+  <view class="left">
     <view wx:if="{{index%2==0}}" wx:for="{{list2}}" wx:key="{{item.id}}">
       <!-- <template is="item" data="{{...item}}" ></template> -->
       <navigator url="../detail/detail?id={{item.id}}" class="item">
@@ -113,7 +113,7 @@
       <view class='headimg'>
         <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
         <view class='nick'>{{item.created_by.nick}}</view>
-        
+
         <view data-num="{{item.collection}}" data-id="{{item.id}}" bindtap='nocollect2' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
         <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
         <view class='numb' wx:if="{{item.collection==null}}">0</view>
@@ -133,7 +133,7 @@
       <view class='headimg'>
         <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
         <view class='nick'>{{item.created_by.nick}}</view>
-        
+
         <view data-num="{{item.collection}}" data-id="{{item.id}}" bindtap='nocollect2' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
         <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
         <view class='numb' wx:if="{{item.collection==null}}">0</view>
@@ -141,4 +141,3 @@
     </view>
   </view>
 </view>
-
