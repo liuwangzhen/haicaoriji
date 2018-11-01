@@ -1,0 +1,68 @@
+/* pages/addNote/addNote.wxss */
+.addimg{
+ width:240rpx;
+height:240rpx;
+margin-top:-10px;
+margin-left:16rpx;
+
+
+}
+.item{
+  width:200rpx;
+height:200rpx;
+border-radius:20rpx;
+margin-left:37rpx;
+
+}
+.head{
+  display: flex;
+  flex-direction: row;
+  width: 750rpx;
+  flex-wrap:wrap;
+
+}
+.textarea{
+width:690rpx;
+height:200rpx;
+display:block;
+position:relative;
+margin-left:30rpx;
+font-size:28rpx;
+
+
+}
+.placeholder{
+  font-size: 28rpx;
+}
+.line{
+ width:690rpx;
+margin-left:30rpx;
+margin-top: 30rpx;
+height:3rpx;
+background-color:#f4f4f4;
+
+}
+.btn{
+  width: 150rpx;
+  background-color: #fd2645;
+  border-radius: 20rpx;
+  margin-left: 300rpx;
+  margin-top: 50rpx;
+  color:#fff;
+}
+.pos{
+  width: 690rpx;
+  margin-left: 30rpx;
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: row;
+
+}
+.pos-inp{
+  margin-left: 30rpx;
+  font-size: 28rpx;
+  width: 590rpx;
+}
+.placeholder{
+  font-size: 28rpx;
+}

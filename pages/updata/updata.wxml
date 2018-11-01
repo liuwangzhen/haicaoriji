@@ -1,0 +1,59 @@
+<!--pages/updata/updata.wxml-->
+<view class='nav'>
+  <view bindtap='upImg' class='header'>
+    <!-- <view wx:if="{{userInfo.headimg==null}}" class='header-img'>
+    </view> -->
+    <image class='header-img' src='{{img}}'></image>
+    <view class='head-text'>修改头像</view>
+    <view style='margin-top:60rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
+  </view>
+  <view class='line'></view>
+  <view bindtap='upnick' class='header'>
+    <view class='item'>
+      昵称
+    </view>
+    <view class="item-name"><span wx:if="{{userInfo.nick==null}}" class="span">请填写昵称</span>
+    <span wx:if="{{userInfo.nick!=null}}">{{userInfo.nick}}</span></view>
+    <view style='margin-top:6rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
+  </view>
+  <view class='line'></view>
+  <view  class='header'>
+    <view class='item'>
+      性别
+    </view>
+    <view class="item-name">
+      <picker bindchange="bindPickerChange"  value="{{index}}" range="{{array}}">
+        <view class="picker">
+          <span wx:if="{{index==null}}" class="span">选择性别</span>
+          <span wx:if="{{index!=null}}">{{array[index]}}</span>
+        </view>
+      </picker>
+    </view>
+    <view style='margin-top:6rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
+  </view>
+  <view class='line'></view>
+  <view class='header'>
+    <view class='item'>
+      生日
+    </view>
+    <view class="item-name">
+      <picker mode="date" value="{{date}}" start="1900-01-01" end="{{nowdate}}"  bindchange="bindDateChange">
+        <view class="picker">
+          <span wx:if="{{date==null}}" class="span">选择日期</span>
+          <span wx:if="{{date!=null}}">{{date}}</span>
+        </view>
+      </picker>
+    </view>
+    <view style='margin-top:6rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
+  </view>
+  <view class='line'></view>
+  <view bindtap='upsign' class='header2'>
+    <view  class='item2'>
+      个性签名
+    </view>
+    <view class="item2-name"><span class="span" wx:if="{{sign==null}}">请填写签名</span>
+    <span wx:if="{{sign!=null}}">{{sign}}</span></view>
+    <view style='margin-top:6rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
+  </view>
+  <view class='line'></view>
+</view>

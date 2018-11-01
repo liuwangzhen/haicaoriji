@@ -1,0 +1,35 @@
+<!--pages/detail/detail.wxml-->
+<view class='contain'>
+  <swiper bindchange="change" style='height:{{height}}rpx;max-height:1000rpx;' circular='true' class="swiper">
+
+    <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
+
+      <image style='' mode='widthFix' src="{{item}}" />
+
+    </swiper-item>
+  </swiper>
+  <view class='count'>{{current+1}}/{{count}}</view>
+  <view bindtap='goUser' class='user'>
+    <image src='{{headimg}}'></image>
+    <view class='nick'>{{nick}}</view>
+  </view>
+  <view class='content'>
+    {{list.content}}
+  </view>
+  <view class='r2 zan'>
+    <view style='margin-top:10rpx;'>{{date}}</view>
+    <view style='font-size:50rpx' class='iconfont icon-tubiao_wuxing-1'></view>
+  </view>
+</view>
+<view class='footer r3'>
+  <view class='r1'>
+    <view style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'></view>
+    <view style='color:#fff;'>2333</view>
+  </view>
+  <view class='line'>
+  </view>
+  <view class='r1'>
+    <view style='color:#fff;font-size:50rpx;' class='iconfont icon-zhuanfa'></view>
+    <view style='color:#fff;'>2533</view>
+  </view>
+</view>

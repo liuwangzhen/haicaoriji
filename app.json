@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/indexo/indexo",
+    "pages/search/search",
+    "pages/searchtwo/searchtwo",
+    "pages/login/login",
+   
+    "pages/member/member",
+    "pages/shopCat/shopCat",
+    "pages/mine/mine",
+    "pages/updata/updata",
+    "pages/upnick/upnick",
+    "pages/upsign/upsign",
+    "pages/addNote/addNote",
+    "pages/detail/detail",
+    "pages/userinfo/userinfo"
+   
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "我的书架",
+    "navigationBarTextStyle": "black"
+    
+  },
+  "tabBar": {
+    "color": "#bfbfbf",
+    "selectedColor": "black",
+    "backgroundColor": "#fff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/indexo/indexo",
+        "text": "首页",
+        "iconPath": "images/首页灰.png",
+        "selectedIconPath": "images/首页.png"
+      },
+      {
+        "pagePath": "pages/addNote/addNote",
+        "text": "写日志",
+        "iconPath": "images/添加灰.png",
+        "selectedIconPath": "images/添加.png"
+      },
+      
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/我的灰.png",
+        "selectedIconPath": "images/我的.png"
+      }
+    ]},
+  "plugins": {
+    "sdkPlugin": {
+      "version": "1.9.0",
+      "provider": "wxc6b86e382a1e3294"
+    }
+    
+  }
+}

@@ -1,0 +1,84 @@
+<view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
+  <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:999' class='iconfont icon-sousuokuang'></view>
+  <view hover-class='none'>
+    <input class="search" placeholder="大家都在搜" placeholder-class="search-p"></input>
+  </view>
+</view>
+<view hidden="{{!inputShowed}}" class='nav'>
+  <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:999' class='iconfont icon-sousuokuang'></view>
+  <view hover-class='none'>
+    <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder="大家都在搜" placeholder-class="search-p"></input>
+  </view>
+  <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
+  <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
+  <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
+</view>
+<view class='body'>
+  <!-- <view class='recommend r2'>
+    <view bindtap='change' class="f28 mt20 ml20 {{swiperIndex == index ? 'active' : 'c66'}}" wx:for="{{list}}" data-idx='{{index}}' data-arr="{{item.id}}">
+
+      {{item.name}}
+
+    </view>
+  </view> -->
+  <view class="content">
+    <view class="left">
+      <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+        <!-- <template is="item" data="{{...item}}" ></template> -->
+        <navigator url="../detail/detail?id={{item.id}}" class="item">
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view class="item-title-box">
+            <view class="item-title">{{item.content}}</view>
+          </view>
+        </navigator>
+        <view class='headimg'>
+          <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
+          <view class='nick'>{{item.created_by.nick}}</view>
+          <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+          <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+          <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
+        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+        </view>
+
+      </view>
+    </view>
+    <view class="right">
+      <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+        <!-- <template is="item" data="{{...item}}" wx:if="{{index%2==1}}"></template> -->
+        <navigator url="../detail/detail?id={{item.id}}" class="item">
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view class="item-title-box">
+            <view class="item-title">{{item.content}}</view>
+          </view>
+        </navigator>
+        <view class='headimg'>
+          <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
+          <view class='nick'>{{item.created_by.nick}}</view>
+          <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+          <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+          <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
+        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+  <!--  下面是一个模块 -->
+  <!-- <template name="item">
+  
+    <navigator url="../detail/detail?id={{id}}" class="item">
+      <image class="item-img" src="{{img[0]}}" mode="widthFix"></image>
+      <view class="item-title-box">
+        <view class="item-title">{{content}}</view>
+      </view>
+    </navigator>
+    <view class='headimg'>
+      <image bindtap='userinfo' data-user="{{created_by.id}}" class='img2' src='{{created_by.headimg}}'></image>
+      <view class='nick'>{{created_by.nick}}</view>
+      <view date-index="{{index}}" wx:if="{{collect==0}}" data-id="{{id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+      <view date-index="{{index}}" wx:if="{{collect==1}}"  data-id="{{id}}" bindtap='nocollect'  style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+    </view>
+    
+  </template> -->
+
+</view>
