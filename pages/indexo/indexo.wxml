@@ -23,7 +23,7 @@
   </view> -->
   <view class="content">
     <view class="left">
-      <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+      <view  wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
        
         <navigator url="../detail/detail?id={{item.id}}" class="item">
           <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>

@@ -117,11 +117,11 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '收藏成功',
-        icon: 'success',
-        duration: 2000
-      })
+      // wx.showToast({
+      //   title: '收藏成功',
+      //   icon: 'success',
+      //   duration: 2000
+      // })
 
     }, err => {
       // err
@@ -164,12 +164,12 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000
+      // wx.showToast({
+      //   title: '取消成功',
+      //   icon: 'success',
+      //   duration: 2000
 
-      })
+      // })
     }, err => {
       // err
     })
@@ -246,7 +246,7 @@ Page({
       
       if(res.data.objects==""){
         wx.showToast({
-          title: '没有更多数据了',
+          title: '没有更多内容了',
         })
       }
       else{

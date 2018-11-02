@@ -6,22 +6,22 @@
     </view>
     <view class='col ml20 w550'>
       <view class='row2 f28'>
-        <view class='col'>
+        <navigator url='../attention/attention' hover-class='none' class='col'>
           <view class='num'>
             0
           </view>
           <view class='text'>
             关注
           </view>
-        </view>
-        <view class='col'>
+        </navigator>
+        <navigator url='../fans/fans' hover-class='none' class='col'>
           <view class='num'>
             0
           </view>
           <view class='text'>
             粉丝
           </view>
-        </view>
+        </navigator>
         <view class='col'>
           <view class='num'>
             0

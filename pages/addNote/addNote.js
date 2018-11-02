@@ -119,7 +119,7 @@ Page({
       content: content,
       address:address,
     }
-    if (that.data.arr1 == '' || that.data.content == '' || that.data.addDetail == ''){
+    if (that.data.arr1 == '' || that.data.content == ''){
       wx.showToast({
         title: '请输入完整',
         icon: 'none',

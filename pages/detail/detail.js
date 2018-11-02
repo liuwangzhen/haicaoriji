@@ -29,6 +29,15 @@ Page({
     
 
   },
+  previewImage: function (e) {
+    console.log(e)
+    let current = e.currentTarget.dataset.item
+    let arr1 = this.data.list.img
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: arr1 // 需要预览的图片http链接列表
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成

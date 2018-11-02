@@ -77,7 +77,7 @@ Page({
       }, err => {
         // err
       })
-      登录成功
+     
 
     }, err => {
       // 登录失败
@@ -104,11 +104,11 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '收藏成功',
-        icon: 'success',
-        duration: 2000
-      })
+      // wx.showToast({
+      //   title: '收藏成功',
+      //   icon: 'success',
+      //   duration: 2000
+      // })
 
     }, err => {
       // err
@@ -151,12 +151,12 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000
+      // wx.showToast({
+      //   title: '取消成功',
+      //   icon: 'success',
+      //   duration: 2000
 
-      })
+      // })
     }, err => {
       // err
     })
@@ -240,7 +240,7 @@ Page({
 
       if (res.data.objects == "") {
         wx.showToast({
-          title: '没有更多数据了',
+          title: '没有更多内容了',
         })
       }
       else {
@@ -311,8 +311,14 @@ Page({
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
       // success
      console.log(res)
+     let list0=res.data.objects
+      for (var i = 0; i < res.data.objects.length; i++) {
+
+      list0[i].content = that.LimitNumbersadf(list0[i].content);
+      list.push(list0[i]);
+      }
      that.setData({
-       list2:res.data.objects,
+       list2:list,
        
      })
     
@@ -340,12 +346,12 @@ Page({
       that.getUserInfoByToken()
       that.getcol();
       that.updatacollect(id, num)
-      wx.showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000
+      // wx.showToast({
+      //   title: '取消成功',
+      //   icon: 'success',
+      //   duration: 2000
 
-      })
+      // })
     }, err => {
       // err
     })

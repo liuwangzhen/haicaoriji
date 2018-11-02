@@ -45,8 +45,9 @@ Page({
         'city0': city,
         'collection':['ssss2'],
         'nick': nick,
+        'attention':[2]
       }).update().then(res => {
-        console.log(res)
+        
        
         let avatar=res.data.avatar
         currentUser.set({
@@ -54,6 +55,22 @@ Page({
         }).update().then(res => {
           console.log(res)
         },err=>{})
+        let tableID = 56146
+        let Product = new wx.BaaS.TableObject(tableID)
+        let product = Product.create()
+
+        // 设置方式一
+        let apple = {
+          fans:[2]
+        }
+
+        product.set(apple).save().then(res => {
+          // success
+          console.log(res)
+        }, err => {
+          //err 为 HError 对象
+        })
+
       }, err => {
         // err
       })

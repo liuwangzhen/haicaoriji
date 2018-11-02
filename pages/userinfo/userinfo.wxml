@@ -8,22 +8,22 @@
     </view>
     <view class='col ml20 w550'>
       <view class='row2 f28'>
-        <view class='col'>
+       <navigator url='../attention/attention?id={{aid}}' hover-class='none' class='col'>
           <view class='num'>
-            0
+           {{attention2.length-1}}
           </view>
           <view class='text'>
             关注
           </view>
-        </view>
-        <view class='col'>
+        </navigator>
+        <navigator url='../fans/fans' hover-class='none' class='col'>
           <view class='num'>
-            0
+           {{fans.length-1}}
           </view>
           <view class='text'>
             粉丝
           </view>
-        </view>
+        </navigator>
         <view class='col'>
           <view class='num'>
             0
@@ -34,8 +34,11 @@
         </view>
       </view>
       <view class='r1'>
-      <view bindtap='attention' class='edit'>
+      <view wx:if="{{attent==0}}" bindtap='attention' class='edit'>
         <text class='edit-text'>关注</text>
+      </view>
+       <view wx:if="{{attent==1}}" bindtap='cancel' class='edit'>
+        <text class='edit-text'>已关注</text>
       </view>
       <button style='line-height:65rpx;' open-type="share" bindtap='onShareAppMessage' bindtap='share' class='share'>
       <view style='font-size:30rpx;color:#fff;' class='iconfont icon-zhuanfa'></view>

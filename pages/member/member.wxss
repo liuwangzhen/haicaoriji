@@ -6,9 +6,11 @@
 .item{
   background-color: #fff;
   margin-top: 20rpx; 
-  
+  border-radius:10rpx 10rpx 10rpx 10rpx;
   display: inline-block;
   width: 100%;
+  box-shadow:1rpx 5rpx 10rpx #d5d5d5;
+
   
 }
 .item-ava{
@@ -27,7 +29,9 @@
 }
 
 .item-img{
-  width: 100%
+  width: 100%;
+  border-radius:10rpx 10rpx 0 0;
+
   
 }
 .item-title{

@@ -47,56 +47,7 @@ Page({
       inputVal: e.detail.value
     });
   },
-  // getList: function () {
-  //   let tableID = 55960
-  //   let that = this
-  //   let query = new wx.BaaS.Query()
-  //   let apple = that.data.inputVal;
-  //   query.contains('content', apple)
-  //   let Product = new wx.BaaS.TableObject(tableID)
-   
-  //   Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(6).offset(0).find().then(res => {
-    
-  //         that.setData({
-  //           list: res.data.objects,
-  //           title:that.data.inputVal,
-  //           page:0,
-  //         })
-  //       }, err => {
-  //         // err
-  //       }
-  //     )
-
-  // },
-  // getList2: function () {
-  //   let tableID = 55960
-  //   let that = this
-  //   let query = new wx.BaaS.Query()
-  //   let apple = that.data.inputVal;
-  //   query.contains('content', apple)
-  //   let Product = new wx.BaaS.TableObject(tableID)
-  //   let page = that.data.page
-  //   page++;
-
-  //   Product.orderBy('-created_at').setQuery(query).expand('created_by').limit(6).offset(page * 6).find().then(res => {
-  //     // success
-
-  //     if (res.data.objects == "") {
-  //       wx.showToast({
-  //         title: '没有更多数据了',
-  //       })
-  //     }
-  //     else {
-  //       that.setData({
-  //         list: that.data.list.concat(res.data.objects),
-  //         page: page
-  //       })
-  //     }
-
-  //   }, err => {
-  //     // err
-  //   })
-  // },
+  
   
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -167,11 +118,11 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '收藏成功',
-        icon: 'success',
-        duration: 2000
-      })
+      // wx.showToast({
+      //   title: '收藏成功',
+      //   icon: 'success',
+      //   duration: 2000
+      // })
 
     }, err => {
       // err
@@ -214,12 +165,12 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000
+      // wx.showToast({
+      //   title: '取消成功',
+      //   icon: 'success',
+      //   duration: 2000
 
-      })
+      // })
     }, err => {
       // err
     })
@@ -302,7 +253,7 @@ Page({
 
       if (res.data.objects == "") {
         wx.showToast({
-          title: '没有更多数据了',
+          title: '没有更多内容了',
         })
       }
       else {

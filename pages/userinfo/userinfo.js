@@ -18,6 +18,10 @@ Page({
     usercol:[],
     page2:0,
     list2:[],
+    attention1:[],
+    fans:[1],
+    attention2:[1],
+   
   },
 
   /**
@@ -30,6 +34,26 @@ Page({
     })
     
     this.getUserInfo();
+    this.getFans();
+  },
+  getFans(){
+    let that=this
+    let aid=that.data.aid
+   
+    let query = new wx.BaaS.Query()
+    query.compare('created_by', '=', aid)
+    let Product = new wx.BaaS.TableObject(56146)
+    Product.setQuery(query).find().then(res => {
+      // success
+      that.setData({
+        recordID:res.data.objects[0].id,
+        fans:res.data.objects[0].fans,
+      })
+      
+    }, err => {
+      // err
+    })
+
   },
   tab(event) {
     var that = this;
@@ -45,6 +69,87 @@ Page({
     }
 
   },
+  attention:function(){ 
+    let that=this
+    let MyUser = new wx.BaaS.User()
+    let currentUser = MyUser.getCurrentUserWithoutData()
+    let aid=that.data.aid
+    let attent
+    let attention=that.data.attention1.concat(aid)
+    currentUser.set('attention', attention).update().then(res => {
+      if (res.data.attention.indexOf(that.data.aid) > -1) {
+        attent = 1
+      } else {
+        attent = 0
+      }
+      let recordID = that.data.recordID
+     
+      let Product = new wx.BaaS.TableObject(56146)
+      let product = Product.getWithoutData(recordID)
+      let mid = that.data.mid
+     
+      let fans = that.data.fans.concat(mid)
+     
+      product.set('fans', fans)
+      product.update().then(res => {
+        // success
+        
+        that.setData({
+          fans: res.data.fans
+        })
+      }, err => {
+        // err
+      })
+     
+      that.setData({
+        
+        attention1: res.data.attention,
+        attent: attent,
+      })
+
+    })
+  },
+  cancel:function(){
+
+    let that = this
+    let MyUser = new wx.BaaS.User()
+    let currentUser = MyUser.getCurrentUserWithoutData()
+    let aid = that.data.aid
+    let attent
+    let attention = that.data.attention1
+    let idx=attention.indexOf(aid)
+    attention.splice(idx,1)
+
+    currentUser.set('attention', attention).update().then(res => {
+      if (res.data.attention.indexOf(that.data.aid) > -1) {
+        attent = 1
+      } else {
+        attent = 0
+      }
+      let recordID = that.data.recordID
+
+      let Product = new wx.BaaS.TableObject(56146)
+      let product = Product.getWithoutData(recordID)
+      let mid = that.data.mid
+      let fans = that.data.fans
+      let index=fans.indexOf(mid)
+      fans.splice(index,1)
+
+      product.set('fans', fans)
+      product.update().then(res => {
+       
+        that.setData({
+          fans: res.data.fans
+        })
+      }, err => {
+        // err
+      })
+      that.setData({
+        attention1: res.data.attention,
+        attent: attent,
+      })
+    })
+  },
   getUserInfo: function() {
     let that = this
     let MyUser = new wx.BaaS.User()
@@ -52,7 +157,6 @@ Page({
 
     MyUser.get(id).then(res => {
 
-      // success
       var datetime = new Date(res.data.birthday);
       var year = datetime.getFullYear();
       var month = datetime.getMonth() + 1;
@@ -72,10 +176,11 @@ Page({
         sign: res.data.sign,
         nick: res.data.nick,
         usercol:res.data.collection,
+        
+        attention2:res.data.attention,
 
       })
-      console.log("0000")
-      console.log(res.data.collection)
+     
       wx.setNavigationBarTitle({
         title: res.data.nick //页面标题为路由参数
       })
@@ -90,15 +195,27 @@ Page({
   getUserInfoByToken: function() {
     let that = this
     let MyUser = new wx.BaaS.User()
+    let attent
     wx.BaaS.login(false).then(res => {
+      that.setData({
+        mid:res.id
+      })
       MyUser.get(res.id).then(res => {
+        if(res.data.attention.indexOf(that.data.aid)>-1){
+          attent=1
+        }else{
+          attent=0
+        }
+        
         that.setData({
-          collection: res.data.collection
+          collection: res.data.collection,
+          attention1:res.data.attention,
+          attent:attent,
         })
       }, err => {
         // err
       })
-      登录成功
+     
 
     }, err => {
       // 登录失败
@@ -125,11 +242,7 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '收藏成功',
-        icon: 'success',
-        duration: 2000
-      })
+     
 
     }, err => {
       // err
@@ -172,12 +285,6 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000
-
-      })
     }, err => {
       // err
     })
@@ -189,9 +296,6 @@ Page({
     let list = new Array;
     let query = new wx.BaaS.Query()
     let userId = that.data.aid
-   
-   
-
     query.compare("created_by", '=', userId)
 
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
@@ -263,7 +367,7 @@ Page({
 
       if (res.data.objects == "") {
         wx.showToast({
-          title: '没有更多数据了',
+          title: '没有更多内容了',
         })
       } else {
         let list0 = res.data.objects
@@ -364,34 +468,7 @@ Page({
       // err
     })
   },
-  nocollect2: function(e) {
-    console.log(e)
-    let that = this
-    let id = e.currentTarget.dataset.id
-    let num = e.currentTarget.dataset.num
-    let collection = that.data.collection
-    let index = collection.indexOf(id)
-    collection.splice(index, 1);
-    let MyUser = new wx.BaaS.User()
-    let currentUser = MyUser.getCurrentUserWithoutData()
-    currentUser.set('collection', collection).update().then(res => {
-      // success
-
-      num = parseInt(num) - 1
-
-      that.getUserInfoByToken()
-      // that.getcol();
-      that.updatacollect(id, num)
-      wx.showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000
-
-      })
-    }, err => {
-      // err
-    })
-  },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -482,17 +559,13 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '收藏成功',
-        icon: 'success',
-        duration: 2000
-      })
-
+    
     }, err => {
       // err
     })
   },
   nocollect2: function (e) {
+   
     let that = this
     let id = e.currentTarget.dataset.id
     let idx = e.currentTarget.dataset.index
@@ -514,12 +587,7 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      wx.showToast({
-        title: '取消成功',
-        icon: 'success',
-        duration: 2000
-
-      })
+     
     }, err => {
       // err
     })

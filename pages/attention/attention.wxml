@@ -1,0 +1,11 @@
+<!--pages/attention/attention.wxml-->
+<view class='item'>
+  <image class='image' src='../../images/pic01.jpg'></image>
+  <view class='name'>
+    <view class='name1'>张大锅</view>
+    <view class='name2'>50个笔记,200个粉丝</view>
+
+  </view>
+  <view class='att'>已关注</view>
+</view>
+<view class='line'></view>
