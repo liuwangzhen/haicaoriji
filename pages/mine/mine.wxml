@@ -1,3 +1,5 @@
+<view class='top'><text class='title'>{{nick}}</text></view>
+<view class='pad'></view>
 <view class='head'>
   <view class='row1 ml20'>
 
@@ -5,18 +7,18 @@
       <image src='{{img2}}' class="index-profile__img"></image>
     </view>
     <view class='col ml20 w550'>
-      <view class='row2 f28'>
-        <navigator url='../attention/attention' hover-class='none' class='col'>
+      <view class='atten-fans'>
+        <navigator url='../attention/attention?id={{aid}}' hover-class='none' class='col'>
           <view class='num'>
-            0
+            {{attention.length-1}}
           </view>
           <view class='text'>
             关注
           </view>
         </navigator>
-        <navigator url='../fans/fans' hover-class='none' class='col'>
+        <navigator url='../fans/fans?id={{aid}}' hover-class='none' class='col'>
           <view class='num'>
-            0
+            {{fans.length-1}}
           </view>
           <view class='text'>
             粉丝
@@ -48,7 +50,7 @@
     <view wx:if="{{userInfo.province!=null}}" class='introduce'>{{userInfo.province}}</view>
     <view wx:if="{{userInfo.city!=null}}" class='introduce'>{{userInfo.city}}</view>
   </view>
-  <view wx:if="{{sign!=null}}" class='sign'>{{sign}}</view>
+  <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text>
   <view class='border'></view>
 
   <view class='nav2'>

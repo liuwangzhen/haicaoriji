@@ -25,6 +25,16 @@ Page({
 
     })
   },
+  goback: function () {
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
+  goIndex: function () {
+    wx.switchTab({
+      url: '../indexo/indexo',
+    })
+  },
   bindPickerChange: function(e) {
     let that = this
     this.setData({
@@ -206,6 +216,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    return {
+      title: '荔枝医美',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/indexo/indexo',
+    }
   }
 })

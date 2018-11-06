@@ -15,6 +15,9 @@ Page({
     page:0,
     page2:0,
     collection:[],
+    aid:"",
+    attention:[1],
+    fans:[1],
   },
 
   /**
@@ -25,14 +28,29 @@ Page({
     
     this.getUserInfoByToken();
     
-
+    this.getFans();
   },
   updata: function () {
     wx.navigateTo({
       url: '../updata/updata',
     })
   },
-  
+  getFans() {
+    let that = this
+    let aid = getApp().globalData.userId
+    let query = new wx.BaaS.Query()
+    query.compare('created_by', '=', aid)
+    let Product = new wx.BaaS.TableObject(56146)
+    Product.setQuery(query).find().then(res => {
+      // success
+      that.setData({
+        recordID: res.data.objects[0].id,
+        fans: res.data.objects[0].fans,
+      })
+    }, err => {
+      // err
+    })
+  },
   tab(event) {
     var that=this;
     var temp = event.currentTarget.dataset.id
@@ -52,7 +70,12 @@ Page({
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
-      
+
+        if (res.data.is_authorized == false) {
+          wx.redirectTo({
+            url: '../../pages/login4/login4',
+          })
+        }
         // success
         var datetime = new Date(res.data.birthday);
         var year = datetime.getFullYear();
@@ -72,7 +95,9 @@ Page({
           date: dateformat,
           sign: res.data.sign,
           nick:res.data.nick,
-          collection: res.data.collection
+          collection: res.data.collection,
+          aid:res.data.id,
+          attention:res.data.attention
         })
       }, err => {
         // err
@@ -422,6 +447,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that = this
+    let id = that.data.aid
+    return {
+      title: '荔枝医美',
+      desc: '最具人气的小程序',
+      path: '/pages/userinfo/userinfo?id=' + id + "&getshare=" + 1,
+     
+    }
   }
 })

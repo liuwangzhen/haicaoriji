@@ -21,6 +21,7 @@ Page({
     attention1:[],
     fans:[1],
     attention2:[1],
+    getshare:0,
    
   },
 
@@ -28,13 +29,28 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    
+    let that=this
+    if (options.getshare != undefined) {
+      that.setData({
+        getshare: options.getshare,
+      })
+    }
     this.setData({
       aid: parseInt(options.id)
     })
     
     this.getUserInfo();
     this.getFans();
+  },
+  goback:function(){
+    wx.navigateBack({
+      delta:1,
+    })
+  },
+  goIndex:function(){
+     wx.switchTab({
+       url: '../indexo/indexo',
+     })
   },
   getFans(){
     let that=this
@@ -595,7 +611,13 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
+  onShareAppMessage: function(e) {
+    let that=this
+    let aid=that.data.aid
+      return {
+      title: '荔枝医美',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/userinfo/userinfo?id='+aid+"&getshare="+1,
+    }
   }
 })

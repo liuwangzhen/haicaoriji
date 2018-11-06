@@ -6,6 +6,12 @@ page{
   /* width: 750rpx; */
   background-color: #f4f8fb;
 }
+.atten-fans{
+  display: flex;
+  flex-direction: row;
+ 
+  font-size: 28rpx;
+}
 .index-profile__img {
   display: block;
   border-radius: 50%;
@@ -42,7 +48,7 @@ text-align:center;
 font-size:30rpx;
 margin-top:50rpx;
 padding-top:10rpx;
-margin-left:50rpx;
+margin-left:15rpx;
 background-color: #fff;
 
 }
@@ -106,13 +112,21 @@ color: #b6b6b6;
  margin-top:20rpx;
 box-shadow:-1px -1px 10rpx #eef1f3;
 }
+.col {
+display:flex;
+flex-direction:column;
+margin-left:45rpx;
+
+}
 
 
 .sign{
-  /* width: 710rpx; */
-  margin-left: 20rpx;
-  margin-top: 20rpx;
-  font-size: 28rpx;
+ margin-left:20rpx;
+margin-top:20rpx;
+font-size:28rpx;
+display:block;
+width:710rpx;
+
 }
 .img2{
   width: 60rpx;

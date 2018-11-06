@@ -12,6 +12,7 @@ Page({
      page:0,
     collection: [],
     list:[],
+    getshare:0,
   },
 
   /**
@@ -19,11 +20,27 @@ Page({
    */
   onLoad: function (options) {
     console.log(options)
+    let that = this
+    if (options.getshare != undefined) {
+      that.setData({
+        getshare: 1
+      })
+    }
     this.setData({
       inputVal:options.val,
       title:options.val,
     })
     this.getList();
+  },
+  goback: function () {
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
+  goIndex: function () {
+    wx.switchTab({
+      url: '../indexo/indexo',
+    })
   },
   showInput: function () {
     this.setData({
@@ -358,6 +375,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that=this
+    let val=that.data.title
+   
+    return {
+      title: '荔枝医美',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/search/search?val='+val+"&getshare="+1,
+    }
   }
 })

@@ -1,6 +1,11 @@
 <!--pages/detail/detail.wxml-->
+
+<view class='top'><text class='title'>{{nick}}</text></view>
+<view wx:if="{{getshare==0}}" bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
+<view bindtap='goIndex' style='z-index:99;position:fixed;color:#000000;font-size:40rpx;left:84rpx;font-weight:bold;top:56rpx;' class='iconfont icon-shouye'></view>
+<view class='pad'></view>
 <view class='contain'>
-  <swiper bindchange="change" style='height:{{height}}rpx;max-height:1000rpx;' circular='true' class="swiper">
+  <swiper bindchange="change" style='height:{{height}}rpx;max-height:1000rpx;' circular='false' class="swiper">
 
     <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
 
@@ -13,9 +18,9 @@
     <image src='{{headimg}}'></image>
     <view class='nick'>{{nick}}</view>
   </view>
-  <view class='content'>
+  <text class='content'>
     {{list.content}}
-  </view>
+  </text>
   <view class='r2 zan'>
     <view style='margin-top:10rpx;'>{{date}}</view>
     <!-- <view style='font-size:50rpx' class='iconfont icon-tubiao_wuxing-1'></view> -->
@@ -23,14 +28,17 @@
 </view>
 <view class='footer'>
   <view class='r1'>
-    <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" bindtap='collect' style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'></view>
-    <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" bindtap="nocollect" style='color:red;font-size:50rpx;' class='iconfont icon-xin'></view>
+    <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" bindtap='collect' style='color:#fff;font-size:50rpx;margin-left:150rpx;' class='iconfont icon-xin1'></view>
+    <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" bindtap="nocollect" style='color:red;font-size:50rpx;margin-left:150rpx;' class='iconfont icon-xin'></view>
     <view style='color:#fff;margin-left:10rpx;'>{{list.collection}}</view>
   </view>
   <view class='line'>
   </view>
-  <view class='r1'>
-    <view style='color:#fff;font-size:50rpx;' class='iconfont icon-zhuanfa'></view>
-    <view style='color:#fff;margin-left:10rpx;'>{{list.share}}</view>
+  <view style='position:absolute;left:500rpx;' class='r1'>
+    <button open-type="share" bindtap='onShareAppMessage' class='share'>
+    <view  style='color:#fff;font-size:50rpx;' class='iconfont icon-zhuanfa'></view>
+    </button>
+    <view style='color:#fff;margin-left:10rpx;'>{{share}}</view>
   </view>
 </view>
+

@@ -84,8 +84,7 @@ Page({
     
   },
   change:function(e){
-    let that=this;
-    
+    let that=this;   
     let index=e.currentTarget.dataset.idx;
     let arr1=e.currentTarget.dataset.arr;
     that.setData({
@@ -117,12 +116,7 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      // wx.showToast({
-      //   title: '收藏成功',
-      //   icon: 'success',
-      //   duration: 2000
-      // })
-
+     
     }, err => {
       // err
     })
@@ -164,12 +158,7 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      // wx.showToast({
-      //   title: '取消成功',
-      //   icon: 'success',
-      //   duration: 2000
-
-      // })
+     
     }, err => {
       // err
     })
@@ -184,7 +173,7 @@ Page({
       // success
       let list0=res.data.objects
       
-      for (var i = 0; i < res.data.objects.length; i++) {
+      for (let i = 0; i < res.data.objects.length; i++) {
        
         let collection = that.data.collection
         
@@ -295,12 +284,12 @@ Page({
         that.setData({
           collection: res.data.collection
         })
-        if (res.data.is_authorized == false) {
-          wx.redirectTo({
-            url: '../../pages/login/login',
+        // if (res.data.is_authorized == false) {
+        //   wx.redirectTo({
+        //     url: '../../pages/login/login',
 
-          })
-        }
+        //   })
+        // }
         this.getList()
         
         

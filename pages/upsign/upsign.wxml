@@ -1,4 +1,8 @@
 <!--pages/upsign/upsign.wxml-->
+<view class='top'>个性签名</view>
+<view bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
+<view bindtap='goIndex' style='z-index:99;position:fixed;color:#000000;font-size:40rpx;left:84rpx;font-weight:bold;top:56rpx;' class='iconfont icon-shouye'></view>
+<view class='pad'></view>
 <view class='f28 ml20 head'>有趣的个人介绍更容易吸引粉丝</view>
 <view class='nick'>
 <textarea bindblur='sign' value='{{sign}}' maxlength='200' class='nick2'>

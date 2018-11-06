@@ -1,19 +1,25 @@
-<view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
-  <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:999' class='iconfont icon-sousuokuang'></view>
-  <view hover-class='none'>
-    <input class="search" placeholder="大家都在搜" placeholder-class="search-p"></input>
+<view class='topone'>
+  <view class='top'>荔枝医美</view>
+
+  <view style='margin-top:130rpx;'></view>
+  <view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+    <view hover-class='none'>
+      <input class="search" placeholder="大家都在搜" placeholder-class="search-p"></input>
+    </view>
+  </view>
+  <view hidden="{{!inputShowed}}" class='nav'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+    <view hover-class='none'>
+      <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder="大家都在搜" placeholder-class="search-p"></input>
+    </view>
+    <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
+    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
+    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
   </view>
 </view>
-<view hidden="{{!inputShowed}}" class='nav'>
-  <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:999' class='iconfont icon-sousuokuang'></view>
-  <view hover-class='none'>
-    <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder="大家都在搜" placeholder-class="search-p"></input>
-  </view>
-  <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
-  <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
-  <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
-</view>
-<view class='body'>
+
+<view  class='body'>
   <!-- <view class='recommend r2'>
     <view bindtap='change' class="f28 mt20 ml20 {{swiperIndex == index ? 'active' : 'c66'}}" wx:for="{{list}}" data-idx='{{index}}' data-arr="{{item.id}}">
 
@@ -23,8 +29,8 @@
   </view> -->
   <view class="content">
     <view class="left">
-      <view  wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-       
+      <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+
         <navigator url="../detail/detail?id={{item.id}}" class="item">
           <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
           <view class="item-title-box">
@@ -37,7 +43,7 @@
           <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
           <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
           <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+          <view class='numb' wx:if="{{item.collection==null}}">0</view>
         </view>
 
       </view>
@@ -57,11 +63,11 @@
           <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
           <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
           <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+          <view class='numb' wx:if="{{item.collection==null}}">0</view>
         </view>
-        
+
       </view>
     </view>
   </view>
-  
+
 </view>

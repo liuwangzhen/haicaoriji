@@ -1,5 +1,6 @@
 <!--pages/addNote/addNote.wxml-->
-<view>
+<view class='top'><text class='title'>添加日志</text></view>
+<view class='pad'></view>
   <view class='head'>
    <view wx:if="{{index<=8}}" wx:for="{{arr1}}" data-id="{{index}}">
    <view style='position:absolute;margin-left:22px;margin-top:5rpx;color:#ddd;' data-id="{{index}}" bindtap='delete' class='iconfont2 icon-cha'></view>
@@ -18,4 +19,4 @@
   </view>
   <view class='line'></view>
   <button bindtap='submit' class='btn'>发布</button>
-</view>
+

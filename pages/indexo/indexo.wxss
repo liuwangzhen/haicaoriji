@@ -42,8 +42,9 @@ margin-left:15rpx;
   padding-bottom:20rpx;
   display: flex;
   flex-direction: row;
-  position: absolute;
-  
+  position: fixed;
+  z-index: 2;
+  top: 140rpx;
 
 }
 .search-p{
@@ -102,11 +103,18 @@ margin-left:10rpx;
   width:100%;
 
 padding-bottom:20rpx;
-padding-top:93rpx;
+padding-top:230rpx;
 
 }
 .numb{
   position:absolute;left:250rpx;margin-top:13rpx;
   font-size:28rpx;
 
+}
+.topone{
+  background-color: #fff;
+  height: 230rpx;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
 }

@@ -1,9 +1,12 @@
 /* pages/userinfo/userinfo.wxss */
 @import '../member/member.wxss';
 @import '../mine/mine.wxss';
-.top{
-  position: fixed;
-  top:-20rpx;
+
+.atten-fans{
+  display: flex;
+  flex-direction: row;
+ 
+  font-size: 28rpx;
 }
 .edit{
   width:300rpx;
@@ -14,7 +17,7 @@ text-align:center;
 font-size:30rpx;
 margin-top:50rpx;
 padding-top:10rpx;
-margin-left:50rpx;
+margin-left:15rpx;
 background-color:#ff2744;
 color:#fff;
 }

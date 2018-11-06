@@ -14,20 +14,39 @@ Page({
     current:0,
     userid:"",
     collection:[0],
+    content:"",
+    share:0,
+    getshare:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let that = this;
    
     var id = options.id;
-    let that = this;
+    if(options.getshare!=undefined){
+      that.setData({
+        getshare:options.getshare,
+      })
+    }
     that.setData({
-      id:id
+      id:id,
+       
     })
     
 
+  },
+  goback: function () {
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
+  goIndex: function () {
+    wx.switchTab({
+      url: '../indexo/indexo',
+    })
   },
   previewImage: function (e) {
     console.log(e)
@@ -119,11 +138,15 @@ Page({
         date = "0" + date;
       }
       var dateformat = year + "-" + month + "-" + date +" "+hours+":"+minutes;
+      // var str = res.data.content.split('↵').join('\n');
       that.setData({
         list: list,
+        // content:str,
+        share:list.share,
         date:dateformat,
         count: res.data.img.length
       })
+     
       
       wx.getImageInfo({
         src: res.data.img[0],
@@ -250,15 +273,15 @@ Page({
     wx.BaaS.login(false).then(res => {
     MyUser.get(res.id).then(res => {
 
+      if (res.data.is_authorized == false) {
+        wx.redirectTo({
+          url: '../../pages/login3/login3?id='+that.data.id,
+        })
+      }
       that.setData({
         collection: res.data.collection
       })
      
-      if (res.data.is_authorized == false) {
-        wx.redirectTo({
-          url: '../../pages/login/login',
-        })
-      }
      
       that.getPic();
 
@@ -305,6 +328,30 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
+    let that = this
+    let id = that.data.id   
+    let tableID = 55960
+    let recordID = id
+    let Product = new wx.BaaS.TableObject(tableID)
+    let product = Product.getWithoutData(recordID)
+    let share=that.data.share+1 
+    return {
+      title: '荔枝医美',
+      desc: '最具人气的小程序',
+      path: '/pages/detail/detail?id='+id+"&getshare="+1,
+      success: (e) => {
+        product.set('share', share)
+        product.update().then(res => {
+          // success
+          that.setData({
+            share: res.data.share
+          })
+          console.log(res.data.share)
+        }, err => {
+          // err
+        })
 
+      },
+    }
   }
 })

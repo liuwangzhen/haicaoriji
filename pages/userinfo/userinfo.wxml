@@ -1,5 +1,8 @@
 <!--pages/userinfo/userinfo.wxml-->
-
+<view class='top'><text class='title'>{{nick}}</text></view>
+<view wx:if="{{getshare==0}}" bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
+<view bindtap='goIndex' style='z-index:99;position:fixed;color:#000000;font-size:40rpx;left:84rpx;font-weight:bold;top:56rpx;' class='iconfont icon-shouye'></view>
+<view class='pad'></view>
 <view class='head'>
   <view class='row1 ml20'>
 
@@ -7,7 +10,7 @@
       <image src='{{img2}}' class="index-profile__img"></image>
     </view>
     <view class='col ml20 w550'>
-      <view class='row2 f28'>
+      <view class='atten-fans'>
        <navigator url='../attention/attention?id={{aid}}' hover-class='none' class='col'>
           <view class='num'>
            {{attention2.length-1}}
@@ -16,7 +19,7 @@
             关注
           </view>
         </navigator>
-        <navigator url='../fans/fans' hover-class='none' class='col'>
+        <navigator url='../fans/fans?id={{aid}}' hover-class='none' class='col'>
           <view class='num'>
            {{fans.length-1}}
           </view>
@@ -40,13 +43,13 @@
        <view wx:if="{{attent==1}}" bindtap='cancel' class='edit'>
         <text class='edit-text'>已关注</text>
       </view>
-      <button style='line-height:65rpx;' open-type="share" bindtap='onShareAppMessage' bindtap='share' class='share'>
+      <button style='line-height:65rpx;' open-type="share" bindtap='onShareAppMessage'  class='share'>
       <view style='font-size:30rpx;color:#fff;' class='iconfont icon-zhuanfa'></view>
       </button>
       </view>
     </view>
   </view>
-  <view class='w1 r1 mt20 f28 ml20'>
+  <view style='width:710rpx;' class='r1 mt20 f28 ml20'>
     <view wx:if="{{userInfo.sex==1}}" style='color:blue;' class='iconfont icon-nan'></view>
     <view wx:if="{{userInfo.sex==2}}" style='color:pink;' class='iconfont icon-nv'></view>
     <!-- <view wx:if="false" class='iconfont icon-nv'></view> -->
@@ -55,7 +58,7 @@
     <view wx:if="{{userInfo.province0!=null}}" class='introduce'>{{userInfo.province0}}</view>
     <view wx:if="{{userInfo.city0!=null}}" class='introduce'>{{userInfo.city0}}</view>
   </view>
-  <view wx:if="{{sign!=null}}" class='sign'>{{sign}}</view>
+  <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text>
   <view class='border'></view>
 
   <view class='nav2'>
