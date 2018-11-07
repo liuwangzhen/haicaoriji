@@ -31,6 +31,7 @@
 .item-img{
   width: 100%;
   border-radius:10rpx 10rpx 0 0;
+  max-height:580rpx;
 
   
 }

@@ -1,6 +1,6 @@
 <!--pages/attention/attention.wxml-->
 <view class='top'><text class='title'>{{nick}}</text></view>
-<view wx:if="{{getshare==0}}" bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
+<view  bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
 <view bindtap='goIndex' style='z-index:99;position:fixed;color:#000000;font-size:40rpx;left:84rpx;font-weight:bold;top:56rpx;' class='iconfont icon-shouye'></view>
 <view class='pad'></view>
 <view wx:for="{{list}}">

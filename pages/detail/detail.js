@@ -17,6 +17,11 @@ Page({
     content:"",
     share:0,
     getshare:0,
+    input:false,
+    commentVal:"",
+    focus:false,
+    focus2:false,
+    input2:false,
   },
 
   /**
@@ -35,7 +40,7 @@ Page({
       id:id,
        
     })
-    
+    that.getcomment()
 
   },
   goback: function () {
@@ -80,27 +85,22 @@ Page({
         })}
      
   },
+  
   getPic: function() {
     let that = this
     let tableID = 55960
     let recordID = that.data.id
-   
-    let Product = new wx.BaaS.TableObject(tableID)
-    
+    let Product = new wx.BaaS.TableObject(tableID) 
     Product.get(recordID).then(res => {
       // success
-      let list = res.data
-      
-      let collection = that.data.collection
-     
+      let list = res.data 
+      let collection = that.data.collection 
       if (collection.indexOf(recordID) > -1) {
         list.collect = 1;}
         else{
           list.collect=0;
         }
-
-      var datetime = new Date(res.data.updated_at * 1000);
-     
+      var datetime = new Date(res.data.created_at * 1000);
       let id = res.data.created_by
       let MyUser = new wx.BaaS.User()
       that.setData({
@@ -114,8 +114,6 @@ Page({
          headimg:res.data.headimg,
          nick:res.data.nick,
        })
-        
-        
       }, err => {
         // err
       })
@@ -178,8 +176,6 @@ Page({
        
         that.setData({
           height: res.height*1.5,
-
-
         })
       }
     })
@@ -272,14 +268,16 @@ Page({
     let id = that.data.id
     wx.BaaS.login(false).then(res => {
     MyUser.get(res.id).then(res => {
-
+      
       if (res.data.is_authorized == false) {
+      // if (res.data.jundge == false) {
         wx.redirectTo({
           url: '../../pages/login3/login3?id='+that.data.id,
         })
       }
       that.setData({
-        collection: res.data.collection
+        collection: res.data.collection,
+        user:res.data
       })
      
      
@@ -327,6 +325,97 @@ Page({
   /**
    * 用户点击右上角分享
    */
+  LimitNumbersadf(txt) {
+    var str = txt;
+    str = str.substr(0, 10);
+    str += '...'
+    return str;
+  },
+  comment:function(){
+    let that=this
+    that.setData({
+      input:true,
+      focus:true,
+    })
+  
+  },
+  send:function(){
+    let that=this
+    let comment=that.data.commentVal
+    let cid=that.data.id
+    let tableID = 56497
+    let Product = new wx.BaaS.TableObject(tableID)
+    let product = Product.create()
+    let apple = {
+      comment: comment,
+      cid:cid,
+      
+    }
+    product.set(apple).save().then(res => {
+      // success
+      console.log(res)
+    }, err => {
+      //err 为 HError 对象
+    })
+
+  },
+  inputVal:function(e){
+    this.setData({
+      commentVal: e.detail.value
+    });
+
+  },
+  getcomment:function(){
+    let that=this
+    let id=that.data.id
+    let query = new wx.BaaS.Query()
+    query.compare("cid","=",id)
+    let Product = new wx.BaaS.TableObject(56497)
+    let list=new Array   
+    Product.setQuery(query).expand('created_by').find().then(res => {
+      let list0=res.data.objects
+      for(let i=0;i<res.data.objects.length;i++){
+        list0[i].created_at=that.getDate(list0[i].created_at)
+
+        list.push(list0[i])
+      }
+      
+      that.setData({
+        comments:list
+      })
+    }, err => {
+      // err
+    })
+
+  },
+  answer:function(e){
+    console.log(e)
+    let id=e.currentTarget.dataset.id
+
+  },
+  getDate:function(d){
+    var st=d
+    var datetime = new Date(st * 1000);
+    var year = datetime.getFullYear();
+    var month = datetime.getMonth() + 1;
+    var hours = datetime.getHours();
+    var minutes = datetime.getMinutes();
+    if (hours <= 9) {
+      hours = "0" + hours;
+    }
+    if (minutes <= 9) {
+      minutes = "0" + minutes;
+    }
+    if (month <= 9) {
+      month = "0" + month;
+    }
+    var date = datetime.getDate();
+    if (date <= 9) {
+      date = "0" + date;
+    }
+    var dateformat = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
+    return dateformat
+  },
   onShareAppMessage: function() {
     let that = this
     let id = that.data.id   
@@ -335,8 +424,10 @@ Page({
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
     let share=that.data.share+1 
+    let title=that.LimitNumbersadf(that.data.list.content)
+   
     return {
-      title: '荔枝医美',
+      title: title,
       desc: '最具人气的小程序',
       path: '/pages/detail/detail?id='+id+"&getshare="+1,
       success: (e) => {
@@ -346,7 +437,7 @@ Page({
           that.setData({
             share: res.data.share
           })
-          console.log(res.data.share)
+         
         }, err => {
           // err
         })

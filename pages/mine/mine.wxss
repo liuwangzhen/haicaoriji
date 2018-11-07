@@ -6,6 +6,12 @@ page{
   /* width: 750rpx; */
   background-color: #f4f8fb;
 }
+.content{
+  padding-bottom: 40rpx;
+  margin:0 20rpx;
+text-align:justify;
+
+}
 .atten-fans{
   display: flex;
   flex-direction: row;

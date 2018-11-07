@@ -70,10 +70,10 @@ Page({
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
-
+        let id=res.data.id
         if (res.data.is_authorized == false) {
           wx.redirectTo({
-            url: '../../pages/login4/login4',
+            url: '../../pages/login4/login4?id='+id,
           })
         }
         // success

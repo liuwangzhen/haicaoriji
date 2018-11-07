@@ -33,13 +33,13 @@ Page({
         'city0': city,
         'collection': ['ssss2'],
         'nick': nick,
-        'attention': [2]
+        'attention': [2],
+        'jundge': true,
       }).update().then(res => {
-
-
         let avatar = res.data.avatar
         currentUser.set({
-          'headimg': avatar
+          'headimg': avatar,
+          
         }).update().then(res => {
           
         }, err => { })

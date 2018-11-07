@@ -15,11 +15,6 @@ Page({
    */
   onLoad: function (options) {
    let that=this
-    if (options.getshare != undefined) {
-      that.setData({
-        getshare: 1
-      })
-    }
     that.setData({
       id: options.id
     })
@@ -42,11 +37,6 @@ Page({
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
-        if (res.data.is_authorized == false) {
-          wx.redirectTo({
-            url: '../../pages/login4/login4',
-          })
-        }
         that.setData({
           attentions: res.data.attention,
           apid: res.data.id,
@@ -253,7 +243,8 @@ Page({
     return {
       title: '荔枝医美',
       desc: '最具人气的小程序开发联盟!',
-      path: '/pages/fans/fans?id=' +id+"&getshare="+1,
+      // path: '/pages/fans/fans?id=' +id+"&getshare="+1,
+      path: '/pages/indexo/indexo',
     }
   }
 })

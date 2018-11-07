@@ -33,7 +33,8 @@ Page({
         'city0': city,
         'collection': ['ssss2'],
         'nick': nick,
-        'attention': [2]
+        'attention': [2],
+        'jundge':true,
       }).update().then(res => {
 
         that.setData({
@@ -65,7 +66,7 @@ Page({
         // err
       })
       wx.redirectTo({
-        url: '/pages/userinfo/userinfo?id=' + id + "&getshare=" + 1,
+        url: '/pages/userinfo/userinfo?id=' + that.data.id + "&getshare=" + 1,
       })
       // res 包含用户完整信息，详见下方描述
     }, res => {

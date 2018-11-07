@@ -21,13 +21,7 @@ Page({
         })
         
         this.getUserInfoByToken();
-        if(options.getshare!=undefined){
-         that.setData({
-           getshare:1
-         })
-        }
-        
-
+    
       },
   
   goback: function () {
@@ -137,12 +131,7 @@ Page({
         wx.BaaS.login(false).then(res => {
 
           MyUser.get(res.id).then(res => {
-            if (res.data.is_authorized == false) {
-              wx.redirectTo({
-                url: '../../pages/login2/login2',
-
-              })
-            }
+          
             that.setData({
               attentions: res.data.attention,
               apid: res.data.id,
@@ -270,7 +259,8 @@ Page({
             return {
               title: '荔枝医美',
               desc: '最具人气的小程序开发联盟!',
-              path: '/pages/attention/attention?id=' + id+"&getshare="+1,
+              // path: '/pages/attention/attention?id=' + id+"&getshare="+1,
+              path: '/pages/indexo/indexo',
             }
           }
         })

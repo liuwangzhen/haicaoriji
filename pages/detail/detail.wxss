@@ -44,7 +44,7 @@
 .contain {
   width: 100%;
   height: auto;
-  margin-bottom: 140rpx;
+  padding-bottom: 140rpx;
 }
 
 .user {
@@ -94,4 +94,85 @@
 
 .share::after {
   border: none;
+}
+
+.line2 {
+  width: 100%;
+  height: 20rpx;
+  background-color: #f4f9fc;
+}
+
+.line3 {
+  width: 100%;
+  height: 4rpx;
+  background-color: #f4f9fc;
+  margin-top: 30rpx;
+}
+
+.img2 {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+}
+
+.comment2 {
+  height: 50rpx;
+  width: 610rpx;
+  background-color: #f4f9fc;
+  font-size: 28rpx;
+  padding-top: 10rpx;
+  padding-left: 20rpx;
+}
+
+.comment-inp {
+  position: fixed;
+  width: 100%;
+  height: 80rpx;
+  background-color: #fff;
+  bottom: 0rpx;
+  z-index: 9;
+  padding-top: 20rpx;
+  padding-left: 20rpx;
+}
+
+.input {
+  width: 500rpx;
+  height: 57rpx;
+  background-color: #f4f9fc;
+  font-size: 28rpx;
+  padding-top: 3rpx;
+  padding-left: 20rpx;
+}
+
+.send {
+  margin-top: 3rpx;
+}
+
+.cont {
+  width: 100%;
+}
+
+.block {
+  position: absolute;
+  right: 40rpx;
+  font-size: 28rpx;
+}
+.time2{
+   font-size: 26rpx;
+  color: #d6d6d6;
+}
+.content2{
+  font-size:28rpx;
+margin-top:20rpx;
+padding-bottom:20rpx;
+display:block;
+}
+.comment3 {
+ display:block;
+  width: 610rpx;
+  background-color: #f4f9fc;
+  font-size: 28rpx;
+  padding-top: 10rpx;
+  padding:10rpx;
+  padding-left: 20rpx;
 }

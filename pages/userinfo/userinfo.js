@@ -217,12 +217,18 @@ Page({
         mid:res.id
       })
       MyUser.get(res.id).then(res => {
+        let id = that.data.aid
+        if (res.data.is_authorized == false) {
+        // if (res.data.jundge == false) {
+          wx.redirectTo({
+            url: '../../pages/login4/login4?id=' + id,
+          })
+        }
         if(res.data.attention.indexOf(that.data.aid)>-1){
           attent=1
         }else{
           attent=0
         }
-        
         that.setData({
           collection: res.data.collection,
           attention1:res.data.attention,
@@ -231,8 +237,6 @@ Page({
       }, err => {
         // err
       })
-     
-
     }, err => {
       // 登录失败
     })
@@ -274,7 +278,6 @@ Page({
     product.set('collection', collection)
     product.update().then(res => {
       // success
-
     }, err => {
       // err
     })

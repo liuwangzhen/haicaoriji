@@ -381,7 +381,7 @@ Page({
     return {
       title: '荔枝医美',
       desc: '最具人气的小程序开发联盟!',
-      path: '/pages/search/search?val='+val+"&getshare="+1,
+      path: '/pages/indexo/indexo',
     }
   }
 })

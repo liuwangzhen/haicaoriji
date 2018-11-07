@@ -1,6 +1,8 @@
 <!--pages/detail/detail.wxml-->
 
-<view class='top'><text class='title'>{{nick}}</text></view>
+<view class='top'>
+  <text class='title'>{{nick}}</text>
+</view>
 <view wx:if="{{getshare==0}}" bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
 <view bindtap='goIndex' style='z-index:99;position:fixed;color:#000000;font-size:40rpx;left:84rpx;font-weight:bold;top:56rpx;' class='iconfont icon-shouye'></view>
 <view class='pad'></view>
@@ -25,6 +27,41 @@
     <view style='margin-top:10rpx;'>{{date}}</view>
     <!-- <view style='font-size:50rpx' class='iconfont icon-tubiao_wuxing-1'></view> -->
   </view>
+  <view class='line2 mt30'></view>
+  <view class='comment'>
+    <view class='ml20 mt30 f32 b'>笔记评论</view>
+    <view class='line3'></view>
+    <view class='r1 mt20 ml20'>
+      <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+      <view class='ml20 comment2' bindtap='comment'>说点什么，让TA也认识看笔记的你吧...</view>
+    </view>
+    <view wx:for="{{comments}}" wx:key="{{item.id}}" class='r1 cont mt30'>
+      <image class='img2 ml20' src='{{item.created_by.headimg}}' mode='widthFix'></image>
+      <view class='col ml20'>
+        <view class='r1'>
+          <text class='f30'>{{item.created_by.nick}}</text>
+          <view class='block r1'>
+            <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;'>回复</view>
+            <view class='iconfont icon-dianzan'></view>
+            <view>2</view>
+          </view>
+        </view>
+        <view class='time2'>{{item.created_at}}</view>
+        <text class='content2'>{{item.comment}}</text>
+        <text class='comment3' bindtap='comment'>嘿小朋友你是否有很多问好，为什么别人在那儿雪花</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view wx:if="{{input==true}}" class='comment-inp r1'>
+  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <input adjust-position="true" focus="{{focus}}" value='{{commentVal}}' bindblur='inputVal' class='input' placeholder='说点什么...'></input>
+  <view bindtap='send' class='ml20 f28 send'>发送</view>
+</view>
+<view wx:if="{{input2==true}}" class='comment-inp r1'>
+  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <input focus="{{focus2}}" value='{{commentVal}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
+  <view bindtap='send' class='ml20 f28 send'>回复</view>
 </view>
 <view class='footer'>
   <view class='r1'>
@@ -36,9 +73,8 @@
   </view>
   <view style='position:absolute;left:500rpx;' class='r1'>
     <button open-type="share" bindtap='onShareAppMessage' class='share'>
-    <view  style='color:#fff;font-size:50rpx;' class='iconfont icon-zhuanfa'></view>
+      <view style='color:#fff;font-size:50rpx;' class='iconfont icon-zhuanfa'></view>
     </button>
     <view style='color:#fff;margin-left:10rpx;'>{{share}}</view>
   </view>
 </view>
-

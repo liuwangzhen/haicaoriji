@@ -1,34 +1,38 @@
 /* pages/userinfo/userinfo.wxss */
-@import '../member/member.wxss';
 @import '../mine/mine.wxss';
 
-.atten-fans{
+.atten-fans {
   display: flex;
   flex-direction: row;
- 
   font-size: 28rpx;
 }
-.edit{
-  width:300rpx;
-height:50rpx;
-/* border:1rpx solid #ddd; */
-border-radius:30rpx;
-text-align:center;
-font-size:30rpx;
-margin-top:50rpx;
-padding-top:10rpx;
-margin-left:15rpx;
-background-color:#ff2744;
-color:#fff;
+.content2 {
+  padding-bottom: 150rpx;
+  margin: 0 20rpx;
+  text-align: justify;
 }
-.share{
-margin-top:50rpx;
-margin-left:20rpx;
-background-color:#ff2744;
-width:100rpx;
-border-radius:35rpx;
-/* border:1rpx solid #ddd; */
-text-align:center;
 
-
+.edit {
+  width: 300rpx;
+  height: 50rpx;
+  /* border:1rpx solid #ddd; */
+  border-radius: 30rpx;
+  text-align: center;
+  font-size: 30rpx;
+  margin-top: 50rpx;
+  padding-top: 10rpx;
+  margin-left: 15rpx;
+  background-color: #ff2744;
+  color: #fff;
 }
+
+.share {
+  margin-top: 50rpx;
+  margin-left: 20rpx;
+  background-color: #ff2744;
+  width: 100rpx;
+  border-radius: 35rpx;
+  /* border:1rpx solid #ddd; */
+  text-align: center;
+}
+
