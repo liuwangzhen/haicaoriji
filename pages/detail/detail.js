@@ -54,7 +54,7 @@ Page({
     })
   },
   previewImage: function (e) {
-    console.log(e)
+  
     let current = e.currentTarget.dataset.item
     let arr1 = this.data.list.img
     wx.previewImage({
@@ -143,17 +143,12 @@ Page({
         share:list.share,
         date:dateformat,
         count: res.data.img.length
-      })
-     
-      
+      }) 
       wx.getImageInfo({
         src: res.data.img[0],
         success: function(res) {
-        
           that.setData({
             height: res.height*1.5,
-            
-           
           })
         }
       })
@@ -347,13 +342,15 @@ Page({
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.create()
     let apple = {
-      comment: comment,
+      comment:comment,
       cid:cid,
-      
     }
     product.set(apple).save().then(res => {
-      // success
-      console.log(res)
+      that.getcomment()
+      that.setData({
+        input: false,
+        commentVal:"",
+      })
     }, err => {
       //err 为 HError 对象
     })
@@ -365,6 +362,43 @@ Page({
     });
 
   },
+  answer:function(e){
+    let that = this
+ 
+    let coid=e.currentTarget.dataset.id
+    that.setData({
+      input2: true,
+      focus2: true,
+      coid:coid
+    })
+  },
+  sendanswer:function(){
+    let that = this
+    let comment = that.data.commentVal2
+    let cid=that.data.coid
+    let tableID = 56584
+    let Product = new wx.BaaS.TableObject(tableID)
+    let product = Product.create()
+    let apple = {
+      answer: comment,
+      cid: cid,
+    }
+    product.set(apple).save().then(res => {
+      that.getcomment()
+     that.setData({
+       input2: false,
+       commentVal2: "",
+     })
+    }, err => {
+     
+    })
+  },
+  inputVal2: function (e) {
+    this.setData({
+      commentVal2: e.detail.value
+    });
+
+  },
   getcomment:function(){
     let that=this
     let id=that.data.id
@@ -372,27 +406,34 @@ Page({
     query.compare("cid","=",id)
     let Product = new wx.BaaS.TableObject(56497)
     let list=new Array   
-    Product.setQuery(query).expand('created_by').find().then(res => {
-      let list0=res.data.objects
-      for(let i=0;i<res.data.objects.length;i++){
-        list0[i].created_at=that.getDate(list0[i].created_at)
-
-        list.push(list0[i])
+    Product.orderBy('-created_at').setQuery(query).expand('created_by').find().then(res => {
+      let list0=res.data.objects  
+      for(let i=0;i<res.data.objects.length;i++){       
+        let query2 = new wx.BaaS.Query()
+        let i2 = res.data.objects.length - 1
+        query2.compare("cid", "=", list0[i].id)
+        let Product2 = new wx.BaaS.TableObject(56584)
+        Product2.orderBy('-created_at').setQuery(query2).expand('created_by').find().then(e => {
+         list0[i].answers = e.data.objects
+          
+         list0[i].created_at = that.getDate(list0[i].created_at)
+         list.push(list0[i])
+         if (i == i2){
+           that.setData({
+             comments: list
+           })
+          
+         }
+        })  
+       
       }
-      
-      that.setData({
-        comments:list
-      })
+ 
     }, err => {
       // err
     })
 
   },
-  answer:function(e){
-    console.log(e)
-    let id=e.currentTarget.dataset.id
-
-  },
+  
   getDate:function(d){
     var st=d
     var datetime = new Date(st * 1000);

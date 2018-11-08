@@ -131,7 +131,7 @@
   background-color: #fff;
   bottom: 0rpx;
   z-index: 9;
-  padding-top: 20rpx;
+  padding-top: 30rpx;
   padding-left: 20rpx;
 }
 
@@ -162,10 +162,11 @@
   color: #d6d6d6;
 }
 .content2{
-  font-size:28rpx;
+font-size:28rpx;
 margin-top:20rpx;
 padding-bottom:20rpx;
 display:block;
+padding-right:20rpx;
 }
 .comment3 {
  display:block;
@@ -173,6 +174,11 @@ display:block;
   background-color: #f4f9fc;
   font-size: 28rpx;
   padding-top: 10rpx;
-  padding:10rpx;
+  padding-bottom:5px;
   padding-left: 20rpx;
+}
+.line4{
+  width: 730rpx;
+  height: 2rpx;
+  background-color: #ddd;
 }

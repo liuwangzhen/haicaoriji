@@ -35,33 +35,41 @@
       <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
       <view class='ml20 comment2' bindtap='comment'>说点什么，让TA也认识看笔记的你吧...</view>
     </view>
-    <view wx:for="{{comments}}" wx:key="{{item.id}}" class='r1 cont mt30'>
-      <image class='img2 ml20' src='{{item.created_by.headimg}}' mode='widthFix'></image>
-      <view class='col ml20'>
-        <view class='r1'>
-          <text class='f30'>{{item.created_by.nick}}</text>
-          <view class='block r1'>
-            <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;'>回复</view>
-            <view class='iconfont icon-dianzan'></view>
-            <view>2</view>
+    <view class='ml20 mt20 line4'></view>
+    <view  wx:for="{{comments}}" wx:key="{{item.id}}">
+      <view  class='r1 cont mt30'>
+        <image class='img2 ml20' src='{{item.created_by.headimg}}' mode='widthFix'></image>
+        <view class='col ml20'>
+          <view class='r1'>
+            <text class='f30'>{{item.created_by.nick}}</text>
+            <view class='block r1'>
+              <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;'>回复</view>
+              <view class='iconfont icon-dianzan'></view>
+              <view>2</view>
+            </view>
           </view>
+          <view class='time2'>{{item.created_at}}</view>
+          <text class='content2'>{{item.comment}}</text>
+          <text wx:if="{{item.answers.length==1}}" class='comment3'>{{item.answers[0].created_by.nick}}: {{item.answers[0].answer}}</text>
+          <text wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c000'>共{{item.answers.length}}条回复</text></text>
         </view>
-        <view class='time2'>{{item.created_at}}</view>
-        <text class='content2'>{{item.comment}}</text>
-        <text class='comment3' bindtap='comment'>嘿小朋友你是否有很多问好，为什么别人在那儿雪花</text>
+
       </view>
+      <view class='ml20 mt20 line4'></view>
     </view>
   </view>
+  <view class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{comments.length}}条评论</view>
+  <view class='line2'></view>
 </view>
 <view wx:if="{{input==true}}" class='comment-inp r1'>
   <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
-  <input adjust-position="true" focus="{{focus}}" value='{{commentVal}}' bindblur='inputVal' class='input' placeholder='说点什么...'></input>
+  <input selection-end="0rpx;" selection-start="600rpx" adjust-position="false" focus="{{focus}}" value='{{commentVal}}' bindblur='inputVal' class='input' placeholder='说点什么...'></input>
   <view bindtap='send' class='ml20 f28 send'>发送</view>
 </view>
 <view wx:if="{{input2==true}}" class='comment-inp r1'>
   <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
-  <input focus="{{focus2}}" value='{{commentVal}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
-  <view bindtap='send' class='ml20 f28 send'>回复</view>
+  <input adjust-position="true" focus="{{focus2}}" value='{{commentVal2}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
+  <view bindtap='sendanswer' class='ml20 f28 send'>回复</view>
 </view>
 <view class='footer'>
   <view class='r1'>
