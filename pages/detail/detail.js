@@ -22,6 +22,8 @@ Page({
     focus:false,
     focus2:false,
     input2:false,
+    input4:false,
+    focus4:false,
   },
 
   /**
@@ -29,7 +31,6 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
-   
     var id = options.id;
     if(options.getshare!=undefined){
       that.setData({
@@ -37,8 +38,7 @@ Page({
       })
     }
     that.setData({
-      id:id,
-       
+      id:id,   
     })
     that.getcomment()
 
@@ -71,9 +71,6 @@ Page({
   },
   goUser:function(){
     var id=this.data.userid;
-    
-      
-     
       if (id == getApp().globalData.userId) {
         wx.switchTab({
           url: '../mine/mine',
@@ -106,11 +103,13 @@ Page({
       that.setData({
         userid: res.data.created_by
       })
-
-      MyUser.get(id).then(res => {
-        
+      if(res.data.created_by==getApp().globalData.userId){
+        that.setData({
+          candelete:true
+        })
+      }
+      MyUser.get(id).then(res => {      
        that.setData({
-
          headimg:res.data.headimg,
          nick:res.data.nick,
        })
@@ -157,8 +156,32 @@ Page({
       // err
     })
   },
+  delete:function(){
+    let that=this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除',
+      success: function (res) {
+        if (res.confirm) {
+          let tableID = 55960
+          let recordID = that.data.id
+          let Product = new wx.BaaS.TableObject(tableID)
+          Product.delete(recordID).then(res => {
+            // success
+            wx.navigateBack({
+              delta:1
+            })
+          }, err => {
+            // err
+          })
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消')
+        }}
+    })
+  },
+  
   change:function(e){
-   
     var that=this
     var i=e.detail.current
     that.setData({
@@ -274,8 +297,6 @@ Page({
         collection: res.data.collection,
         user:res.data
       })
-     
-     
       that.getPic();
 
 
@@ -358,9 +379,48 @@ Page({
   },
   inputVal:function(e){
     this.setData({
-      commentVal: e.detail.value
+      commentVal: e.detail.value,
+      input:false
     });
-
+  },
+  focusInput: function (e) {
+    this.setData({
+      height2: e.detail.height,
+      input: false,
+      input3: true,
+      focus3: true,
+      focus: false,
+    })
+  },
+  focusInput2: function (e) {
+    this.setData({
+      height3: e.detail.height,
+      input2: false,
+      input4: true,
+      focus4: true,
+      focus2: false,
+    })
+  },
+ 
+  inputVal3: function (e) {
+    this.setData({
+      commentVal: e.detail.value,
+      height2: 0,
+      input3: false,
+      focus3: false,
+      input: true,
+      focus: false,
+    });
+  },
+  inputVal4: function (e) {
+    this.setData({
+      commentVal: e.detail.value,
+      height3: 0,
+      input4: false,
+      focus4: false,
+      input2: true,
+      focus2:false,
+    });
   },
   answer:function(e){
     let that = this
@@ -397,7 +457,6 @@ Page({
     this.setData({
       commentVal2: e.detail.value
     });
-
   },
   getcomment:function(){
     let that=this
@@ -406,14 +465,14 @@ Page({
     query.compare("cid","=",id)
     let Product = new wx.BaaS.TableObject(56497)
     let list=new Array   
-    Product.orderBy('-created_at').setQuery(query).expand('created_by').find().then(res => {
+    Product.setQuery(query).orderBy(['-created_at']).expand('created_by').find().then(res => {
       let list0=res.data.objects  
       for(let i=0;i<res.data.objects.length;i++){       
         let query2 = new wx.BaaS.Query()
         let i2 = res.data.objects.length - 1
         query2.compare("cid", "=", list0[i].id)
         let Product2 = new wx.BaaS.TableObject(56584)
-        Product2.orderBy('-created_at').setQuery(query2).expand('created_by').find().then(e => {
+        Product2.setQuery(query2).expand('created_by').find().then(e => {
          list0[i].answers = e.data.objects
           
          list0[i].created_at = that.getDate(list0[i].created_at)
@@ -433,7 +492,13 @@ Page({
     })
 
   },
-  
+  getAllComments:function(){
+    let that = this
+    let id = that.data.id
+    wx.navigateTo({
+      url: '../comments/comments?id='+id,
+    })
+  },
   getDate:function(d){
     var st=d
     var datetime = new Date(st * 1000);

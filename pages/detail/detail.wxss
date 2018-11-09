@@ -142,6 +142,7 @@
   font-size: 28rpx;
   padding-top: 3rpx;
   padding-left: 20rpx;
+  margin-left: 20rpx;
 }
 
 .send {

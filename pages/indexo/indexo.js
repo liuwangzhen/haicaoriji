@@ -21,6 +21,28 @@ Page({
    */
   onLoad: function (options) {
     var that=this
+    let MyUser = new wx.BaaS.User()
+    wx.BaaS.login(false).then(res => {
+      MyUser.get(res.id).then(res => {
+        that.setData({
+          collection: res.data.collection
+        })
+        if (res.data.is_authorized == false) {
+          wx.redirectTo({
+            url: '../../pages/login/login',
+
+          })
+        }
+        that.getList()
+      }, err => {
+        // err
+      })
+      // 登录成功
+
+    }, err => {
+      // 登录失败
+    })
+
    
    
   
@@ -274,35 +296,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let MyUser = new wx.BaaS.User()
-    let that = this
-    wx.BaaS.login(false).then(res => {
-
-      MyUser.get(res.id).then(res => {
-        // success
-       
-        that.setData({
-          collection: res.data.collection
-        })
-        // if (res.data.is_authorized == false) {
-        //   wx.redirectTo({
-        //     url: '../../pages/login/login',
-
-        //   })
-        // }
-        this.getList()
-        
-        
-      }, err => {
-        // err
-      })
-      // 登录成功
-
-    }, err => {
-      // 登录失败
-    })
-   
-   
   },
 
   /**

@@ -25,7 +25,7 @@
   </text>
   <view class='r2 zan'>
     <view style='margin-top:10rpx;'>{{date}}</view>
-    <!-- <view style='font-size:50rpx' class='iconfont icon-tubiao_wuxing-1'></view> -->
+    <view wx:if="{{candelete==true}}" bindtap='delete' style='font-size:40rpx' class='iconfont icon-iconfontshanchu6'></view>
   </view>
   <view class='line2 mt30'></view>
   <view class='comment'>
@@ -36,8 +36,8 @@
       <view class='ml20 comment2' bindtap='comment'>说点什么，让TA也认识看笔记的你吧...</view>
     </view>
     <view class='ml20 mt20 line4'></view>
-    <view  wx:for="{{comments}}" wx:key="{{item.id}}">
-      <view  class='r1 cont mt30'>
+    <view wx:if="{{index<3}}" wx:for="{{comments}}" wx:key="{{item.id}}">
+      <view class='r1 cont mt30'>
         <image class='img2 ml20' src='{{item.created_by.headimg}}' mode='widthFix'></image>
         <view class='col ml20'>
           <view class='r1'>
@@ -51,26 +51,40 @@
           <view class='time2'>{{item.created_at}}</view>
           <text class='content2'>{{item.comment}}</text>
           <text wx:if="{{item.answers.length==1}}" class='comment3'>{{item.answers[0].created_by.nick}}: {{item.answers[0].answer}}</text>
-          <text wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c000'>共{{item.answers.length}}条回复</text></text>
+          <text bindtap='getAllComments' wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c000'>共{{item.answers.length}}条回复</text></text>
         </view>
 
       </view>
       <view class='ml20 mt20 line4'></view>
     </view>
   </view>
-  <view class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{comments.length}}条评论</view>
+
+  <view class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{comments.length}}条评论
+    <span style="font-size:25rpx;position:relative;bottom:2rpx;" class='iconfont2 icon-qianjin'></span>
+  </view>
   <view class='line2'></view>
 </view>
 <view wx:if="{{input==true}}" class='comment-inp r1'>
   <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
-  <input selection-end="0rpx;" selection-start="600rpx" adjust-position="false" focus="{{focus}}" value='{{commentVal}}' bindblur='inputVal' class='input' placeholder='说点什么...'></input>
+  <input adjust-position='{{false}}' focus="{{focus}}" value='{{commentVal}}'  bindfocus="focusInput" bindblur='inputVal' class='input' placeholder='说点什么...'></input>
   <view bindtap='send' class='ml20 f28 send'>发送</view>
+</view>
+<view wx:if="{{input3==true}}" style='position:fixed;width: 100%;height: 80rpx;background-color: #fff;bottom:{{2*height2}}rpx;z-index: 9;padding-top: 30rpx;padding-left: 20rpx;' class='r1'>
+  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <input adjust-position="false" focus="{{focus3}}" value='{{commentVal}}'   bindblur='inputVal3' class='input' placeholder='说点什么...'></input>
+  <view bindtap='send' class='ml20 f28 send c000'>发送</view>
 </view>
 <view wx:if="{{input2==true}}" class='comment-inp r1'>
   <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
-  <input adjust-position="true" focus="{{focus2}}" value='{{commentVal2}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
+  <input bindfocus="focusInput2" adjust-position="{{false}}" focus="{{focus2}}" value='{{commentVal2}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
   <view bindtap='sendanswer' class='ml20 f28 send'>回复</view>
 </view>
+<view wx:if="{{input4==true}}"  style='position:fixed;width: 100%;height: 80rpx;background-color: #fff;bottom:{{2*height3}}rpx;z-index: 9;padding-top: 30rpx;padding-left: 20rpx;' class='r1'>
+  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <input  focus="{{focus4}}" value='{{commentVal2}}' bindblur='inputVal4' class='input' placeholder='回复..'></input>
+  <view bindtap='sendanswer' class='ml20 f28 send'>回复</view>
+</view>
+
 <view class='footer'>
   <view class='r1'>
     <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" bindtap='collect' style='color:#fff;font-size:50rpx;margin-left:150rpx;' class='iconfont icon-xin1'></view>

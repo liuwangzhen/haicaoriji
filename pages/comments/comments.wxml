@@ -1,0 +1,56 @@
+<view class='top'>
+  <text class='title'>{{nick}}</text>
+</view>
+<view bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
+<view bindtap='goIndex' style='z-index:99;position:fixed;color:#000000;font-size:40rpx;left:84rpx;font-weight:bold;top:56rpx;' class='iconfont icon-shouye'></view>
+<view class='pad'></view>
+<view style='padding-bottom:150rpx;'>
+  <view wx:for="{{comments}}" wx:key="{{item.id}}">
+    <view class='r1 cont mt30'>
+      <image class='img2 ml20' src='{{item.created_by.headimg}}' mode='widthFix'></image>
+      <view class='col ml20'>
+        <view class='r1'>
+          <text class='f30'>{{item.created_by.nick}}</text>
+          <view class='block r1'>
+            <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;'>回复</view>
+            <view class='iconfont icon-dianzan'></view>
+            <view>2</view>
+          </view>
+        </view>
+        <view class='time2'>{{item.created_at}}</view>
+        <text class='content2'>{{item.comment}}</text>
+        <view wx:if="{{item.answers.length>0}}">
+          <view wx:for="{{item.answers}}" wx:key="{{item.id}}" class='comment4 col'>
+            <view wx:if="{{index!=0}}" class='line5'></view>
+            <view class='r1 cont mt30'>
+              <image class='img ml20' src='{{item.created_by.headimg}}' mode='widthFix'></image>
+              <view class='col ml20'>
+                <view class='f28'>{{item.created_by.nick}}</view>
+                <view class='time2'>{{item.created_at}}</view>
+              </view>
+            </view>
+            <text class='content3'>{{item.answer}}</text>
+
+          </view>
+        </view>
+      </view>
+
+    </view>
+    <view class='ml20 mt20 line4'></view>
+  </view>
+</view>
+<view wx:if="{{input==true}}" class='comment-inp r1'>
+  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <input  adjust-position="false" value='{{commentVal}}' bindfocus="focusInput" bindblur='inputVal' class='input' placeholder='说点什么...'></input>
+  <view bindtap='send' class='ml20 f28 send c000'>发送</view>
+</view>
+<view wx:if="{{input3==true}}" style='position: fixed;width: 100%;height: 80rpx;background-color: #fff;bottom:{{2*height2}}rpx;z-index: 9;padding-top: 30rpx;padding-left: 20rpx;' class='r1'>
+  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <input adjust-position="false" focus="{{focus3}}" value='{{commentVal}}'   bindblur='inputVal3' class='input' placeholder='说点什么...'></input>
+  <view bindtap='send' class='ml20 f28 send c000'>发送</view>
+</view>
+<view wx:if="{{input2==true}}" class='comment-inp r1'>
+  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <input adjust-position="false" focus="{{focus2}}" value='{{commentVal2}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
+  <view bindtap='sendanswer' class='ml20 f28 send c000'>回复</view>
+</view>
