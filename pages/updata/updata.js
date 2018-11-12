@@ -10,7 +10,7 @@ Page({
     array: ['男', '女'],
     date: "1995-04-18",
     sign: "",
-
+    height4: getApp().globalData.height,
   },
 
   /**

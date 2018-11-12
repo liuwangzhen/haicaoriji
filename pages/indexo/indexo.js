@@ -12,7 +12,8 @@ Page({
     inputShowed:false,
     inputVal:"",
     page:0,
-    collection:[]
+    collection:[],
+    height4: getApp().globalData.height,
   
   },
 

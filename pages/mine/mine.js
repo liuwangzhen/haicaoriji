@@ -18,6 +18,7 @@ Page({
     aid:"",
     attention:[1],
     fans:[1],
+    height4: getApp().globalData.height,
   },
 
   /**

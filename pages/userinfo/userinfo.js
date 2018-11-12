@@ -22,7 +22,7 @@ Page({
     fans:[1],
     attention2:[1],
     getshare:0,
-   
+    height4: getApp().globalData.height,
   },
 
   /**

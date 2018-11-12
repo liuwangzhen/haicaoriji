@@ -8,7 +8,7 @@ Page({
       data: {
         list: [],
         attentions: [],
-        getshare:0,
+        getshare: 0, height4: getApp().globalData.height,
       },
 
       /**
@@ -50,6 +50,7 @@ Page({
 
           that.setData({
             attention2: res.data.attention,
+            nick:res.data.nick
           })
           wx.setNavigationBarTitle({
             title: res.data.nick //页面标题为路由参数

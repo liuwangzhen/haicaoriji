@@ -1,26 +1,33 @@
 {
   "pages": [
     "pages/indexo/indexo",
-    "pages/search/search",
-    "pages/searchtwo/searchtwo",
-    "pages/login/login",
-   
+    "pages/search/search",  
+   "pages/login/login",
+   "pages/login3/login3",
+   "pages/login4/login4",
     "pages/member/member",
-    "pages/shopCat/shopCat",
+   "pages/userinfo/userinfo",
     "pages/mine/mine",
+    "pages/attention/attention",
+    "pages/fans/fans",
     "pages/updata/updata",
     "pages/upnick/upnick",
     "pages/upsign/upsign",
     "pages/addNote/addNote",
     "pages/detail/detail",
-    "pages/userinfo/userinfo"
+    "pages/comments/comments"
+    
    
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "我的书架",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#fff",
+    "navigationStyle":"custom"
+  
+   
     
   },
   "tabBar": {
@@ -28,6 +35,7 @@
     "selectedColor": "#2c2c2c",
     "backgroundColor": "#fff",
     "borderStyle": "white",
+
     "list": [
       {
         "pagePath": "pages/indexo/indexo",
@@ -48,12 +56,8 @@
         "iconPath": "images/我的灰.png",
         "selectedIconPath": "images/我的.png"
       }
-    ]},
-  "plugins": {
-    "sdkPlugin": {
-      "version": "1.9.0",
-      "provider": "wxc6b86e382a1e3294"
-    }
+    ]}
+ 
     
-  }
+  
 }

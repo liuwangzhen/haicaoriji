@@ -1,45 +1,206 @@
 /**app.wxss**/
 @import '/common/iconfont.wxss';
 @import '/common/iconfont2.wxss';
-.c66{
+@import '/common/iconfont3.wxss';
+
+.top {
+  position: fixed;
+  top: 0rpx;
+  background-color: #fff;
+  width: 100%;
+  /* height:50rpx; */
+  text-align: center;
+  padding-top: 00rpx;
+  z-index: 4;
+  font-size: 28rpx;
+  color: #000;
+}
+
+.nav-wrap {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background: #fff;
+  color: #000;
+  z-index: 9999999;
+}
+
+.nav-title {
+  position: absolute;
+  text-align: center;
+  max-width: 400rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  font-size: 36rpx;
+  color: #2c2b2b;
+  font-weight: 600;
+}
+
+.nav-capsule {
+  display: flex;
+  align-items: center;
+  margin-left: 30rpx;
+  width: 0rpx;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.navbar-v-line {
+  width: 1px;
+  height: 32rpx;
+  background-color: #e5e5e5;
+}
+
+.back-pre, .back-home {
+  width: 32rpx;
+  height: 33rpx;
+  margin-top: 4rpx;
+  padding: 10rpx;
+}
+
+.nav-capsule .back-home {
+ width:36rpx;
+height:39rpx;
+margin-top:7rpx;
+margin-left:25rpx;
+
+}
+
+.f27 {
+  font-size: 26rpx;
+}
+
+.pad {
+  width: 100%;
+  height: 140rpx;
+  background-color: #fff;
+}
+
+.abs {
+  position: absolute;
+}
+
+.r40 {
+  right: 40rpx;
+}
+
+.dis-in {
+  display: inline-block;
+}
+
+.c000 {
+  color: #00f;
+}
+
+.toptitle {
+  font-size: 28rpx;
+  color: #000;
+  position: fixed;
+  top: 60rpx;
+  text-align: center;
+}
+
+.ml10 {
+  margin-left: 10rpx;
+}
+
+.mt120 {
+  margin-top: 120rpx;
+}
+
+.c66 {
   color: #ddd;
 }
-.f28{
+
+.f28 {
   font-size: 28rpx;
 }
-.r{
-  display: flex;
-  flex-direction: row
-}
-.r1{
+
+.r {
   display: flex;
   flex-direction: row;
-  
- 
 }
-.r2{
+
+.r1 {
+  display: flex;
+  flex-direction: row;
+}
+
+.r2 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.r3{
+
+.r3 {
   display: flex;
   flex-direction: row;
-  justify-content:space-evenly;
+  justify-content: space-evenly;
 }
-.mt20{
+
+.mt20 {
   margin-top: 20rpx;
 }
-.ml20{
+
+.ml20 {
   margin-left: 20rpx;
 }
-.col{
+
+.col {
   display: flex;
   flex-direction: column;
 }
-.w550{
+
+.w550 {
   width: 550rpx;
 }
-.w1{
+
+.w1 {
   width: 100%;
+}
+
+.mt30 {
+  margin-top: 30rpx;
+}
+
+.f32 {
+  font-size: 32rpx;
+}
+
+.f30 {
+  font-size: 30rpx;
+}
+
+.b {
+  font-weight: bold;
+}
+
+.cen {
+  text-align: center;
+}
+
+.pt20 {
+  padding-top: 20rpx;
+}
+
+.pl20 {
+  padding-left: 20rpx;
+}
+
+.h50 {
+  height: 50rpx;
+}
+
+.h60 {
+  height: 60rpx;
+}
+
+.h70 {
+  height: 70rpx;
 }

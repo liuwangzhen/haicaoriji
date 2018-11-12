@@ -19,11 +19,11 @@ Page({
     getshare:0,
     input:false,
     commentVal:"",
+    commentVal2: "",
     focus:false,
     focus2:false,
     input2:false,
-    input4:false,
-    focus4:false,
+    height4:getApp().globalData.height,
   },
 
   /**
@@ -31,6 +31,7 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
+    console.log(that.data.height4)
     var id = options.id;
     if(options.getshare!=undefined){
       that.setData({
@@ -41,7 +42,7 @@ Page({
       id:id,   
     })
     that.getcomment()
-
+   
   },
   goback: function () {
     wx.navigateBack({
@@ -352,88 +353,83 @@ Page({
     that.setData({
       input:true,
       focus:true,
+      input2:false,
+      input4:false,
     })
   
   },
   send:function(){
     let that=this
-    let comment=that.data.commentVal
-    let cid=that.data.id
-    let tableID = 56497
-    let Product = new wx.BaaS.TableObject(tableID)
-    let product = Product.create()
-    let apple = {
-      comment:comment,
-      cid:cid,
-    }
-    product.set(apple).save().then(res => {
-      that.getcomment()
-      that.setData({
-        input: false,
-        commentVal:"",
+    setTimeout(
+    function(){
+      let comment = that.data.commentVal
+      console.log(comment)
+      let cid = that.data.id
+      let tableID = 56497
+      let Product = new wx.BaaS.TableObject(tableID)
+      let product = Product.create()
+      let apple = {
+        comment: comment,
+        cid: cid,
+      }
+      product.set(apple).save().then(res => {
+        that.getcomment()
+        that.setData({
+          input: false,
+          commentVal: "",
+        })
+      }, err => {
+        //err 为 HError 对象
       })
-    }, err => {
-      //err 为 HError 对象
-    })
-
+    }
+    ,200)
   },
   inputVal:function(e){
+    console.log(e)
     this.setData({
       commentVal: e.detail.value,
-      input:false
+      input:false,
     });
+   
   },
   focusInput: function (e) {
     this.setData({
-      height2: e.detail.height,
-      input: false,
-      input3: true,
-      focus3: true,
-      focus: false,
+      height2: e.detail.height, 
     })
   },
   focusInput2: function (e) {
     this.setData({
       height3: e.detail.height,
-      input2: false,
-      input4: true,
-      focus4: true,
-      focus2: false,
     })
   },
- 
-  inputVal3: function (e) {
+  inputVal2: function (e) {
     this.setData({
-      commentVal: e.detail.value,
-      height2: 0,
-      input3: false,
-      focus3: false,
-      input: true,
-      focus: false,
+      commentVal2: e.detail.value,
+      input2:false,
     });
   },
-  inputVal4: function (e) {
-    this.setData({
-      commentVal: e.detail.value,
-      height3: 0,
-      input4: false,
-      focus4: false,
-      input2: true,
-      focus2:false,
-    });
-  },
+  
   answer:function(e){
     let that = this
- 
     let coid=e.currentTarget.dataset.id
     that.setData({
       input2: true,
       focus2: true,
+      input:false,
+      input3:false,
       coid:coid
+    })
+  },
+  moveOut:function(){
+    let that=this;
+    that.setData({
+      input:false
     })
   },
   sendanswer:function(){
     let that = this
+    setTimeout(
+      function(){
     let comment = that.data.commentVal2
     let cid=that.data.coid
     let tableID = 56584
@@ -451,12 +447,16 @@ Page({
      })
     }, err => {
      
-    })
+    })},200)
   },
-  inputVal2: function (e) {
-    this.setData({
-      commentVal2: e.detail.value
-    });
+  sendanswer2:function(){
+    let that=this;
+    that.setData({
+      input2:true,
+      input4:false,
+      focus4:false,
+
+    })
   },
   getcomment:function(){
     let that=this
@@ -465,16 +465,17 @@ Page({
     query.compare("cid","=",id)
     let Product = new wx.BaaS.TableObject(56497)
     let list=new Array   
-    Product.setQuery(query).orderBy(['-created_at']).expand('created_by').find().then(res => {
+    Product.setQuery(query).orderBy('-created_at').limit(10).offset(0).expand('created_by').find().then(res => {
+      console.log(res.data.objects)
       let list0=res.data.objects  
-      for(let i=0;i<res.data.objects.length;i++){       
+      for(let i=0;i<res.data.objects.length;i++){  
+        setTimeout(function () {   
         let query2 = new wx.BaaS.Query()
         let i2 = res.data.objects.length - 1
         query2.compare("cid", "=", list0[i].id)
         let Product2 = new wx.BaaS.TableObject(56584)
         Product2.setQuery(query2).expand('created_by').find().then(e => {
-         list0[i].answers = e.data.objects
-          
+         list0[i].answers = e.data.objects  
          list0[i].created_at = that.getDate(list0[i].created_at)
          list.push(list0[i])
          if (i == i2){
@@ -483,14 +484,12 @@ Page({
            })
           
          }
-        })  
-       
-      }
- 
+        })
+        
+      },100)}
     }, err => {
       // err
     })
-
   },
   getAllComments:function(){
     let that = this

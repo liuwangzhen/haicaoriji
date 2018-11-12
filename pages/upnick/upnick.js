@@ -7,6 +7,7 @@ Page({
   data: {
     userInfo: "",
     nick:"",
+    height4: getApp().globalData.height,
   },
 
   /**

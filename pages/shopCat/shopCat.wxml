@@ -1,8 +1,0 @@
-<!--pages/shopCat/shopCat.wxml-->
-<swiper circular='true'  class="swiper" autoplay="false"  >
-  <!-- <block  wx:for="{{imgUrls}}" wx:key="{{index}}"> -->
-    <swiper-item class="swiper-item" wx:for="{{imgUrls}}"  >
-      <image  mode='widthFix'  src="{{item}}"   />
-    </swiper-item>
-  <!-- </block>  -->
-</swiper>

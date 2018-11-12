@@ -1,7 +1,8 @@
 <view class='topone'>
-  <view class='top'>荔枝医美</view>
-
-  <view style='margin-top:130rpx;'></view>
+<view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>荔枝医美</view>
+  </view>
+  <view style='height:{{height4*2+20}}px;' class='pad'></view>
   <view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
     <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>

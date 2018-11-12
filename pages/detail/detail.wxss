@@ -143,10 +143,12 @@
   padding-top: 3rpx;
   padding-left: 20rpx;
   margin-left: 20rpx;
+  border-radius:15px;
 }
 
 .send {
-  margin-top: 3rpx;
+  margin-top: 9rpx;
+  color:#0000ff;
 }
 
 .cont {

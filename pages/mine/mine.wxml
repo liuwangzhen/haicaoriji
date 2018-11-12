@@ -1,5 +1,7 @@
-<view class='top'><text class='title'>{{nick}}</text></view>
-<view class='pad'></view>
+<view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>{{nick}}</view>
+  </view>
+  <view style='height:{{height4*2+20}}px;' class='pad'></view>
 <view class='head'>
   <view class='row1 ml20'>
 

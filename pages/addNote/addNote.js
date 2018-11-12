@@ -9,6 +9,7 @@ Page({
     addDetail:"",
     check:true,
     content:"",
+    height4: getApp().globalData.height,
   },
 
   /**
@@ -46,15 +47,11 @@ Page({
     that.setData({
       arr1: that.data.arr1
     })
-    
-  
     if (that.data.arr1.length < 9) {
       that.setData({
         check: true
       })
     } 
-
-    
   },
   add: function () {
     var that = this;
@@ -109,11 +106,11 @@ Page({
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.create()
     let that = this
+    setTimeout(
+      function(){
     let arr1 = that.data.arr1
     let content=that.data.content
     let address=that.data.addDetail
-    console.log(that.data.arr1)
-    // 设置方式一
     let apple = {
       img: arr1,
       content: content,
@@ -155,7 +152,10 @@ Page({
      else if (res.cancel) {}
         
       }
-    })}
+          })
+        }
+      },100
+    )
   },
 
   /**

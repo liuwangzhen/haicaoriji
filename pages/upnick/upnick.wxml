@@ -1,8 +1,19 @@
 <!--pages/upnick/upnick.wxml-->
-<view class='top'><text class='title'>昵称</text></view>
-<view bindtap='goback' style='position:fixed;color:#000000;z-index:99;font-size:36rpx;left:10rpx;font-weight:bold;top:56rpx;' class='iconfont icon-fanhui'></view>
-<view bindtap='goIndex' style='z-index:99;position:fixed;color:#000000;font-size:40rpx;left:84rpx;font-weight:bold;top:56rpx;' class='iconfont icon-shouye'></view>
-<view class='pad'></view>
+<view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>昵称</view>
+  <view style='display: flex; justify-content: space-around;flex-direction: column'>
+    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
+      <view  bindtap='goback'>
+        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
+      </view>
+      <view bindtap='goIndex'>
+        <image src='../../images/shouye.png' mode='aspectFill' class='back-home'></image>
+      </view>
+      <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
+    </view>
+  </view>
+</view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view>
 <view class='f28 ml20 head'>昵称请填写2-24个字符</view>
 <input bindblur='upnick' value='{{nick}}' maxlength='24' minlength="2" class='nick'>
   

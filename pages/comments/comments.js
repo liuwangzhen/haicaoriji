@@ -10,7 +10,7 @@ Page({
   input2:false,
   input3:false,
   focus:false,
-  focus:false,
+    focus: false, height4: getApp().globalData.height,
   },
 
   /**
@@ -33,7 +33,7 @@ getcomment:function(){
     query.compare("cid","=",id)
     let Product = new wx.BaaS.TableObject(56497)
     let list=new Array   
-    Product.setQuery(query).orderBy(['-created_at']).expand('created_by').find().then(res => {
+  Product.setQuery(query).orderBy(['-created_at']).limit(10).offset(0).expand('created_by').find().then(res => {
       let list0=res.data.objects  
       for(let i=0;i<res.data.objects.length;i++){       
         let query2 = new wx.BaaS.Query()
@@ -61,6 +61,7 @@ getcomment:function(){
   },
   send: function () {
     let that = this
+    setTimeout(function(){
     let comment = that.data.commentVal
     let cid = that.data.id
     let tableID = 56497
@@ -80,7 +81,8 @@ getcomment:function(){
       })
     }, err => {
       //err 为 HError 对象
-    })
+        })
+    },100)
 
   },
   answer: function (e) {
@@ -107,18 +109,25 @@ getcomment:function(){
       focus:true,
     });
   },
-  focusInput:function(e){
+  focusInput:function(){
+    this.setData({
+      input3:true,
+      focus3:true,
+    })
+  },
+  focusInput3:function(e){
    this.setData({
      height2:e.detail.height,  
-     input:false,   
-     input3:true,
-     focus3:true,
-     focus:false,
    })
-
+  }, 
+  focusInput2: function (e) {
+    this.setData({
+      height3: e.detail.height,
+    })
   }, 
   sendanswer: function () {
     let that = this
+    setTimeout(function(){
     let comment = that.data.commentVal2
     let cid = that.data.coid
     let tableID = 56584
@@ -137,14 +146,15 @@ getcomment:function(){
       })
     }, err => {
 
-    })
+        })
+    },100)
   },
   inputVal2: function (e) {
     this.setData({
       commentVal2: e.detail.value,
-      input2:false
+      input2:false,
+      input:true,
     });
-
   },
   goback: function () {
     wx.navigateBack({

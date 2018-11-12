@@ -7,7 +7,8 @@ Page({
   data: {
    fans:[],
    id:"",
-   getshare:0
+   getshare:0,
+    height4: getApp().globalData.height,
   },
 
   /**

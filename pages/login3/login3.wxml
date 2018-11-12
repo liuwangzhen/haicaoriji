@@ -1,5 +1,7 @@
-<view class='top'><text class='title'>请授权登陆</text></view>
-<view class='pad'></view>
+<view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>请授权登陆</view>
+</view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view>
 <view wx:if="{{canIUse}}">
     <view class='header'>
         <view class='iconfont2 icon-weixin' style='color:#1aad19;font-size:180rpx;'></view>

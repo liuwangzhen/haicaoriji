@@ -13,6 +13,7 @@ Page({
     collection: [],
     list:[],
     getshare:0,
+    height4: getApp().globalData.height,
   },
 
   /**
