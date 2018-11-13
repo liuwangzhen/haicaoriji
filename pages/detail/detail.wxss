@@ -81,8 +81,9 @@
 .count {
   position: absolute;
   right: 20rpx;
-  margin-top: -60rpx;
-  color: #fff;
+  font-size:26rpx;
+  /* margin-top: -60rpx;
+  color: #fff; */
 }
 
 .share {

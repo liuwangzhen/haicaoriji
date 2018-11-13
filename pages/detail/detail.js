@@ -31,7 +31,7 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
-    console.log(that.data.height4)
+    
     var id = options.id;
     if(options.getshare!=undefined){
       that.setData({
@@ -41,8 +41,8 @@ Page({
     that.setData({
       id:id,   
     })
-    that.getcomment()
-   
+    that.getcomment();
+    that.getPic();
   },
   goback: function () {
     wx.navigateBack({
@@ -117,7 +117,6 @@ Page({
       }, err => {
         // err
       })
-    
       var year = datetime.getFullYear();
       var month = datetime.getMonth() + 1;
       var hours = datetime.getHours();
@@ -148,7 +147,7 @@ Page({
         src: res.data.img[0],
         success: function(res) {
           that.setData({
-            height: res.height*1.5,
+            height: res.height/res.width,
           })
         }
       })
@@ -187,18 +186,15 @@ Page({
     var i=e.detail.current
     that.setData({
       current:i,
-
     })
     wx.getImageInfo({
       src: that.data.list.img[i],
       success: function (res) {
-       
         that.setData({
-          height: res.height*1.5,
+          height: res.height / res.width,
         })
       }
     })
-
   },
   collect: function (e) {
     
@@ -298,9 +294,7 @@ Page({
         collection: res.data.collection,
         user:res.data
       })
-      that.getPic();
-
-
+     
     }, err => {
       // err
     })
@@ -363,7 +357,6 @@ Page({
     setTimeout(
     function(){
       let comment = that.data.commentVal
-      console.log(comment)
       let cid = that.data.id
       let tableID = 56497
       let Product = new wx.BaaS.TableObject(tableID)
@@ -385,12 +378,10 @@ Page({
     ,200)
   },
   inputVal:function(e){
-    console.log(e)
     this.setData({
       commentVal: e.detail.value,
       input:false,
     });
-   
   },
   focusInput: function (e) {
     this.setData({
@@ -446,7 +437,6 @@ Page({
        commentVal2: "",
      })
     }, err => {
-     
     })},200)
   },
   sendanswer2:function(){
@@ -455,7 +445,6 @@ Page({
       input2:true,
       input4:false,
       focus4:false,
-
     })
   },
   getcomment:function(){
@@ -464,32 +453,31 @@ Page({
     let query = new wx.BaaS.Query()
     query.compare("cid","=",id)
     let Product = new wx.BaaS.TableObject(56497)
-    let list=new Array   
+    let list=new Array 
+    let list4=new Array  
     Product.setQuery(query).orderBy('-created_at').limit(10).offset(0).expand('created_by').find().then(res => {
       console.log(res.data.objects)
-      let list0=res.data.objects  
-      for(let i=0;i<res.data.objects.length;i++){  
-        setTimeout(function () {   
+      let list0=res.data.objects
+       
+      for(let i=0;i<res.data.objects.length;i++){
         let query2 = new wx.BaaS.Query()
         let i2 = res.data.objects.length - 1
         query2.compare("cid", "=", list0[i].id)
         let Product2 = new wx.BaaS.TableObject(56584)
-        Product2.setQuery(query2).expand('created_by').find().then(e => {
+         Product2.setQuery(query2).expand('created_by').find().then(e => {
          list0[i].answers = e.data.objects  
          list0[i].created_at = that.getDate(list0[i].created_at)
          list.push(list0[i])
          if (i == i2){
-           that.setData({
-             comments: list
-           })
-          
+               that.setData({
+                 comments: list
+               })
          }
-        })
-        
-      },100)}
+           })
+      }
     }, err => {
-      // err
     })
+    
   },
   getAllComments:function(){
     let that = this

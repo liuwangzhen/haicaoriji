@@ -45,7 +45,7 @@
 .nav-capsule {
   display: flex;
   align-items: center;
-  margin-left: 30rpx;
+  /* margin-left: 30rpx; */
   width: 0rpx;
   justify-content: space-between;
   height: 100%;
@@ -60,16 +60,15 @@
 .back-pre, .back-home {
   width: 32rpx;
   height: 33rpx;
-  margin-top: 4rpx;
-  padding: 10rpx;
+  padding-top:10rpx;
+  padding-left: 30rpx;
 }
 
 .nav-capsule .back-home {
  width:36rpx;
 height:39rpx;
-margin-top:7rpx;
-margin-left:25rpx;
-
+padding-top:6px;
+padding-left:20px;
 }
 
 .f27 {

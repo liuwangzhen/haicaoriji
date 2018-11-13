@@ -2,7 +2,7 @@
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>{{nick}}</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
     <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view wx:if="{{getshare==0}}" bindtap='goback'>
+      <view  bindtap='goback'>
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
       <view bindtap='goIndex'>

@@ -16,7 +16,7 @@
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
 <view class='contain'>
-  <swiper bindchange="change" style='height:{{height}}rpx;max-height:1000rpx;' circular='false' class="swiper">
+  <swiper bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
     <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
 
       <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
@@ -66,7 +66,6 @@
       <view class='ml20 mt20 line4'></view>
     </view>
   </view>
-
   <view class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{comments.length}}条评论
     <span style="font-size:25rpx;position:relative;bottom:2rpx;" class='iconfont2 icon-qianjin'></span>
   </view>
@@ -77,22 +76,11 @@
   <input adjust-position='{{false}}' focus="{{focus}}" value='{{commentVal}}' bindfocus="focusInput" bindblur='inputVal' class='input' placeholder='说点什么...'></input>
   <view bindtap='send' class='ml20 f28 send'>发送</view>
 </view>
-<!-- <view wx:if="{{input3==true}}" style='position:fixed;width: 100%;height: 80rpx;background-color: #fff;bottom:{{height2}}px;z-index: 9;padding-top: 30rpx;padding-left: 20rpx;' class='r1'>
-  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
-  <input cursor-spacing="10rpx" adjust-position="false" focus="{{focus3}}" value='{{commentVal}}'   bindblur='inputVal3' class='input' placeholder='说点什么...'></input>
-  <view bindtap='send2' class='ml20 f28 send c000'>发送</view>
-</view> -->
 <view style='bottom:{{height3}}px' wx:if="{{input2==true}}" class='comment-inp r1'>
   <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
   <input bindfocus="focusInput2" adjust-position="{{false}}" focus="{{focus2}}" value='{{commentVal2}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
   <view bindtap='sendanswer' class='ml20 f28 send'>回复</view>
 </view>
-<!-- <view wx:if="{{input4==true}}"  style='position:fixed;width: 100%;height: 80rpx;background-color: #fff;bottom:{{height3}}px;z-index: 11;padding-top: 30rpx;padding-left: 20rpx;' class='r1'>
-  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
-  <input  focus="{{focus4}}" value='{{commentVal2}}' bindblur='inputVal4' class='input' placeholder='回复..'></input>
-  <view bindtap='sendanswer2' class='ml20 f28 send'>回复</view>
-</view> -->
-
 <view class='footer'>
   <view class='r1'>
     <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" bindtap='collect' style='color:#fff;font-size:50rpx;margin-left:150rpx;' class='iconfont icon-xin1'></view>

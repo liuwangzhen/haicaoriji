@@ -4,12 +4,11 @@
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
 <view class='head'>
-  <view wx:if="{{index<=8}}" wx:for="{{arr1}}" data-id="{{index}}">
+  <view wx:key="{{index}}" wx:if="{{index<=8}}" wx:for="{{arr1}}" data-id="{{index}}">
     <view style='position:absolute;margin-left:22px;margin-top:5rpx;color:#ddd;' data-id="{{index}}" bindtap='delete' class='iconfont2 icon-cha'></view>
     <image data-item="{{item}}" bindtap='previewImage' mode='aspectFill' class='item' src="{{item}}"></image>
   </view>
   <image wx:if="{{check}}" bindtap='add' class='addimg' src='../../images/add.png'></image>
-
 </view>
 
 <textarea bindblur="content" name="content" value='{{content}}' maxlength='-1' class='textarea' placeholder-class='placeholder' placeholder='这一刻，想说点什么...'></textarea>
