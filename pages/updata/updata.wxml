@@ -7,7 +7,7 @@
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
       <view bindtap='goIndex'>
-        <image src='../../images/shouye.png' mode='aspectFill' class='back-home'></image>
+        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
       </view>
       <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
     </view>
@@ -18,7 +18,7 @@
   <view bindtap='upImg' class='header'>
     <!-- <view wx:if="{{userInfo.headimg==null}}" class='header-img'>
     </view> -->
-    <image class='header-img' src='{{img}}'></image>
+    <image mode='aspectFill' class='header-img' src='{{img}}'></image>
     <view class='head-text'>修改头像</view>
     <view style='margin-top:60rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
   </view>

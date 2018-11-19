@@ -46,7 +46,8 @@ Page({
         'city0': city,
         'collection':['ssss2'],
         'nick': nick,
-        'attention':[2]
+        'attention':[2],
+        'jundge':true
       }).update().then(res => {
         
        

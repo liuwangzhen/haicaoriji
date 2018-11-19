@@ -24,6 +24,7 @@ Page({
     focus2:false,
     input2:false,
     height4:getApp().globalData.height,
+    isClick:true
   },
 
   /**
@@ -31,7 +32,7 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
-    
+   
     var id = options.id;
     if(options.getshare!=undefined){
       that.setData({
@@ -42,7 +43,7 @@ Page({
       id:id,   
     })
     that.getcomment();
-    that.getPic();
+    that.getUserInfoByToken();
   },
   goback: function () {
     wx.navigateBack({
@@ -93,10 +94,15 @@ Page({
       // success
       let list = res.data 
       let collection = that.data.collection 
-      if (collection.indexOf(recordID) > -1) {
+      console.log(collection)
+      let i = collection.indexOf(recordID)
+      console.log(i)
+      if ( i> -1) {
+        console.log("1")
         list.collect = 1;}
         else{
           list.collect=0;
+        console.log("0")
         }
       var datetime = new Date(res.data.created_at * 1000);
       let id = res.data.created_by
@@ -180,7 +186,6 @@ Page({
         }}
     })
   },
-  
   change:function(e){
     var that=this
     var i=e.detail.current
@@ -196,10 +201,33 @@ Page({
       }
     })
   },
-  collect: function (e) {
-    
+  ifcollect: function (e) {
+    console.log(e)
     let that = this
-    let id = e.currentTarget.dataset.id
+    let isClick = that.data.isClick
+    let a = e.currentTarget.dataset.id
+    let b = e.currentTarget.dataset.index
+    if (isClick == true) {
+      that.setData({
+        isClick: false
+      })
+      if (e.currentTarget.dataset.collect == 0) {
+        that.collect(a)
+      }
+      else {
+        that.nocollect(a)
+      }
+      setTimeout(function () {
+        that.setData({
+          isClick: true
+        })
+      }, 500)
+    }
+  },
+  collect: function (a) {
+    let that = this
+    let id = a
+    console.log(id)
     let collection = that.data.collection.concat(id)
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
@@ -208,7 +236,6 @@ Page({
       list.collect = 1;
       list.collection = parseInt(list.collection) + 1;
       let collection = list.collection
-      
       that.setData({
         list: list
       })
@@ -219,7 +246,6 @@ Page({
         icon: 'success',
         duration: 2000
       })
-
     }, err => {
       // err
     })
@@ -233,17 +259,15 @@ Page({
     product.set('collection', collection)
     product.update().then(res => {
       // success
-    
     }, err => {
       // err
     })
   },
-  nocollect: function (e) {
+  nocollect: function (a) {
     let that = this
-    let id = e.currentTarget.dataset.id
+    let id = a
     let collection=that.data.collection
     let index = collection.indexOf(id)
-   
     // 作孽啊 不能赋值 大爷的
     collection.splice(index, 1);
     let MyUser = new wx.BaaS.User()
@@ -256,8 +280,7 @@ Page({
       let collection = list.collection
       that.setData({
         list: list
-      })
-      
+      }) 
       that.getUserInfoByToken()
       that.updatacollect(collection)
       wx.showToast({
@@ -294,7 +317,7 @@ Page({
         collection: res.data.collection,
         user:res.data
       })
-     
+      that.getPic();
     }, err => {
       // err
     })
@@ -457,27 +480,60 @@ Page({
     let list4=new Array  
     Product.setQuery(query).orderBy('-created_at').limit(10).offset(0).expand('created_by').find().then(res => {
       console.log(res.data.objects)
-      let list0=res.data.objects
-       
+      let list0=res.data.objects 
+      // let num=res.data.objects.length
+      // function recursion(num) { //定义递归函数
+      //   if (num < 10) {
+      //     return 1;
+      //   } else {
+      //     return recursion(num - 1) * num;   //调用递归函数
+      //   }
+      // }
       for(let i=0;i<res.data.objects.length;i++){
-        let query2 = new wx.BaaS.Query()
+        list0[i].idx = i;
         let i2 = res.data.objects.length - 1
+        let query2 = new wx.BaaS.Query()
         query2.compare("cid", "=", list0[i].id)
         let Product2 = new wx.BaaS.TableObject(56584)
-         Product2.setQuery(query2).expand('created_by').find().then(e => {
+        Product2.setQuery(query2).expand('created_by').find().then(e => {
          list0[i].answers = e.data.objects  
          list0[i].created_at = that.getDate(list0[i].created_at)
          list.push(list0[i])
-         if (i == i2){
+        //  if (i == i2){    
                that.setData({
-                 comments: list
-               })
-         }
-           })
+                 comments: list.sort(compare('idx'))
+               })      
+           function compare(property) {
+             return function (a, b) {
+               var value1 = a[property];
+               var value2 = b[property];
+               return value1 - value2;
+             }
+           }
+
+        // }
+          })
+      //  that.getCom(i,i2,list0); 
       }
     }, err => {
     })
-    
+  },
+  getCom: function (i,i2,list0){
+    let that=this
+    let query2 = new wx.BaaS.Query()
+    let list=new Array
+    query2.compare("cid", "=", list0[i].id)
+    let Product2 = new wx.BaaS.TableObject(56584)
+    Product2.setQuery(query2).expand('created_by').find().then(e => {
+      list0[i].answers = e.data.objects
+      list0[i].created_at = that.getDate(list0[i].created_at)
+      list.push(list0[i])
+      if (i == i2) {
+        that.setData({
+          comments: list
+        })
+      }
+    })
   },
   getAllComments:function(){
     let that = this

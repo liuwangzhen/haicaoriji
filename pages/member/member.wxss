@@ -2,6 +2,7 @@
 .content{
   margin: 0 20rpx;
   text-align: justify; 
+  padding-bottom:200rpx;
 }  
 .item{
   background-color: #fff;
@@ -36,7 +37,8 @@
   
 }
 .item-title{
-  font-size: 24rpx;
+  font-size: 26rpx;
+  font-weight:bold;
   text-overflow: ellipsis;
   /* display: -webkit-box; */
   -webkit-box-orient: vertical;

@@ -7,7 +7,7 @@
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
       <view bindtap='goIndex'>
-        <image src='../../images/shouye.png' mode='aspectFill' class='back-home'></image>
+        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
       </view>
       <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
     </view>

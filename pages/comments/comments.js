@@ -35,7 +35,8 @@ getcomment:function(){
     let list=new Array   
   Product.setQuery(query).orderBy(['-created_at']).limit(10).offset(0).expand('created_by').find().then(res => {
       let list0=res.data.objects  
-      for(let i=0;i<res.data.objects.length;i++){       
+      for(let i=0;i<res.data.objects.length;i++){
+        list0[i].idx = i;     
         let query2 = new wx.BaaS.Query()
         let i2 = res.data.objects.length - 1
         query2.compare("cid", "=", list0[i].id)
@@ -46,10 +47,16 @@ getcomment:function(){
          list.push(list0[i])
          if (i == i2){
            that.setData({
-             comments: list
+             comments: list.sort(compare('idx'))
            })
-          
          }
+          function compare(property) {
+            return function (a, b) {
+              var value1 = a[property];
+              var value2 = b[property];
+              return value1 - value2;
+            }
+          }
         })  
        
       }

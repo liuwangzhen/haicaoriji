@@ -2,21 +2,20 @@
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>{{nick}}</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
-    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
+    <view class='nav-capsule' style='height:{{height4*2 + 38}}px;'>
       <view wx:if="{{getshare==0}}" bindtap='goback'>
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
       <view bindtap='goIndex'>
-        <image src='../../images/shouye.png' mode='aspectFill' class='back-home'></image>
+        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
       </view>
       <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
     </view>
   </view>
 </view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view style='height:{{height4*2+30}}px;' class='pad'></view>
 <view class='head'>
   <view class='row1 ml20'>
-
     <view class="index-profile">
       <image src='{{img2}}' class="index-profile__img"></image>
     </view>
@@ -91,12 +90,13 @@
       <view class='headimg'>
         <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
         <view class='nick'>{{item.created_by.nick}}</view>
-        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
+        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        </view>
         <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
         <view class='numb' wx:if="{{item.collection==null}}">0</view>
       </view>
-
     </view>
   </view>
   <view class="right">
@@ -111,8 +111,10 @@
       <view class='headimg'>
         <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
         <view class='nick'>{{item.created_by.nick}}</view>
-        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
+        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        </view>
         <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
         <view class='numb' wx:if="{{item.collection==null}}">0</view>
       </view>
@@ -134,8 +136,10 @@
       <view class='headimg'>
         <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
         <view class='nick'>{{item.created_by.nick}}</view>
-       <view data-index="{{index}}" data-num="{{item.collection}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect2' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-num="{{item.collection}}" data-id="{{item.id}}" bindtap='nocollect2' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect2'>
+       <view data-index="{{index}}" data-num="{{item.collection}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-num="{{item.collection}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        </view>
         <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
         <view class='numb' wx:if="{{item.collection==null}}">0</view>
       </view>

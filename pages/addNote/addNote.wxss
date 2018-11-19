@@ -23,13 +23,12 @@ margin-left:37rpx;
 }
 .textarea{
 width:690rpx;
-height:200rpx;
+height:140rpx;
 display:block;
 position:relative;
 margin-left:30rpx;
 font-size:28rpx;
-
-
+margin-top: 20rpx;
 }
 .placeholder{
   font-size: 28rpx;
@@ -44,7 +43,7 @@ background-color:#f4f4f4;
 }
 .btn{
   width: 150rpx;
-  background-color: #fd2645;
+  background-color: #de3e29;
   border-radius: 20rpx;
   margin-left: 300rpx;
   margin-top: 50rpx;

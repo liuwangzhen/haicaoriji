@@ -19,6 +19,7 @@ Page({
     attention:[1],
     fans:[1],
     height4: getApp().globalData.height,
+    isClick:true
   },
 
   /**
@@ -109,17 +110,37 @@ Page({
       // 登录失败
     })
   },
-  collect: function (e) {
-
+  ifcollect: function (e) {
     let that = this
-    let id = e.currentTarget.dataset.id
-    let idx = e.currentTarget.dataset.index
+    let isClick = that.data.isClick
+    let a = e.currentTarget.dataset.id
+    let b = e.currentTarget.dataset.index
+    if (isClick == true) {
+      that.setData({
+        isClick: false
+      })
+      if (e.currentTarget.dataset.collect == 0) {
+        that.collect(a, b)
+      }
+      else {
+        that.nocollect(a, b)
+      }
+      setTimeout(function () {
+        that.setData({
+          isClick: true
+        })
+      }, 500)
+    }
+  },
+  collect: function (a, b) {
+    let that = this
+    let id = a
+    let idx = b
     let collection = that.data.collection.concat(id)
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     let list = that.data.list
     let obj = list[idx]
-
     currentUser.set('collection', collection).update().then(res => {
       obj.collect = 1;
       obj.collection = parseInt(obj.collection) + 1;
@@ -130,12 +151,6 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      // wx.showToast({
-      //   title: '收藏成功',
-      //   icon: 'success',
-      //   duration: 2000
-      // })
-
     }, err => {
       // err
     })
@@ -143,22 +158,17 @@ Page({
   updatacollect: function (id, collection) {
     let tableID = 55960
     let recordID = id
-
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
-
     product.set('collection', collection)
     product.update().then(res => {
-      // success
-
     }, err => {
-      // err
     })
   },
-  nocollect: function (e) {
+  nocollect: function (a, b) {
     let that = this
-    let id = e.currentTarget.dataset.id
-    let idx = e.currentTarget.dataset.index
+    let id = a
+    let idx = b
     let collection = that.data.collection
     let index = collection.indexOf(id)
     let list = that.data.list
@@ -177,16 +187,76 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-      // wx.showToast({
-      //   title: '取消成功',
-      //   icon: 'success',
-      //   duration: 2000
 
-      // })
     }, err => {
       // err
     })
+
   },
+  // collect: function (e) {
+  //   let that = this
+  //   let id = e.currentTarget.dataset.id
+  //   let idx = e.currentTarget.dataset.index
+  //   let collection = that.data.collection.concat(id)
+  //   let MyUser = new wx.BaaS.User()
+  //   let currentUser = MyUser.getCurrentUserWithoutData()
+  //   let list = that.data.list
+  //   let obj = list[idx]
+  //   currentUser.set('collection', collection).update().then(res => {
+  //     obj.collect = 1;
+  //     obj.collection = parseInt(obj.collection) + 1;
+  //     let collection = obj.collection
+  //     list.splice(idx, 1, obj)
+  //     that.setData({
+  //       list: list
+  //     })
+  //     that.getUserInfoByToken()
+  //     that.updatacollect(id, collection)
+  //   }, err => {
+  //     // err
+  //   })
+  // },
+  // updatacollect: function (id, collection) {
+  //   let tableID = 55960
+  //   let recordID = id
+
+  //   let Product = new wx.BaaS.TableObject(tableID)
+  //   let product = Product.getWithoutData(recordID)
+
+  //   product.set('collection', collection)
+  //   product.update().then(res => {
+  //     // success
+
+  //   }, err => {
+  //     // err
+  //   })
+  // },
+  // nocollect: function (e) {
+  //   let that = this
+  //   let id = e.currentTarget.dataset.id
+  //   let idx = e.currentTarget.dataset.index
+  //   let collection = that.data.collection
+  //   let index = collection.indexOf(id)
+  //   let list = that.data.list
+  //   let obj = list[idx]
+  //   collection.splice(index, 1);
+  //   let MyUser = new wx.BaaS.User()
+  //   let currentUser = MyUser.getCurrentUserWithoutData()
+  //   currentUser.set('collection', collection).update().then(res => {
+  //     // success
+  //     obj.collect = 0;
+  //     obj.collection = parseInt(obj.collection) - 1;
+  //     let collection = obj.collection
+  //     list.splice(idx, 1, obj)
+  //     that.setData({
+  //       list: list
+  //     })
+  //     that.getUserInfoByToken()
+  //     that.updatacollect(id, collection)
+  //   }, err => {
+  //     // err
+  //   })
+  // },
   getList: function () {
     let tableID = 55960
     let that = this
@@ -236,7 +306,6 @@ Page({
     return str;
   },
   userinfo: function (e) {
-    console.log(e)
     let id = e.currentTarget.dataset.user
     if (id == getApp().globalData.userId) {
       wx.switchTab({
@@ -335,8 +404,6 @@ Page({
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
-      // success
-     console.log(res)
      let list0=res.data.objects
       for (var i = 0; i < res.data.objects.length; i++) {
 
@@ -355,7 +422,6 @@ Page({
     })
   },
   nocollect2: function (e) {
-    console.log(e)
     let that = this
     let id = e.currentTarget.dataset.id
     let num = e.currentTarget.dataset.num

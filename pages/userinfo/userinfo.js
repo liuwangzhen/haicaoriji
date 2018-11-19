@@ -23,6 +23,7 @@ Page({
     attention2:[1],
     getshare:0,
     height4: getApp().globalData.height,
+    isClick:true,
   },
 
   /**
@@ -241,17 +242,37 @@ Page({
       // 登录失败
     })
   },
-  collect: function(e) {
-
+  ifcollect: function (e) {
     let that = this
-    let id = e.currentTarget.dataset.id
-    let idx = e.currentTarget.dataset.index
+    let isClick = that.data.isClick
+    let a = e.currentTarget.dataset.id
+    let b = e.currentTarget.dataset.index
+    if (isClick == true) {
+      that.setData({
+        isClick: false
+      })
+      if (e.currentTarget.dataset.collect == 0) {
+        that.collect(a, b)
+      }
+      else {
+        that.nocollect(a, b)
+      }
+      setTimeout(function () {
+        that.setData({
+          isClick: true
+        })
+      }, 500)
+    }
+  },
+  collect: function (a, b) {
+    let that = this
+    let id = a
+    let idx = b
     let collection = that.data.collection.concat(id)
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     let list = that.data.list
     let obj = list[idx]
-
     currentUser.set('collection', collection).update().then(res => {
       obj.collect = 1;
       obj.collection = parseInt(obj.collection) + 1;
@@ -262,34 +283,29 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-     
-
     }, err => {
       // err
     })
   },
-  updatacollect: function(id, collection) {
+  updatacollect: function (id, collection) {
     let tableID = 55960
     let recordID = id
-
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
-
     product.set('collection', collection)
     product.update().then(res => {
-      // success
     }, err => {
-      // err
     })
   },
-  nocollect: function(e) {
+  nocollect: function (a, b) {
     let that = this
-    let id = e.currentTarget.dataset.id
-    let idx = e.currentTarget.dataset.index
+    let id = a
+    let idx = b
     let collection = that.data.collection
     let index = collection.indexOf(id)
     let list = that.data.list
     let obj = list[idx]
+
     collection.splice(index, 1);
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
@@ -304,9 +320,11 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
+
     }, err => {
       // err
     })
+
   },
   getList: function() {
     let tableID = 55960
@@ -557,17 +575,37 @@ Page({
     }, 500);
 
   },
-  collect2: function (e) {
-
+  ifcollect2: function (e) {
     let that = this
-    let id = e.currentTarget.dataset.id
-    let idx = e.currentTarget.dataset.index
+    let isClick = that.data.isClick
+    let a = e.currentTarget.dataset.id
+    let b = e.currentTarget.dataset.index
+    if (isClick == true) {
+      that.setData({
+        isClick: false
+      })
+      if (e.currentTarget.dataset.collect == 0) {
+        that.collect2(a, b)
+      }
+      else {
+        that.nocollect2(a, b)
+      }
+      setTimeout(function () {
+        that.setData({
+          isClick: true
+        })
+      }, 500)
+    }
+  },
+  collect2: function (a,b) {
+    let that = this
+    let id = a
+    let idx = b
     let collection = that.data.collection.concat(id)
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     let list = that.data.list2
     let obj = list[idx]
-
     currentUser.set('collection', collection).update().then(res => {
       obj.collect = 1;
       obj.collection = parseInt(obj.collection) + 1;
@@ -583,11 +621,11 @@ Page({
       // err
     })
   },
-  nocollect2: function (e) {
+  nocollect2: function (a,b) {
    
     let that = this
-    let id = e.currentTarget.dataset.id
-    let idx = e.currentTarget.dataset.index
+    let id = a
+    let idx =b
     let collection = that.data.collection
     let index = collection.indexOf(id)
     let list = that.data.list2

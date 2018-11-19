@@ -1,4 +1,5 @@
 // pages/addNote/addNote.js
+import regeneratorRuntime from '../../utils/runtime'
 Page({
 
   /**
@@ -7,10 +8,14 @@ Page({
   data: {
     arr1: [],
     arr2: [],
+    arr3:[],
     addDetail: "",
     check: true,
     content: "",
     height4: getApp().globalData.height,
+    focus1:true,
+    focus2:false,
+    focus3:false,
   },
 
   /**
@@ -20,7 +25,7 @@ Page({
 
   },
   previewImage: function(e) {
-    console.log(e)
+
     let current = e.currentTarget.dataset.item
     let arr1 = this.data.arr1
     wx.previewImage({
@@ -39,12 +44,9 @@ Page({
     })
   },
   delete: function(e) {
-
     var that = this;
     let id = e.currentTarget.dataset.id;
-
     var arr1 = that.data.arr1.splice(id, 1);
-
     that.setData({
       arr1: that.data.arr1
     })
@@ -61,7 +63,6 @@ Page({
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success: function(res) {
-        console.log(res)
         that.setData({
           arr1: that.data.arr1.concat(res.tempFilePaths)
         })
@@ -87,13 +88,8 @@ Page({
         //         check: false,
         //         arr1:that.data.arr1
         //       })
-
         //     } 
-
-
-
         //   }, err => {
-
         //   })
         // }
       }
@@ -101,13 +97,14 @@ Page({
   },
   content: function(e) {
     var that = this;
-
     var value = e.detail.value;
     // let str = value.split('\n').join('&hc')
-
     // value = value.replace(/\ /g, "");
     this.setData({
-      content: value
+      content: value,
+      focus1:true,
+      focus2:false,
+      focus3:false,
     })
   },
   submit: function() {
@@ -129,75 +126,115 @@ Page({
             content: '确认发布',
             success: function(res) {
               if (res.confirm) {
-                for (let i = 0; i < that.data.arr1.length; i++) {
+                let arr1 = that.data.arr1
+                let n=arr1.length
+                let obj = {
+                  idx: "",
+                  src: ""
+                }
+                let list = new Array(n)
+                let list0 = new Array
+                for(let i = 0; i < arr1.length; i++){
+                  let i2=arr1.length-1;
+                  list[i]=obj;
                   let MyFile = new wx.BaaS.File()
                   let fileParams = {
-                    filePath: that.data.arr1[i]
+                    filePath: arr1[i],
                   }
                   let metaData = {
                     categoryName: 'SDK'
                   }
                   MyFile.upload(fileParams, metaData).then(e => {
-                    that.setData({
-                      arr2: that.data.arr2.concat(e.data.path)
-                    })
-                    if (i == that.data.arr1.length - 1) {
-                      let arr2 = that.data.arr2
-                      let content = that.data.content
-                      let address = that.data.addDetail
-                      let apple = {
-                        img: arr2,
-                        content: content,
-                        address: address,
-                      }
-                      product.set(apple).save().then(res => {
-                        wx.showToast({
-                          title: '提交成功..',
-                          icon: 'success',
-                          duration: 4000,
-                          success: function(res) {
-                            that.setData({
-                              arr1: [],
-                              addDetail: "",
-                              check: true,
-                              content: "",
-                              arr2: [],
-                            })
-                            wx.switchTab({
-                              url: '../../pages/mine/mine',
-                            })
-                          }
+                      console.log(i)
+                      list[i].src = e.data.path
+                      list[i].idx = i;
+                        that.setData({
+                          arr3: that.data.arr3.concat(list[i]).sort(compare('idx'))
                         })
-                      })
-                    }
-                  }, err => {})
+                        console.log(that.data.arr3)
+                        if(that.data.arr3.length==arr1.length){
+                         wait();
+                        }
+                        function compare(property) {
+                          return function (a, b) {
+                            var value1 = a[property];
+                            var value2 = b[property];
+                            return value1 - value2;
+                          }
+                        }  
+            
+                    },
+                    err => {})
+                  }
+               function wait(){
+                 console.log("wait")
+                    let list5=new Array
+                    let len2 = that.data.arr3.length
+                    let arr4=new Array
+                    let arr3=that.data.arr3
+                    for (let k = 0; k < len2; k++) {
+                      list5[k]=arr3[k].src
+                      arr4.push(list5[k])
+                      if(k==len2-1){
+                        that.setData({
+                          arr2:arr4
+                        })
+                      }
+                  }
+                 wait2();
                 }
-                // product.set(apple).save().then(res => {
-
-                //   wx.showToast({
-                //     title: '提交成功..',
-                //     icon: 'success',
-                //     duration: 4000,
-                //     success: function (res) {
-                //       that.setData({
-                //         arr1: [],
-                //         addDetail: "",
-                //         check: true,
-                //         content: "",
-                //       })
-                //       wx.switchTab({
-                //         url: '../../pages/mine/mine',
-                //       })
-                //     }
-                //   })
-                // })
+                function wait2(){
+                  let arr2 = that.data.arr2
+                  let content = that.data.content
+                  let address = that.data.addDetail
+                  let apple = {
+                    img: arr2,
+                    content: content,
+                    address: address,
+                  }
+                  product.set(apple).save().then(res => {
+                    console.log(res)
+                    wx.showToast({
+                      title: '提交成功..',
+                      icon: 'success',
+                      duration: 4000,
+                      success: function (res) {
+                        that.setData({
+                          arr1: [],
+                          addDetail: "",
+                          check: true,
+                          content: "",
+                          arr2: [],
+                          arr3:[],
+                        })
+                        wx.switchTab({
+                          url: '../../pages/mine/mine',
+                        })
+                      }
+                    })
+                  })
+                }
               } else if (res.cancel) {}
-
             }
           })
         }
-      }, 100
+      }, 200
     )
+  },
+  focusText:function(e){
+    console.log(e.detail.height)
+    let that=this
+    that.setData({
+      height2:e.detail.height
+    })
+  },
+  focusChange:function(){
+    let that=this
+    that.setData({
+      focus1:false,
+      focus2:true,
+      focus3:true,
+    })
   },
 
   /**

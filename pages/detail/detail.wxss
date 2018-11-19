@@ -23,6 +23,7 @@
   padding-top: 25rpx;
   display: flex;
   flex-direction: row;
+  /* justify-content: space-between */
 }
 
 .line {
@@ -35,10 +36,12 @@
 
 .zan {
   margin-left: 20rpx;
-  width: 710rpx;
+  width: 700rpx;
   margin-top: 50rpx;
   font-size: 26rpx;
   color: #d6d6d6;
+  padding-left: 10rpx;
+  
 }
 
 .contain {
@@ -48,13 +51,14 @@
 }
 
 .user {
-  width: 710rpx;
-  height: 80rpx;
-  margin-left: 20rpx;
-  padding-top: 20rpx;
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1rpx solid #ddd;
+ width:700rpx;
+height:80rpx;
+margin-left:20rpx;
+padding-top:20rpx;
+display:flex;
+flex-direction:row;
+border-bottom:1rpx solid #f5f5f5;
+padding-left:10rpx;
 }
 
 .user image {
@@ -71,11 +75,15 @@
 }
 
 .content {
-  margin-left: 20rpx;
-  margin-top: 20rpx;
-  font-size: 28rpx;
-  width: 710rpx;
-  display: block;
+ margin-left:20rpx;
+margin-top:20rpx;
+font-size:32rpx;
+width:700rpx;
+display:block;
+padding-left:10rpx;
+letter-spacing:3rpx;
+line-height:50rpx;
+
 }
 
 .count {
@@ -90,13 +98,32 @@
   background-color: #333;
   line-height: 60rpx;
   height: 60rpx;
-  width: 85rpx;
+  width: 200rpx;
 }
-
 .share::after {
   border: none;
 }
-
+.share2 {
+  background-color: #333;
+  line-height: 60rpx;
+  height: 60rpx;
+  width: 200rpx;
+}
+.share2::after {
+  border: none;
+}
+.share-1{
+  font-size: 32rpx;
+  color:#fff;
+  top:-6rpx;
+position:relative;
+}
+.line0{
+  height: 1rpx;
+  width: 710rpx;
+  margin-left: 20rpx;
+  background-color: #ddd;
+}
 .line2 {
   width: 100%;
   height: 20rpx;
@@ -183,6 +210,6 @@ padding-right:20rpx;
 }
 .line4{
   width: 730rpx;
-  height: 2rpx;
-  background-color: #ddd;
+  height: 1rpx;
+  background-color: #f5f5f5;
 }

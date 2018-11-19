@@ -1,6 +1,6 @@
 <view class='topone'>
-<view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>荔枝医美</view>
+  <view style='height:{{height4*2+20}}px' class='nav-wrap'>
+    <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>荔枝医美</view>
   </view>
   <view style='height:{{height4*2+20}}px;' class='pad'></view>
   <view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
@@ -20,7 +20,7 @@
   </view>
 </view>
 
-<view  class='body'>
+<view class='body'>
   <!-- <view class='recommend r2'>
     <view bindtap='change' class="f28 mt20 ml20 {{swiperIndex == index ? 'active' : 'c66'}}" wx:for="{{list}}" data-idx='{{index}}' data-arr="{{item.id}}">
 
@@ -31,7 +31,6 @@
   <view class="content">
     <view class="left">
       <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-
         <navigator url="../detail/detail?id={{item.id}}" class="item">
           <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
           <view class="item-title-box">
@@ -41,8 +40,10 @@
         <view class='headimg'>
           <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
           <view class='nick'>{{item.created_by.nick}}</view>
-          <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-          <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+          <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
+            <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+            <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+          </view>
           <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
           <view class='numb' wx:if="{{item.collection==null}}">0</view>
         </view>
@@ -61,12 +62,13 @@
         <view class='headimg'>
           <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
           <view class='nick'>{{item.created_by.nick}}</view>
-          <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" bindtap='collect' style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-          <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" bindtap='nocollect' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
-          <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-          <view class='numb' wx:if="{{item.collection==null}}">0</view>
+          <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
+            <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+            <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+            </view>
+            <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
+            <view class='numb' wx:if="{{item.collection==null}}">0</view>        
         </view>
-
       </view>
     </view>
   </view>

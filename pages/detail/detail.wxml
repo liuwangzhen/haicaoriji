@@ -8,7 +8,7 @@
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
       <view bindtap='goIndex'>
-        <image src='../../images/shouye.png' mode='aspectFill' class='back-home'></image>
+        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
       </view>
       <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
     </view>
@@ -16,14 +16,12 @@
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
 <view class='contain'>
-  <swiper bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
+  <swiper indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
     <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
-
       <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
-
     </swiper-item>
   </swiper>
-  <view class='count'>{{current+1}}/{{count}}</view>
+  <!-- <view class='count'>{{current+1}}/{{count}}</view> -->
   <view bindtap='goUser' class='user'>
     <image src='{{headimg}}'></image>
     <view class='nick'>{{nick}}</view>
@@ -37,16 +35,16 @@
   </view>
   <view class='line2 mt30'></view>
   <view class='comment'>
-    <view class='ml20 mt30 f32 b'>笔记评论</view>
+    <view class='ml20 pl10 mt30 f32 b'>笔记评论</view>
     <view class='line3'></view>
-    <view class='r1 mt20 ml20'>
+    <view class='r1 mt20 ml20 pl10'>
       <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
       <view class='ml20 comment2' bindtap='comment'>说点什么，让TA也认识看笔记的你吧...</view>
     </view>
     <view class='ml20 mt20 line4'></view>
     <view wx:if="{{index<3}}" wx:for="{{comments}}" wx:key="{{item.id}}">
-      <view class='r1 cont mt30'>
-        <image class='img2 ml20' src='{{item.created_by.headimg}}' mode='widthFix'></image>
+      <view class='r1 cont pl30 mt30'>
+        <image class='img2 ml30' src='{{item.created_by.headimg}}' mode='widthFix'></image>
         <view class='col ml20'>
           <view class='r1'>
             <text class='f30'>{{item.created_by.nick}}</text>
@@ -82,17 +80,25 @@
   <view bindtap='sendanswer' class='ml20 f28 send'>回复</view>
 </view>
 <view class='footer'>
-  <view class='r1'>
-    <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" bindtap='collect' style='color:#fff;font-size:50rpx;margin-left:150rpx;' class='iconfont icon-xin1'></view>
-    <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" bindtap="nocollect" style='color:red;font-size:50rpx;margin-left:150rpx;' class='iconfont icon-xin'></view>
-    <view style='color:#fff;margin-left:10rpx;'>{{list.collection}}</view>
-  </view>
-  <view class='line'>
-  </view>
-  <view style='position:absolute;left:500rpx;' class='r1'>
-    <button open-type="share" bindtap='onShareAppMessage' class='share'>
-      <view style='color:#fff;font-size:50rpx;' class='iconfont icon-zhuanfa'></view>
-    </button>
-    <view style='color:#fff;margin-left:10rpx;'>{{share}}</view>
-  </view>
+  <view style='margin-left:108rpx;' class='r1'>
+    <button data-collect='{{list.collect}}' data-id="{{list.id}}" data-index="{{index}}" bindtap='ifcollect' class='share2'>
+      <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'>
+        <span class="share-1">收藏</span>
+      </view>
+      <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" style='color:red;font-size:50rpx;' class='iconfont icon-xin'>
+        <span class="share-1">收藏</span>
+      </view>
+  </button>
+  <view class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
+</view>
+<view class='line'>
+</view>
+<view style='position:absolute;left:481rpx;' class='r1'>
+  <button open-type="share" bindtap='onShareAppMessage' class='share'>
+    <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
+      <span class="share-1">分享</span>
+    </view>
+  </button>
+  <view class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
+</view>
 </view>

@@ -86,7 +86,6 @@ Page({
         let attentions = that.data.attentions;
         query.in('id', attention2)
         MyUser.setQuery(query).find().then(res => {
-          
           let list0 = res.data.objects;
           for (let i = 0; i < res.data.objects.length; i++) {
             if (attentions.indexOf(res.data.objects[i].id) > -1) {
@@ -98,9 +97,7 @@ Page({
             let query2 = new wx.BaaS.Query()
             query2.compare('created_by', '=', list0[i].id)
             Product.setQuery(query2).count().then(num => {
-
               list0[i].num = num;
-
               let Product2 = new wx.BaaS.TableObject(56146)
               let query3 = new wx.BaaS.Query()
               query3.compare('created_by', '=', list0[i].id)
@@ -108,6 +105,7 @@ Page({
                 let fans = e.data.objects[0].fans.length - 1;
                 list0[i].fan = fans;
                 list2.push(list0[i]);
+                console.log(list2)
                 that.setData({
                   list: list2,
                 })
