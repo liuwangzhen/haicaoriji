@@ -8,7 +8,6 @@ Page({
     userInfo: "",
     img: "",
     array: ['男', '女'],
-    date: "1995-04-18",
     sign: "",
     height4: getApp().globalData.height,
   },
@@ -84,9 +83,6 @@ Page({
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
-        
-
-        // success
         var datetime = new Date(res.data.birthday);
         var year = datetime.getFullYear();
         var month = datetime.getMonth() + 1;
@@ -110,7 +106,6 @@ Page({
       }, err => {
         // err
       })
-      登录成功
 
     }, err => {
       // 登录失败

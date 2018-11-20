@@ -28,7 +28,6 @@ Page({
   },
   userInfoHandler(data) {
     wx.BaaS.handleUserInfo(data).then(res => {
-    
       let sex = res.gender
       let city = res.city
       let country = res.country
@@ -37,7 +36,6 @@ Page({
       let currentUser = MyUser.getCurrentUserWithoutData()
       let nick = res.nickName
       let avatar = res.avatarUrl
-      
       // age 为自定义字段
       currentUser.set({
         'sex': sex,
@@ -49,8 +47,7 @@ Page({
         'attention':[2],
         'jundge':true
       }).update().then(res => {
-        
-       
+        console.log(res)
         let avatar=res.data.avatar
         currentUser.set({
           'headimg':avatar

@@ -39,12 +39,12 @@ page{
   margin-top: 30rpx;
 }
 .item{
-  width: 220rpx;
+  width: 161rpx;
   color:gray;
 }
 .item-name{
   margin-left: 30rpx;
-  width: 100%;
+  width: 400rpx;
 }
 .header2{
   display: flex;

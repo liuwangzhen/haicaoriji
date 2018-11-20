@@ -1,7 +1,7 @@
 <!--pages/detail/detail.wxml-->
 
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>{{nick}}</view>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>{{list.author_name}}</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
     <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
       <view wx:if="{{getshare==0}}" bindtap='goback'>
@@ -22,9 +22,9 @@
     </swiper-item>
   </swiper>
   <!-- <view class='count'>{{current+1}}/{{count}}</view> -->
-  <view bindtap='goUser' class='user'>
-    <image src='{{headimg}}'></image>
-    <view class='nick'>{{nick}}</view>
+  <view  class='user'>
+    <image mode='aspectFill' src='{{list.author_head}}'></image>
+    <view class='nick'>{{list.author_name}}</view>
   </view>
   <text class='content'>
     {{list.content}}
@@ -38,49 +38,48 @@
     <view class='ml20 pl10 mt30 f32 b'>笔记评论</view>
     <view class='line3'></view>
     <view class='r1 mt20 ml20 pl10'>
-      <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+      <image class='img2' src='{{user.headimg}}' mode='aspectFill'></image>
       <view class='ml20 comment2' bindtap='comment'>说点什么，让TA也认识看笔记的你吧...</view>
     </view>
     <view class='ml20 mt20 line4'></view>
     <view wx:if="{{index<3}}" wx:for="{{comments}}" wx:key="{{item.id}}">
       <view class='r1 cont pl30 mt30'>
-        <image class='img2 ml30' src='{{item.created_by.headimg}}' mode='widthFix'></image>
+        <image class='img2 ml30' src='{{item.created_by.headimg}}' mode='aspectFill'></image>
         <view class='col ml20'>
           <view class='r1'>
-            <text class='f30'>{{item.created_by.nick}}</text>
+            <text style='width:500rpx;' class='f30'>{{item.created_by.nick}}</text>
             <view class='block r1'>
-              <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;'>回复</view>
-              <view class='iconfont icon-dianzan'></view>
-              <view>2</view>
+              <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;color:#57b0f0'>回复</view>
+              <!-- <view class='iconfont icon-dianzan'></view>
+              <view>2</view> -->
             </view>
           </view>
           <view class='time2'>{{item.created_at}}</view>
           <text class='content2'>{{item.comment}}</text>
           <text wx:if="{{item.answers.length==1}}" class='comment3'>{{item.answers[0].created_by.nick}}: {{item.answers[0].answer}}</text>
-          <text bindtap='getAllComments' wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c000'>共{{item.answers.length}}条回复</text></text>
+          <text bindtap='getAllComments' wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c57'>共{{item.answers.length}}条回复</text></text>
         </view>
-
       </view>
       <view class='ml20 mt20 line4'></view>
     </view>
   </view>
-  <view class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{comments.length}}条评论
+  <view wx:if="{{comments.length>0}}" class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{comments.length}}条评论
     <span style="font-size:25rpx;position:relative;bottom:2rpx;" class='iconfont2 icon-qianjin'></span>
   </view>
   <view class='line2'></view>
 </view>
 <view bindblur='inputVal3' style="bottom:{{height2}}px;" wx:if="{{input==true}}" class='comment-inp r1'>
-  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <image class='img2' src='{{user.headimg}}' mode='aspectFill'></image>
   <input adjust-position='{{false}}' focus="{{focus}}" value='{{commentVal}}' bindfocus="focusInput" bindblur='inputVal' class='input' placeholder='说点什么...'></input>
   <view bindtap='send' class='ml20 f28 send'>发送</view>
 </view>
 <view style='bottom:{{height3}}px' wx:if="{{input2==true}}" class='comment-inp r1'>
-  <image class='img2' src='{{user.headimg}}' mode='widthFix'></image>
+  <image class='img2' src='{{user.headimg}}' mode='aspectFill'></image>
   <input bindfocus="focusInput2" adjust-position="{{false}}" focus="{{focus2}}" value='{{commentVal2}}' bindblur='inputVal2' class='input' placeholder='回复..'></input>
   <view bindtap='sendanswer' class='ml20 f28 send'>回复</view>
 </view>
 <view class='footer'>
-  <view style='margin-left:108rpx;' class='r1'>
+  <view style='margin-left:86rpx;' class='r1'>
     <button data-collect='{{list.collect}}' data-id="{{list.id}}" data-index="{{index}}" bindtap='ifcollect' class='share2'>
       <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'>
         <span class="share-1">收藏</span>
@@ -89,16 +88,16 @@
         <span class="share-1">收藏</span>
       </view>
   </button>
-  <view class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
+  <view wx:if="{{list.collection>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
 </view>
 <view class='line'>
 </view>
-<view style='position:absolute;left:481rpx;' class='r1'>
+<view style='position:absolute;left:475rpx;' class='r1'>
   <button open-type="share" bindtap='onShareAppMessage' class='share'>
     <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
       <span class="share-1">分享</span>
     </view>
   </button>
-  <view class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
+  <view wx:if="{{share>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
 </view>
 </view>

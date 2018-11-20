@@ -1,0 +1,35 @@
+var filter = {
+  getDate: function (d) {
+    var st = d
+    var datetime =getDate(st*1000);
+    var year = datetime.getFullYear();
+    var month = datetime.getMonth() + 1;
+    var hours = datetime.getHours();
+    var minutes = datetime.getMinutes();
+    if (hours <= 9) {
+      hours = "0" + hours;
+    }
+    if (minutes <= 9) {
+      minutes = "0" + minutes;
+    }
+    if (month <= 9) {
+      month = "0" + month;
+    }
+    var date = datetime.getDate();
+    if (date <= 9) {
+      date = "0" + date;
+    }
+    var dateformat = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
+    return dateformat
+  },
+  LimitNumbersadf:function(txt) {
+    var str = txt;
+    str = str.substring(0, 4);
+    str += '...'
+    return str;
+  },
+}
+module.exports = {
+  getDate: filter.getDate,
+  Limit:filter.LimitNumbersadf,
+}

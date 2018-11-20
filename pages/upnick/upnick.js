@@ -41,19 +41,15 @@ Page({
       }, err => {
         // err
       })
-      登录成功
+
 
     }, err => {
       // 登录失败
     })
   },
   upnick: function(e) {
-
     var that = this;
-
     var value = e.detail.value;
-
-
     value = value.replace(/\ /g, "");
     this.setData({
       nick: value
@@ -65,16 +61,21 @@ Page({
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     let nick=that.data.nick
+    if(nick.length>0){
     currentUser.set('nick', nick).update().then(res => {
       // success
-
       wx.navigateBack({
         delta:1,
       })
-
     }, err => {
       // err
     })
+    }
+    else{
+      wx.showToast({
+        title: '请填写昵称',
+      })
+    }
   
   },
   /**

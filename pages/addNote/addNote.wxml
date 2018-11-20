@@ -1,6 +1,6 @@
 <!--pages/addNote/addNote.wxml-->
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>添加日志</view>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>添加日记</view>
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
 <textarea cursor-spacing="10" bindtap='focusChange'  adjust-position='{{true}}' bindblur="content" name="content" value='{{content}}' maxlength='-1' class='textarea' placeholder-class='placeholder' placeholder='这一刻，想说点什么...'></textarea>

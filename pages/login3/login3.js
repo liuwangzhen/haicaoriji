@@ -39,10 +39,8 @@ Page({
       }).update().then(res => {
         let avatar = res.data.avatar
         currentUser.set({
-          'headimg': avatar,
-          
-        }).update().then(res => {
-          
+          'headimg': avatar,          
+        }).update().then(res => {    
         }, err => { })
         let tableID = 56146
         let Product = new wx.BaaS.TableObject(tableID)
@@ -52,7 +50,6 @@ Page({
         let apple = {
           fans: [2]
         }
-
         product.set(apple).save().then(res => {
           // success
           console.log(res)

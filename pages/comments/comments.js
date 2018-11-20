@@ -41,8 +41,8 @@ getcomment:function(){
         let i2 = res.data.objects.length - 1
         query2.compare("cid", "=", list0[i].id)
         let Product2 = new wx.BaaS.TableObject(56584)
-        Product2.setQuery(query2).expand('created_by').find().then(e => {
-         list0[i].answers = e.data.objects  
+        Product2.setQuery(query2).orderBy(['-created_at']).expand('created_by').find().then(e => {
+         list0[i].answers = e.data.objects
          list0[i].created_at = that.getDate(list0[i].created_at)
          list.push(list0[i])
          if (i == i2){
@@ -58,9 +58,7 @@ getcomment:function(){
             }
           }
         })  
-       
       }
- 
     }, err => {
       // err
     })
@@ -93,6 +91,7 @@ getcomment:function(){
 
   },
   answer: function (e) {
+    console.log(e)
     let that = this
     let coid = e.currentTarget.dataset.id
     that.setData({
@@ -128,6 +127,7 @@ getcomment:function(){
    })
   }, 
   focusInput2: function (e) {
+    console.log("009")
     this.setData({
       height3: e.detail.height,
     })

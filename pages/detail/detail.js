@@ -24,7 +24,7 @@ Page({
     focus2:false,
     input2:false,
     height4:getApp().globalData.height,
-    isClick:true
+    isClick:true,
   },
 
   /**
@@ -32,7 +32,6 @@ Page({
    */
   onLoad: function(options) {
     let that = this;
-   
     var id = options.id;
     if(options.getshare!=undefined){
       that.setData({
@@ -93,16 +92,12 @@ Page({
     Product.get(recordID).then(res => {
       // success
       let list = res.data 
-      let collection = that.data.collection 
-      console.log(collection)
+      let collection = that.data.collection    
       let i = collection.indexOf(recordID)
-      console.log(i)
       if ( i> -1) {
-        console.log("1")
         list.collect = 1;}
         else{
           list.collect=0;
-        console.log("0")
         }
       var datetime = new Date(res.data.created_at * 1000);
       let id = res.data.created_by
@@ -174,8 +169,8 @@ Page({
           let Product = new wx.BaaS.TableObject(tableID)
           Product.delete(recordID).then(res => {
             // success
-            wx.navigateBack({
-              delta:1
+            wx.switchTab({
+              url: '../mine/mine',
             })
           }, err => {
             // err
@@ -479,7 +474,6 @@ Page({
     let list=new Array 
     let list4=new Array  
     Product.setQuery(query).orderBy('-created_at').limit(10).offset(0).expand('created_by').find().then(res => {
-      console.log(res.data.objects)
       let list0=res.data.objects 
       // let num=res.data.objects.length
       // function recursion(num) { //定义递归函数
@@ -573,8 +567,7 @@ Page({
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
     let share=that.data.share+1 
-    let title=that.LimitNumbersadf(that.data.list.content)
-   
+    let title=that.LimitNumbersadf(that.data.list.content) 
     return {
       title: title,
       desc: '最具人气的小程序',

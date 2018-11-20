@@ -22,10 +22,20 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    this.getUserInfoByToken();
   },
+  getUserInfoByToken: function () {
+    let that = this
+    let MyUser = new wx.BaaS.User()
+    wx.BaaS.login(false).then(res => {
+      MyUser.get(res.id).then(res => {
+        that.setData({
+          author_head:res.data.headimg,
+          author_name:res.data.nick,
+        })
+        })
+        })},
   previewImage: function(e) {
-
     let current = e.currentTarget.dataset.item
     let arr1 = this.data.arr1
     wx.previewImage({
@@ -35,6 +45,7 @@ Page({
   },
   addDetail() {
     var _this = this
+    console.log("00909")
     wx.chooseLocation({
       success(res) {
         _this.setData({
@@ -73,25 +84,6 @@ Page({
             arr1: that.data.arr1
           })
         }
-        // for (var i = 0; i < res.tempFilePaths.length; i++) {
-        //   let MyFile = new wx.BaaS.File()
-        //   let fileParams = { filePath: res.tempFilePaths[i] }
-        //   let metaData = { categoryName: 'SDK' }
-        //   MyFile.upload(fileParams, metaData).then(e => {
-        //     that.setData({
-        //       arr1: that.data.arr1.concat(e.data.path)
-        //     })
-        //     if (that.data.arr1.length>=9)
-        //     {
-        //        that.data.arr1.splice(9,9)
-        //       that.setData({
-        //         check: false,
-        //         arr1:that.data.arr1
-        //       })
-        //     } 
-        //   }, err => {
-        //   })
-        // }
       }
     })
   },
@@ -145,13 +137,11 @@ Page({
                     categoryName: 'SDK'
                   }
                   MyFile.upload(fileParams, metaData).then(e => {
-                      console.log(i)
                       list[i].src = e.data.path
                       list[i].idx = i;
                         that.setData({
                           arr3: that.data.arr3.concat(list[i]).sort(compare('idx'))
                         })
-                        console.log(that.data.arr3)
                         if(that.data.arr3.length==arr1.length){
                          wait();
                         }
@@ -162,12 +152,10 @@ Page({
                             return value1 - value2;
                           }
                         }  
-            
                     },
                     err => {})
                   }
                function wait(){
-                 console.log("wait")
                     let list5=new Array
                     let len2 = that.data.arr3.length
                     let arr4=new Array
@@ -191,9 +179,10 @@ Page({
                     img: arr2,
                     content: content,
                     address: address,
+                    author_head:that.data.author_head,
+                    author_name: that.data.author_name,
                   }
                   product.set(apple).save().then(res => {
-                    console.log(res)
                     wx.showToast({
                       title: '提交成功..',
                       icon: 'success',
@@ -222,7 +211,6 @@ Page({
     )
   },
   focusText:function(e){
-    console.log(e.detail.height)
     let that=this
     that.setData({
       height2:e.detail.height
@@ -248,7 +236,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.getUserInfoByToken();
   },
 
   /**

@@ -14,8 +14,7 @@
   </view>
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
-<view class='f28 ml20 head'>昵称请填写2-24个字符</view>
-<input bindblur='upnick' value='{{nick}}' maxlength='24' minlength="2" class='nick'>
-  
+<view class='f28 ml20 head'>昵称请填写1-18个字符</view>
+<input bindblur='upnick' value='{{nick}}' maxlength='18' minlength="2" class='nick'>
 </input>
 <view bindtap='submit' class='footer'>确认修改</view>

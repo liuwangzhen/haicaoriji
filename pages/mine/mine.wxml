@@ -1,16 +1,16 @@
+<wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>{{nick}}</view>
   </view>
   <view style='height:{{height4*2+30}}px;' class='pad'></view>
 <view class='head'>
   <view class='row1 ml20'>
-
     <view class="index-profile">
       <image mode='aspectFill' src='{{img2}}' class="index-profile__img"></image>
     </view>
     <view class='col ml20 w550'>
       <view class='atten-fans'>
-        <navigator url='../attention/attention?id={{aid}}' hover-class='none' class='col'>
+        <navigator  hover-class='none' class='col'>
           <view class='num'>
             {{attention.length-1}}
           </view>
@@ -18,7 +18,7 @@
             关注
           </view>
         </navigator>
-        <navigator url='../fans/fans?id={{aid}}' hover-class='none' class='col'>
+        <navigator  hover-class='none' class='col'>
           <view class='num'>
             {{fans.length-1}}
           </view>
@@ -72,14 +72,14 @@
         </view>
       </navigator>
       <view class='headimg'>
-        <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
-        <view class='nick'>{{item.created_by.nick}}</view>
+        <image mode='aspectFill'  data-user="{{item.created_by.id}}" class='img2' src='{{item.author_head}}'></image>
+         <view wx:if="{{item.author_name.length>4}}" class='nick'>{{filter.Limit(item.author_name)}}</view>
+          <view wx:else class='nick'>{{item.author_name}}</view>
         <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
-        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:220rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}"  style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
         </view>
-        <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+        <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>
       </view>
     </view>
   </view>
@@ -93,14 +93,14 @@
         </view>
       </navigator>
       <view class='headimg'>
-        <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
-        <view class='nick'>{{item.created_by.nick}}</view>
+         <image mode='aspectFill'  data-user="{{item.created_by.id}}" class='img2' src='{{item.author_head}}'></image>
+          <view wx:if="{{item.author_name.length>4}}" class='nick'>{{filter.Limit(item.author_name)}}</view>
+          <view wx:else class='nick'>{{item.author_name}}</view>
         <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
-        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}"  style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+        <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:220rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
+        <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}"  style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
         </view>
-        <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+        <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>
       </view>
     </view>
   </view>
@@ -117,11 +117,11 @@
         </view>
       </navigator>
       <view class='headimg'>
-        <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
-        <view class='nick'>{{item.created_by.nick}}</view>
-        <view data-num="{{item.collection}}" data-id="{{item.id}}" bindtap='nocollect2' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
-        <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+         <image mode='aspectFill'  data-user="{{item.created_by.id}}" class='img2' src='{{item.author_head}}'></image>
+          <view wx:if="{{item.author_name.length>4}}" class='nick'>{{filter.Limit(item.author_name)}}</view>
+          <view wx:else class='nick'>{{item.author_name}}</view>
+        <view data-num="{{item.collection}}" data-id="{{item.id}}" bindtap='nocollect2' style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+       <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>
       </view>
 
     </view>
@@ -136,12 +136,11 @@
         </view>
       </navigator>
       <view class='headimg'>
-        <image bindtap='userinfo' data-user="{{item.created_by.id}}" class='img2' src='{{item.created_by.headimg}}'></image>
-        <view class='nick'>{{item.created_by.nick}}</view>
-
-        <view data-num="{{item.collection}}" data-id="{{item.id}}" bindtap='nocollect2' style='position:absolute;left:200rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
-        <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-        <view class='numb' wx:if="{{item.collection==null}}">0</view>
+         <image mode='aspectFill' data-user="{{item.created_by.id}}" class='img2' src='{{item.author_head}}'></image>
+          <view wx:if="{{item.author_name.length>4}}" class='nick'>{{filter.Limit(item.author_name)}}</view>
+          <view wx:else class='nick'>{{item.author_name}}</view>
+        <view data-num="{{item.collection}}" data-id="{{item.id}}" bindtap='nocollect2' style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
+       <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>
       </view>
     </view>
   </view>

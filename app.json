@@ -35,7 +35,6 @@
     "selectedColor": "#2c2c2c",
     "backgroundColor": "#fff",
     "borderStyle": "white",
-
     "list": [
       {
         "pagePath": "pages/indexo/indexo",
@@ -45,11 +44,10 @@
       },
       {
         "pagePath": "pages/addNote/addNote",
-        "text": "写日志",
-        "iconPath": "images/添加灰.png",
-        "selectedIconPath": "images/添加.png"
+        "text": "写日记",
+        "iconPath": "images/rizhi2.png",
+        "selectedIconPath": "images/rizhi.png"
       },
-      
       {
         "pagePath": "pages/mine/mine",
         "text": "我的",
