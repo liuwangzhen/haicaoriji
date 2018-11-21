@@ -55,7 +55,6 @@ Page({
     })
   },
   previewImage: function (e) {
-  
     let current = e.currentTarget.dataset.item
     let arr1 = this.data.list.img
     wx.previewImage({
@@ -154,7 +153,6 @@ Page({
       })
 
     }, err => {
-      // err
     })
   },
   delete:function(){
@@ -197,7 +195,6 @@ Page({
     })
   },
   ifcollect: function (e) {
-    console.log(e)
     let that = this
     let isClick = that.data.isClick
     let a = e.currentTarget.dataset.id
@@ -222,7 +219,6 @@ Page({
   collect: function (a) {
     let that = this
     let id = a
-    console.log(id)
     let collection = that.data.collection.concat(id)
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
@@ -262,6 +258,20 @@ Page({
     let that = this
     let id = a
     let collection=that.data.collection
+    let distinct = function () {
+      let len = collection.length;
+      for (let i = 0; i < len; i++) {
+        for (let j = i + 1; j < len; j++) {
+          if (collection[i] == collection[j]) {
+            collection.splice(j, 1);
+            len--;
+            j--;
+          }
+        }
+      }
+      return collection;
+    };
+    distinct();
     let index = collection.indexOf(id)
     // 作孽啊 不能赋值 大爷的
     collection.splice(index, 1);
@@ -301,7 +311,6 @@ Page({
     let id = that.data.id
     wx.BaaS.login(false).then(res => {
     MyUser.get(res.id).then(res => {
-      
       if (res.data.is_authorized == false) {
       // if (res.data.jundge == false) {
         wx.redirectTo({
@@ -472,17 +481,15 @@ Page({
     query.compare("cid","=",id)
     let Product = new wx.BaaS.TableObject(56497)
     let list=new Array 
-    let list4=new Array  
-    Product.setQuery(query).orderBy('-created_at').limit(10).offset(0).expand('created_by').find().then(res => {
+    let list4=new Array
+    Product.setQuery(query).find().then(res => {
+      that.setData({
+        commentslen:res.data.objects
+      })
+     }, err => {
+    })
+    Product.setQuery(query).orderBy('-created_at').limit(3).offset(0).expand('created_by').find().then(res => {
       let list0=res.data.objects 
-      // let num=res.data.objects.length
-      // function recursion(num) { //定义递归函数
-      //   if (num < 10) {
-      //     return 1;
-      //   } else {
-      //     return recursion(num - 1) * num;   //调用递归函数
-      //   }
-      // }
       for(let i=0;i<res.data.objects.length;i++){
         list0[i].idx = i;
         let i2 = res.data.objects.length - 1

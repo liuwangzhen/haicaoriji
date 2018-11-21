@@ -107,9 +107,8 @@ padding-top:230rpx;
 
 }
 .numb{
-  position:absolute;left:250rpx;margin-top:13rpx;
+  position:absolute;left:260rpx;margin-top:13rpx;
   font-size:28rpx;
-
 }
 .topone{
   background-color: #fff;

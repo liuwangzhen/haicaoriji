@@ -54,8 +54,8 @@
             <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:220rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
             <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
             </view>
-            <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-            <view class='numb' wx:if="{{item.collection==null}}">0</view>
+            <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>
+            <!-- <view class='numb' wx:if="{{item.collection==null}}">0</view> -->
           </view>
 
         </view>
@@ -77,14 +77,11 @@
             <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}"  style='position:absolute;left:220rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
             <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}"  style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
             </view>
-            <view class='numb' wx:if="{{item.collection!=null}}">{{item.collection}}</view>
-            <view class='numb' wx:if="{{item.collection==null}}">0</view>
+            <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>
           </view>
-
         </view>
       </view>
     </view>
-
     <view wx:if="{{list==null}}" class='body'>
       对不起，暂无搜索结果
     </view>

@@ -170,15 +170,28 @@ Page({
     let id = a
     let idx = b
     let collection = that.data.collection
+    let distinct = function () {
+      let len = collection.length;
+      for (let i = 0; i < len; i++) {
+        for (let j = i + 1; j < len; j++) {
+          if (collection[i] == collection[j]) {
+            collection.splice(j, 1);
+            len--;
+            j--;
+          }
+        }
+      }
+      return collection;
+    };
+    distinct();
     let index=collection.indexOf(id)
     let list = that.data.list
     let obj = list[idx]
-    
     collection.splice(index,1);
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     currentUser.set('collection', collection).update().then(res => {
-      // success
+      console.log(res)
       obj.collect = 0;
       obj.collection = parseInt(obj.collection)-1; 
       let collection = obj.collection
@@ -312,17 +325,13 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
     wx.stopPullDownRefresh();
     var that = this;
-   
     setTimeout(function () {
       that.getList();
-      
       wx.showToast({
         title: '正在刷新',
         duration: 2000,
-
       })
     }, 500);
   },
@@ -340,6 +349,10 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    return {
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/indexo/indexo',
+    }
   }
 })

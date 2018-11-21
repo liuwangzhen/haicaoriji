@@ -3,7 +3,12 @@
 @import '/common/iconfont2.wxss';
 @import '/common/iconfont3.wxss';
 @import '/common/iconfont4.wxss';
-
+/* {
+        "pagePath": "pages/addNote/addNote",
+        "text": "写日记",
+        "iconPath": "images/rizhi2.png",
+        "selectedIconPath": "images/rizhi.png"
+      }, */
 .top {
   position: fixed;
   top: 0rpx;

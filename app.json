@@ -14,6 +14,7 @@
     "pages/upnick/upnick",
     "pages/upsign/upsign",
     "pages/addNote/addNote",
+    "pages/contact/contact",
     "pages/detail/detail",
     "pages/comments/comments"
     
@@ -26,9 +27,6 @@
     "navigationBarTextStyle": "black",
     "backgroundColor": "#fff",
     "navigationStyle":"custom"
-  
-   
-    
   },
   "tabBar": {
     "color": "#bfbfbf",
@@ -43,10 +41,10 @@
         "selectedIconPath": "images/首页.png"
       },
       {
-        "pagePath": "pages/addNote/addNote",
-        "text": "写日记",
-        "iconPath": "images/rizhi2.png",
-        "selectedIconPath": "images/rizhi.png"
+        "pagePath": "pages/contact/contact",
+        "text": "咨询",
+        "iconPath": "images/liaotian.png",
+        "selectedIconPath": "images/liaotian2.png"
       },
       {
         "pagePath": "pages/mine/mine",

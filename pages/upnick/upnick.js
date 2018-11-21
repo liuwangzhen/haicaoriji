@@ -125,7 +125,7 @@ Page({
    */
   onShareAppMessage: function() {
     return {
-      title: '荔枝医美',
+      title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
       path: '/pages/indexo/indexo',
     }

@@ -10,6 +10,7 @@ Page({
     array: ['男', '女'],
     sign: "",
     height4: getApp().globalData.height,
+    // date: "1995-04-18",
   },
 
   /**
@@ -21,7 +22,6 @@ Page({
     var nowdate = new Date();
     that.setData({
       nowdate: nowdate,
-
     })
   },
   goback: function () {
@@ -45,8 +45,6 @@ Page({
     
     currentUser.set('sex', index).update().then(res => {
       // success
-    
-
 
     }, err => {
       // err
@@ -60,24 +58,17 @@ Page({
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     let date = that.data.date
-
     currentUser.set('birthday', date).update().then(res => {
       // success
-    
-
-
-
     }, err => {
       // err
     })
-
   },
   upsign: function() {
     wx.navigateTo({
       url: '../upsign/upsign',
     })
   },
-
   getUserInfo: function() {
     let that = this
     let MyUser = new wx.BaaS.User()
@@ -94,7 +85,6 @@ Page({
           date = "0" + date;
         }
         var dateformat = year + "-" + month + "-" + date;
-
         res.data.sign=that.LimitNumbersadf(res.data.sign);
         that.setData({
           userInfo: res.data,
@@ -212,7 +202,7 @@ Page({
    */
   onShareAppMessage: function() {
     return {
-      title: '荔枝医美',
+      title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
       path: '/pages/indexo/indexo',
     }

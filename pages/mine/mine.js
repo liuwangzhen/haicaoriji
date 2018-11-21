@@ -170,6 +170,21 @@ Page({
     let id = a
     let idx = b
     let collection = that.data.collection
+    let distinct = function () {
+       let len = collection.length;
+      for (let i = 0; i < len; i++) {
+        for (let j = i + 1; j < len; j++) {
+          if (collection[i] == collection[j]) {
+            collection.splice(j, 1);
+            len--;
+            j--;
+          }
+        }
+      }
+      console.log("0000")
+      return collection;
+    };
+    distinct();
     let index = collection.indexOf(id)
     let list = that.data.list
     let obj = list[idx]
@@ -412,11 +427,7 @@ Page({
       }
      that.setData({
        list2:list,
-       
      })
-    
-     
-
     }, err => {
       // err
     })
@@ -426,6 +437,20 @@ Page({
     let id = e.currentTarget.dataset.id
     let num = e.currentTarget.dataset.num
     let collection = that.data.collection
+    let distinct = function () {
+      let len = collection.length;
+      for (let i = 0; i < len; i++) {
+        for (let j = i + 1; j < len; j++) {
+          if (collection[i] == collection[j]) {
+            collection.splice(j, 1);
+            len--;
+            j--;
+          }
+        }
+      }
+      return collection;
+    };
+    distinct();
     let index = collection.indexOf(id)
     collection.splice(index, 1);
     let MyUser = new wx.BaaS.User()
@@ -514,13 +539,17 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    let that = this
-    let id = that.data.aid
+    // let that = this
+    // let id = that.data.aid
+    // return {
+    //   title: '荔枝医美',
+    //   desc: '最具人气的小程序',
+    //   path: '/pages/userinfo/userinfo?id=' + id + "&getshare=" + 1,
+    // }
     return {
-      title: '荔枝医美',
-      desc: '最具人气的小程序',
-      path: '/pages/userinfo/userinfo?id=' + id + "&getshare=" + 1,
-     
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/indexo/indexo',
     }
   }
 })

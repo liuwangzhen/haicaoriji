@@ -10,7 +10,8 @@ Page({
   input2:false,
   input3:false,
   focus:false,
-    focus: false, height4: getApp().globalData.height,
+  focus: false, height4: getApp().globalData.height,
+  page:0,
   },
 
   /**
@@ -45,11 +46,12 @@ getcomment:function(){
          list0[i].answers = e.data.objects
          list0[i].created_at = that.getDate(list0[i].created_at)
          list.push(list0[i])
-         if (i == i2){
+        //  if (i == i2){
            that.setData({
-             comments: list.sort(compare('idx'))
+             comments: list.sort(compare('idx')),
+             page:0,
            })
-         }
+        //  }
           function compare(property) {
             return function (a, b) {
               var value1 = a[property];
@@ -58,6 +60,49 @@ getcomment:function(){
             }
           }
         })  
+      }
+    }, err => {
+      // err
+    })
+
+  },
+  getcomment2: function () {
+    let that = this
+    let page=that.data.page
+    page++
+    let id = that.data.id
+    let query = new wx.BaaS.Query()
+    query.compare("cid", "=", id)
+    let Product = new wx.BaaS.TableObject(56497)
+    let list = new Array
+    Product.setQuery(query).orderBy(['-created_at']).limit(10).offset(page*10).expand('created_by').find().then(res => {
+      let list0 = res.data.objects
+      for (let i = 0; i <res.data.objects.length; i++) {
+        list0[i].idx = i;
+        let query2 = new wx.BaaS.Query()
+        let i2 = res.data.objects.length - 1
+        query2.compare("cid", "=", list0[i].id)
+        let Product2 = new wx.BaaS.TableObject(56584)
+        Product2.setQuery(query2).orderBy(['-created_at']).expand('created_by').find().then(e => {
+          list0[i].answers = e.data.objects
+          list0[i].created_at = that.getDate(list0[i].created_at)
+          list.push(list0[i])
+          list.sort(compare('idx'))
+           if (i == i2){
+          that.setData({
+            comments: that.data.comments.concat(list),
+            page:page
+          })
+           }
+          function compare(property) {
+            return function (a, b) {
+              var value1 = a[property];
+              var value2 = b[property];
+              return value1 - value2;
+            }
+          }
+         
+        })
       }
     }, err => {
       // err
@@ -91,7 +136,6 @@ getcomment:function(){
 
   },
   answer: function (e) {
-    console.log(e)
     let that = this
     let coid = e.currentTarget.dataset.id
     that.setData({
@@ -127,7 +171,6 @@ getcomment:function(){
    })
   }, 
   focusInput2: function (e) {
-    console.log("009")
     this.setData({
       height3: e.detail.height,
     })
@@ -229,14 +272,23 @@ getcomment:function(){
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+    let that=this
+    wx.stopPullDownRefresh();
+    setTimeout(function () {
+      that.getcomment();
+      wx.showToast({
+        title: '正在刷新',
+        duration: 2000,
+      })
+    }, 500);
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+    let that=this
+    that.getcomment2();
   },
 
   /**
@@ -244,7 +296,7 @@ getcomment:function(){
    */
   onShareAppMessage: function () {
     return {
-      title: "荔枝医美",
+      title: '海草日记',
       desc: '最具人气的小程序',
       path: '/pages/indexo/indexo'
     }

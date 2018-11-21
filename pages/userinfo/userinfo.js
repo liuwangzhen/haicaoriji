@@ -205,9 +205,6 @@ Page({
     }, err => {
       // err
     })
-
-
-
   },
   getUserInfoByToken: function() {
     let that = this
@@ -302,10 +299,23 @@ Page({
     let id = a
     let idx = b
     let collection = that.data.collection
+    let distinct = function () {
+      let len = collection.length;
+      for (let i = 0; i < len; i++) {
+        for (let j = i + 1; j < len; j++) {
+          if (collection[i] == collection[j]) {
+            collection.splice(j, 1);
+            len--;
+            j--;
+          }
+        }
+      }
+      return collection;
+    };
+    distinct();
     let index = collection.indexOf(id)
     let list = that.data.list
     let obj = list[idx]
-
     collection.splice(index, 1);
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
@@ -656,7 +666,7 @@ Page({
     let that=this
     let aid=that.data.aid
       return {
-      title: '荔枝医美',
+        title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
       path: '/pages/userinfo/userinfo?id='+aid+"&getshare="+1,
     }
