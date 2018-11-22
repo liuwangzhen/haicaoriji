@@ -22,9 +22,11 @@
     </swiper-item>
   </swiper>
   <!-- <view class='count'>{{current+1}}/{{count}}</view> -->
-  <view  class='user'>
+  <view class='user'>
     <image mode='aspectFill' src='{{list.author_head}}'></image>
     <view class='nick'>{{list.author_name}}</view>
+    <button class='contact' open-type="contact" bindcontact="handleContact">联系我们</button>
+    <!-- <button class='contact' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机 </button> -->
   </view>
   <text class='content'>
     {{list.content}}
@@ -42,29 +44,32 @@
       <view class='ml20 comment2' bindtap='comment'>说点什么，让TA也认识看笔记的你吧...</view>
     </view>
     <view class='ml20 mt20 line4'></view>
-    <view wx:if="{{index<3}}" wx:for="{{comments}}" wx:key="{{item.id}}">
-      <view class='r1 cont pl30 mt30'>
-        <image class='img2 ml30' src='{{item.created_by.headimg}}' mode='aspectFill'></image>
-        <view class='col ml20'>
-          <view class='r1'>
-            <text style='width:500rpx;' class='f30'>{{item.created_by.nick}}</text>
-            <view class='block r1'>
-              <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;color:#57b0f0'>回复</view>
-              <!-- <view class='iconfont icon-dianzan'></view>
+    <view wx:if="{{commentslen.length!=0}}">
+      <view wx:if="{{index<3}}" wx:for="{{comments}}" wx:key="{{item.id}}">
+        <view class='r1 cont mt30'>
+          <image class='img2 ml30' src='{{item.created_by.headimg}}' mode='aspectFill'></image>
+          <view class='col ml20'>
+            <view class='r1'>
+              <text style='width:500rpx;' class='f30'>{{item.created_by.nick}}</text>
+              <view class='block r1'>
+                <view data-id='{{item.id}}' bindtap='answer' style='margin-right:30rpx;color:#57b0f0'>回复</view>
+                <view data-id='{{item.id}}' wx:if="{{canDele==true}}" bindtap='deleteComment' style='font-size:32rpx;position:relative;top:5rpx;' class='iconfont icon-iconfontshanchu6'></view>
+                <!-- <view class='iconfont icon-dianzan'></view>
               <view>2</view> -->
+              </view>
             </view>
+            <view class='time2'>{{item.created_at}}</view>
+            <text class='content2'>{{item.comment}}</text>
+            <text decode="true" wx:if="{{item.answers.length==1}}" class='comment3'>{{item.answers[0].created_by.nick}}:{{item.answers[0].answer}}</text>
+            <text bindtap='getAllComments' wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c57'>共{{item.answers.length}}条回复</text></text>
           </view>
-          <view class='time2'>{{item.created_at}}</view>
-          <text class='content2'>{{item.comment}}</text>
-          <text wx:if="{{item.answers.length==1}}" class='comment3'>{{item.answers[0].created_by.nick}}: {{item.answers[0].answer}}</text>
-          <text bindtap='getAllComments' wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c57'>共{{item.answers.length}}条回复</text></text>
         </view>
+        <view class='ml20 mt20 line4'></view>
       </view>
-      <view class='ml20 mt20 line4'></view>
+      <view wx:if="{{comments.length>0}}" class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{commentslen.length}}条评论
+        <span style="font-size:25rpx;position:relative;bottom:2rpx;" class='iconfont2 icon-qianjin'></span>
+      </view>
     </view>
-  </view>
-  <view wx:if="{{comments.length>0}}" class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{commentslen.length}}条评论
-    <span style="font-size:25rpx;position:relative;bottom:2rpx;" class='iconfont2 icon-qianjin'></span>
   </view>
   <view class='line2'></view>
 </view>
@@ -87,17 +92,17 @@
       <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" style='color:red;font-size:50rpx;' class='iconfont icon-xin'>
         <span class="share-1">收藏</span>
       </view>
-  </button>
-  <view wx:if="{{list.collection>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
-</view>
-<view class='line'>
-</view>
-<view style='position:absolute;left:475rpx;' class='r1'>
-  <button open-type="share" bindtap='onShareAppMessage' class='share'>
-    <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
-      <span class="share-1">分享</span>
-    </view>
-  </button>
-  <view wx:if="{{share>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
-</view>
+    </button>
+    <view wx:if="{{list.collection>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
+  </view>
+  <view class='line'>
+  </view>
+  <view style='position:absolute;left:475rpx;' class='r1'>
+    <button open-type="share" bindtap='onShareAppMessage' class='share'>
+      <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
+        <span class="share-1">分享</span>
+      </view>
+    </button>
+    <view wx:if="{{share>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
+  </view>
 </view>

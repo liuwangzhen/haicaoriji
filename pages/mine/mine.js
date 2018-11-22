@@ -1,5 +1,6 @@
 // pages/mine/mine.js
 var ex = require('../../common/common.js')
+
 Page({
 
   /**
@@ -37,6 +38,8 @@ Page({
       url: '../updata/updata',
     })
   },
+  
+
   getFans() {
     let that = this
     let aid = getApp().globalData.userId
@@ -346,8 +349,6 @@ Page({
     query.compare("created_by", '=', userId)
 
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
-      // success
-
       if (res.data.objects == "") {
         wx.showToast({
           title: '没有更多内容了',
@@ -372,7 +373,6 @@ Page({
           page: page
         })
       }
-
     }, err => {
       // err
     })
@@ -384,14 +384,12 @@ Page({
   onReady: function () {
   
   },
-  
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
     let MyUser = new wx.BaaS.User()
     let that = this
+    // getApp().NetUtil.CheckLoginStatus(null, function (loginStatus) { 
+    //   console.log("0090")
+    // });
     wx.BaaS.login(false).then(res => {
     MyUser.get(res.id).then(res => {
         that.setData({
@@ -413,21 +411,49 @@ Page({
     let tableID = 55960
     let that = this
     let collection=that.data.collection
-    
     let query = new wx.BaaS.Query()
     query.in('id', collection)
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(5).offset(0).find().then(res => {
      let list0=res.data.objects
       for (var i = 0; i < res.data.objects.length; i++) {
-
       list0[i].content = that.LimitNumbersadf(list0[i].content);
       list.push(list0[i]);
       }
      that.setData({
        list2:list,
+       page2:0,
      })
+    }, err => {
+      // err
+    })
+  },
+  getcol2: function () {
+    let tableID = 55960
+    let that = this
+    let page2 = that.data.page2
+    page2++;
+    let collection = that.data.collection
+    let query = new wx.BaaS.Query()
+    query.in('id', collection)
+    let Product = new wx.BaaS.TableObject(tableID)
+    let list = new Array;
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(5).offset(page2*5).find().then(res => {
+      if (res.data.objects == "") {
+        wx.showToast({
+          title: '没有更多内容了',
+        })
+      }
+      let list0 = res.data.objects
+      for (var i = 0; i < res.data.objects.length; i++) {
+        list0[i].content = that.LimitNumbersadf(list0[i].content);
+        list.push(list0[i]);
+      }
+      that.setData({
+        list2: that.data.list2.concat(list),
+        page2: page2,
+      })
     }, err => {
       // err
     })
@@ -456,19 +482,10 @@ Page({
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     currentUser.set('collection', collection).update().then(res => {
-      // success
-      
       num=parseInt(num)-1
-      
       that.getUserInfoByToken()
       that.getcol();
       that.updatacollect(id, num)
-      // wx.showToast({
-      //   title: '取消成功',
-      //   icon: 'success',
-      //   duration: 2000
-
-      // })
     }, err => {
       // err
     })
@@ -493,13 +510,12 @@ Page({
   onPullDownRefresh: function () {
     wx.stopPullDownRefresh();
     var that = this;
-
     setTimeout(function () {
       if (that.data.select == 'note') {
         that.getList();
       }
       else {
-        // that.getCollects();
+        that.getcol();
       }
       wx.showToast({
         title: '正在刷新',
@@ -515,24 +531,19 @@ Page({
    */
   onReachBottom: function () {
     let that = this;
-
     wx.stopPullDownRefresh();
-
     setTimeout(function () {
       if (that.data.select == 'note') {
-
         that.getList2();
       }
       else {
-        // that.getCollects2();
+        that.getcol2();
       }
       wx.showToast({
         title: '正在加载',
         duration: 2000,
-
       })
     }, 500);
-
   },
 
   /**

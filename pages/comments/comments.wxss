@@ -41,6 +41,9 @@ padding-bottom:20rpx;
 display:block;
 padding-right:20rpx;
 margin-left:20rpx;
+word-break: break-all;
+word-wrap: break-word; 
+letter-spacing:2rpx;
 
 }
 .c29{

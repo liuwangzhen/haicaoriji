@@ -7,24 +7,24 @@ Page({
   data: {
     richTextID: "",
     list: "",
-    id:"",
-    nick:"",
-    headimg:"",
-    count:"",
-    current:0,
-    userid:"",
-    collection:[0],
-    content:"",
-    share:0,
-    getshare:0,
-    input:false,
-    commentVal:"",
+    id: "",
+    nick: "",
+    headimg: "",
+    count: "",
+    current: 0,
+    userid: "",
+    collection: [0],
+    content: "",
+    share: 0,
+    getshare: 0,
+    input: false,
+    commentVal: "",
     commentVal2: "",
-    focus:false,
-    focus2:false,
-    input2:false,
-    height4:getApp().globalData.height,
-    isClick:true,
+    focus: false,
+    focus2: false,
+    input2: false,
+    height4: getApp().globalData.height,
+    isClick: true,
   },
 
   /**
@@ -33,28 +33,29 @@ Page({
   onLoad: function(options) {
     let that = this;
     var id = options.id;
-    if(options.getshare!=undefined){
+    if (options.getshare != undefined) {
       that.setData({
-        getshare:options.getshare,
+        getshare: options.getshare,
       })
     }
     that.setData({
-      id:id,   
+      id: id,
+
     })
-    that.getcomment();
     that.getUserInfoByToken();
+    that.getcomment();
   },
-  goback: function () {
+  goback: function() {
     wx.navigateBack({
       delta: 1,
     })
   },
-  goIndex: function () {
+  goIndex: function() {
     wx.switchTab({
       url: '../indexo/indexo',
     })
   },
-  previewImage: function (e) {
+  previewImage: function(e) {
     let current = e.currentTarget.dataset.item
     let arr1 = this.data.list.img
     wx.previewImage({
@@ -69,51 +70,75 @@ Page({
   onReady: function() {
 
   },
-  goUser:function(){
-    var id=this.data.userid;
-      if (id == getApp().globalData.userId) {
-        wx.switchTab({
-          url: '../mine/mine',
-        })
-      }
-      else {
-        wx.navigateTo({
-          url: '../userinfo/userinfo?id='+ id,
-        })}
-     
+  goUser: function() {
+    var id = this.data.userid;
+    if (id == getApp().globalData.userId) {
+      wx.switchTab({
+        url: '../mine/mine',
+      })
+    } else {
+      wx.navigateTo({
+        url: '../userinfo/userinfo?id=' + id,
+      })
+    }
   },
-  
+  getPhoneNumber(e) {
+    let encryptedData = e.detail.encryptedData
+    let iv = e.detail.iv
+    wx.checkSession({　　　
+      success: function(res) {　　　　　　
+        console.log("处于登录态");
+        wx.BaaS.wxDecryptData(encryptedData, iv, 'phone-number').then(decrytedData => {
+          console.log('decrytedData: ', decrytedData)
+        }, err => {
+          // 失败的原因有可能是以下几种：用户未登录或 session_key 过期，微信解密插件未开启，提交的解密信息有误
+        })　　　　
+      },
+      　　　　fail: function(res) {　　　　　　
+        console.log("需要重新登录");　　　　　　
+            wx.BaaS.logout()
+            wx.BaaS.login()
+　　　
+      }　　
+    })
+
+  },
+
   getPic: function() {
     let that = this
     let tableID = 55960
     let recordID = that.data.id
-    let Product = new wx.BaaS.TableObject(tableID) 
+    let Product = new wx.BaaS.TableObject(tableID)
     Product.get(recordID).then(res => {
-      // success
-      let list = res.data 
-      let collection = that.data.collection    
+      let list = res.data
+      let collection = that.data.collection
       let i = collection.indexOf(recordID)
-      if ( i> -1) {
-        list.collect = 1;}
-        else{
-          list.collect=0;
-        }
+      if (i > -1) {
+        list.collect = 1;
+      } else {
+        list.collect = 0;
+      }
       var datetime = new Date(res.data.created_at * 1000);
       let id = res.data.created_by
       let MyUser = new wx.BaaS.User()
       that.setData({
         userid: res.data.created_by
       })
-      if(res.data.created_by==getApp().globalData.userId){
+      if (that.data.userid == that.data.user2Id) {
         that.setData({
-          candelete:true
+          canDele: true
         })
       }
-      MyUser.get(id).then(res => {      
-       that.setData({
-         headimg:res.data.headimg,
-         nick:res.data.nick,
-       })
+      if (res.data.created_by == getApp().globalData.userId) {
+        that.setData({
+          candelete: true
+        })
+      }
+      MyUser.get(id).then(res => {
+        that.setData({
+          headimg: res.data.headimg,
+          nick: res.data.nick,
+        })
       }, err => {
         // err
       })
@@ -134,33 +159,32 @@ Page({
       if (date <= 9) {
         date = "0" + date;
       }
-      var dateformat = year + "-" + month + "-" + date +" "+hours+":"+minutes;
+      var dateformat = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
       // var str = res.data.content.split('↵').join('\n');
       that.setData({
         list: list,
         // content:str,
-        share:list.share,
-        date:dateformat,
+        share: list.share,
+        date: dateformat,
         count: res.data.img.length
-      }) 
+      })
       wx.getImageInfo({
         src: res.data.img[0],
         success: function(res) {
           that.setData({
-            height: res.height/res.width,
+            height: res.height / res.width,
           })
         }
       })
 
-    }, err => {
-    })
+    }, err => {})
   },
-  delete:function(){
-    let that=this
+  delete: function() {
+    let that = this
     wx.showModal({
       title: '提示',
       content: '确认删除',
-      success: function (res) {
+      success: function(res) {
         if (res.confirm) {
           let tableID = 55960
           let recordID = that.data.id
@@ -173,28 +197,49 @@ Page({
           }, err => {
             // err
           })
-        }
-        else if (res.cancel) {
+        } else if (res.cancel) {
           console.log('用户点击取消')
-        }}
+        }
+      }
     })
   },
-  change:function(e){
-    var that=this
-    var i=e.detail.current
+  change: function(e) {
+    var that = this
+    var i = e.detail.current
     that.setData({
-      current:i,
+      current: i,
     })
     wx.getImageInfo({
       src: that.data.list.img[i],
-      success: function (res) {
+      success: function(res) {
         that.setData({
           height: res.height / res.width,
         })
       }
     })
   },
-  ifcollect: function (e) {
+  deleteComment: function(e) {
+    let that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除',
+      success: function(res) {
+        if (res.confirm) {
+          let tableID = 56497
+          let recordID = e.currentTarget.dataset.id
+          let Product = new wx.BaaS.TableObject(tableID)
+          Product.delete(recordID).then(res => {
+            that.getcomment();
+          }, err => {
+            // err
+          })
+        } else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
+  },
+  ifcollect: function(e) {
     let that = this
     let isClick = that.data.isClick
     let a = e.currentTarget.dataset.id
@@ -205,18 +250,17 @@ Page({
       })
       if (e.currentTarget.dataset.collect == 0) {
         that.collect(a)
-      }
-      else {
+      } else {
         that.nocollect(a)
       }
-      setTimeout(function () {
+      setTimeout(function() {
         that.setData({
           isClick: true
         })
       }, 500)
     }
   },
-  collect: function (a) {
+  collect: function(a) {
     let that = this
     let id = a
     let collection = that.data.collection.concat(id)
@@ -241,8 +285,8 @@ Page({
       // err
     })
   },
-  updatacollect: function (collection) {
-    let that=this
+  updatacollect: function(collection) {
+    let that = this
     let tableID = 55960
     let recordID = that.data.id
     let Product = new wx.BaaS.TableObject(tableID)
@@ -254,11 +298,11 @@ Page({
       // err
     })
   },
-  nocollect: function (a) {
+  nocollect: function(a) {
     let that = this
     let id = a
-    let collection=that.data.collection
-    let distinct = function () {
+    let collection = that.data.collection
+    let distinct = function() {
       let len = collection.length;
       for (let i = 0; i < len; i++) {
         for (let j = i + 1; j < len; j++) {
@@ -285,7 +329,7 @@ Page({
       let collection = list.collection
       that.setData({
         list: list
-      }) 
+      })
       that.getUserInfoByToken()
       that.updatacollect(collection)
       wx.showToast({
@@ -305,31 +349,32 @@ Page({
     let that = this
     that.getUserInfoByToken();
   },
-  getUserInfoByToken(){
-  let MyUser = new wx.BaaS.User()
+  getUserInfoByToken() {
+    let MyUser = new wx.BaaS.User()
     let that = this
     let id = that.data.id
     wx.BaaS.login(false).then(res => {
-    MyUser.get(res.id).then(res => {
-      if (res.data.is_authorized == false) {
-      // if (res.data.jundge == false) {
-        wx.redirectTo({
-          url: '../../pages/login3/login3?id='+that.data.id,
+      MyUser.get(res.id).then(res => {
+        if (res.data.is_authorized == false) {
+          // if (res.data.jundge == false) {
+          wx.redirectTo({
+            url: '../../pages/login3/login3?id=' + that.data.id,
+          })
+        }
+        that.setData({
+          collection: res.data.collection,
+          user: res.data,
+          user2Id: res.data.id,
         })
-      }
-      that.setData({
-        collection: res.data.collection,
-        user:res.data
+        that.getPic();
+      }, err => {
+        // err
       })
-      that.getPic();
-    }, err => {
-      // err
-    })
-    // 登录成功
+      // 登录成功
 
-  }, err => {
-    // 登录失败
-  })
+    }, err => {
+      // 登录失败
+    })
   },
 
   /**
@@ -369,160 +414,158 @@ Page({
     str += '...'
     return str;
   },
-  comment:function(){
-    let that=this
+  comment: function() {
+    let that = this
     that.setData({
-      input:true,
-      focus:true,
-      input2:false,
-      input4:false,
+      input: true,
+      focus: true,
+      input2: false,
+      input4: false,
     })
-  
+
   },
-  send:function(){
-    let that=this
+  send: function() {
+    let that = this
     setTimeout(
-    function(){
-      let comment = that.data.commentVal
-      let cid = that.data.id
-      let tableID = 56497
-      let Product = new wx.BaaS.TableObject(tableID)
-      let product = Product.create()
-      let apple = {
-        comment: comment,
-        cid: cid,
-      }
-      product.set(apple).save().then(res => {
-        that.getcomment()
-        that.setData({
-          input: false,
-          commentVal: "",
+      function() {
+        let comment = that.data.commentVal
+        let cid = that.data.id
+        let tableID = 56497
+        let Product = new wx.BaaS.TableObject(tableID)
+        let product = Product.create()
+        let apple = {
+          comment: comment,
+          cid: cid,
+        }
+        product.set(apple).save().then(res => {
+          that.getcomment()
+          that.setData({
+            input: false,
+            commentVal: "",
+          })
+        }, err => {
+          //err 为 HError 对象
         })
-      }, err => {
-        //err 为 HError 对象
-      })
-    }
-    ,200)
+      }, 200)
   },
-  inputVal:function(e){
+  inputVal: function(e) {
     this.setData({
       commentVal: e.detail.value,
-      input:false,
+      input: false,
     });
   },
-  focusInput: function (e) {
+  focusInput: function(e) {
     this.setData({
-      height2: e.detail.height, 
+      height2: e.detail.height,
     })
   },
-  focusInput2: function (e) {
+  focusInput2: function(e) {
     this.setData({
       height3: e.detail.height,
     })
   },
-  inputVal2: function (e) {
+  inputVal2: function(e) {
     this.setData({
       commentVal2: e.detail.value,
-      input2:false,
+      input2: false,
     });
   },
-  
-  answer:function(e){
+
+  answer: function(e) {
     let that = this
-    let coid=e.currentTarget.dataset.id
+    let coid = e.currentTarget.dataset.id
     that.setData({
       input2: true,
       focus2: true,
-      input:false,
-      input3:false,
-      coid:coid
+      input: false,
+      input3: false,
+      coid: coid
     })
   },
-  moveOut:function(){
-    let that=this;
+  moveOut: function() {
+    let that = this;
     that.setData({
-      input:false
+      input: false
     })
   },
-  sendanswer:function(){
+  sendanswer: function() {
     let that = this
     setTimeout(
-      function(){
-    let comment = that.data.commentVal2
-    let cid=that.data.coid
-    let tableID = 56584
-    let Product = new wx.BaaS.TableObject(tableID)
-    let product = Product.create()
-    let apple = {
-      answer: comment,
-      cid: cid,
-    }
-    product.set(apple).save().then(res => {
-      that.getcomment()
-     that.setData({
-       input2: false,
-       commentVal2: "",
-     })
-    }, err => {
-    })},200)
+      function() {
+        let comment = that.data.commentVal2
+        let cid = that.data.coid
+        let tableID = 56584
+        let Product = new wx.BaaS.TableObject(tableID)
+        let product = Product.create()
+        let apple = {
+          answer: comment,
+          cid: cid,
+        }
+        product.set(apple).save().then(res => {
+          that.getcomment()
+          that.setData({
+            input2: false,
+            commentVal2: "",
+          })
+        }, err => {})
+      }, 200)
   },
-  sendanswer2:function(){
-    let that=this;
+  sendanswer2: function() {
+    let that = this;
     that.setData({
-      input2:true,
-      input4:false,
-      focus4:false,
+      input2: true,
+      input4: false,
+      focus4: false,
     })
   },
-  getcomment:function(){
-    let that=this
-    let id=that.data.id
+  getcomment: function() {
+    let that = this
+    let id = that.data.id
     let query = new wx.BaaS.Query()
-    query.compare("cid","=",id)
+    query.compare("cid", "=", id)
     let Product = new wx.BaaS.TableObject(56497)
-    let list=new Array 
-    let list4=new Array
+    let list = new Array
+    let list4 = new Array
     Product.setQuery(query).find().then(res => {
       that.setData({
-        commentslen:res.data.objects
+        commentslen: res.data.objects
       })
-     }, err => {
-    })
+    }, err => {})
     Product.setQuery(query).orderBy('-created_at').limit(3).offset(0).expand('created_by').find().then(res => {
-      let list0=res.data.objects 
-      for(let i=0;i<res.data.objects.length;i++){
+      let list0 = res.data.objects
+      for (let i = 0; i < res.data.objects.length; i++) {
         list0[i].idx = i;
         let i2 = res.data.objects.length - 1
         let query2 = new wx.BaaS.Query()
         query2.compare("cid", "=", list0[i].id)
         let Product2 = new wx.BaaS.TableObject(56584)
         Product2.setQuery(query2).expand('created_by').find().then(e => {
-         list0[i].answers = e.data.objects  
-         list0[i].created_at = that.getDate(list0[i].created_at)
-         list.push(list0[i])
-        //  if (i == i2){    
-               that.setData({
-                 comments: list.sort(compare('idx'))
-               })      
-           function compare(property) {
-             return function (a, b) {
-               var value1 = a[property];
-               var value2 = b[property];
-               return value1 - value2;
-             }
-           }
-
-        // }
+          list0[i].answers = e.data.objects
+          list0[i].created_at = that.getDate(list0[i].created_at)
+          list.push(list0[i])
+          //  if (i == i2){    
+          that.setData({
+            comments: list.sort(compare('idx'))
           })
-      //  that.getCom(i,i2,list0); 
+
+          function compare(property) {
+            return function(a, b) {
+              var value1 = a[property];
+              var value2 = b[property];
+              return value1 - value2;
+            }
+          }
+
+          // }
+        })
+        //  that.getCom(i,i2,list0); 
       }
-    }, err => {
-    })
+    }, err => {})
   },
-  getCom: function (i,i2,list0){
-    let that=this
+  getCom: function(i, i2, list0) {
+    let that = this
     let query2 = new wx.BaaS.Query()
-    let list=new Array
+    let list = new Array
     query2.compare("cid", "=", list0[i].id)
     let Product2 = new wx.BaaS.TableObject(56584)
     Product2.setQuery(query2).expand('created_by').find().then(e => {
@@ -536,15 +579,16 @@ Page({
       }
     })
   },
-  getAllComments:function(){
+  getAllComments: function() {
     let that = this
     let id = that.data.id
+    let canDele = that.data.canDele
     wx.navigateTo({
-      url: '../comments/comments?id='+id,
+      url: '../comments/comments?id=' + id + "&canDele=" + canDele,
     })
   },
-  getDate:function(d){
-    var st=d
+  getDate: function(d) {
+    var st = d
     var datetime = new Date(st * 1000);
     var year = datetime.getFullYear();
     var month = datetime.getMonth() + 1;
@@ -568,17 +612,17 @@ Page({
   },
   onShareAppMessage: function() {
     let that = this
-    let id = that.data.id   
+    let id = that.data.id
     let tableID = 55960
     let recordID = id
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
-    let share=that.data.share+1 
-    let title=that.LimitNumbersadf(that.data.list.content) 
+    let share = that.data.share + 1
+    let title = that.LimitNumbersadf(that.data.list.content)
     return {
       title: title,
       desc: '最具人气的小程序',
-      path: '/pages/detail/detail?id='+id+"&getshare="+1,
+      path: '/pages/detail/detail?id=' + id + "&getshare=" + 1,
       success: (e) => {
         product.set('share', share)
         product.update().then(res => {
@@ -586,7 +630,7 @@ Page({
           that.setData({
             share: res.data.share
           })
-         
+
         }, err => {
           // err
         })

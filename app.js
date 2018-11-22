@@ -13,7 +13,6 @@ App({
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       that.globalData.userId = res.id
-     
       MyUser.get(res.id).then(res => {
         // success
         that.globalData.userInfo = res.data

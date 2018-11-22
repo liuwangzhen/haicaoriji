@@ -9,6 +9,12 @@
         "iconPath": "images/rizhi2.png",
         "selectedIconPath": "images/rizhi.png"
       }, */
+       /* {
+        "pagePath": "pages/contact/contact",
+        "text": "咨询",
+        "iconPath": "images/liaotian2.png",
+        "selectedIconPath": "images/liaotian.png"
+      }, */
 .top {
   position: fixed;
   top: 0rpx;
@@ -89,9 +95,11 @@
 
 .nav-capsule .back-home {
  width:42rpx;
-height:39rpx;
+height:38rpx;
 padding-top:6px;
 padding-left:20px;
+position: relative;
+top:-2rpx;
 }
 
 .f27 {
@@ -135,7 +143,9 @@ padding-left:20px;
 .mt120 {
   margin-top: 120rpx;
 }
-
+.ml30{
+  margin-left: 30rpx;
+}
 .c66 {
   color: #ddd;
 }

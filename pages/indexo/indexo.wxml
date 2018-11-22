@@ -7,7 +7,7 @@
   <view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
     <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
-      <input class="search" placeholder="大家都在搜" placeholder-class="search-p"></input>
+      <input class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
     </view>
   </view>
   <view hidden="{{!inputShowed}}" class='nav'>

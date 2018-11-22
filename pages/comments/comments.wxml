@@ -23,6 +23,7 @@
           <text style='width:500rpx;' class='f30'>{{item.created_by.nick}}</text>
           <view class='block r1'>
             <view data-id='{{item.id}}' bindtap='answer' style='padding-right:10rpx;width:100rpx;height:50rpx;text-align:center;padding-top:10rpx;color:#57b0f0;position:relative;top:-7rpx;font-size:28rpx'>回复</view>
+            <view data-index="{{index}}" data-id='{{item.id}}' wx:if="{{canDele=='true'}}" bindtap='deleteComment' style='font-size:32rpx;position:relative;top:5rpx;' class='iconfont icon-iconfontshanchu6'></view>
             <!-- <view class='iconfont icon-dianzan'></view>
             <view>2</view> -->
           </view>

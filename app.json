@@ -41,12 +41,6 @@
         "selectedIconPath": "images/首页.png"
       },
       {
-        "pagePath": "pages/contact/contact",
-        "text": "咨询",
-        "iconPath": "images/liaotian.png",
-        "selectedIconPath": "images/liaotian2.png"
-      },
-      {
         "pagePath": "pages/mine/mine",
         "text": "我的",
         "iconPath": "images/我的灰.png",

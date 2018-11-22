@@ -199,20 +199,36 @@ position:relative;
 font-size:28rpx;
 margin-top:20rpx;
 padding-bottom:20rpx;
-display:block;
 padding-right:20rpx;
+width:570rpx;
+word-break: break-all;
+word-wrap: break-word;
+letter-spacing:2rpx;
+
 }
 .comment3 {
  display:block;
-  width: 610rpx;
+  width: 570rpx;
   background-color: #f4f9fc;
   font-size: 28rpx;
   padding-top: 10rpx;
   padding-bottom:5px;
-  padding-left: 20rpx;
+  /* padding-left: 20rpx; */
+  word-wrap: break-word;
+  word-break:break-all;
+  letter-spacing:2rpx;
+
 }
 .line4{
   width: 730rpx;
   height: 1rpx;
   background-color: #f5f5f5;
+}
+.contact{
+  position: absolute;
+  right: 50rpx;
+  background: linear-gradient(to right,#ffad88, #fd78a2);
+  color: #fff;
+  font-size: 30rpx;
+  line-height:60rpx;
 }

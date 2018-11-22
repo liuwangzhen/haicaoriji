@@ -30,6 +30,7 @@ Page({
           collection: res.data.collection
         })
         if (res.data.is_authorized == false) {
+          // if (res.data.jundge == false) {
           wx.redirectTo({
             url: '../../pages/login/login',
 

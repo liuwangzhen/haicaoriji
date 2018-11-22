@@ -22,10 +22,38 @@ Page({
      let user=getApp().globalData.userInfo
      that.setData({
        id:e.id,
-       user:user
+       user:user,
+       canDele: e.canDele
      })
      that.getcomment();
      
+  },
+  deleteComment: function (e) {
+    let that = this
+    wx.showModal({
+      title: '提示',
+      content: '确认删除',
+      success: function (res) {
+        if (res.confirm) {
+          let tableID = 56497
+          let index=e.currentTarget.dataset.index
+          let recordID = e.currentTarget.dataset.id
+          let Product = new wx.BaaS.TableObject(tableID)
+          Product.delete(recordID).then(res => {
+            let comments = that.data.comments
+            comments.splice(index,1)
+            that.setData({
+              comments:comments
+            })
+          }, err => {
+            // err
+          })
+        }
+        else if (res.cancel) {
+          console.log('用户点击取消')
+        }
+      }
+    })
   },
 getcomment:function(){
     let that=this
