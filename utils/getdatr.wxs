@@ -24,7 +24,7 @@ var filter = {
   },
   LimitNumbersadf:function(txt) {
     var str = txt;
-    str = str.substring(0, 4);
+    str = str.substring(0, 23);
     str += '...'
     return str;
   },

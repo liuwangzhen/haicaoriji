@@ -184,7 +184,6 @@ Page({
           }
         }
       }
-      console.log("0000")
       return collection;
     };
     distinct();
@@ -205,76 +204,11 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-
     }, err => {
       // err
     })
 
   },
-  // collect: function (e) {
-  //   let that = this
-  //   let id = e.currentTarget.dataset.id
-  //   let idx = e.currentTarget.dataset.index
-  //   let collection = that.data.collection.concat(id)
-  //   let MyUser = new wx.BaaS.User()
-  //   let currentUser = MyUser.getCurrentUserWithoutData()
-  //   let list = that.data.list
-  //   let obj = list[idx]
-  //   currentUser.set('collection', collection).update().then(res => {
-  //     obj.collect = 1;
-  //     obj.collection = parseInt(obj.collection) + 1;
-  //     let collection = obj.collection
-  //     list.splice(idx, 1, obj)
-  //     that.setData({
-  //       list: list
-  //     })
-  //     that.getUserInfoByToken()
-  //     that.updatacollect(id, collection)
-  //   }, err => {
-  //     // err
-  //   })
-  // },
-  // updatacollect: function (id, collection) {
-  //   let tableID = 55960
-  //   let recordID = id
-
-  //   let Product = new wx.BaaS.TableObject(tableID)
-  //   let product = Product.getWithoutData(recordID)
-
-  //   product.set('collection', collection)
-  //   product.update().then(res => {
-  //     // success
-
-  //   }, err => {
-  //     // err
-  //   })
-  // },
-  // nocollect: function (e) {
-  //   let that = this
-  //   let id = e.currentTarget.dataset.id
-  //   let idx = e.currentTarget.dataset.index
-  //   let collection = that.data.collection
-  //   let index = collection.indexOf(id)
-  //   let list = that.data.list
-  //   let obj = list[idx]
-  //   collection.splice(index, 1);
-  //   let MyUser = new wx.BaaS.User()
-  //   let currentUser = MyUser.getCurrentUserWithoutData()
-  //   currentUser.set('collection', collection).update().then(res => {
-  //     // success
-  //     obj.collect = 0;
-  //     obj.collection = parseInt(obj.collection) - 1;
-  //     let collection = obj.collection
-  //     list.splice(idx, 1, obj)
-  //     that.setData({
-  //       list: list
-  //     })
-  //     that.getUserInfoByToken()
-  //     that.updatacollect(id, collection)
-  //   }, err => {
-  //     // err
-  //   })
-  // },
   getList: function () {
     let tableID = 55960
     let that = this
@@ -282,30 +216,20 @@ Page({
     let list = new Array;
     let query = new wx.BaaS.Query()
     let userId = getApp().globalData.userId
-
     query.compare("created_by", '=', userId)
-
-
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
-      // success
       let list0 = res.data.objects
-
       for (var i = 0; i < res.data.objects.length; i++) {
-       
         let collection = that.data.collection
-
         if (collection.indexOf(list0[i].id) > -1) {
           list0[i].collect = 1;
-
           list0[i].content = that.LimitNumbersadf(list0[i].content);
           list.push(list0[i]);
-
         } else {
           list0[i].collect = 0;
           list0[i].content = that.LimitNumbersadf(list0[i].content);
           list.push(list0[i]);
         }
-
       }
     that.setData({
         list: list,
@@ -387,16 +311,12 @@ Page({
   onShow: function () {
     let MyUser = new wx.BaaS.User()
     let that = this
-    // getApp().NetUtil.CheckLoginStatus(null, function (loginStatus) { 
-    //   console.log("0090")
-    // });
     wx.BaaS.login(false).then(res => {
     MyUser.get(res.id).then(res => {
         that.setData({
           collection: res.data.collection
         })
-        
-        this.getList()
+        this.getcol()
       }, err => {
         // err
       })
@@ -415,12 +335,8 @@ Page({
     query.in('id', collection)
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(5).offset(0).find().then(res => {
-     let list0=res.data.objects
-      for (var i = 0; i < res.data.objects.length; i++) {
-      list0[i].content = that.LimitNumbersadf(list0[i].content);
-      list.push(list0[i]);
-      }
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
+     let list=res.data.objects
      that.setData({
        list2:list,
        page2:0,
@@ -439,17 +355,13 @@ Page({
     query.in('id', collection)
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(5).offset(page2*5).find().then(res => {
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page2*10).find().then(res => {
       if (res.data.objects == "") {
         wx.showToast({
           title: '没有更多内容了',
         })
       }
-      let list0 = res.data.objects
-      for (var i = 0; i < res.data.objects.length; i++) {
-        list0[i].content = that.LimitNumbersadf(list0[i].content);
-        list.push(list0[i]);
-      }
+      let list = res.data.objects
       that.setData({
         list2: that.data.list2.concat(list),
         page2: page2,
@@ -511,16 +423,10 @@ Page({
     wx.stopPullDownRefresh();
     var that = this;
     setTimeout(function () {
-      if (that.data.select == 'note') {
-        that.getList();
-      }
-      else {
         that.getcol();
-      }
       wx.showToast({
         title: '正在刷新',
         duration: 2000,
-
       })
     }, 500);
 
@@ -533,12 +439,7 @@ Page({
     let that = this;
     wx.stopPullDownRefresh();
     setTimeout(function () {
-      if (that.data.select == 'note') {
-        that.getList2();
-      }
-      else {
         that.getcol2();
-      }
       wx.showToast({
         title: '正在加载',
         duration: 2000,
@@ -550,13 +451,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    // let that = this
-    // let id = that.data.aid
-    // return {
-    //   title: '荔枝医美',
-    //   desc: '最具人气的小程序',
-    //   path: '/pages/userinfo/userinfo?id=' + id + "&getshare=" + 1,
-    // }
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',

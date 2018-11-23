@@ -2,7 +2,6 @@
 .content{
   margin: 0 20rpx;
   text-align: justify; 
-  padding-bottom:200rpx;
 }  
 .item{
   background-color: #fff;
@@ -32,7 +31,7 @@
 .item-img{
   width: 100%;
   border-radius:10rpx 10rpx 0 0;
-  max-height:580rpx;
+  max-height:550rpx;
 
   
 }
@@ -64,8 +63,8 @@
 }
 .item-title-box{
  display:flex;
-height:180rpx;
-flex-direction:column;
+ height:110rpx;
+ flex-direction:column;
 
 }
 .name-title{

@@ -7,11 +7,10 @@ page{
   background-color: #f4f8fb;
 }
 .content{
-  padding-bottom: 300rpx;
   margin:0 20rpx;
   text-align:justify;
-
 }
+
 .atten-fans{
   display: flex;
   flex-direction: row;

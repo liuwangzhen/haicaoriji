@@ -5,24 +5,24 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:[],
-    arr2:[],
-    swiperIndex:0,
+    list: [],
+    arr2: [],
+    swiperIndex: 0,
     arr1: 1539847068639177,
-    inputShowed:false,
-    inputVal:"",
-    page:0,
-    collection:[],
+    inputShowed: false,
+    inputVal: "",
+    page: 0,
+    collection: [],
     height4: getApp().globalData.height,
-    isClick:true
-  
+    isClick: true
+
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    var that=this
+  onLoad: function(options) {
+    var that = this
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
@@ -45,47 +45,47 @@ Page({
     }, err => {
       // 登录失败
     })
-   
+
   },
-  showInput: function () {
+  showInput: function() {
     this.setData({
       inputShowed: true
     });
   },
-  hideInput: function () {
+  hideInput: function() {
     this.setData({
       inputVal: "",
       inputShowed: false
     });
   },
-  clearInput: function () {
+  clearInput: function() {
     this.setData({
       inputVal: ""
     });
   },
-  inputTyping: function (e) {
+  inputTyping: function(e) {
     this.setData({
       inputVal: e.detail.value
     });
 
   },
-  search:function(){
-    let val =this.data.inputVal
+  search: function() {
+    let val = this.data.inputVal
     wx.navigateTo({
-      url: '../search/search?val='+val,
+      url: '../search/search?val=' + val,
     })
   },
-  getUserInfoByToken(){
+  getUserInfoByToken() {
     let MyUser = new wx.BaaS.User()
-    let that=this
+    let that = this
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
         // success
         that.setData({
-          collection:res.data.collection
-        }) 
-        if(res.data.is_authorized==false){
-        // if (res.data.jundge == false) {
+          collection: res.data.collection
+        })
+        if (res.data.is_authorized == false) {
+          // if (res.data.jundge == false) {
           wx.redirectTo({
             url: '../../pages/login/login',
           })
@@ -98,80 +98,77 @@ Page({
     }, err => {
       // 登录失败
     })
-    
+
   },
-  change:function(e){
-    let that=this;   
-    let index=e.currentTarget.dataset.idx;
-    let arr1=e.currentTarget.dataset.arr;
+  change: function(e) {
+    let that = this;
+    let index = e.currentTarget.dataset.idx;
+    let arr1 = e.currentTarget.dataset.arr;
     that.setData({
-      swiperIndex:index,
-      arr1:arr1
+      swiperIndex: index,
+      arr1: arr1
     })
     that.getCont();
-   
+
   },
-  ifcollect:function(e){
+  ifcollect: function(e) {
     let that = this
-    let isClick=that.data.isClick
+    let isClick = that.data.isClick
     let a = e.currentTarget.dataset.id
     let b = e.currentTarget.dataset.index
-    if(isClick==true){
+    if (isClick == true) {
       that.setData({
-        isClick:false
+        isClick: false
       })
-    if (e.currentTarget.dataset.collect==0){
-    that.collect(a,b)
-    }
-    else{
-      that.nocollect(a, b)
-    }
-      setTimeout(function () {
+      if (e.currentTarget.dataset.collect == 0) {
+        that.collect(a, b)
+      } else {
+        that.nocollect(a, b)
+      }
+      setTimeout(function() {
         that.setData({
-          isClick:true
+          isClick: true
         })
-    }, 500)
+      }, 500)
     }
   },
-  collect:function(a,b){
-    let that = this 
+  collect: function(a, b) {
+    let that = this
     let id = a
     let idx = b
-    let collection=that.data.collection.concat(id)
+    let collection = that.data.collection.concat(id)
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
-    let list=that.data.list
-    let obj=list[idx]
+    let list = that.data.list
+    let obj = list[idx]
     currentUser.set('collection', collection).update().then(res => {
-      obj.collect=1;
-      obj.collection=parseInt(obj.collection)+1; 
-      let collection=obj.collection
-      list.splice(idx,1,obj)
+      obj.collect = 1;
+      obj.collection = parseInt(obj.collection) + 1;
+      let collection = obj.collection
+      list.splice(idx, 1, obj)
       that.setData({
-        list:list
+        list: list
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
     }, err => {
       // err
-    }) 
+    })
   },
-  updatacollect:function(id,collection){
+  updatacollect: function(id, collection) {
     let tableID = 55960
-    let recordID = id 
+    let recordID = id
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
     product.set('collection', collection)
-    product.update().then(res => {
-    }, err => {
-    })
+    product.update().then(res => {}, err => {})
   },
-  nocollect:function(a,b){
+  nocollect: function(a, b) {
     let that = this
     let id = a
     let idx = b
     let collection = that.data.collection
-    let distinct = function () {
+    let distinct = function() {
       let len = collection.length;
       for (let i = 0; i < len; i++) {
         for (let j = i + 1; j < len; j++) {
@@ -185,16 +182,16 @@ Page({
       return collection;
     };
     distinct();
-    let index=collection.indexOf(id)
+    let index = collection.indexOf(id)
     let list = that.data.list
     let obj = list[idx]
-    collection.splice(index,1);
+    collection.splice(index, 1);
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     currentUser.set('collection', collection).update().then(res => {
       console.log(res)
       obj.collect = 0;
-      obj.collection = parseInt(obj.collection)-1; 
+      obj.collection = parseInt(obj.collection) - 1;
       let collection = obj.collection
       list.splice(idx, 1, obj)
       that.setData({
@@ -202,35 +199,44 @@ Page({
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
-     
+
     }, err => {
       // err
     })
- 
+
   },
-  getList:function(){
+  getList: function() {
     let tableID = 55960
-    let that=this
+    let that = this
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    Product.orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
-      let list0=res.data.objects
-      for (let i = 0; i < res.data.objects.length; i++) {   
+    Product.orderBy('-created_at').expand('created_by').limit(50).offset(0).find().then(res => {
+      let list0 = res.data.objects
+      function shuffle(arr) {
+        let i = arr.length,
+          t, j;
+        while (i) {
+          j = Math.floor(Math.random() * i--);
+          t = arr[i];
+          arr[i] = arr[j];
+          arr[j] = t;
+        }
+      }
+      shuffle(list0);
+      for (let i = 0; i < res.data.objects.length; i++) {
         let collection = that.data.collection
-        if (collection.indexOf(list0[i].id)>-1){
+        if (collection.indexOf(list0[i].id) > -1) {
           list0[i].collect = 1;
-          list0[i].content = that.LimitNumbersadf(list0[i].content);
           list.push(list0[i]);
-        }else {
+        } else {
           list0[i].collect = 0;
-          list0[i].content = that.LimitNumbersadf(list0[i].content);
           list.push(list0[i]);
         }
       }
-    that.setData({
-      list:list,
-      page:0
-    }) 
+      that.setData({
+        list: list,
+        page: 0
+      })
     }, err => {
       // err
     })
@@ -241,115 +247,133 @@ Page({
     str += '...'
     return str;
   },
-  userinfo:function(e){
+  userinfo: function(e) {
     console.log(e)
-    let id=e.currentTarget.dataset.user
-    if(id==getApp().globalData.userId){
+    let id = e.currentTarget.dataset.user
+    if (id == getApp().globalData.userId) {
       wx.switchTab({
-         url: '../mine/mine',
+        url: '../mine/mine',
+      })
+    } else {
+      wx.navigateTo({
+        url: '../userinfo/userinfo?id=' + id,
       })
     }
-    else{
-    wx.navigateTo({
-      url: '../userinfo/userinfo?id='+id,
-    })
-    }
   },
-  getList2: function () {
+  getList2: function() {
     let tableID = 55960
     let that = this
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    let page=that.data.page
+    let page = that.data.page
     page++;
-    Product.orderBy('-created_at').expand('created_by').limit(10).offset(page*10).find().then(res => {
+    Product.orderBy('-created_at').expand('created_by').limit(50).offset(page * 50).find().then(res => {
       // success  
-      if(res.data.objects==""){
+      if (res.data.objects == "") {
         wx.showToast({
-          title: '没有更多内容了',
+          title: '亲，(╯-╰) 没有啦',
+          icon:'none',
         })
-      }
-      else{
+      } else {
         let list0 = res.data.objects
+        function shuffle(arr) {
+          let i = arr.length,
+            t, j;
+          while (i) {
+            j = Math.floor(Math.random() * i--);
+            t = arr[i];
+            arr[i] = arr[j];
+            arr[j] = t;
+          }
+        }
+        shuffle(list0);
         for (var i = 0; i < res.data.objects.length; i++) {
           let collection = that.data.collection
           if (collection.indexOf(list0[i].id) > -1) {
             list0[i].collect = 1;
-            list0[i].content = that.LimitNumbersadf(list0[i].content);
             list.push(list0[i]);
           } else {
             list0[i].collect = 0;
-            list0[i].content = that.LimitNumbersadf(list0[i].content);
             list.push(list0[i]);
           }
         }
-      that.setData({
-        list:that.data.list.concat(list),
-        page:page
-      })}
+        that.setData({
+          list: that.data.list.concat(list),
+          page: page
+        })
+      }
 
     }, err => {
       // err
     })
   },
- 
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-    
-    
+  onReady: function() {
+
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     this.getUserInfoByToken()
+    
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     wx.stopPullDownRefresh();
     var that = this;
-    setTimeout(function () {
+    setTimeout(function() {
       that.getList();
       wx.showToast({
-        title: '正在刷新',
-        duration: 2000,
+        title: '我们为您精心挑选了以下文章',
+        duration: 3000,
+        icon:'none',
       })
+      // wx.showModal({
+      //   title: '标题',
+      //   content: '这里是内容',
+      //   showCancel: false, //不显示取消按钮
+      //   confirmText: '确定'
+      // })
     }, 500);
+   
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     var that = this;
-   
+
     that.getList2();
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',

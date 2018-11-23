@@ -41,10 +41,16 @@
         "selectedIconPath": "images/首页.png"
       },
       {
+        "pagePath": "pages/addNote/addNote",
+        "text": "写日记",
+        "iconPath": "images/rizhi2.png",
+        "selectedIconPath": "images/rizhi.png"
+      }, 
+      {
         "pagePath": "pages/mine/mine",
-        "text": "我的",
-        "iconPath": "images/我的灰.png",
-        "selectedIconPath": "images/我的.png"
+        "text": "收藏",
+        "iconPath": "images/shoucang21.png",
+        "selectedIconPath": "images/shoucang22.png"
       }
     ]}
  

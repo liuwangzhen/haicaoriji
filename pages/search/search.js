@@ -113,7 +113,6 @@ Page({
       arr1: arr1
     })
     that.getCont();
-
   },
   ifcollect: function (e) {
     let that = this
@@ -224,26 +223,17 @@ Page({
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
       // success
       let list0 = res.data.objects
-
       for (var i = 0; i < res.data.objects.length; i++) {
-
         let collection = that.data.collection
-
         if (collection.indexOf(list0[i].id) > -1) {
           list0[i].collect = 1;
-
-          list0[i].content = that.LimitNumbersadf(list0[i].content);
           list.push(list0[i]);
-
         } else {
           list0[i].collect = 0;
-          list0[i].content = that.LimitNumbersadf(list0[i].content);
           list.push(list0[i]);
         }
 
       }
-
-
       that.setData({
         list: list,
         page: 0,
@@ -255,7 +245,6 @@ Page({
     })
   },
   LimitNumbersadf(txt) {
-
     var str = txt;
     str = str.substr(0, 25);
     str += '...'
@@ -300,11 +289,9 @@ Page({
           let collection = that.data.collection
           if (collection.indexOf(list0[i].id) > -1) {
             list0[i].collect = 1;
-            list0[i].content = that.LimitNumbersadf(list0[i].content);
             list.push(list0[i]);
           } else {
             list0[i].collect = 0;
-            list0[i].content = that.LimitNumbersadf(list0[i].content);
             list.push(list0[i]);
           }
         }

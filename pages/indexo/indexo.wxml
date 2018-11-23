@@ -20,59 +20,31 @@
     <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
   </view>
 </view>
-
 <view class='body'>
-  <!-- <view class='recommend r2'>
-    <view bindtap='change' class="f28 mt20 ml20 {{swiperIndex == index ? 'active' : 'c66'}}" wx:for="{{list}}" data-idx='{{index}}' data-arr="{{item.id}}">
-
-      {{item.name}}
-
-    </view>
-  </view> -->
   <view class="content">
     <view class="left">
       <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
         <navigator url="../detail/detail?id={{item.id}}" class="item">
           <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
           <view class="item-title-box">
-            <view class="item-title">{{item.content}}</view>
+            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+            <view wx:else class="item-title">{{item.content}}</view>
           </view>
         </navigator>
-        <view class='headimg'>
-          <image mode='aspectFill'  data-user="{{item.created_by.id}}" class='img2' src='{{item.author_head}}'></image>
-          <view wx:if="{{item.author_name.length>4}}" class='nick'>{{filter.Limit(item.author_name)}}</view>
-          <view wx:else class='nick'>{{item.author_name}}</view>
-          <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
-            <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" style='position:absolute;left:220rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-            <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
-          </view>
-          <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>
-          <!-- <view class='numb' wx:if="{{item.collection==null}}">0</view> -->
-        </view>
-
       </view>
+      <view class='bottom'></view>
     </view>
     <view class="right">
       <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-        <!-- <template is="item" data="{{...item}}" wx:if="{{index%2==1}}"></template> -->
         <navigator url="../detail/detail?id={{item.id}}" class="item">
           <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
           <view class="item-title-box">
-            <view class="item-title">{{item.content}}</view>
+           <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+            <view wx:else class="item-title">{{item.content}}</view>
           </view>
         </navigator>
-        <view class='headimg'>
-          <image mode='aspectFill' data-user="{{item.created_by.id}}" class='img2' src='{{item.author_head}}'></image>
-          <view wx:if="{{item.author_name.length>4}}" class='nick'>{{filter.Limit(item.author_name)}}</view>
-          <view wx:else class='nick'>{{item.author_name}}</view>
-          <view data-collect='{{item.collect}}' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
-            <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" style='position:absolute;left:220rpx;margin-top:15rpx;' class='iconfont icon-xin1'></view>
-            <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" style='position:absolute;left:220rpx;margin-top:15rpx;color:red;' class='iconfont icon-xin'></view>
-            </view>
-          <view class='numb' wx:if="{{item.collection>0}}">{{item.collection}}</view>     
-        </view>
       </view>
+      <view class='bottom'></view>
     </view>
   </view>
-
 </view>

@@ -7,6 +7,7 @@ Page({
   data: {
     richTextID: "",
     list: "",
+    getlist:"",
     id: "",
     nick: "",
     headimg: "",
@@ -44,6 +45,7 @@ Page({
     })
     that.getUserInfoByToken();
     that.getcomment();
+    that.getList();
   },
   goback: function() {
     wx.navigateBack({
@@ -101,9 +103,43 @@ Page({
 　　　
       }　　
     })
-
   },
-
+  getList: function () {
+    let tableID = 55960
+    let that = this
+    let Product = new wx.BaaS.TableObject(tableID)
+    let list = new Array;
+    Product.orderBy('-collection').expand('created_by').limit(50).offset(0).find().then(res => {
+      let list0 = res.data.objects
+      console.log(list0)
+      function shuffle(arr) {
+        let i = arr.length,
+          t, j;
+        while (i) {
+          j = Math.floor(Math.random() * i--);
+          t = arr[i];
+          arr[i] = arr[j];
+          arr[j] = t;
+        }
+      }
+      shuffle(list0);
+      for (let i = 0; i < res.data.objects.length; i++) {
+        let collection = that.data.collection
+        if (collection.indexOf(list0[i].id) > -1) {
+          list0[i].collect = 1;
+          list.push(list0[i]);
+        } else {
+          list0[i].collect = 0;
+          list.push(list0[i]);
+        }
+      }
+      that.setData({
+        getlist: list,
+      })
+    }, err => {
+      // err
+    })
+  },
   getPic: function() {
     let that = this
     let tableID = 55960
