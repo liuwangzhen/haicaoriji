@@ -7,7 +7,7 @@ Page({
   data: {
     richTextID: "",
     list: "",
-    getlist:"",
+    getlist: "",
     id: "",
     nick: "",
     headimg: "",
@@ -26,6 +26,8 @@ Page({
     input2: false,
     height4: getApp().globalData.height,
     isClick: true,
+    isClick2: true,
+    phone: null,
   },
 
   /**
@@ -65,7 +67,15 @@ Page({
       urls: arr1 // 需要预览的图片http链接列表
     })
   },
-
+  goCommend: function(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: "../detail/detail?id=" + id
+    })
+    app.aldstat.sendEvent('笔记' + id, {
+      '加入时间': Date.now()
+    });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -85,33 +95,57 @@ Page({
     }
   },
   getPhoneNumber(e) {
-    let encryptedData = e.detail.encryptedData
-    let iv = e.detail.iv
-    wx.checkSession({　　　
-      success: function(res) {　　　　　　
-        console.log("处于登录态");
-        wx.BaaS.wxDecryptData(encryptedData, iv, 'phone-number').then(decrytedData => {
-          console.log('decrytedData: ', decrytedData)
-        }, err => {
-          // 失败的原因有可能是以下几种：用户未登录或 session_key 过期，微信解密插件未开启，提交的解密信息有误
-        })　　　　
-      },
-      　　　　fail: function(res) {　　　　　　
-        console.log("需要重新登录");　　　　　　
-            wx.BaaS.logout()
-            wx.BaaS.login()
-　　　
-      }　　
-    })
+    let that = this
+    let isClick = that.data.isClick2
+    if (isClick == true) {
+      that.setData({
+        isClick2: false
+      })
+      let a = e.currentTarget.dataset.id
+      let encryptedData = e.detail.encryptedData
+      let iv = e.detail.iv
+      wx.checkSession({　　　
+        success: function(res) {　　　　　　
+          console.log("处于登录态");
+          wx.BaaS.wxDecryptData(encryptedData, iv, 'phone-number').then(decrytedData => {
+            console.log(decrytedData)
+            let MyUser = new wx.BaaS.User()
+            let currentUser = MyUser.getCurrentUserWithoutData()
+            // age 为自定义字段
+            currentUser.set({
+              'phone': decrytedData.phoneNumber,
+            }).update().then(res => {
+              that.collect(a)
+            }, err => {})
+          }, err => {
+            // 失败的原因有可能是以下几种：用户未登录或 session_key 过期，微信解密插件未开启，提交的解密信息有误
+          })　　　　
+        },
+        　fail: function(res) {　
+          wx.showToast({
+            title: '获取失败，请重新收藏',
+            icon: "none",
+          })
+          console.log("需要重新登录");　　　　　　
+          wx.BaaS.logout()
+          wx.BaaS.login()　　　
+        }　　
+      })
+      setTimeout(function() {
+        that.setData({
+          isClick2: true
+        })
+      }, 3000)
+    }
   },
-  getList: function () {
+  getList: function() {
     let tableID = 55960
     let that = this
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
     Product.orderBy('-collection').expand('created_by').limit(50).offset(0).find().then(res => {
       let list0 = res.data.objects
-      console.log(list0)
+
       function shuffle(arr) {
         let i = arr.length,
           t, j;
@@ -279,7 +313,6 @@ Page({
     let that = this
     let isClick = that.data.isClick
     let a = e.currentTarget.dataset.id
-    let b = e.currentTarget.dataset.index
     if (isClick == true) {
       that.setData({
         isClick: false
@@ -401,6 +434,7 @@ Page({
           collection: res.data.collection,
           user: res.data,
           user2Id: res.data.id,
+          phone: res.data.phone
         })
         that.getPic();
       }, err => {
@@ -657,8 +691,9 @@ Page({
     let title = that.LimitNumbersadf(that.data.list.content)
     return {
       title: title,
-      desc: '最具人气的小程序',
+      // desc: '最具人气的小程序',
       path: '/pages/detail/detail?id=' + id + "&getshare=" + 1,
+      imageUrl:that.data.list.img[0],
       success: (e) => {
         product.set('share', share)
         product.update().then(res => {
@@ -666,7 +701,6 @@ Page({
           that.setData({
             share: res.data.share
           })
-
         }, err => {
           // err
         })

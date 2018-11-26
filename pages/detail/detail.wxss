@@ -91,7 +91,6 @@ font-size:32rpx;
 width:700rpx;
 display:block;
 padding-left:10rpx;
-letter-spacing:3rpx;
 line-height:50rpx;
 }
 .content3 {

@@ -39,43 +39,62 @@
   <view class='line2 mt30'></view>
 </view>
 <view class='contain3'>
-<view class='content3'>相关推荐</view>
-    <view style='margin-left:20rpx' class="left">
-      <view wx:if="{{index%2==0}}" wx:for="{{getlist}}" wx:key="{{item.id}}">
-        <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </navigator>
+  <view class='content3'>相关推荐</view>
+  <view style='margin-left:20rpx' class="left">
+    <view wx:if="{{index%2==0}}" wx:for="{{getlist}}" wx:key="{{item.id}}">
+      <view data-id="{{item.id}}" bindtap='goCommend' class="item">
+        <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+        <view class="item-title-box">
+          <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+          <view wx:else class="item-title">{{item.content}}</view>
+        </view>
       </view>
-      <view style='height:200rpx;' class='bottom'></view>
     </view>
-    <view style='margin-right:20rpx' class="right">
-      <view wx:for="{{getlist}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-        <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view class="item-title-box">
-           <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </navigator>
-      </view>
-      <view style='height:200rpx;' class='bottom'></view>
-    </view>
+    <view style='height:200rpx;' class='bottom'></view>
   </view>
+  <view style='margin-right:20rpx' class="right">
+    <view wx:for="{{getlist}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+      <view data-id="{{item.id}}" bindtap='goCommend' class="item">
+        <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+        <view class="item-title-box">
+          <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+          <view wx:else class="item-title">{{item.content}}</view>
+        </view>
+      </view>
+    </view>
+    <view style='height:200rpx;' class='bottom'></view>
+  </view>
+</view>
 
 <view class='footer'>
   <view style='margin-left:86rpx;' class='r1'>
-    <button data-collect='{{list.collect}}' data-id="{{list.id}}" data-index="{{index}}" bindtap='ifcollect' class='share2'>
-      <view data-id="{{list.id}}" wx:if="{{list.collect==0}}" style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'>
-        <span class="share-1">收藏</span>
-      </view>
-      <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" style='color:red;font-size:50rpx;' class='iconfont icon-xin'>
-        <span class="share-1">收藏</span>
-      </view>
-    </button>
+    <view wx:if="{{phone==null}}">
+      <button wx:if="{{list.collect==0}}" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" data-collect='{{list.collect}}' data-id="{{list.id}}" data-index="{{index}}"  class='share2'>
+        <view data-id="{{list.id}}" style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'>
+          <span class="share-1">收藏</span>
+        </view>
+      </button>
+      <button  wx:if="{{list.collect==1}}" data-collect='{{list.collect}}' data-id="{{list.id}}" data-index="{{index}}" bindtap='ifcollect' class='share2'>
+        <view data-id="{{list.id}}" style='color:red;font-size:50rpx;' class='iconfont icon-xin'>
+          <span class="share-1">收藏</span>
+        </view>
+      </button>
+    </view>
+    <view wx:if="{{phone!=null}}">
+      <button wx:if="{{list.collect==0}}" data-collect='{{list.collect}}' data-id="{{list.id}}" data-index="{{index}}" bindtap='ifcollect' class='share2'>
+        <view data-id="{{list.id}}" style='color:#fff;font-size:50rpx;' class='iconfont icon-xin1'>
+          <span class="share-1">收藏</span>
+        </view>
+        <!-- <view data-id="{{list.id}}" wx:if="{{list.collect==1}}" style='color:red;font-size:50rpx;' class='iconfont icon-xin'>
+          <span class="share-1">收藏</span>
+        </view> -->
+      </button>
+      <button wx:if="{{list.collect==1}}" data-collect='{{list.collect}}' data-id="{{list.id}}" data-index="{{index}}" bindtap='ifcollect' class='share2'>
+        <view data-id="{{list.id}}" style='color:red;font-size:50rpx;' class='iconfont icon-xin'>
+          <span class="share-1">收藏</span>
+        </view>
+      </button>
+    </view>
     <view wx:if="{{list.collection>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
   </view>
   <view class='line'>

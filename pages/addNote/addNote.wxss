@@ -23,7 +23,7 @@ margin-left:37rpx;
 }
 .textarea{
 width:690rpx;
-height:140rpx;
+height:500rpx;
 display:block;
 position:relative;
 margin-left:30rpx;

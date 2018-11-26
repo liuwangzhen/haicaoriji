@@ -1,4 +1,7 @@
 // pages/indexo/indexo.js
+const Page = require('../../utils/ald-stat.js').Page;
+const app = getApp();
+
 Page({
 
   /**
@@ -14,15 +17,27 @@ Page({
     page: 0,
     collection: [],
     height4: getApp().globalData.height,
-    isClick: true
-
+    isClick: true,
+    bgImg: "../../images/bg.jpg",  //背景图
+    dataImg: "../../images/pic01.jpg",   //内容缩略图
+    ewrImg: "",  //小程序二维码图片
   },
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     var that = this
+    const params = {
+      scene: 'Bdfd',
+      page: 'pages/indexo/indexo',
+      width: 250
+    }
+    wx.BaaS.getWXACode('wxacodeunlimit', params).then(res => {
+      console.log(res)
+      this.setData({
+        ewrImg: res.image
+      })
+    }).catch(err => {})
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
@@ -41,12 +56,11 @@ Page({
         // err
       })
       // 登录成功
-
     }, err => {
       // 登录失败
     })
-
   },
+
   showInput: function() {
     this.setData({
       inputShowed: true
@@ -109,7 +123,16 @@ Page({
       arr1: arr1
     })
     that.getCont();
-
+  },
+  goDetail: function(e) {
+    console.log(e)
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: "../detail/detail?id=" + id
+    })
+    app.aldstat.sendEvent('笔记' + id, {
+      '加入时间': Date.now()
+    });
   },
   ifcollect: function(e) {
     let that = this
@@ -212,6 +235,7 @@ Page({
     let list = new Array;
     Product.orderBy('-created_at').expand('created_by').limit(50).offset(0).find().then(res => {
       let list0 = res.data.objects
+
       function shuffle(arr) {
         let i = arr.length,
           t, j;
@@ -272,10 +296,11 @@ Page({
       if (res.data.objects == "") {
         wx.showToast({
           title: '亲，(╯-╰) 没有啦',
-          icon:'none',
+          icon: 'none',
         })
       } else {
         let list0 = res.data.objects
+
         function shuffle(arr) {
           let i = arr.length,
             t, j;
@@ -312,6 +337,24 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    var context = wx.createCanvasContext('firstCanvas')
+
+    context.setStrokeStyle("#b2b2b2")
+    context.setLineWidth(5)
+    context.rect(0, 0, 200, 200)
+    context.stroke()
+    context.setStrokeStyle("#ff0000")
+    context.setLineWidth(2)
+    context.moveTo(160, 100)
+    context.arc(100, 100, 60, 0, 2 * Math.PI, true)
+    context.moveTo(140, 100)
+    context.arc(100, 100, 40, 0, Math.PI, false)
+    context.moveTo(85, 80)
+    context.arc(80, 80, 5, 0, 2 * Math.PI, true)
+    context.moveTo(125, 80)
+    context.arc(120, 80, 5, 0, 2 * Math.PI, true)
+    context.stroke()
+    context.draw()
 
 
   },
@@ -321,7 +364,7 @@ Page({
    */
   onShow: function() {
     this.getUserInfoByToken()
-    
+
   },
 
   /**
@@ -349,7 +392,7 @@ Page({
       wx.showToast({
         title: '我们为您精心挑选了以下文章',
         duration: 3000,
-        icon:'none',
+        icon: 'none',
       })
       // wx.showModal({
       //   title: '标题',
@@ -358,7 +401,7 @@ Page({
       //   confirmText: '确定'
       // })
     }, 500);
-   
+
   },
 
   /**

@@ -1,4 +1,7 @@
 //app.js
+const App = require('./utils/ald-stat.js').App;
+var startTime = Date.now();//启动时间
+
 App({
   onLaunch: function() {
     let that = this
@@ -28,6 +31,13 @@ App({
       }
     })
   },
+  // onShow: function () {
+  //   // 比如记录小程序启动时长
+  //   this.aldstat.sendEvent('小程序的启动时长', {
+  //     time: Date.now() - startTime
+  //   })
+  // },
+
   
   globalData: {
     clientId: '2a34038c67c7b7868088', // 从 BaaS 后台获取 ClientID
