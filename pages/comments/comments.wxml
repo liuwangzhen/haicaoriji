@@ -29,7 +29,7 @@
           </view>
         </view>
         <view class='time2'>{{item.created_at}}</view>
-        <text class='content2'>{{item.comment}}</text>
+        <text class='content22'>{{item.comment}}</text>
         <view wx:if="{{item.answers.length>0}}">
           <view wx:for="{{item.answers}}" wx:key="{{item.id}}" class='comment4 col'>
             <view wx:if="{{index!=0}}" class='line5'></view>

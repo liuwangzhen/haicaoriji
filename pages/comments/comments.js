@@ -12,6 +12,8 @@ Page({
   focus:false,
   focus: false, height4: getApp().globalData.height,
   page:0,
+    commentVal:"",
+    commentVal2:"",
   },
 
   /**
@@ -139,6 +141,12 @@ getcomment:function(){
   },
   send: function () {
     let that = this
+    if (that.data.commentVal == "") {
+      wx.showToast({
+        title: '评论不能为空',
+        icon: "none"
+      })}
+      else{
     setTimeout(function(){
     let comment = that.data.commentVal
     let cid = that.data.id
@@ -160,7 +168,7 @@ getcomment:function(){
     }, err => {
       //err 为 HError 对象
         })
-    },100)
+    },100)}
 
   },
   answer: function (e) {
@@ -205,6 +213,12 @@ getcomment:function(){
   }, 
   sendanswer: function () {
     let that = this
+    if (that.data.commentVal == "") {
+      wx.showToast({
+        title: '回复不能为空',
+        icon: "none"
+      })}
+      else{
     setTimeout(function(){
     let comment = that.data.commentVal2
     let cid = that.data.coid
@@ -225,7 +239,7 @@ getcomment:function(){
     }, err => {
 
         })
-    },100)
+    },100)}
   },
   inputVal2: function (e) {
     this.setData({

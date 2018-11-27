@@ -196,7 +196,7 @@ Page({
                           arr3:[],
                         })
                         wx.switchTab({
-                          url: '../../pages/mine/mine',
+                          url: '../../pages/indexo/indexo',
                         })
                       }
                     })

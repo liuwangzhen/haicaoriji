@@ -21,8 +21,19 @@
   </view>
 </view>
 <view class='body'>
-<!-- <canvas canvas-id="firstCanvas" style="width:710rpx;height:900rpx"></canvas> -->
-  <view class="content">
+<!-- <canvas canvas-id='firstCanvas' style='width:{{canvas.width}}px;height:{{canvas.height}}px;'></canvas> -->
+<!-- <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="modalDlg" >
+    
+    <button open-type="share" >分享</button>
+    <view class='closebtn' bindtap="go">点我可以关掉对话框</view>
+</view>
+<button  bindtap='submit'>分享</button> -->
+<view class='wait' wx:if="{{list.length==0}}">
+ <image mode='widthFix'  src='../../images/loading.svg'></image>
+ <view class='f28 ml38'>加载中</view>
+</view>
+  <view wx:else class="content">
     <view class="left">
       <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
         <view bindtap='goDetail' data-id='{{item.id}}' class="item">

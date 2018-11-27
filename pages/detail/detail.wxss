@@ -93,6 +93,16 @@ display:block;
 padding-left:10rpx;
 line-height:50rpx;
 }
+.content22{
+font-size:28rpx;
+margin-top:20rpx;
+padding-bottom:20rpx;
+padding-right:20rpx;
+width:570rpx;
+word-break: break-all;
+word-wrap: break-word;
+letter-spacing:2rpx;
+}
 .content3 {
  margin-left:20rpx;
 margin-top:20rpx;
@@ -160,6 +170,11 @@ position:relative;
   height: 60rpx;
   border-radius: 50%;
 }
+.img3 {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+}
 
 .comment2 {
   height: 50rpx;
@@ -210,17 +225,7 @@ position:relative;
    font-size: 26rpx;
   color: #d6d6d6;
 }
-/* .content2{
-font-size:28rpx;
-margin-top:20rpx;
-padding-bottom:20rpx;
-padding-right:20rpx;
-width:570rpx;
-word-break: break-all;
-word-wrap: break-word;
-letter-spacing:2rpx;
 
-} */
 .comment3 {
  display:block;
   width: 570rpx;

@@ -1,5 +1,6 @@
 // pages/indexo/indexo.js
 const Page = require('../../utils/ald-stat.js').Page;
+const Poster = require('../../utils/poster');
 const app = getApp();
 
 Page({
@@ -15,12 +16,18 @@ Page({
     inputShowed: false,
     inputVal: "",
     page: 0,
+    showModal: false,
     collection: [],
     height4: getApp().globalData.height,
     isClick: true,
     bgImg: "../../images/bg.jpg",  //背景图
     dataImg: "../../images/pic01.jpg",   //内容缩略图
     ewrImg: "",  //小程序二维码图片
+    isMakingPoster: true,
+    canvas: {
+      width: 370,
+      height: 500,
+    },
   },
   /**
    * 生命周期函数--监听页面加载
@@ -37,6 +44,7 @@ Page({
       this.setData({
         ewrImg: res.image
       })
+      that.btnchose();
     }).catch(err => {})
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
@@ -60,7 +68,7 @@ Page({
       // 登录失败
     })
   },
-
+  
   showInput: function() {
     this.setData({
       inputShowed: true
@@ -337,28 +345,36 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    var context = wx.createCanvasContext('firstCanvas')
+   
 
-    context.setStrokeStyle("#b2b2b2")
-    context.setLineWidth(5)
-    context.rect(0, 0, 200, 200)
-    context.stroke()
-    context.setStrokeStyle("#ff0000")
-    context.setLineWidth(2)
-    context.moveTo(160, 100)
-    context.arc(100, 100, 60, 0, 2 * Math.PI, true)
-    context.moveTo(140, 100)
-    context.arc(100, 100, 40, 0, Math.PI, false)
-    context.moveTo(85, 80)
-    context.arc(80, 80, 5, 0, 2 * Math.PI, true)
-    context.moveTo(125, 80)
-    context.arc(120, 80, 5, 0, 2 * Math.PI, true)
-    context.stroke()
-    context.draw()
-
+    // context.setStrokeStyle("black")
+    // context.setLineWidth(2)
+    // context.moveTo(160, 100)
+    // context.arc(100, 100, 60, 0, 2 * Math.PI, true)
+    // context.moveTo(140, 100)
+    // context.arc(100, 100, 40, 0, Math.PI, false)
+    // context.moveTo(85, 80)
+    // context.arc(80, 80, 5, 0, 2 * Math.PI, true)
+    // context.moveTo(125, 80)
+    // context.arc(120, 80, 5, 0, 2 * Math.PI, true)
+    // context.stroke()
+  
+  },
+  btnchose:function(){
+    let that=this
+    let ewrImg = that.data.ewrImg
+    var ctx = wx.createCanvasContext('firstCanvas')
+    ctx.drawImage("../../images/bg.jpg", 10, 10, 355, 400)
+    ctx.draw()
+    ctx.setFontSize(30)
+    ctx.setFillStyle('white')
+    ctx.fillText('海草日记小程序', 40, 40)
+    ctx.draw(true)
+    ctx.drawImage(ewrImg,215,260,150,150)
+    ctx.draw(true)
+    
 
   },
-
   /**
    * 生命周期函数--监听页面显示
    */
@@ -416,11 +432,24 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-    return {
-      title: '海草日记',
-      desc: '最具人气的小程序开发联盟!',
-      path: '/pages/indexo/indexo',
+  go: function () {
+    this.setData({
+      showModal: false
+    })
+  },
+  submit:function(){
+    this.setData({
+      showModal: true
+    })
+  },
+  onShareAppMessage: function(res) {
+   
+   
+        return {
+          title: '海草日记',
+          desc: '最具人气的小程序开发联盟!',
+          path: '/pages/indexo/indexo',
+        }
+    
     }
-  }
 })
