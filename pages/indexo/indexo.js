@@ -24,27 +24,50 @@ Page({
     dataImg: "../../images/pic01.jpg",   //内容缩略图
     ewrImg: "",  //小程序二维码图片
     isMakingPoster: true,
-    canvas: {
-      width: 370,
-      height: 500,
-    },
+    tphone:""
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     var that = this
+    wx.getSystemInfo({
+      success: (res) => {
+        that.setData({
+          tphone:res
+        })
+      }
+    })
     const params = {
       scene: 'Bdfd',
       page: 'pages/indexo/indexo',
       width: 250
     }
-    wx.BaaS.getWXACode('wxacodeunlimit', params).then(res => {
-      console.log(res)
-      this.setData({
-        ewrImg: res.image
-      })
-      that.btnchose();
+    wx.BaaS.getWXACode('wxacodeunlimit', params,true).then(res => {
+      wx.saveFile({
+        tempFilePath: res.download_url,
+        success: (res) => {
+          wx.BaaS.storage.set(this.cacheKey, res.savedFilePath);
+          console.log(res.savedFilePath)
+        },
+      });
+        // let MyFile = new wx.BaaS.File()
+        // let fileParams = { filePath: res.download_url }
+        // let metaData = { categoryName: 'SDK' }
+
+        // MyFile.upload(fileParams, metaData).then(res => {
+          console.log(res)
+          that.setData({
+            ewrImg: res.download_url
+          })
+        //   let data = res.data  // res.data 为 Object 类型
+        // }, err => {
+
+        // })
+
+      
+  
+     
     }).catch(err => {})
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
@@ -280,7 +303,6 @@ Page({
     return str;
   },
   userinfo: function(e) {
-    console.log(e)
     let id = e.currentTarget.dataset.user
     if (id == getApp().globalData.userId) {
       wx.switchTab({
@@ -346,35 +368,8 @@ Page({
    */
   onReady: function() {
    
-
-    // context.setStrokeStyle("black")
-    // context.setLineWidth(2)
-    // context.moveTo(160, 100)
-    // context.arc(100, 100, 60, 0, 2 * Math.PI, true)
-    // context.moveTo(140, 100)
-    // context.arc(100, 100, 40, 0, Math.PI, false)
-    // context.moveTo(85, 80)
-    // context.arc(80, 80, 5, 0, 2 * Math.PI, true)
-    // context.moveTo(125, 80)
-    // context.arc(120, 80, 5, 0, 2 * Math.PI, true)
-    // context.stroke()
-  
   },
-  btnchose:function(){
-    let that=this
-    let ewrImg = that.data.ewrImg
-    var ctx = wx.createCanvasContext('firstCanvas')
-    ctx.drawImage("../../images/bg.jpg", 10, 10, 355, 400)
-    ctx.draw()
-    ctx.setFontSize(30)
-    ctx.setFillStyle('white')
-    ctx.fillText('海草日记小程序', 40, 40)
-    ctx.draw(true)
-    ctx.drawImage(ewrImg,215,260,150,150)
-    ctx.draw(true)
-    
-
-  },
+ 
   /**
    * 生命周期函数--监听页面显示
    */
@@ -410,12 +405,6 @@ Page({
         duration: 3000,
         icon: 'none',
       })
-      // wx.showModal({
-      //   title: '标题',
-      //   content: '这里是内容',
-      //   showCancel: false, //不显示取消按钮
-      //   confirmText: '确定'
-      // })
     }, 500);
 
   },
@@ -441,6 +430,63 @@ Page({
     this.setData({
       showModal: true
     })
+  },
+  saveTempFile(){
+    let that = this
+    let h1 = that.data.tphone.screenHeight
+    let w1 = that.data.tphone.screenWidth
+    let ewrImg=that.data.ewrImg
+    var ctx = wx.createCanvasContext('firstCanvas')
+    return new Promise((resolve, reject) => {
+      wx.canvasToTempFilePath({
+        canvasId: 'firstCanvas',
+        width: w1,
+        height: h1,
+        destWidth: w1 * 2,
+        destHeight: h1 * 2,
+        fileType: 'jpg',
+        quality: 1,
+        success: (res) => {
+          console.log(res)
+          resolve(res.tempFilePath);
+
+        },
+        fail: (err) => {
+          reject(err);
+        }
+      });
+    });
+  },
+  preview() {
+    let that=this
+    return new Promise((resolve, reject) => {
+      that.saveTempFile().then((res) => {
+        wx.previewImage({
+          urls: [res]
+        });
+        resolve();
+      }).catch((err) => {
+        reject(err);
+      });
+    });
+  }
+,
+  pengyouquan:function(){
+    let that = this
+    let h1 = that.data.tphone.screenHeight
+    let w1 = that.data.tphone.screenWidth
+    let ewrImg=that.data.ewrImg
+    var ctx = wx.createCanvasContext('firstCanvas')
+    ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
+    ctx.draw()
+    ctx.setFontSize(30)
+    ctx.setFillStyle('white')
+    ctx.fillText('海草日记小程序', 40, 40)
+    ctx.draw(true)
+    ctx.drawImage("../../images/add.png", w1 / 4, h1 / 4, 150, 150)
+    ctx.draw(true)
+    ctx.drawImage(ewrImg, w1 / 2, h1 / 2, 150, 150)
+    ctx.draw(true, that.preview())
   },
   onShareAppMessage: function(res) {
    

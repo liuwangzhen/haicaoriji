@@ -51,9 +51,9 @@ border:1rpx solid #ddd;
 border-radius:30rpx;
 text-align:center;
 font-size:30rpx;
-margin-top:50rpx;
+margin-top:25rpx;
 padding-top:10rpx;
-margin-left:15rpx;
+/* margin-left:15rpx; */
 background-color: #fff;
 
 }
@@ -123,8 +123,14 @@ flex-direction:column;
 margin-left:45rpx;
 
 }
+.nick2{
+  font-size: 30rpx;
 
-
+}
+.age{
+  font-size: 30rpx;
+  margin-top: 25rpx;
+}
 .sign{
  margin-left:20rpx;
 margin-top:20rpx;

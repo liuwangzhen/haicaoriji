@@ -35,7 +35,7 @@
   <view class='title'>
     #{{title}}
   </view>
-  <view class='number'>搜索到{{list.length}}篇笔记</view>
+  <view class='number'>为您找到以下日记</view>
   <view wx:if="{{list!=null}}" class="content">
     <view class="left">
       <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">

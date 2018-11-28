@@ -3,38 +3,14 @@
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>收藏</view>
 </view>
 <view style='height:{{height4*2+30}}px;' class='pad'></view>
-<!-- <view class='head'>
+<view class='head'>
   <view class='row1 ml20'>
     <view class="index-profile">
       <image mode='aspectFill' src='{{img2}}' class="index-profile__img"></image>
     </view>
     <view class='col ml20 w550'>
-      <view class='atten-fans'>
-        <navigator hover-class='none' class='col'>
-          <view class='num'>
-            {{attention.length-1}}
-          </view>
-          <view class='text'>
-            关注
-          </view>
-        </navigator>
-        <navigator hover-class='none' class='col'>
-          <view class='num'>
-            {{fans.length-1}}
-          </view>
-          <view class='text'>
-            粉丝
-          </view>
-        </navigator>
-        <view class='col'>
-          <view class='num'>
-            0
-          </view>
-          <view class='text'>
-            获赞与收藏
-          </view>
-        </view>
-      </view>
+     <view class='nick2'>{{userInfo.nick}}</view>
+     <view class='age'>年龄：{{age}}</view>
       <view bindtap='updata' class='edit'>
         <text class='edit-text'>编辑资料</text>
       </view>
@@ -54,7 +30,7 @@
   <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text>
   <view class='border'></view>
   <view class='line2'></view>
-</view> -->
+</view>
 <!-- 收藏 -->
 <view class='wait' wx:if="{{list2.length==0}}">
  <image mode='widthFix'  src='../../images/loading.svg'></image>

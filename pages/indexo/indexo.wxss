@@ -21,8 +21,6 @@ border-radius:30rpx;
 margin-left:40rpx;
 padding-left:60rpx;
 font-size:28rpx;
-
-
 }
 .cancel{
   font-size: 30rpx;

@@ -93,6 +93,9 @@ Page({
           date = "0" + date;
         }
         var dateformat = year + "-" + month + "-" + date;
+        let timestamp2 = new Date().getTime();
+        let timestamp3=new Date(res.data.birthday).getTime();
+        let age = Math.floor((timestamp2-timestamp3)/31536000000);
         that.setData({
           userInfo: res.data,
           img2: res.data.headimg.replace(/\"/g, ""),
@@ -102,7 +105,8 @@ Page({
           nick:res.data.nick,
           collection: res.data.collection,
           aid:res.data.id,
-          attention:res.data.attention
+          attention:res.data.attention,
+          age:age
         })
       }, err => {
         // err

@@ -232,6 +232,7 @@ class Poster {
 
     saveTempFile() {
         return new Promise((resolve, reject) => {
+          console.log("00909")
             const {
                 width,
                 height

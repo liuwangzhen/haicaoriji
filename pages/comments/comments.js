@@ -141,13 +141,14 @@ getcomment:function(){
   },
   send: function () {
     let that = this
+    setTimeout(function () {
     if (that.data.commentVal == "") {
       wx.showToast({
         title: '评论不能为空',
         icon: "none"
       })}
       else{
-    setTimeout(function(){
+  
     let comment = that.data.commentVal
     let cid = that.data.id
     let tableID = 56497
@@ -168,7 +169,7 @@ getcomment:function(){
     }, err => {
       //err 为 HError 对象
         })
-    },100)}
+    }},100)
 
   },
   answer: function (e) {
@@ -213,13 +214,13 @@ getcomment:function(){
   }, 
   sendanswer: function () {
     let that = this
+    setTimeout(function () {
     if (that.data.commentVal == "") {
       wx.showToast({
         title: '回复不能为空',
         icon: "none"
       })}
       else{
-    setTimeout(function(){
     let comment = that.data.commentVal2
     let cid = that.data.coid
     let tableID = 56584
@@ -239,7 +240,7 @@ getcomment:function(){
     }, err => {
 
         })
-    },100)}
+    }},100)
   },
   inputVal2: function (e) {
     this.setData({

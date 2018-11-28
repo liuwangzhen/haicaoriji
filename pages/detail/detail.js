@@ -417,6 +417,7 @@ Page({
   onShow: function() {
     let that = this
     that.getUserInfoByToken();
+    that.getcomment();
   },
   getUserInfoByToken() {
     let MyUser = new wx.BaaS.User()
@@ -496,6 +497,8 @@ Page({
   },
   send: function() {
     let that = this
+    setTimeout(
+      function () {
     if (that.data.commentVal == "") { 
        wx.showToast({
          title: '评论不能为空',
@@ -506,8 +509,6 @@ Page({
       //    focus:true,
       //  })
     }else{
-    setTimeout(
-      function() {
         let comment = that.data.commentVal
         let cid = that.data.id
         let tableID = 56497
@@ -526,7 +527,7 @@ Page({
         }, err => {
           //err 为 HError 对象
         })
-      }, 200)}
+      }}, 200)
   },
   inputVal: function(e) {
     this.setData({
@@ -570,14 +571,15 @@ Page({
   },
   sendanswer: function() {
     let that = this
+    setTimeout(
+      function () {
     if (that.data.commentVal2 == "") {
       wx.showToast({
         title: '回复不能为空',
         icon: "none"
       })}
       else{
-    setTimeout(
-      function() {
+    
         let comment = that.data.commentVal2
         let cid = that.data.coid
         let tableID = 56584
@@ -594,7 +596,7 @@ Page({
             commentVal2: "",
           })
         }, err => {})
-      }, 200)}
+      }}, 200)
   },
   sendanswer2: function() {
     let that = this;

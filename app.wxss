@@ -3,6 +3,7 @@
 @import '/common/iconfont2.wxss';
 @import '/common/iconfont3.wxss';
 @import '/common/iconfont4.wxss';
+@import '/common/iconfont5.wxss';
 /* {
         "pagePath": "pages/addNote/addNote",
         "text": "写日记",
@@ -47,10 +48,34 @@
 
 }
 .closebtn{
-  width:200rpx;
+ margin-top: 20rpx;
   height: 60rpx;
+  font-size: 30rpx;
+  color: #ddd;
 }
- 
+.btnshare{
+  background-color: #fff;
+  height: 240rpx;
+}
+.btnshare::after{
+  border: none;
+}
+.btn-text{
+  position: relative;
+  font-size: 30rpx;
+  bottom: 70rpx;
+}
+.btn-line{
+  background-color: #f5f5f5;
+  width: 2rpx;
+  height:140rpx;
+margin-top:70rpx;
+}
+.btn-line2{
+  background-color: #f5f5f5;
+  width: 500rpx;
+  height: 1rpx;
+}
 
 .modalDlg{
 
