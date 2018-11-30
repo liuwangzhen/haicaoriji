@@ -1,4 +1,5 @@
 const app = getApp();
+const Page = require('../../utils/ald-stat.js').Page;
 Page({
   data: {
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。

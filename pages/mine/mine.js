@@ -1,4 +1,6 @@
 // pages/mine/mine.js
+const app = getApp();
+const Page = require('../../utils/ald-stat.js').Page;
 var ex = require('../../common/common.js')
 
 Page({
@@ -9,6 +11,7 @@ Page({
   data: {
     select:"note",
     list:[],
+    ishavecollect:true,
     list2:[],
     img:"",
     sign:"",
@@ -223,6 +226,12 @@ Page({
     query.compare("created_by", '=', userId)
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
       let list0 = res.data.objects
+      if(list0.length==0){
+        that.setData({
+          ishavecollect:false,
+          isno:true,
+        })
+      }
       for (var i = 0; i < res.data.objects.length; i++) {
         let collection = that.data.collection
         if (collection.indexOf(list0[i].id) > -1) {
@@ -237,6 +246,7 @@ Page({
       }
     that.setData({
         list: list,
+      ishavecollect:false,
         page: 0
       })
 
@@ -341,10 +351,18 @@ Page({
     let list = new Array;
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
      let list=res.data.objects
+     if(list.length==0){
+       that.setData({
+         ishavecollect: false,
+         isno:true,
+       })
+     }else{
      that.setData({
        list2:list,
        page2:0,
-     })
+       ishavecollect: false,
+       isno: false,
+     })}
     }, err => {
       // err
     })

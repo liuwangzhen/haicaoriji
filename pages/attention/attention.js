@@ -1,4 +1,6 @@
 // pages/attention/attention.js
+var app = getApp();
+const Page = require('../../utils/ald-stat.js').Page;
 const list3 = new Array;
 Page({
 

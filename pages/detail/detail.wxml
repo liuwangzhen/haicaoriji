@@ -27,11 +27,12 @@
         <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
       </swiper-item>
     </swiper>
+    <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button>
     <!-- <view class='count'>{{current+1}}/{{count}}</view> -->
     <!-- <view class='user'>
     <image mode='aspectFill' src='{{list.author_head}}'></image>
     <view class='nick'>{{list.author_name}}</view>
-    <button class='contact' open-type="contact" bindcontact="handleContact">联系我们</button> -->
+    <button class='contact' open-type="contact" bindcontact="handleContact">联系我们</button>
     <!-- <button class='contact' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机 </button> -->
     <!-- </view> -->
     <text class='content2'>
@@ -61,7 +62,7 @@
               <text style='width:500rpx;' class='f30'>{{item.created_by.nick}}</text>
               <view class='block r1'>
                 <view data-id='{{item.id}}' bindtap='answer' style='margin-right:30rpx;color:#57b0f0'>回复</view>
-                <view data-id='{{item.id}}' wx:if="{{canDele==true}}" bindtap='deleteComment' style='font-size:32rpx;position:relative;top:5rpx;' class='iconfont icon-iconfontshanchu6'></view>
+                <view data-id='{{item.id}}' wx:if="{{candelete==true}}" bindtap='deleteComment' style='font-size:32rpx;position:relative;top:5rpx;' class='iconfont icon-iconfontshanchu6'></view>
                 <!-- <view class='iconfont icon-dianzan'></view>
               <view>2</view> -->
               </view>

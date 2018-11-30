@@ -1,4 +1,5 @@
 // pages/indexo/indexo.js
+import regeneratorRuntime from '../../utils/runtime'
 const Page = require('../../utils/ald-stat.js').Page;
 const Poster = require('../../utils/poster');
 const app = getApp();
@@ -20,11 +21,13 @@ Page({
     collection: [],
     height4: getApp().globalData.height,
     isClick: true,
+    search:" ",
+    search2:" ",
     bgImg: "../../images/bg.jpg",  //背景图
     dataImg: "../../images/pic01.jpg",   //内容缩略图
     ewrImg: "",  //小程序二维码图片
-    isMakingPoster: true,
-    tphone:""
+    tphone:"",
+    titles: [{ id: 0, name: "推荐", search: ' ', search2: ' ', }, { id: 1, name: "双眼皮", search: "双眼皮", search2: "双眼皮", }, { id: 2, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 3, name: "鼻综合", search: "鼻综合", search2: "鼻综合", }, { id: 4, name: "隆鼻", search: "隆鼻",search2: "隆鼻", }]
   },
   /**
    * 生命周期函数--监听页面加载
@@ -38,37 +41,7 @@ Page({
         })
       }
     })
-    const params = {
-      scene: 'Bdfd',
-      page: 'pages/indexo/indexo',
-      width: 250
-    }
-    wx.BaaS.getWXACode('wxacodeunlimit', params,true).then(res => {
-      wx.saveFile({
-        tempFilePath: res.download_url,
-        success: (res) => {
-          wx.BaaS.storage.set(this.cacheKey, res.savedFilePath);
-          console.log(res.savedFilePath)
-        },
-      });
-        // let MyFile = new wx.BaaS.File()
-        // let fileParams = { filePath: res.download_url }
-        // let metaData = { categoryName: 'SDK' }
-
-        // MyFile.upload(fileParams, metaData).then(res => {
-          console.log(res)
-          that.setData({
-            ewrImg: res.download_url
-          })
-        //   let data = res.data  // res.data 为 Object 类型
-        // }, err => {
-
-        // })
-
-      
-  
-     
-    }).catch(err => {})
+   
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
@@ -82,7 +55,7 @@ Page({
 
           })
         }
-        that.getList()
+        that.getList(" "," ")
       }, err => {
         // err
       })
@@ -91,7 +64,14 @@ Page({
       // 登录失败
     })
   },
-  
+  pre: function () {
+    let current = this.data.ewrImg
+   
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: [current] // 需要预览的图片http链接列表
+    })
+  },
   showInput: function() {
     this.setData({
       inputShowed: true
@@ -148,12 +128,15 @@ Page({
   change: function(e) {
     let that = this;
     let index = e.currentTarget.dataset.idx;
-    let arr1 = e.currentTarget.dataset.arr;
+    let search=e.currentTarget.dataset.search
+    let search2 = e.currentTarget.dataset.searchtwo
     that.setData({
       swiperIndex: index,
-      arr1: arr1
+      page:0,
+      search:search,
+      search2:search2,
     })
-    that.getCont();
+    that.getList(search,search2);
   },
   goDetail: function(e) {
     console.log(e)
@@ -259,14 +242,20 @@ Page({
     })
 
   },
-  getList: function() {
+  getList: function(a,b) {
     let tableID = 55960
     let that = this
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    Product.orderBy('-created_at').expand('created_by').limit(50).offset(0).find().then(res => {
-      let list0 = res.data.objects
+    let query = new wx.BaaS.Query()
+    let query2 = new wx.BaaS.Query()
+    query.contains('content', a)
+    query2.contains('content', b)
+    let andQuery = wx.BaaS.Query.or(query, query2)
 
+    Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(50).offset(0).find().then(res => {
+      let list0 = res.data.objects
+     console.log(list0)
       function shuffle(arr) {
         let i = arr.length,
           t, j;
@@ -314,14 +303,19 @@ Page({
       })
     }
   },
-  getList2: function() {
+  getList2: function(a,b) {
     let tableID = 55960
     let that = this
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
     let page = that.data.page
     page++;
-    Product.orderBy('-created_at').expand('created_by').limit(50).offset(page * 50).find().then(res => {
+    let query = new wx.BaaS.Query()
+    let query2 = new wx.BaaS.Query()
+    query.contains('content', a)
+    query2.contains('content', b)
+    let andQuery = wx.BaaS.Query.or(query, query2)
+    Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(50).offset(page * 50).find().then(res => {
       // success  
       if (res.data.objects == "") {
         wx.showToast({
@@ -366,9 +360,60 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+
+ btnchose:function(e){
+   let that = this
+   let h1 = that.data.tphone.screenHeight
+   let w1 = that.data.tphone.screenWidth
+   let ewrImg = that.data.ewrImg
+  //  var ctx = wx.createCanvasContext('firstCanvas',this)
+  //  let promise=function(){
+  //  let p =new Promise(
+  //    function (resolve, reject){
+  //  ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
+  //  ctx.draw()
+  //  ctx.setFontSize(30)
+  //  ctx.setFillStyle('white')
+  //  ctx.fillText('海草日记小程序', 40, 40)
+
+  //  ctx.drawImage("../../images/add.png", w1 / 4, h1 / 4, 150, 150)
    
-  },
+  //  ctx.drawImage(ewrImg, w1 / 2, h1 / 2, 150, 150)
+  //  wx.showToast({
+  //    title: '正在合成海报',
+  //    icon:'loading',
+  //    duration:2000,
+  //  })
+  // ctx.draw(true,console.log("32"))
+  //  resolve(123);
+      
+  //    })
+  //    return p;}
+    
+  //   promise().then((res)=>{
+  //     console.log(res)
+  //       getimg()
+  //     // })
+  //   })
+    // function getimg(){
+    //  console.log("00")
+      setTimeout(function(){
+      wx.canvasToTempFilePath({
+       canvasId: 'firstCanvas',
+       width: w1,
+       height: h1,
+       destWidth: w1 * 2,
+       destHeight: h1 * 2,
+       fileType: 'jpg',
+       quality: 1,
+       success: (res) => {
+         wx.previewImage({
+           urls: [res.tempFilePath]
+         });
+       }
+     })
+      },2000)
+ },
  
   /**
    * 生命周期函数--监听页面显示
@@ -398,8 +443,10 @@ Page({
   onPullDownRefresh: function() {
     wx.stopPullDownRefresh();
     var that = this;
+    let a=that.data.search
+    let b=that.data.search2
     setTimeout(function() {
-      that.getList();
+      that.getList(a,b);
       wx.showToast({
         title: '我们为您精心挑选了以下文章',
         duration: 3000,
@@ -414,8 +461,9 @@ Page({
    */
   onReachBottom: function() {
     var that = this;
-
-    that.getList2();
+    let a = that.data.search
+    let b = that.data.search2
+    that.getList2(a,b);
   },
 
   /**
@@ -431,63 +479,56 @@ Page({
       showModal: true
     })
   },
-  saveTempFile(){
+  onReady: function () {
     let that = this
     let h1 = that.data.tphone.screenHeight
     let w1 = that.data.tphone.screenWidth
-    let ewrImg=that.data.ewrImg
-    var ctx = wx.createCanvasContext('firstCanvas')
-    return new Promise((resolve, reject) => {
-      wx.canvasToTempFilePath({
-        canvasId: 'firstCanvas',
-        width: w1,
-        height: h1,
-        destWidth: w1 * 2,
-        destHeight: h1 * 2,
-        fileType: 'jpg',
-        quality: 1,
-        success: (res) => {
-          console.log(res)
-          resolve(res.tempFilePath);
-
-        },
-        fail: (err) => {
-          reject(err);
+    const params = {
+      scene: '5c00a4cee2146e0ac313b709',
+      page: 'pages/detail/detail',
+      width: 250
+    }
+    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
+      wx.getImageInfo({
+        src: res.download_url,
+        success: function (res) {
+          that.setData({
+            ewrImg: res.path
+          })
+          var ctx = wx.createCanvasContext('firstCanvas', this)
+                // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
+                // ctx.draw()
+                ctx.setFontSize(30)
+                ctx.setFillStyle('white')
+                ctx.fillText('海草日记小程序', 40, 40)
+            
+                ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
+                ctx.draw(true)
         }
-      });
-    });
+      
+    })})
   },
-  preview() {
-    let that=this
-    return new Promise((resolve, reject) => {
-      that.saveTempFile().then((res) => {
-        wx.previewImage({
-          urls: [res]
-        });
-        resolve();
-      }).catch((err) => {
-        reject(err);
-      });
-    });
-  }
-,
-  pengyouquan:function(){
-    let that = this
-    let h1 = that.data.tphone.screenHeight
-    let w1 = that.data.tphone.screenWidth
-    let ewrImg=that.data.ewrImg
-    var ctx = wx.createCanvasContext('firstCanvas')
-    ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-    ctx.draw()
-    ctx.setFontSize(30)
-    ctx.setFillStyle('white')
-    ctx.fillText('海草日记小程序', 40, 40)
-    ctx.draw(true)
-    ctx.drawImage("../../images/add.png", w1 / 4, h1 / 4, 150, 150)
-    ctx.draw(true)
-    ctx.drawImage(ewrImg, w1 / 2, h1 / 2, 150, 150)
-    ctx.draw(true, that.preview())
-  },
+  // pengyouquan:function(){
+  //   let that = this
+  //   let h1 = that.data.tphone.screenHeight
+  //   let w1 = that.data.tphone.screenWidth
+  //   const params = {
+  //     scene: '?id=5c00a4cee2146e0ac313b709',
+  //     page: 'pages/detail/detail',
+  //     width: 250
+  //   }
+  //   wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
+  //     wx.getImageInfo({
+  //       src: res.download_url,
+  //       success: function (res) {
+  //         that.setData({
+  //           ewrImg: res.path
+  //         })
+  //         that.btnchose();
+  //       }
+  //     })
+  //   })
+  // },
   onShareAppMessage: function(res) {
    
    

@@ -245,10 +245,16 @@ position:relative;
   background-color: #f5f5f5;
 }
 .contact{
-  position: absolute;
-  right: 50rpx;
-  background: linear-gradient(to right,#ffad88, #fd78a2);
-  color: #fff;
-  font-size: 30rpx;
-  line-height:60rpx;
+ position:fixed;
+right:50rpx;
+background:linear-gradient(to right,#ffad88, #fd78a2);
+color:#fff;
+font-size:30rpx;
+line-height:60rpx;
+bottom:140rpx;
+opacity:0.9;
+z-index: 3;
+}
+.contact:hover{
+  opacity: 1;
 }

@@ -1,9 +1,11 @@
 <!--pages/addNote/addNote.wxml-->
-<view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>添加日记</view>
-</view>
+<cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>添加日记</cover-view>
+</cover-view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
-<textarea cursor-spacing="10" bindtap='focusChange'  adjust-position='{{true}}' bindblur="content" name="content" value='{{content}}' maxlength='-1' class='textarea' placeholder-class='placeholder' placeholder='这一刻，想说点什么...'></textarea>
+<textarea cursor-spacing="10" bindtap='focusChange'  adjust-position='{{true}}' bindblur="content" name="content" value='{{content}}' maxlength='-1' class='textarea' placeholder-class='placeholder' placeholder='这一刻，想说点什么...'>
+<cover-view></cover-view>
+</textarea>
 <view class='head'>
   <view wx:key="{{index}}" wx:if="{{index<=8}}" wx:for="{{arr1}}" data-id="{{index}}">
     <view style='position:absolute;margin-left:22px;margin-top:5rpx;color:#de3e29;' data-id="{{index}}" bindtap='delete' class='iconfont2 icon-cha'></view>

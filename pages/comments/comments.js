@@ -1,4 +1,6 @@
 // pages/comments/comments.js
+var app = getApp();
+const Page = require('../../utils/ald-stat.js').Page;
 Page({
 
   /**

@@ -14,7 +14,7 @@
   </view>
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
-<view class='f28 ml20 head'>有趣的个人介绍更容易吸引粉丝</view>
+<view class='f28 ml20 head'>来介绍一下自己吧</view>
 <view class='nick'>
 <textarea bindblur='sign' value='{{sign}}' maxlength='200' class='nick2'>
 </textarea>

@@ -1,4 +1,6 @@
 // pages/detail/detail.js
+var app = getApp();
+const Page = require('../../utils/ald-stat.js').Page;
 Page({
 
   /**
@@ -34,20 +36,42 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let scene = decodeURIComponent(options.scene)
+    let time=new Date()
+    console.log(time)
     let that = this;
-    var id = options.id;
-    if (options.getshare != undefined) {
+    if(options.scene!=undefined){
       that.setData({
-        getshare: options.getshare,
+        getshare: 1,
+        id:options.scene
       })
+      console.log(options.scene)
+      console.log(that.data.id)
+      that.getUserInfoByToken();
+      that.getcomment();
+      that.getList();
+      app.aldstat.sendEvent('日记打开', {
+        '日记id': that.data.id,
+        '打开时间': time
+      });
     }
-    that.setData({
-      id: id,
-
-    })
-    that.getUserInfoByToken();
-    that.getcomment();
-    that.getList();
+   else{
+      if (options.getshare != undefined) {
+        that.setData({
+          getshare: 1,
+        })
+      }
+      that.setData({
+        id: options.id,
+      })
+      that.getUserInfoByToken();
+      that.getcomment();
+      that.getList();
+      app.aldstat.sendEvent('日记打开', {
+        '日记id': that.data.id,
+        '打开时间': time
+      });
+   }
   },
   goback: function() {
     wx.navigateBack({
@@ -199,11 +223,11 @@ Page({
           canDele: true
         })
       }
-      if (res.data.created_by == getApp().globalData.userId) {
-        that.setData({
-          candelete: true
-        })
-      }
+      // if (res.data.created_by == getApp().globalData.userId) {
+      //   that.setData({
+      //     candelete: true
+      //   })
+      // }
       MyUser.get(id).then(res => {
         that.setData({
           headimg: res.data.headimg,
@@ -438,6 +462,7 @@ Page({
           phone: res.data.phone
         })
         that.getPic();
+        that.getAdmin();
       }, err => {
         // err
       })
@@ -447,7 +472,25 @@ Page({
       // 登录失败
     })
   },
-
+getAdmin:function(){
+  let that = this
+  let tableID = 58773
+  let user2Id = that.data.user2Id
+  let Product = new wx.BaaS.TableObject(tableID)
+  let arr=new Array
+  Product.find().then(res => {
+    let list=res.data.objects
+    for(let i=0;i<list.length; i++){
+      list[i]=list[i].adminid
+      arr.push(list[i])
+    }
+    if(arr.indexOf(user2Id)>-1){
+      that.setData({
+        candelete: true
+      })
+    }
+  })
+},
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -670,7 +713,7 @@ Page({
   getAllComments: function() {
     let that = this
     let id = that.data.id
-    let canDele = that.data.canDele
+    let canDele = that.data.candelete
     wx.navigateTo({
       url: '../comments/comments?id=' + id + "&canDele=" + canDele,
     })

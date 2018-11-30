@@ -10,7 +10,11 @@ page{
   margin:0 20rpx;
   text-align:justify;
 }
-
+.isno{
+  text-align: center;
+  margin-top: 180rpx;
+  
+}
 .atten-fans{
   display: flex;
   flex-direction: row;

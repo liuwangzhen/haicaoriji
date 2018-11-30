@@ -1,4 +1,6 @@
 // pages/upnick/upnick.js
+const app = getApp();
+const Page = require('../../utils/ald-stat.js').Page;
 Page({
 
   /**

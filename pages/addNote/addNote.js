@@ -1,5 +1,7 @@
 // pages/addNote/addNote.js
 import regeneratorRuntime from '../../utils/runtime'
+var app = getApp();
+const Page = require('../../utils/ald-stat.js').Page;
 Page({
 
   /**
@@ -185,7 +187,7 @@ Page({
                     wx.showToast({
                       title: '提交成功..',
                       icon: 'success',
-                      duration: 4000,
+                      duration: 2000,
                       success: function (res) {
                         that.setData({
                           arr1: [],
