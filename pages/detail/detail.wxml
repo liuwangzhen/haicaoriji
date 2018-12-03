@@ -1,6 +1,5 @@
 <!--pages/detail/detail.wxml-->
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
-
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
@@ -22,19 +21,16 @@
 </view>
 <view wx:else>
   <view class='contain2'>
-    <swiper indicator-active-color="#fff" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
+    <swiper wx:if="{{list.video==null}}" indicator-active-color="#fff" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
       <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
         <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
       </swiper-item>
     </swiper>
+    <video bindplay="bindplay" class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
+    <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
+    </video>
     <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button>
-    <!-- <view class='count'>{{current+1}}/{{count}}</view> -->
-    <!-- <view class='user'>
-    <image mode='aspectFill' src='{{list.author_head}}'></image>
-    <view class='nick'>{{list.author_name}}</view>
-    <button class='contact' open-type="contact" bindcontact="handleContact">联系我们</button>
-    <!-- <button class='contact' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">获取手机 </button> -->
-    <!-- </view> -->
+   
     <text class='content2'>
     {{list.content}}
   </text>
@@ -154,7 +150,7 @@
     <view class='line'>
     </view>
     <view style='position:absolute;left:475rpx;' class='r1'>
-      <button open-type="share" bindtap='onShareAppMessage' class='share'>
+      <button bindtap='onShare' class='share'>
         <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
           <span class="share-1">分享</span>
         </view>
@@ -162,4 +158,27 @@
       <view wx:if="{{share>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
     </view>
   </view>
+</view>
+<view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
+  <image src='../../images/loading2.svg' style='width:68px' mode='widthFix' />
+  <view class='text-sm text-trivial'>海报生成中</view>
+</view>
+<canvas class='canvas' canvas-id='firstCanvas' style='width:{{tphone.screenWidth}}px;height:{{tphone.screenHeight}}px;position:fixed;top:-10000px;'></canvas>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view wx:if="{{showModal}}" class="modalDlg">
+  <view class='r1'>
+    <button class='btnshare' open-type="share" bindtap='onShareAppMessage'>
+      <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-weixin3'>
+      </view>
+      <view class='btn-text'>分享给朋友</view>
+    </button>
+    <view class='btn-line'></view>
+    <button bindtap='btnchose' class='btnshare'>
+      <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-pengyouquan'>
+      </view>
+      <view class='btn-text'>分享朋友圈</view>
+    </button>
+  </view>
+  <view class='btn-line2'></view>
+  <view class='closebtn' bindtap="go">取消</view>
 </view>

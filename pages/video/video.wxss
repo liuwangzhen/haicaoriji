@@ -1,0 +1,2 @@
+/* pages/video/video.wxss */
+@import '../addNote/addNote.wxss';

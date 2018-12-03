@@ -40,7 +40,9 @@
     <view class="left">
       <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
         <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix">
+          <view wx:if="{{item.video!=null}}" style='z-index:4;'  class='iconfont icon-bofang'></view>
+          </image>
           <view class="item-title-box">
             <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
             <view wx:else class="item-title">{{item.content}}</view>
@@ -52,7 +54,9 @@
     <view class="right">
       <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
         <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix">
+          <view wx:if="{{item.video!=null}}" style='z-index:4;'  class='iconfont icon-bofang'></view>
+          </image>
           <view class="item-title-box">
             <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
             <view wx:else class="item-title">{{item.content}}</view>

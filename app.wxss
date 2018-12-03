@@ -4,6 +4,7 @@
 @import '/common/iconfont3.wxss';
 @import '/common/iconfont4.wxss';
 @import '/common/iconfont5.wxss';
+@import '/common/iconfont6.wxss';
 /* {
         "pagePath": "pages/addNote/addNote",
         "text": "写日记",
@@ -29,7 +30,7 @@
 
 }
 .canvas{
-  background-color: #fff;
+  background-color: #d5d5d5;
 }
 .top {
   position: fixed;
@@ -60,7 +61,7 @@
 
     background: #000;
 
-    z-index: 9000;
+    z-index: 5;
 
     opacity: 0.7;
 
@@ -103,7 +104,7 @@ margin-top:70rpx;
     top: 70%;
     left: 0;
 
-    z-index: 9999;
+    z-index: 6;
 
     margin: -370rpx 85rpx;
 

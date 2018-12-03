@@ -1,84 +1,64 @@
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
-<scroll-view scroll-y style="height:{{tphone.screenHeight}}px" bindscrolltoupper="onPullDownRefresh" bindscrolltolower="onReachBottom" enable-back-to-top="true">
-<view class='topone'>
-  <view style='height:{{height4*2+20}}px' class='nav-wrap'>
-    <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
-  </view>
-  <view style='height:{{height4*2+20}}px;' class='pad'></view>
-  <view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
-    <view hover-class='none'>
-      <input class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
+
+  <view class='topone'>
+    <view style='height:{{height4*2+20}}px' class='nav-wrap'>
+      <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
+    </view>
+    <view style='height:{{height4*2+20}}px;' class='pad'></view>
+    <view hidden="{{inputShowed}}" bindtap="showInput" class='nav'>
+      <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+      <view hover-class='none'>
+        <input class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
+      </view>
+    </view>
+    <view hidden="{{!inputShowed}}" class='nav'>
+      <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+      <view hover-class='none'>
+        <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder="大家都在搜" placeholder-class="search-p"></input>
+      </view>
+      <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
+      <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
+      <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
     </view>
   </view>
-  <view hidden="{{!inputShowed}}" class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
-    <view hover-class='none'>
-      <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder="大家都在搜" placeholder-class="search-p"></input>
+  <view class='recom'>
+    <scroll-view scroll-x="true" scroll-left="20" class='recommend'>
+      <view bindtap='change' class="f30 mt20 ml20 {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
+        {{item.name}}
+      </view>
+    </scroll-view>
+  </view>
+  <!-- <scroll-view   class='body' upper-threshold="250" scroll-y style="height:{{tphone.screenHeight}}px;padding-top:340rpx;" bindscrolltoupper="onPullDownRefresh" bindscrolltolower="onReachBottom" enable-back-to-top="true"> -->
+  <view style='padding-top:340rpx;' class='body'>
+    <view class='wait' wx:if="{{list.length==0}}">
+      <image mode='widthFix' src='../../images/loading.svg'></image>
+      <view class='f28 ml38'>加载中</view>
     </view>
-    <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
-    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
-    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
-  </view>
-</view>
-<view class='recom'>
-  <scroll-view scroll-x="true" scroll-left="20" class='recommend'>
-    <view bindtap='change' class="f30 mt20 ml20 {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
-      {{item.name}}
-    </view>
-  </scroll-view>
-  </view>
-<view style='padding-top:340rpx;' class='body'>
-  <!-- <canvas class='canvas'  canvas-id='firstCanvas' style='width:{{tphone.screenWidth}}px;height:{{tphone.screenHeight}}px;'></canvas>
-  <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
-  <view wx:if="{{showModal}}" class="modalDlg">
-    <view class='r1'>
-      <button class='btnshare' open-type="share">
-        <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-weixin3'>
-        </view>
-        <view class='btn-text'>分享给朋友</view>
-      </button>
-      <view class='btn-line'></view>
-      <button bindtap='btnchose' class='btnshare'>
-        <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-pengyouquan'>
-        </view>
-        <view class='btn-text'>分享朋友圈</view>
-      </button>
-    </view>
-    <view class='btn-line2'></view>
-    <view class='closebtn' bindtap="go">取消</view>
-  </view>
-  <button bindtap='submit'>分享</button> -->
-  
-  <view class='wait' wx:if="{{list.length==0}}">
-    <image mode='widthFix' src='../../images/loading.svg'></image>
-    <view class='f28 ml38'>加载中</view>
-  </view>
-  <view wx:else class="content">
-    <view class="left">
-      <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-        <view bindtap='goDetail' data-id='{{item.id}}' class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
+    <view wx:else class="content">
+      <view class="left">
+        <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+          <view bindtap='goDetail' data-id='{{item.id}}' class="item">
+            <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+            <view class="item-title-box">
+              <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+              <view wx:else class="item-title">{{item.content}}</view>
+            </view>
           </view>
         </view>
+        <view class='bottom'></view>
       </view>
-      <view class='bottom'></view>
-    </view>
-    <view class="right">
-      <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-        <view bindtap='goDetail' data-id='{{item.id}}' class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
+      <view class="right">
+        <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+          <view bindtap='goDetail' data-id='{{item.id}}' class="item">
+            <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+            <view class="item-title-box">
+              <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+              <view wx:else class="item-title">{{item.content}}</view>
+            </view>
           </view>
         </view>
+        <view class='bottom'></view>
       </view>
-      <view class='bottom'></view>
     </view>
   </view>
-</view>
-</scroll-view>
+<!-- </scroll-view> -->

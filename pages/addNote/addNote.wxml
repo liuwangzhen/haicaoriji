@@ -13,10 +13,6 @@
   </view>
   <image wx:if="{{check}}" bindtap='add' class='addimg' src='../../images/add.png'></image>
 </view>
-
-<!-- <view wx:if="{{focus2==true}}" >
-<textarea fixed='true' style='position:fixed;bottom:{{height2+100}}px' focus="{{focus3==true}}" bindfocus='focusText'  bindblur="content" name="content" value='{{content}}' maxlength='-1' class='textarea' placeholder-class='placeholder' placeholder='这一刻，想说点什么...'></textarea>
-</view> -->
 <view class='line'></view>
 <view class='pos'>
   <view style='color:#d7d7d7;' class='iconfont2 icon-weizhi'></view>

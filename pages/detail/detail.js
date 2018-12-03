@@ -30,6 +30,10 @@ Page({
     isClick: true,
     isClick2: true,
     phone: null,
+    showModal: false,
+    tphone: "",
+    isMakingPoster: false,
+    play:false,
   },
 
   /**
@@ -37,13 +41,19 @@ Page({
    */
   onLoad: function(options) {
     let scene = decodeURIComponent(options.scene)
-    let time=new Date()
-    console.log(time)
+    let time = new Date()
     let that = this;
-    if(options.scene!=undefined){
+    wx.getSystemInfo({
+      success: (res) => {
+        that.setData({
+          tphone: res
+        })
+      }
+    })
+    if (options.scene != undefined) {
       that.setData({
         getshare: 1,
-        id:options.scene
+        id: options.scene
       })
       console.log(options.scene)
       console.log(that.data.id)
@@ -54,8 +64,7 @@ Page({
         '日记id': that.data.id,
         '打开时间': time
       });
-    }
-   else{
+    } else {
       if (options.getshare != undefined) {
         that.setData({
           getshare: 1,
@@ -71,7 +80,12 @@ Page({
         '日记id': that.data.id,
         '打开时间': time
       });
-   }
+    }
+  },
+  onShare: function() {
+    this.setData({
+      showModal: true
+    })
   },
   goback: function() {
     wx.navigateBack({
@@ -82,6 +96,12 @@ Page({
     wx.switchTab({
       url: '../indexo/indexo',
     })
+  },
+  bindplay:function(){
+let that=this
+that.setData({
+  play:true
+})
   },
   previewImage: function(e) {
     let current = e.currentTarget.dataset.item
@@ -104,7 +124,80 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
+    let that = this
+    let h1 = that.data.tphone.screenHeight
+    let w1 = that.data.tphone.screenWidth
+    const params = {
+      scene: that.data.id,
+      page: 'pages/detail/detail',
+      width: 250
+    }
+    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
+      wx.getImageInfo({
+        src: res.download_url,
+        success: function(res) {
+          that.setData({
+            ewrImg: res.path
+          })
 
+          //       var ctx = wx.createCanvasContext('firstCanvas', this)
+          //       ctx.setFontSize(30)
+          //       ctx.setFillStyle('#fff')
+          //       ctx.fillText('海草日记小程序', 40, 40)
+          //       ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
+          //       ctx.draw(true)
+        }
+      })
+    })
+  },
+  btnchose: function() {
+    let that = this
+    let h1 = that.data.tphone.screenHeight
+    let w1 = that.data.tphone.screenWidth
+    let ewrImg = that.data.ewrImg
+
+    function prew() {
+      that.setData({
+        isMakingPoster: false
+      })
+      wx.canvasToTempFilePath({
+        canvasId: 'firstCanvas',
+        width: w1,
+        height: h1,
+        destWidth: w1 * 2,
+        destHeight: h1 * 2,
+        fileType: 'jpg',
+        quality: 1,
+        success: (res) => {
+          wx.previewImage({
+            urls: [res.tempFilePath]
+          });
+        }
+      })
+    }
+    let ctx = wx.createCanvasContext('firstCanvas', this)
+    let promise = new Promise(
+      function(resolve, reject) {
+        that.setData({
+          isMakingPoster: true
+        })
+        setTimeout(
+          function() {
+            // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
+            ctx.setFillStyle('#f5f5f5')
+            ctx.fillRect(0, 0, w1, h1)
+            ctx.setFontSize(30)
+            ctx.setFillStyle('#d5d5d5')
+            ctx.fillText('海草日记小程序', 40, 40)
+            ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
+            resolve()
+          }, 1000)
+      })
+    promise.then((res) => ctx.draw(false, () => {
+      prew();
+    }))
+    // setTimeout(
+    // , 2000)
   },
   goUser: function() {
     var id = this.data.userid;
@@ -472,25 +565,25 @@ Page({
       // 登录失败
     })
   },
-getAdmin:function(){
-  let that = this
-  let tableID = 58773
-  let user2Id = that.data.user2Id
-  let Product = new wx.BaaS.TableObject(tableID)
-  let arr=new Array
-  Product.find().then(res => {
-    let list=res.data.objects
-    for(let i=0;i<list.length; i++){
-      list[i]=list[i].adminid
-      arr.push(list[i])
-    }
-    if(arr.indexOf(user2Id)>-1){
-      that.setData({
-        candelete: true
-      })
-    }
-  })
-},
+  getAdmin: function() {
+    let that = this
+    let tableID = 58773
+    let user2Id = that.data.user2Id
+    let Product = new wx.BaaS.TableObject(tableID)
+    let arr = new Array
+    Product.find().then(res => {
+      let list = res.data.objects
+      for (let i = 0; i < list.length; i++) {
+        list[i] = list[i].adminid
+        arr.push(list[i])
+      }
+      if (arr.indexOf(user2Id) > -1) {
+        that.setData({
+          candelete: true
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -541,36 +634,37 @@ getAdmin:function(){
   send: function() {
     let that = this
     setTimeout(
-      function () {
-    if (that.data.commentVal == "") { 
-       wx.showToast({
-         title: '评论不能为空',
-         icon:"none"
-       })
-      //  that.setData({
-      //    input: true,
-      //    focus:true,
-      //  })
-    }else{
-        let comment = that.data.commentVal
-        let cid = that.data.id
-        let tableID = 56497
-        let Product = new wx.BaaS.TableObject(tableID)
-        let product = Product.create()
-        let apple = {
-          comment: comment,
-          cid: cid,
-        }
-        product.set(apple).save().then(res => {
-          that.getcomment()
-          that.setData({
-            input: false,
-            commentVal: "",
+      function() {
+        if (that.data.commentVal == "") {
+          wx.showToast({
+            title: '评论不能为空',
+            icon: "none"
           })
-        }, err => {
-          //err 为 HError 对象
-        })
-      }}, 200)
+          //  that.setData({
+          //    input: true,
+          //    focus:true,
+          //  })
+        } else {
+          let comment = that.data.commentVal
+          let cid = that.data.id
+          let tableID = 56497
+          let Product = new wx.BaaS.TableObject(tableID)
+          let product = Product.create()
+          let apple = {
+            comment: comment,
+            cid: cid,
+          }
+          product.set(apple).save().then(res => {
+            that.getcomment()
+            that.setData({
+              input: false,
+              commentVal: "",
+            })
+          }, err => {
+            //err 为 HError 对象
+          })
+        }
+      }, 200)
   },
   inputVal: function(e) {
     this.setData({
@@ -615,31 +709,32 @@ getAdmin:function(){
   sendanswer: function() {
     let that = this
     setTimeout(
-      function () {
-    if (that.data.commentVal2 == "") {
-      wx.showToast({
-        title: '回复不能为空',
-        icon: "none"
-      })}
-      else{
-    
-        let comment = that.data.commentVal2
-        let cid = that.data.coid
-        let tableID = 56584
-        let Product = new wx.BaaS.TableObject(tableID)
-        let product = Product.create()
-        let apple = {
-          answer: comment,
-          cid: cid,
-        }
-        product.set(apple).save().then(res => {
-          that.getcomment()
-          that.setData({
-            input2: false,
-            commentVal2: "",
+      function() {
+        if (that.data.commentVal2 == "") {
+          wx.showToast({
+            title: '回复不能为空',
+            icon: "none"
           })
-        }, err => {})
-      }}, 200)
+        } else {
+
+          let comment = that.data.commentVal2
+          let cid = that.data.coid
+          let tableID = 56584
+          let Product = new wx.BaaS.TableObject(tableID)
+          let product = Product.create()
+          let apple = {
+            answer: comment,
+            cid: cid,
+          }
+          product.set(apple).save().then(res => {
+            that.getcomment()
+            that.setData({
+              input2: false,
+              commentVal2: "",
+            })
+          }, err => {})
+        }
+      }, 200)
   },
   sendanswer2: function() {
     let that = this;
@@ -741,6 +836,41 @@ getAdmin:function(){
     var dateformat = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
     return dateformat
   },
+  go: function() {
+    this.setData({
+      showModal: false
+    })
+  },
+  getCanvas: function() {
+    let that = this
+    let h1 = that.data.tphone.screenHeight
+    let w1 = that.data.tphone.screenWidth
+    const params = {
+      scene: '5c00a4cee2146e0ac313b709',
+      page: 'pages/detail/detail',
+      width: 250
+    }
+    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
+      wx.getImageInfo({
+        src: res.download_url,
+        success: function(res) {
+          that.setData({
+            ewrImg: res.path
+          })
+          var ctx = wx.createCanvasContext('firstCanvas', this)
+          ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
+          ctx.draw()
+          ctx.setFontSize(30)
+          ctx.setFillStyle('#fff')
+          ctx.fillText('海草日记小程序', 40, 40)
+
+          ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
+          ctx.draw(true)
+        }
+
+      })
+    })
+  },
   onShareAppMessage: function() {
     let that = this
     let id = that.data.id
@@ -754,7 +884,7 @@ getAdmin:function(){
       title: title,
       // desc: '最具人气的小程序',
       path: '/pages/detail/detail?id=' + id + "&getshare=" + 1,
-      imageUrl:that.data.list.img[0],
+      imageUrl: that.data.list.img[0],
       success: (e) => {
         product.set('share', share)
         product.update().then(res => {

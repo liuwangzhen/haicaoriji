@@ -27,7 +27,7 @@ Page({
     dataImg: "../../images/pic01.jpg",   //内容缩略图
     ewrImg: "",  //小程序二维码图片
     tphone:"",
-    titles: [{ id: 0, name: "推荐", search: ' ', search2: ' ', }, { id: 1, name: "双眼皮", search: "双眼皮", search2: "双眼皮", }, { id: 2, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 3, name: "鼻综合", search: "鼻综合", search2: "鼻综合", }, { id: 4, name: "隆鼻", search: "隆鼻",search2: "隆鼻", }]
+    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "双眼皮", search: "双眼皮", search2: "双眼皮", }, { id: 2, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 3, name: "鼻综合", search: "鼻综合", search2: "鼻综合", }, { id: 4, name: "隆鼻", search: "隆鼻",search2: "隆鼻", }]
   },
   /**
    * 生命周期函数--监听页面加载
@@ -366,37 +366,6 @@ Page({
    let h1 = that.data.tphone.screenHeight
    let w1 = that.data.tphone.screenWidth
    let ewrImg = that.data.ewrImg
-  //  var ctx = wx.createCanvasContext('firstCanvas',this)
-  //  let promise=function(){
-  //  let p =new Promise(
-  //    function (resolve, reject){
-  //  ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-  //  ctx.draw()
-  //  ctx.setFontSize(30)
-  //  ctx.setFillStyle('white')
-  //  ctx.fillText('海草日记小程序', 40, 40)
-
-  //  ctx.drawImage("../../images/add.png", w1 / 4, h1 / 4, 150, 150)
-   
-  //  ctx.drawImage(ewrImg, w1 / 2, h1 / 2, 150, 150)
-  //  wx.showToast({
-  //    title: '正在合成海报',
-  //    icon:'loading',
-  //    duration:2000,
-  //  })
-  // ctx.draw(true,console.log("32"))
-  //  resolve(123);
-      
-  //    })
-  //    return p;}
-    
-  //   promise().then((res)=>{
-  //     console.log(res)
-  //       getimg()
-  //     // })
-  //   })
-    // function getimg(){
-    //  console.log("00")
       setTimeout(function(){
       wx.canvasToTempFilePath({
        canvasId: 'firstCanvas',
@@ -436,11 +405,16 @@ Page({
   onUnload: function() {
 
   },
-
+  
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
+  onPullDown:function(){
+    wx.startPullDownRefresh()
+  },
+  
   onPullDownRefresh: function() {
+   
     wx.stopPullDownRefresh();
     var that = this;
     let a=that.data.search
@@ -480,55 +454,8 @@ Page({
     })
   },
   onReady: function () {
-    let that = this
-    let h1 = that.data.tphone.screenHeight
-    let w1 = that.data.tphone.screenWidth
-    const params = {
-      scene: '5c00a4cee2146e0ac313b709',
-      page: 'pages/detail/detail',
-      width: 250
-    }
-    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
-      wx.getImageInfo({
-        src: res.download_url,
-        success: function (res) {
-          that.setData({
-            ewrImg: res.path
-          })
-          var ctx = wx.createCanvasContext('firstCanvas', this)
-                // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-                // ctx.draw()
-                ctx.setFontSize(30)
-                ctx.setFillStyle('white')
-                ctx.fillText('海草日记小程序', 40, 40)
-            
-                ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
-                ctx.draw(true)
-        }
-      
-    })})
+   
   },
-  // pengyouquan:function(){
-  //   let that = this
-  //   let h1 = that.data.tphone.screenHeight
-  //   let w1 = that.data.tphone.screenWidth
-  //   const params = {
-  //     scene: '?id=5c00a4cee2146e0ac313b709',
-  //     page: 'pages/detail/detail',
-  //     width: 250
-  //   }
-  //   wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
-  //     wx.getImageInfo({
-  //       src: res.download_url,
-  //       success: function (res) {
-  //         that.setData({
-  //           ewrImg: res.path
-  //         })
-  //         that.btnchose();
-  //       }
-  //     })
-  //   })
-  // },
   onShareAppMessage: function(res) {
    
    
