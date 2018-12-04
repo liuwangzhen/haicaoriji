@@ -27,6 +27,7 @@ Page({
     dataImg: "../../images/pic01.jpg",   //内容缩略图
     ewrImg: "",  //小程序二维码图片
     tphone:"",
+    scrolltop:0,
     titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "双眼皮", search: "双眼皮", search2: "双眼皮", }, { id: 2, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 3, name: "鼻综合", search: "鼻综合", search2: "鼻综合", }, { id: 4, name: "隆鼻", search: "隆鼻",search2: "隆鼻", }]
   },
   /**
@@ -130,16 +131,21 @@ Page({
     let index = e.currentTarget.dataset.idx;
     let search=e.currentTarget.dataset.search
     let search2 = e.currentTarget.dataset.searchtwo
+    wx.pageScrollTo({
+      scrollTop:0
+    })
     that.setData({
       swiperIndex: index,
       page:0,
       search:search,
       search2:search2,
+      scrolltop:0,
     })
     that.getList(search,search2);
   },
+  
+
   goDetail: function(e) {
-    console.log(e)
     let id = e.currentTarget.dataset.id
     wx.navigateTo({
       url: "../detail/detail?id=" + id
@@ -252,7 +258,40 @@ Page({
     query.contains('content', a)
     query2.contains('content', b)
     let andQuery = wx.BaaS.Query.or(query, query2)
-
+    if(a==" "){
+      Product.orderBy('-created_at').expand('created_by').limit(50).offset(0).find().then(res => {
+        let list0 = res.data.objects
+        console.log(list0)
+        function shuffle(arr) {
+          let i = arr.length,
+            t, j;
+          while (i) {
+            j = Math.floor(Math.random() * i--);
+            t = arr[i];
+            arr[i] = arr[j];
+            arr[j] = t;
+          }
+        }
+        shuffle(list0);
+        for (let i = 0; i < res.data.objects.length; i++) {
+          let collection = that.data.collection
+          if (collection.indexOf(list0[i].id) > -1) {
+            list0[i].collect = 1;
+            list.push(list0[i]);
+          } else {
+            list0[i].collect = 0;
+            list.push(list0[i]);
+          }
+        }
+        that.setData({
+          list: list,
+          page: 0
+        })
+      }, err => {
+        // err
+      })
+    }
+    else{
     Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(50).offset(0).find().then(res => {
       let list0 = res.data.objects
      console.log(list0)
@@ -284,6 +323,7 @@ Page({
     }, err => {
       // err
     })
+    }
   },
   LimitNumbersadf(txt) {
     var str = txt;
@@ -315,6 +355,49 @@ Page({
     query.contains('content', a)
     query2.contains('content', b)
     let andQuery = wx.BaaS.Query.or(query, query2)
+    if(a==" "){
+      Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(50).offset(page * 50).find().then(res => {
+        // success  
+        if (res.data.objects == "") {
+          wx.showToast({
+            title: '亲，(╯-╰) 没有啦',
+            icon: 'none',
+          })
+        } else {
+          let list0 = res.data.objects
+
+          function shuffle(arr) {
+            let i = arr.length,
+              t, j;
+            while (i) {
+              j = Math.floor(Math.random() * i--);
+              t = arr[i];
+              arr[i] = arr[j];
+              arr[j] = t;
+            }
+          }
+          shuffle(list0);
+          for (var i = 0; i < res.data.objects.length; i++) {
+            let collection = that.data.collection
+            if (collection.indexOf(list0[i].id) > -1) {
+              list0[i].collect = 1;
+              list.push(list0[i]);
+            } else {
+              list0[i].collect = 0;
+              list.push(list0[i]);
+            }
+          }
+          that.setData({
+            list: that.data.list.concat(list),
+            page: page
+          })
+        }
+
+      }, err => {
+        // err
+      })
+    }
+    else{
     Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(50).offset(page * 50).find().then(res => {
       // success  
       if (res.data.objects == "") {
@@ -355,6 +438,7 @@ Page({
     }, err => {
       // err
     })
+    }
   },
 
   /**
@@ -412,7 +496,9 @@ Page({
   onPullDown:function(){
     wx.startPullDownRefresh()
   },
-  
+  bindscroll:function(e){
+console.log(e.detail.scrollTop)
+  },
   onPullDownRefresh: function() {
    
     wx.stopPullDownRefresh();

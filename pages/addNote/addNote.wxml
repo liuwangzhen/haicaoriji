@@ -21,3 +21,7 @@
 </view>
 <view class='line'></view>
 <button bindtap='submit' class='btn'>发布</button>
+<view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
+  <image src='../../images/loading2.svg' style='width:68px' mode='widthFix' />
+  <view class='text-sm text-trivial'>正在提交</view>
+</view>

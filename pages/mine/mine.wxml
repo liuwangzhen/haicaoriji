@@ -8,15 +8,16 @@
     <view class="index-profile">
       <image mode='aspectFill' src='{{img2}}' class="index-profile__img"></image>
     </view>
-    <view class='col ml20 w550'>
+    <view class='col ml20'>
       <view class='nick2 bold'>{{userInfo.nick}}</view>
-      <view class='age'>年龄：{{age}}</view>
-      <view bindtap='updata' class='edit'>
-        <text class='edit-text'>编辑资料</text>
-      </view>
+      <!-- <view class='age'>年龄：{{age}}</view> -->
+      <view class='age'>积分：{{userInfo.integration}}</view>
+    </view>
+    <view bindtap='updata' class='edit'>
+      <text class='edit-text'>编辑资料</text>
     </view>
   </view>
-  <view style='width:730rpx;' class='r1 mt20 f28 ml20'>
+  <!-- <view style='width:730rpx;' class='r1 mt20 f28 ml20'>
     <view wx:if="{{userInfo.sex==1}}" style='color:blue;' class='iconfont icon-nan'></view>
     <view wx:if="{{userInfo.sex==2}}" style='color:pink;' class='iconfont icon-nv'></view>
     <view wx:if="{{userInfo.sex==null}}">
@@ -26,9 +27,15 @@
     <view class='line'></view>
     <view wx:if="{{userInfo.province!=null}}" class='introduce'>{{userInfo.province}}</view>
     <view wx:if="{{userInfo.city!=null}}" class='introduce'>{{userInfo.city}}</view>
-  </view>
-  <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text>
+  </view> -->
+  <!-- <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text> -->
   <view class='border'></view>
+  <view class='register'>
+    <view class='ruler f28'>打卡规则</view>
+    <button class='register-btn mt20'>今日打卡</button>
+    <button class='registered-btn'>已打卡</button>
+    <view class='f25 cen mt20'>已连续打卡3天</view>
+  </view>
   <view class='line2'></view>
 </view>
 <!-- 收藏 -->

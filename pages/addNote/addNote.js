@@ -18,6 +18,8 @@ Page({
     focus1:true,
     focus2:false,
     focus3:false,
+    height4: getApp().globalData.height,
+    isMakingPoster: false,
   },
 
   /**
@@ -119,6 +121,9 @@ Page({
             content: '确认发布',
             success: function(res) {
               if (res.confirm) {
+                that.setData({
+                  isMakingPoster: true,
+                })
                 let arr1 = that.data.arr1
                 let n=arr1.length
                 let obj = {
@@ -190,6 +195,7 @@ Page({
                       duration: 2000,
                       success: function (res) {
                         that.setData({
+                          isMakingPoster: false,
                           arr1: [],
                           addDetail: "",
                           check: true,

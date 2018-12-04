@@ -1,7 +1,6 @@
 
 function collect(e) {
-  console.log("33333")
-  console.log(e)
+  
   let that = this
   let id = e.currentTarget.dataset.id
   let idx = e.currentTarget.dataset.index

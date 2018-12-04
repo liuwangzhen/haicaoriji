@@ -1,2 +1,6 @@
 /* pages/video/video.wxss */
 @import '../addNote/addNote.wxss';
+.video{
+  width: 750rpx;
+  height: 562rpx;
+}

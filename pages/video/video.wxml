@@ -7,14 +7,15 @@
 <cover-view></cover-view>
 </textarea>
 <view class='head'>
-  <video src='{{src}}'></video>
+  <video class='video' src='{{src}}'></video>
 </view>
-<image src='{{img}}' bindtap='previewImage' mode='aspectFill' class='item'></image>
-<button bindtap='deleteimg'>删除海报</button>
+<image class='video' src='{{img}}' bindtap='previewImage' mode='aspectFill' class='item'></image>
+<button  bindtap='add'>添加视频</button>
 <button bindtap='addimg'>添加海报</button>
 <button bindtap='deleteVideo'>删除视频</button>
-<button  bindtap='add'>添加视频</button>
-
-
-
+<button bindtap='deleteimg'>删除海报</button>
 <button bindtap='submit' class='btn'>发布</button>
+<view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
+  <image src='../../images/loading2.svg' style='width:68px' mode='widthFix' />
+  <view class='text-sm text-trivial'>正在提交</view>
+</view>

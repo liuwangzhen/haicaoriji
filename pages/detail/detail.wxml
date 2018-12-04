@@ -94,6 +94,7 @@
       <view wx:if="{{index%2==0}}" wx:for="{{getlist}}" wx:key="{{item.id}}">
         <view data-id="{{item.id}}" bindtap='goCommend' class="item">
           <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
           <view class="item-title-box">
             <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
             <view wx:else class="item-title">{{item.content}}</view>
@@ -106,6 +107,7 @@
       <view wx:for="{{getlist}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
         <view data-id="{{item.id}}" bindtap='goCommend' class="item">
           <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
           <view class="item-title-box">
             <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
             <view wx:else class="item-title">{{item.content}}</view>

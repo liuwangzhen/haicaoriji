@@ -1,7 +1,7 @@
 /* pages/indexo/indexo.wxss */
 @import '../member/member.wxss';
 .search{
-  background-color:#f5f5f5;
+background-color:#f5f5f5;
 width:610rpx;
 height:75rpx;
 border-radius:30rpx;

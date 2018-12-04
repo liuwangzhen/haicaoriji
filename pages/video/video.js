@@ -8,6 +8,8 @@ Page({
     check: true,
     src: "",
     img:"",
+    height4: getApp().globalData.height,
+    isMakingPoster: false,
   },
 
   /**
@@ -81,6 +83,9 @@ Page({
               content: '确认发布',
               success: function (res) {
                 if (res.confirm) {
+                  that.setData({
+                    isMakingPoster: true,
+                  })
                   MyFile.upload(fileParams, metaData).then(res => {
                     console.log(res)
                     let src=res.data.path
@@ -104,6 +109,7 @@ Page({
                             content: "",
                             src:"",
                             img:"",
+                            isMakingPoster: false,
                           })
                           wx.switchTab({
                             url: '../../pages/indexo/indexo',

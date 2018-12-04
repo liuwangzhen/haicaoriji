@@ -9,7 +9,7 @@ Page({
   data: {
      apple:"",
      inputVal:"",
-     inputShowed:true,
+     inputShowed:false,
      title:"",
      page:0,
     collection: [],
