@@ -21,12 +21,12 @@
 </view>
 <view wx:else>
   <view class='contain2'>
-    <swiper wx:if="{{list.video==null}}" indicator-active-color="#fff" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
+    <swiper wx:if="{{list.video==null}}" indicator-active-color="#58d1d3" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
       <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
         <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
       </swiper-item>
     </swiper>
-    <video bindplay="bindplay" class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
+    <video  class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
     <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
     <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button>
@@ -152,7 +152,7 @@
     <view class='line'>
     </view>
     <view style='position:absolute;left:475rpx;' class='r1'>
-      <button bindtap='onShare' class='share'>
+      <button open-type="share" bindtap='onShareAppMessage' class='share'>
         <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
           <span class="share-1">分享</span>
         </view>

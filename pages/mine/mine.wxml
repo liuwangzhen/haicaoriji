@@ -3,72 +3,81 @@
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>收藏</view>
 </view>
 <view style='height:{{height4*2+30}}px;' class='pad'></view>
-<view class='head'>
-  <view class='row1 ml20'>
-    <view class="index-profile">
-      <image mode='aspectFill' src='{{img2}}' class="index-profile__img"></image>
-    </view>
-    <view class='col ml20'>
-      <view class='nick2 bold'>{{userInfo.nick}}</view>
-      <!-- <view class='age'>年龄：{{age}}</view> -->
-      <view class='age'>积分：{{userInfo.integration}}</view>
-    </view>
-    <view bindtap='updata' class='edit'>
-      <text class='edit-text'>编辑资料</text>
-    </view>
-  </view>
-  <!-- <view style='width:730rpx;' class='r1 mt20 f28 ml20'>
-    <view wx:if="{{userInfo.sex==1}}" style='color:blue;' class='iconfont icon-nan'></view>
-    <view wx:if="{{userInfo.sex==2}}" style='color:pink;' class='iconfont icon-nv'></view>
-    <view wx:if="{{userInfo.sex==null}}">
-      <view wx:if="{{userInfo.gender==1}}" style='color:blue;' class='iconfont icon-nan'></view>
-      <view wx:if="{{userInfo.gender==2}}" style='color:pink;' class='iconfont icon-nv'></view>
-    </view>
-    <view class='line'></view>
-    <view wx:if="{{userInfo.province!=null}}" class='introduce'>{{userInfo.province}}</view>
-    <view wx:if="{{userInfo.city!=null}}" class='introduce'>{{userInfo.city}}</view>
-  </view> -->
-  <!-- <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text> -->
-  <view class='border'></view>
-  <view class='register'>
-    <view class='ruler f28'>打卡规则</view>
-    <button class='register-btn mt20'>今日打卡</button>
-    <button class='registered-btn'>已打卡</button>
-    <view class='f25 cen mt20'>已连续打卡3天</view>
-  </view>
-  <view class='line2'></view>
-</view>
-<!-- 收藏 -->
 <view class='wait' wx:if="{{ishavecollect==true}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>
 </view>
-<view class='isno' wx:if="{{isno==true}}">亲，你还没有添加任何收藏哦</view>
-<view wx:if="{{isno==true}}" class='cen'>~w_w~ ... ...</view>
-<view wx:else class="content">
-  <view class="left">
-    <view wx:if="{{index%2==0}}" wx:for="{{list2}}" wx:key="{{item.id}}">
-      <!-- <template is="item" data="{{...item}}" ></template> -->
-      <navigator url="../detail/detail?id={{item.id}}" class="item">
-        <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-        <view class="item-title-box">
-          <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-          <view wx:else class="item-title">{{item.content}}</view>
-        </view>
-      </navigator>
+<view wx:else>
+  <view class='head'>
+    <view class='row1 ml20'>
+      <view class="index-profile">
+        <image mode='aspectFill' src='{{img2}}' class="index-profile__img"></image>
+      </view>
+      <view class='col ml20'>
+        <view class='nick2 bold'>{{userInfo.nick}}</view>
+        <!-- <view class='age'>年龄：{{age}}</view> -->
+        <view class='age'>积分：{{integration}}</view>
+      </view>
+      <view bindtap='updata' class='edit'>
+        <text class='edit-text'>编辑资料</text>
+      </view>
     </view>
-    <view class='bottom'></view>
+    <!-- <view style='width:730rpx;' class='r1 mt20 f28 ml20'>
+      <view wx:if="{{userInfo.sex==1}}" style='color:blue;' class='iconfont icon-nan'></view>
+      <view wx:if="{{userInfo.sex==2}}" style='color:pink;' class='iconfont icon-nv'></view>
+      <view wx:if="{{userInfo.sex==null}}">
+        <view wx:if="{{userInfo.gender==1}}" style='color:blue;' class='iconfont icon-nan'></view>
+        <view wx:if="{{userInfo.gender==2}}" style='color:pink;' class='iconfont icon-nv'></view>
+      </view>
+      <view class='line'></view>
+      <view wx:if="{{userInfo.province!=null}}" class='introduce'>{{userInfo.province}}</view>
+      <view wx:if="{{userInfo.city!=null}}" class='introduce'>{{userInfo.city}}</view>
+    </view>
+    <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text> -->
+    <view class='border'></view>
+    <view class='register'>
+      <view class='ruler f26'>打卡规则</view>
+      <button wx:if="{{isregister==true}}" bindtap='makeRegister' class='register-btn mt20'>打卡</button>
+      <view wx:if="{{isregister==true}}" class="btn-around"></view>
+      <view wx:if="{{isregister==true}}" class="btn-around2"></view>
+      <button wx:if="{{isregister==false}}" class='registered-btn'>已打卡</button>
+      <view class='f26 cen mt20'>恭喜你</view>
+      <view class='f26 cen mt10'>已连续打卡
+        <span class="c62e">{{registers.length - 1}}</span> 天</view>
+    </view>
+    <!-- <view class='line2'></view> -->
   </view>
-  <view class="right">
-    <view wx:for="{{list2}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-      <navigator url="../detail/detail?id={{item.id}}" class="item">
-        <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-        <view class="item-title-box">
-          <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-          <view wx:else class="item-title">{{item.content}}</view>
-        </view>
-      </navigator>
+  <!-- 收藏 -->
+
+  <view class='isno' wx:if="{{isno==true}}">亲，你还没有添加任何收藏哦</view>
+  <view wx:if="{{isno==true}}" class='cen'>~w_w~ ... ...</view>
+  <view wx:else class="content">
+    <view class="left">
+      <view wx:if="{{index%2==0}}" wx:for="{{list2}}" wx:key="{{item.id}}">
+        <!-- <template is="item" data="{{...item}}" ></template> -->
+        <navigator url="../detail/detail?id={{item.id}}" class="item">
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
+          <view class="item-title-box">
+            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+            <view wx:else class="item-title">{{item.content}}</view>
+          </view>
+        </navigator>
+      </view>
+      <view class='bottom'></view>
     </view>
-    <view class='bottom'></view>
+    <view class="right">
+      <view wx:for="{{list2}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+        <navigator url="../detail/detail?id={{item.id}}" class="item">
+          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
+          <view class="item-title-box">
+            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+            <view wx:else class="item-title">{{item.content}}</view>
+          </view>
+        </navigator>
+      </view>
+      <view class='bottom'></view>
+    </view>
   </view>
 </view>

@@ -2,6 +2,10 @@
 const app = getApp();
 const Page = require('../../utils/ald-stat.js').Page;
 var ex = require('../../common/common.js')
+const myDate=new Date()
+const today=myDate.toLocaleDateString();     //获取当前日期
+// const today = '2018/12/3';     //获取当前日期
+
 
 Page({
 
@@ -23,7 +27,7 @@ Page({
     attention:[1],
     fans:[1],
     height4: getApp().globalData.height,
-    isClick:true
+    isClick:true,
   },
 
   /**
@@ -31,29 +35,68 @@ Page({
    */
   onLoad: function (options) {
   // this.getInfo();
-    
     this.getUserInfoByToken();
-    
     this.getFans();
+   
   },
   updata: function () {
     wx.navigateTo({
       url: '../updata/updata',
     })
   },
-  
-
+ 
+  makeRegister:function(){
+    let that=this
+    let register=that.data.registers
+    register.unshift(today)
+    let MyUser = new wx.BaaS.User()
+    let currentUser = MyUser.getCurrentUserWithoutData()
+    // age 为自定义字段
+    currentUser.set('register', register).update().then(res => {
+      // success
+      that.addIntegration(10)
+      that.setData({
+        isregister:false
+      })
+    }, err => {
+      // err
+    })
+  },
+  addIntegration:function(n){
+    let that=this
+    let recordID = that.data.recordID;
+    let integration = that.data.integration + n
+    let Product = new wx.BaaS.TableObject(56146)
+    let product = Product.getWithoutData(recordID)
+    product.set('integration', integration)
+    product.update().then(res => {
+      that.setData({
+        integration: res.data.integration
+      })
+      wx.showToast({
+        title: '打卡成功',
+        // image: "../../images/pic01.jpg",
+        icon: "success",
+        mask: true
+      })
+      // success
+    }, err => {
+      // err
+    })
+  },
   getFans() {
     let that = this
     let aid = getApp().globalData.userId
     let query = new wx.BaaS.Query()
     query.compare('created_by', '=', aid)
     let Product = new wx.BaaS.TableObject(56146)
-    Product.setQuery(query).find().then(res => {
+    Product.orderBy('-created_at').setQuery(query).find().then(res => {
       // success
+      console.log(res.data.objects[0].integration)
       that.setData({
         recordID: res.data.objects[0].id,
         fans: res.data.objects[0].fans,
+        integration: res.data.objects[0].integration,
       })
     }, err => {
       // err
@@ -109,8 +152,19 @@ Page({
           collection: res.data.collection,
           aid:res.data.id,
           attention:res.data.attention,
-          age:age
+          age:age,
+          registers:res.data.register
         })
+        if(that.data.registers[0]==today){
+          that.setData({
+            isregister: false
+          })
+        }
+        else{
+          that.setData({
+            isregister: true
+          })
+        }
       }, err => {
         // err
       })

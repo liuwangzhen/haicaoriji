@@ -20,7 +20,7 @@
     margin-top: 40rpx;
 }
  
-.bottom {
+.bottom0 {
     border-radius: 80rpx;
     margin: 70rpx 50rpx;
     font-size: 35rpx;

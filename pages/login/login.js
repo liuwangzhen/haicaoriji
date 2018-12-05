@@ -61,7 +61,8 @@ Page({
 
         // 设置方式一
         let apple = {
-          fans:[2]
+          fans:[2],
+          nick:nick,
         }
 
         product.set(apple).save().then(res => {

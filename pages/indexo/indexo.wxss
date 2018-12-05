@@ -41,7 +41,7 @@ margin-left:15rpx;
   display: flex;
   flex-direction: row;
   position: fixed;
-  z-index: 2;
+  z-index: 999;
   top: 140rpx;
 
 }
@@ -134,4 +134,34 @@ padding-top:230rpx;
 
   color: transparent;
 
+}
+.kinds{
+  display: flex;
+  flex-direction: column;
+  width: 710rpx;
+  background-color: #fff;
+  margin-left: 20rpx;
+  margin-top:40rpx;
+}
+.kinds-img{
+  width: 100%;
+  height: 700rpx;
+}
+.kinds-title{
+  margin-top: 10rpx;
+  height: 135rpx;
+  font-size: 30rpx;
+  margin-left: 15rpx;
+  width: 675rpx;
+}
+.swiper {
+  width: 100%;
+}
+.swiper-item {
+  width: 100%;
+  display: flex;
+}
+.video{
+  width: 690rpx;
+  height: 517rpx;
 }

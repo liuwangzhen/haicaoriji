@@ -28,8 +28,15 @@ var filter = {
     str += '...'
     return str;
   },
+  LimitNumbersadf2: function (txt) {
+    var str = txt;
+    str = str.substring(0, 60);
+    str += '...'
+    return str;
+  },
 }
 module.exports = {
   getDate: filter.getDate,
   Limit:filter.LimitNumbersadf,
+  Limit2: filter.LimitNumbersadf2,
 }

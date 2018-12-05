@@ -47,17 +47,11 @@
         "selectedIconPath": "images/rizhi.png"
       },
       {
-        "pagePath": "pages/register/register",
-        "text": "签到",
-        "iconPath": "images/add.png",
-        "selectedIconPath": "images/add2.png"
-      },
-      {
         "pagePath": "pages/video/video",
         "text": "发视频",
         "iconPath": "images/rizhi2.png",
         "selectedIconPath": "images/rizhi.png"
-      },
+      }, 
       {
         "pagePath": "pages/mine/mine",
         "text": "收藏",

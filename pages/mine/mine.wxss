@@ -1,26 +1,30 @@
 /* pages/mine/mine.wxss */
+
 /* @import '../member/member.wxss'; */
 @import '../indexo/indexo.wxss';
-page{
+
+page {
   height: 100%;
   /* width: 750rpx; */
   background-color: #f4f8fb;
 }
-.content{
-  margin:0 20rpx;
-  text-align:justify;
+
+.content {
+  margin: 0 20rpx;
+  text-align: justify;
 }
-.isno{
+
+.isno {
   text-align: center;
   margin-top: 180rpx;
-  
 }
-.atten-fans{
+
+.atten-fans {
   display: flex;
   flex-direction: row;
- 
   font-size: 28rpx;
 }
+
 .index-profile__img {
   display: block;
   border-radius: 50%;
@@ -30,143 +34,199 @@ page{
   background-repeat: no-repeat;
   background-size: contain;
   overflow: hidden;
-  
 }
-.row1{
+
+.row1 {
   display: flex;
   flex-direction: row;
-  
 }
-.row2{
+
+.row2 {
   display: flex;
   flex-direction: row;
-  justify-content:space-evenly;
- 
+  justify-content: space-evenly;
 }
-.head{
+
+.head {
   /* width:750rpx; */
- 
   background-color: #fff;
 }
-.edit{
-width:200rpx;
-height:50rpx;
-border:1rpx solid #ddd;
-border-radius:30rpx;
-text-align:center;
-font-size:30rpx;
-margin-top:40rpx;
-padding-top:10rpx;
-/* margin-left:15rpx; */
-background-color: #fff;
-position:absolute;
-left:500rpx;
-}
-.edit-text{
-  margin-top: 15rpx;
-}
-.num{
-text-align:center;
 
+.edit {
+  width: 200rpx;
+  height: 50rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 30rpx;
+  text-align: center;
+  font-size: 30rpx;
+  margin-top: 40rpx;
+  padding-top: 10rpx;
+  /* margin-left:15rpx; */
+  background-color: #fff;
+  position: absolute;
+  left: 500rpx;
 }
-.text{
+
+.edit-text {
   margin-top: 15rpx;
 }
-.line{
+
+.num {
+  text-align: center;
+}
+
+.text {
+  margin-top: 15rpx;
+}
+
+.line {
   width: 1rpx;
   height: 25rpx;
   background-color: gray;
   margin-left: 20rpx;
   margin-top: 8rpx;
 }
-.introduce{
+
+.introduce {
   margin-left: 20rpx;
 }
-.border{
+
+.border {
   /* width: 100%; */
   height: 2rpx;
   background-color: #f5f5f5;
   margin-top: 30rpx;
 }
-.nav2{
-display:flex;
-flex-direction:row;
 
-background-color: #fff;
-margin-top:25rpx;
-font-size:30rpx;
-
-color: #b6b6b6;
-
+.nav2 {
+  display: flex;
+  flex-direction: row;
+  background-color: #fff;
+  margin-top: 25rpx;
+  font-size: 30rpx;
+  color: #b6b6b6;
 }
-.item1{
+
+.item1 {
   width: 60rpx;
   margin-left: 240rpx;
 }
-.item2{
+
+.item2 {
   width: 60rpx;
   margin-left: 120rpx;
-
 }
 
-.active{
+.active {
   border-bottom: 4rpx solid #f59aac;
   font-weight: bold;
   padding-bottom: 10rpx;
-  color:#5a5d5f;
+  color: #5a5d5f;
 }
-.line2{
- /* width: 100%; */
- height: 6rpx;
- background-color: #f6f7f8;
- margin-top:20rpx;
-box-shadow:-1px -1px 10rpx #eef1f3;
+
+.line2 {
+  /* width: 100%; */
+  height: 6rpx;
+  background-color: #f6f7f8;
+  margin-top: 20rpx;
+  box-shadow: -1px -1px 10rpx #eef1f3;
 }
+
 .col {
-display:flex;
-flex-direction:column;
-margin-left:45rpx;
-
+  display: flex;
+  flex-direction: column;
+  margin-left: 45rpx;
 }
-.nick2{
+
+.nick2 {
   font-size: 30rpx;
-
 }
-.age{
+
+.age {
   font-size: 30rpx;
   margin-top: 25rpx;
 }
-.sign{
- margin-left:20rpx;
-margin-top:20rpx;
-font-size:28rpx;
-display:block;
-width:710rpx;
 
+.sign {
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  display: block;
+  width: 710rpx;
 }
-.img2{
+
+.img2 {
   width: 60rpx;
   height: 60rpx;
   border-radius: 50%;
 }
-.register{
+
+.register {
   width: 100%;
+  padding-bottom:30rpx;
+}
+
+.ruler {
+  position: absolute;
+  right: 20rpx;
+  font-size:26rpx;
+}
+
+.register-btn {
+  width: 150rpx;
+  line-height: 150rpx;
+  background-color: #ceb481;
+  border-radius: 75rpx;
+  margin-top: 40rpx;
+  color: #fff;
+  z-index: 2
+}
+
+.registered-btn {
+  width: 200rpx;
+  background-color: #f6df3b;
+  border-radius: 75rpx;
+  color: #cd9b0b;
+  margin-top: 40rpx;
+}
+
+@keyframes living {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 0; /*圆形放大的同时，透明度逐渐减小为0*/
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+}
+
+.btn-around {
+ position:absolute;
+width:150rpx;
+height:150rpx;
+left:300rpx;
+background:#ddd;
+border-radius:50%;
+animation:living 3s linear infinite;
+margin-top:-150rpx;
 
 }
-.ruler{
-  position: absolute;
-  right: 30rpx;
+.btn-around2{
+  position:absolute;
+width:150rpx;
+height:150rpx;
+left:300rpx;
+background:#ddd;
+border-radius:50%;
+animation:living 3s linear infinite;
+margin-top:-150rpx;
+animation-delay: 1.5s; /*第二个span动画延迟1.5秒*/
 }
-.register-btn{
-  width: 300rpx;
-  background-color: #de3e29;
-  border-radius: 75rpx;
-  color: #fff;
-}
-.registered-btn{
-  width: 300rpx;
-  background-color: #f5f5f5;
-  border-radius: 75rpx;
-  color: #ddd;
-  margin-top: 20rpx;
-}
+

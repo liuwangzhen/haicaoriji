@@ -25,7 +25,7 @@
   <view wx:else class='nav'>
     <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
-      <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder="大家都在搜"  placeholder-class="search-p"></input>
+      <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2"   placeholder-class="search-p"></input>
     </view>
     <view class="cancel" bindtap="hideInput">取消</view>
     <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="getList">搜索</view>

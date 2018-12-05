@@ -1,5 +1,5 @@
+
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
- 
   <view class='topone'>
     <view style='height:{{height4*2+20}}px' class='nav-wrap'>
       <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
@@ -11,10 +11,10 @@
         <input disabled="true" class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
       </view>
     </view>
-    <view wx:else class='nav'>
+    <view wx:if="{{inputShowed==true}}" class='nav'>
       <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
       <view hover-class='none'>
-        <input value="{{inputVal}}" focus="{{inputShowed}}"  bindinput="inputTyping" class="search2" placeholder="搜索关键字" placeholder-class="search-p"></input>
+        <input value="{{inputVal}}" focus="{{inputShowed}}"  bindinput="inputTyping" class="search2"  placeholder-class="search-p"></input>
       </view>
       <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
       <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
@@ -23,13 +23,13 @@
   </view>
   <view class='recom'>
     <scroll-view scroll-x="true" scroll-left="20" class='recommend'>
-      <view bindtap='change' class="f30 mt20 ml20 {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
+      <view data-id='{{item.id}}' bindtap='change' class="f30 mt20 ml20 {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
         {{item.name}}
       </view>
     </scroll-view>
   </view>
   <!-- <scroll-view bindscrolltoupper="onPullDownRefresh" upper-threshold="-1" scroll-y style="height:{{tphone.screenHeight}}px;" bindscroll="bindscroll" bindscrolltolower="onReachBottom" enable-back-to-top="true" scroll-top="{{scrolltop}}"> -->
-  <view style='padding-top:340rpx;' class='body'>
+  <view wx:if="{{curId==0}}" style='padding-top:340rpx;' class='body'>
     <view class='wait' wx:if="{{list.length==0}}">
       <image mode='widthFix' src='../../images/loading.svg'></image>
       <view class='f28 ml38'>加载中</view>
@@ -63,4 +63,5 @@
       </view>
     </view>
   </view>
+  <include src="kind.wxml" />
 <!-- </scroll-view> -->

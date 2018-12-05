@@ -1,0 +1,15 @@
+<wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
+<view wx:if="{{curId!=0}}" style='padding-top:340rpx;' class='body'>
+  <view bindtap='goDetail' data-id='{{item.id}}' wx:key="{{item.id}}" class='kinds' wx:for="{{list}}">
+  <swiper  wx:if="{{list.video==null}}" indicator-active-color="#58d1d3" indicator-dots="true"  circular='false' class="kinds-img">
+      <swiper-item wx:for="{{item.img}}"  class="kinds-img">
+        <image class="kinds-img" mode="aspectFit" data-item="{{item}}" src="{{item}}" />
+      </swiper-item>
+    </swiper>
+   <video class='video' controls poster='{{item.img[0]}}' wx:else src='{{item.video}}'></video>
+    <view class="kinds-title">
+      <view wx:if="{{item.content.length>24}}" >{{filter.Limit2(item.content)}}</view>
+      <view wx:else>{{item.content}}</view>
+    </view>
+  </view>
+</view>
