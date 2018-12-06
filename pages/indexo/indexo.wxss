@@ -69,7 +69,7 @@ margin-top:20rpx;
 background-color: #fff;
 overflow: hidden;
 white-space: nowrap;
-
+display: flex;
 }
 .recommend view{
   display: inline-block;

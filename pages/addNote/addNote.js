@@ -121,9 +121,6 @@ Page({
             content: '确认发布',
             success: function(res) {
               if (res.confirm) {
-                that.setData({
-                  isMakingPoster: true,
-                })
                 let arr1 = that.data.arr1
                 let n=arr1.length
                 let obj = {
@@ -143,6 +140,9 @@ Page({
                     categoryName: 'SDK'
                   }
                   MyFile.upload(fileParams, metaData).then(e => {
+                    that.setData({
+                      isMakingPoster: true,
+                    })
                       list[i].src = e.data.path
                       list[i].idx = i;
                         that.setData({
@@ -159,7 +159,14 @@ Page({
                           }
                         }  
                     },
-                    err => {})
+                    err => {
+                      wx.showToast({
+                        title: '连接失败,请重新提交',
+                      })
+                      that.setData({
+                        isMakingPoster: false,
+                      })
+                    })
                   }
                function wait(){
                     let list5=new Array
@@ -208,10 +215,19 @@ Page({
                         })
                       }
                     })
+                  }, err => {
+                    wx.showToast({
+                      title: '连接失败,请重新提交',
+                    })
+                    that.setData({
+                      isMakingPoster: false,
+
+                    })
                   })
                 }
               } else if (res.cancel) {}
             }
+
           })
         }
       }, 200

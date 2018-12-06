@@ -29,6 +29,7 @@
     <video  class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
     <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
+    <canvas class='canvas' canvas-id='firstCanvas' style='width:{{tphone.screenWidth}}px;height:{{tphone.screenHeight}}px;position:fixed;top:-10000px;'></canvas>
     <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button>
    
     <text class='content2'>
@@ -152,9 +153,9 @@
     <view class='line'>
     </view>
     <view style='position:absolute;left:475rpx;' class='r1'>
-      <button open-type="share" bindtap='onShareAppMessage' class='share'>
+      <button bindtap='onShare' class='share'>
         <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
-          <span class="share-1">分享</span>
+          <span class="share-1" >分享</span>
         </view>
       </button>
       <view wx:if="{{share>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
@@ -165,7 +166,7 @@
   <image src='../../images/loading2.svg' style='width:68px' mode='widthFix' />
   <view class='text-sm text-trivial'>海报生成中</view>
 </view>
-<canvas class='canvas' canvas-id='firstCanvas' style='width:{{tphone.screenWidth}}px;height:{{tphone.screenHeight}}px;position:fixed;top:-10000px;'></canvas>
+
 <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view wx:if="{{showModal}}" class="modalDlg">
   <view class='r1'>
@@ -175,7 +176,7 @@
       <view class='btn-text'>分享给朋友</view>
     </button>
     <view class='btn-line'></view>
-    <button bindtap='btnchose' class='btnshare'>
+    <button bindtap='btnchose2' class='btnshare'>
       <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-pengyouquan'>
       </view>
       <view class='btn-text'>分享朋友圈</view>

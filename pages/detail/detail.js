@@ -55,8 +55,6 @@ Page({
         getshare: 1,
         id: options.scene
       })
-      console.log(options.scene)
-      console.log(that.data.id)
       that.getUserInfoByToken();
       that.getcomment();
       that.getList();
@@ -139,65 +137,139 @@ that.setData({
           that.setData({
             ewrImg: res.path
           })
-
-          //       var ctx = wx.createCanvasContext('firstCanvas', this)
-          //       ctx.setFontSize(30)
-          //       ctx.setFillStyle('#fff')
-          //       ctx.fillText('海草日记小程序', 40, 40)
-          //       ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
-          //       ctx.draw(true)
+         that.btnchose();
         }
       })
     })
+   
   },
-  btnchose: function() {
+  btnchose2: function () {
+    let that = this
+    let h1 = that.data.tphone.screenHeight
+    let w1 = that.data.tphone.screenWidth
+    that.setData({
+      isMakingPoster: true
+    })
+    wx.canvasToTempFilePath({
+      canvasId: 'firstCanvas',
+      width: w1,
+      height: h1,
+      destWidth: w1 * 2,
+      destHeight: h1 * 2,
+      fileType: 'jpg',
+      quality: 1,
+      success: (res) => {
+        wx.previewImage({
+          urls: [res.tempFilePath],
+        })
+        that.setData({
+          isMakingPoster: false
+        })
+      },
+      fail:function(){
+        wx.showToast({
+          title: '合成失败',
+          success:function(){
+            that.setData({
+              isMakingPoster: false
+            })
+
+          }
+        })
+       
+      }
+    })
+
+ 
+  },
+  btnchose: function(){
     let that = this
     let h1 = that.data.tphone.screenHeight
     let w1 = that.data.tphone.screenWidth
     let ewrImg = that.data.ewrImg
-
-    function prew() {
-      that.setData({
-        isMakingPoster: false
-      })
-      wx.canvasToTempFilePath({
-        canvasId: 'firstCanvas',
-        width: w1,
-        height: h1,
-        destWidth: w1 * 2,
-        destHeight: h1 * 2,
-        fileType: 'jpg',
-        quality: 1,
-        success: (res) => {
-          wx.previewImage({
-            urls: [res.tempFilePath]
+    let Img2=that.data.list.img[0]
+   
+    wx.getImageInfo({
+      src: Img2,
+      success: function (res) {
+        that.setData({
+          ewrImg2: res.path
+        })
+        let ewrImg2=res.path
+        let preview = function () {
+          return new Promise((resolve, reject) => {
+            prew().then((filePath) => {
+              wx.previewImage({
+                urls: [filePath]
+              });
+              resolve();
+            }).catch((err) => {
+              reject(err);
+            });
           });
         }
-      })
-    }
-    let ctx = wx.createCanvasContext('firstCanvas', this)
-    let promise = new Promise(
-      function(resolve, reject) {
-        that.setData({
-          isMakingPoster: true
-        })
-        setTimeout(
-          function() {
-            // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-            ctx.setFillStyle('#f5f5f5')
-            ctx.fillRect(0, 0, w1, h1)
-            ctx.setFontSize(30)
-            ctx.setFillStyle('#d5d5d5')
-            ctx.fillText('海草日记小程序', 40, 40)
-            ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
-            resolve()
-          }, 1000)
-      })
-    promise.then((res) => ctx.draw(false, () => {
-      prew();
-    }))
-    // setTimeout(
-    // , 2000)
+        let prew=function() {
+          return new Promise((resolve, reject) => {
+         
+            that.setData({
+              isMakingPoster: false
+            })
+            console.log("prew")
+            wx.canvasToTempFilePath({
+              canvasId: 'firstCanvas',
+              width: w1,
+              height: h1,
+              destWidth: w1 * 2,
+              destHeight: h1 * 2,
+              fileType: 'jpg',
+              quality: 1,
+              success: (res) => {
+                resolve(res.tempFilePath);
+              }
+            })
+          })
+        }
+        let ctx = wx.createCanvasContext('firstCanvas', this)
+        let promise = function () {
+          return new Promise(
+            function (resolve, reject) {
+              // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
+              ctx.drawImage(ewrImg2, 0, 0, w1, h1)
+              resolve(console.log("0000"))
+            })
+        }
+        let promise2 = function () {
+          return new Promise(
+            function (resolve, reject) {
+              // ctx.fillRect(0, 0, w1, h1)
+              ctx.setFontSize(30)
+              ctx.setFillStyle('#d5d5d5')
+              ctx.fillText('海草日记', 40, 40)
+              // ctx.draw(true)
+              resolve(console.log("111"))
+            })
+        }
+        let promise3 = function () {
+          return new Promise(
+            function (resolve, reject) {
+              ctx.drawImage(ewrImg, w1 / 2, h1 / 2, 150, 150)
+              resolve(console.log("222"))
+              reject(
+              )
+            })
+        }
+        Promise.all([
+          promise(),
+          promise2(),
+          promise3()
+        ]).then(
+          () =>
+              ctx.draw(false)      
+        )
+      },
+     
+    })
+    
   },
   goUser: function() {
     var id = this.data.userid;

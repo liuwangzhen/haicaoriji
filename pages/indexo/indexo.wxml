@@ -1,32 +1,32 @@
-
-<wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
-  <view class='topone'>
-    <view style='height:{{height4*2+20}}px' class='nav-wrap'>
-      <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
-    </view>
-    <view style='height:{{height4*2+20}}px;' class='pad'></view>
-    <view wx:if="{{inputShowed==false}}"  bindtap="showInput" class='nav'>
-      <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
-      <view hover-class='none'>
-        <input disabled="true" class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
-      </view>
-    </view>
-    <view wx:if="{{inputShowed==true}}" class='nav'>
-      <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
-      <view hover-class='none'>
-        <input value="{{inputVal}}" focus="{{inputShowed}}"  bindinput="inputTyping" class="search2"  placeholder-class="search-p"></input>
-      </view>
-      <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
-      <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
-      <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
+<wxs module="filter" src="../../utils/getdatr.wxs">
+</wxs>
+<view class='topone'>
+  <view style='height:{{height4*2+20}}px' class='nav-wrap'>
+    <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
+  </view>
+  <view style='height:{{height4*2+20}}px;' class='pad'></view>
+  <view wx:if="{{inputShowed==false}}" bindtap="showInput" class='nav'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+    <view hover-class='none'>
+      <input disabled="true" class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
     </view>
   </view>
+  <view wx:if="{{inputShowed==true}}" class='nav'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+    <view hover-class='none'>
+      <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder-class="search-p"></input>
+    </view>
+    <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
+    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
+    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
+  </view>
   <view class='recom'>
-    <scroll-view scroll-x="true" scroll-left="20" class='recommend'>
+    <scroll-view   class='recommend'>
       <view data-id='{{item.id}}' bindtap='change' class="f30 mt20 ml20 {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
         {{item.name}}
       </view>
     </scroll-view>
+  </view>
   </view>
   <!-- <scroll-view bindscrolltoupper="onPullDownRefresh" upper-threshold="-1" scroll-y style="height:{{tphone.screenHeight}}px;" bindscroll="bindscroll" bindscrolltolower="onReachBottom" enable-back-to-top="true" scroll-top="{{scrolltop}}"> -->
   <view wx:if="{{curId==0}}" style='padding-top:340rpx;' class='body'>
@@ -39,7 +39,7 @@
         <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
           <view bindtap='goDetail' data-id='{{item.id}}' class="item">
             <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-            <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
+            <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
             <view class="item-title-box">
               <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
               <view wx:else class="item-title">{{item.content}}</view>
@@ -52,7 +52,7 @@
         <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
           <view bindtap='goDetail' data-id='{{item.id}}' class="item">
             <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-            <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
+            <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
             <view class="item-title-box">
               <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
               <view wx:else class="item-title">{{item.content}}</view>
@@ -64,4 +64,4 @@
     </view>
   </view>
   <include src="kind.wxml" />
-<!-- </scroll-view> -->
+  <!-- </scroll-view> -->
