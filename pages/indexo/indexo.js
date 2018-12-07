@@ -29,7 +29,7 @@ Page({
     tphone:"",
     scrolltop:0,
     curId:0,
-    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "双眼皮", search: "双眼皮", search2: "双眼皮", }, { id: 2, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 3, name: "鼻综合", search: "鼻综合", search2: "鼻综合", }, { id: 4, name: "隆鼻", search: "隆鼻",search2: "隆鼻", }]
+    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "隆鼻", search: "隆鼻", search2: "鼻综合", }, { id: 2, name: "双眼皮", search: "双眼皮", search2: "眼综合", }, { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充", }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }]
   },
   /**
    * 生命周期函数--监听页面加载

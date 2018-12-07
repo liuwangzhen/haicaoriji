@@ -29,7 +29,7 @@
     <video  class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
     <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
-    <canvas class='canvas' canvas-id='firstCanvas' style='width:{{tphone.screenWidth}}px;height:{{tphone.screenHeight}}px;position:fixed;top:-10000px;'></canvas>
+    <canvas class='canvas' canvas-id='firstCanvas' style='width:{{w2/2}}px;height:{{h2/2}}px;position:fixed;top:-10000px;'></canvas>
     <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button>
    
     <text class='content2'>

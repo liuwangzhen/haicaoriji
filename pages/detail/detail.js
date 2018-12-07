@@ -1,4 +1,5 @@
 // pages/detail/detail.js
+import regeneratorRuntime from '../../utils/runtime'
 var app = getApp();
 const Page = require('../../utils/ald-stat.js').Page;
 Page({
@@ -58,6 +59,7 @@ Page({
       that.getUserInfoByToken();
       that.getcomment();
       that.getList();
+      // that.getPoster();
       app.aldstat.sendEvent('日记打开', {
         '日记id': that.data.id,
         '打开时间': time
@@ -74,6 +76,7 @@ Page({
       that.getUserInfoByToken();
       that.getcomment();
       that.getList();
+      that.getPoster();
       app.aldstat.sendEvent('日记打开', {
         '日记id': that.data.id,
         '打开时间': time
@@ -137,50 +140,243 @@ that.setData({
           that.setData({
             ewrImg: res.path
           })
-         that.btnchose();
+        //  that.btnchose();
         }
       })
     })
    
   },
+  getPoster:function(){
+    let that=this 
+    let MyTableObject = new wx.BaaS.TableObject(59309)
+    MyTableObject.find().then(res => {
+    let list0 = res.data.objects
+      function shuffle(arr) {
+        let i = arr.length,
+          t, j;
+        while (i) {
+          j = Math.floor(Math.random() * i--);
+          t = arr[i];
+          arr[i] = arr[j];
+          arr[j] = t;
+        }
+      }
+      shuffle(list0);
+   
+      shuffle(list0[0].content)
+      console.log(list0[0].image_all.path)
+      let img2 = list0[0].image_all.path
+      that.setData({
+        content2: list0[0].content[0]
+      })
+     
+     wx.getImageInfo({
+       src: img2,
+       success: function(res) {
+         console.log(res)
+         that.setData({
+           img2:res.path,
+           w2:res.width,
+           h2:res.height
+         })
+       },
+       fail: function(res) {
+         console.log("err")
+       },
+     })
+    }, err => {
+      // err
+    })
+  },
+  drawText: function (context,text,h1){
+    var chr = text.split("");//这个方法是将一个字符串分割成字符串数组
+    var temp = "";
+    var row = [];
+    context.setFontSize(18)
+    context.setFillStyle("#000")
+    for (var a = 0; a < chr.length; a++) {
+      if (context.measureText(temp).width < 250) {
+        temp += chr[a];
+      }
+      else {
+        a--; //这里添加了a-- 是为了防止字符丢失，效果图中有对比
+        row.push(temp);
+        temp = "";
+      }
+    }
+    row.push(temp);
+
+    //如果数组长度大于2 则截取前两个
+    if (row.length > 6) {
+      var rowCut = row.slice(0, 6);
+      var rowPart = rowCut[1];
+      var test = "";
+      var empty = [];
+      for (var a = 0; a < rowPart.length; a++) {
+        if (context.measureText(test).width < 220) {
+          test += rowPart[a];
+        }
+        else {
+          break;
+        }
+      }
+      empty.push(test);
+      var group = empty[0] + "..."//这里只显示两行，超出的用...表示
+      rowCut.splice(5, 1, group);
+      row = rowCut;
+    }
+    for (let b = 0; b < row.length; b++) {
+      context.fillText(row[b], 50, h1 + b * 30, 300);
+    }
+  },
   btnchose2: function () {
     let that = this
     let h1 = that.data.tphone.screenHeight
     let w1 = that.data.tphone.screenWidth
+    let w2=that.data.w2
+    let h2=that.data.h2
+    console.log(h2)
+    let ewrImg=that.data.ewrImg
+    if(ewrImg==undefined){
+      wx.showToast({
+        title: '网络不好，请退回主页重新进入',
+        icon:"loading"
+      })
+    }
+    else{
+    let content2=that.data.content2
     that.setData({
       isMakingPoster: true
     })
-    wx.canvasToTempFilePath({
-      canvasId: 'firstCanvas',
-      width: w1,
-      height: h1,
-      destWidth: w1 * 2,
-      destHeight: h1 * 2,
-      fileType: 'jpg',
-      quality: 1,
-      success: (res) => {
-        wx.previewImage({
-          urls: [res.tempFilePath],
-        })
+    let Img2 = that.data.img2
+    wx.getImageInfo({
+      src: Img2,
+      success: function (res) {
         that.setData({
-          isMakingPoster: false
+          ewrImg2: res.path
         })
-      },
-      fail:function(){
-        wx.showToast({
-          title: '合成失败',
-          success:function(){
+        let ewrImg2 = res.path
+        let preview = function () {
+          return new Promise((resolve, reject) => {
+            prew().then((filePath) => {
+              wx.previewImage({
+                urls: [filePath]
+              });
+              resolve();
+            }).catch((err) => {
+              reject(err);
+            });
+          });
+        }
+        let prew = function () {
+          return new Promise((resolve, reject) => {
             that.setData({
               isMakingPoster: false
             })
+            console.log("prew")
+            wx.canvasToTempFilePath({
+              canvasId: 'firstCanvas',
+              width: w1,
+              height: h1,
+              destWidth: w1 * 2,
+              destHeight: h1 * 2,
+              fileType: 'jpg',
+              quality: 1,
+              success: (res) => {
+                resolve(res.tempFilePath);
+              }
+            })
+          })
+        }
+        let draw= async function(){
+          let ctx = wx.createCanvasContext('firstCanvas', this)
+          return ctx.draw(false,await preview())
+        }
+        let ctx = wx.createCanvasContext('firstCanvas', this)
+        let promise = function () {
+          return new Promise(
+            function (resolve, reject) {
+              // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
+              // ctx.drawImage(ewrImg2, 0, 0, w1, 2 * w1 / 3)
+              ctx.drawImage(ewrImg2, 0, 0, w2/2,h2/2)
+              resolve(console.log("0000"))
+            })
+        }
+        let promise2 = function () {
+          return new Promise(
+            function (resolve, reject) {
+              // ctx.fillRect(0, 0, w1, h1)
+              // ctx.setFillStyle('#fff')
+              // ctx.fillRect(0, w1*2/3, w1, h1)
 
-          }
+              ctx.setFontSize(30)
+              ctx.setFillStyle('#000')
+              ctx.fillText('海草日记', 200, h1 * 2 / 3 + 84)
+              // ctx.draw(true)
+              resolve(console.log("111"))
+            })
+        }
+        let promise5 = function () {
+          return new Promise(
+            function (resolve, reject) {
+              // ctx.fillRect(0, 0, w1, h1)
+              ctx.setFontSize(18)
+              ctx.setFillStyle('#000')
+              ctx.fillText('长按小程序码查看', 200, h1 * 2 / 3 + 50)
+              // ctx.draw(true)
+              resolve(console.log("111"))
+            })
+        }
+        let promise4 = function(){
+          return new Promise(
+            function (resolve, reject) {
+              
+              // ctx.fillRect(0, 0, w1, h1)
+              ctx.setFontSize(18)
+              ctx.setFillStyle('#06051b')
+              let measure=ctx.measureText(content2)
+              console.log(measure.width)
+              that.drawText(ctx,content2,2*w1/3 + 50); 
+              // ctx.fillText(content2, 20, 2*w1/3 + 30,w1-30)
+              // ctx.draw(true)
+              resolve(console.log(content2))
+            })
+        }
+        let promise3 = function () {
+          return new Promise(
+            function (resolve, reject) {
+              // ctx.drawImage(ewrImg, 30, h1*2/3+50, 130, 130)
+              ctx.drawImage(ewrImg, 30, h2*1/3, 130, 130)
+              resolve(console.log("222"))
+              reject(console.log("333"))
+            })
+        }
+        Promise.all([
+          promise(),
+          // promise2(),
+          // promise5(),
+          // promise4(),
+          promise3()
+        ]).then(
+          () =>
+          // {draw();}
+            ctx.draw(false,()=>{
+              preview();
+            })
+        ,err=>{
+          wx.showToast({
+            title: '合成失败',
+            success:function(){
+              that.setData({
+                isMakingPoster: false
+              })
+            }
+          })
         })
-       
-      }
-    })
+      },
 
- 
+    })
+    }
   },
   btnchose: function(){
     let that = this
@@ -188,7 +384,7 @@ that.setData({
     let w1 = that.data.tphone.screenWidth
     let ewrImg = that.data.ewrImg
     let Img2=that.data.list.img[0]
-   
+    let content2=that.data.content2
     wx.getImageInfo({
       src: Img2,
       success: function (res) {
@@ -210,7 +406,6 @@ that.setData({
         }
         let prew=function() {
           return new Promise((resolve, reject) => {
-         
             that.setData({
               isMakingPoster: false
             })
@@ -234,7 +429,7 @@ that.setData({
           return new Promise(
             function (resolve, reject) {
               // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-              ctx.drawImage(ewrImg2, 0, 0, w1, h1)
+              ctx.drawImage(ewrImg2, 0, 0, w1, 2*w1/3)
               resolve(console.log("0000"))
             })
         }
@@ -249,6 +444,18 @@ that.setData({
               resolve(console.log("111"))
             })
         }
+        let promise4 = function(){
+          return new Promise(
+            function (resolve, reject) {
+              // ctx.fillRect(0, 0, w1, h1)
+              ctx.setFontSize(28)
+              ctx.setFillStyle('black')
+              console.log(content2)
+              ctx.fillText(content2, 20, 2 * w1/3,w1-30)
+              // ctx.draw(true)
+              resolve(console.log("444"))
+            })
+        }
         let promise3 = function () {
           return new Promise(
             function (resolve, reject) {
@@ -261,7 +468,8 @@ that.setData({
         Promise.all([
           promise(),
           promise2(),
-          promise3()
+          promise4(),
+          promise3(),
         ]).then(
           () =>
               ctx.draw(false)      

@@ -21,11 +21,13 @@
     <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
   </view>
   <view class='recom'>
-    <scroll-view   class='recommend'>
+    <view class='recom2'>
+    <scroll-view scroll-left="20rpx" scroll-x="true"  class='recommend'>
       <view data-id='{{item.id}}' bindtap='change' class="f30 mt20 ml20 {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
         {{item.name}}
       </view>
     </scroll-view>
+    </view>
   </view>
   </view>
   <!-- <scroll-view bindscrolltoupper="onPullDownRefresh" upper-threshold="-1" scroll-y style="height:{{tphone.screenHeight}}px;" bindscroll="bindscroll" bindscrolltolower="onReachBottom" enable-back-to-top="true" scroll-top="{{scrolltop}}"> -->

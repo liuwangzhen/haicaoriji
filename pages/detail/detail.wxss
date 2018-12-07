@@ -273,3 +273,6 @@ z-index: 3;
     background: rgba(255,255,255,0.9);
     z-index: 998;
 }
+.canvas{
+  background-color: #fff;
+}

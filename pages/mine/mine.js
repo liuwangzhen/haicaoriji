@@ -4,7 +4,7 @@ const Page = require('../../utils/ald-stat.js').Page;
 var ex = require('../../common/common.js')
 const myDate=new Date()
 const today=myDate.toLocaleDateString();     //获取当前日期
-// const today = '2018/12/3';     //获取当前日期
+// const today = '2018/12/2';     //获取当前日期
 
 
 Page({
@@ -68,7 +68,8 @@ Page({
     let integration = that.data.integration + n
     let Product = new wx.BaaS.TableObject(56146)
     let product = Product.getWithoutData(recordID)
-    product.set('integration', integration)
+    product.set({'integration': integration,
+                'test':'aaa'})
     product.update().then(res => {
       that.setData({
         integration: res.data.integration
@@ -92,7 +93,7 @@ Page({
     let Product = new wx.BaaS.TableObject(56146)
     Product.orderBy('-created_at').setQuery(query).find().then(res => {
       // success
-      console.log(res.data.objects[0].integration)
+      console.log(res.data.objects[0].test)
       that.setData({
         recordID: res.data.objects[0].id,
         fans: res.data.objects[0].fans,
