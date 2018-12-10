@@ -67,10 +67,12 @@
 
 }
 .closebtn{
- margin-top: 20rpx;
+ margin-top: 30rpx;
   height: 60rpx;
   font-size: 30rpx;
   color: #ddd;
+  width:100%;
+text-align:center;
 }
 .btnshare{
   background-color: #fff;
@@ -130,6 +132,9 @@ margin-top:70rpx;
 .wait image{
  width: 160rpx;
  height: 160rpx;
+}
+.ml40{
+  margin-left: 40rpx;
 }
 .ml38{
   margin-left: 38rpx;

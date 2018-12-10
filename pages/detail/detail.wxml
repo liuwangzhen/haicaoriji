@@ -176,7 +176,7 @@
       <view class='btn-text'>分享给朋友</view>
     </button>
     <view class='btn-line'></view>
-    <button bindtap='btnchose2' class='btnshare'>
+    <button bindtap='getPoster' class='btnshare'>
       <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-pengyouquan'>
       </view>
       <view class='btn-text'>分享朋友圈</view>

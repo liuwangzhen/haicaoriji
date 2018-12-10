@@ -15,14 +15,14 @@
       </view>
       <view class='col ml20'>
         <view class='nick2 bold'>{{userInfo.nick}}</view>
-        <!-- <view class='age'>年龄：{{age}}</view> -->
-        <view class='age'>积分：{{integration}}</view>
+        <view class='age'>年龄：{{age}}</view>
+        <!-- <view class='age'>积分：{{integration}}</view> -->
       </view>
       <view bindtap='updata' class='edit'>
         <text class='edit-text'>编辑资料</text>
       </view>
     </view>
-    <!-- <view style='width:730rpx;' class='r1 mt20 f28 ml20'>
+    <view style='width:730rpx;' class='r1 mt20 f28 ml20'>
       <view wx:if="{{userInfo.sex==1}}" style='color:blue;' class='iconfont icon-nan'></view>
       <view wx:if="{{userInfo.sex==2}}" style='color:pink;' class='iconfont icon-nv'></view>
       <view wx:if="{{userInfo.sex==null}}">
@@ -33,9 +33,9 @@
       <view wx:if="{{userInfo.province!=null}}" class='introduce'>{{userInfo.province}}</view>
       <view wx:if="{{userInfo.city!=null}}" class='introduce'>{{userInfo.city}}</view>
     </view>
-    <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text> -->
+    <text wx:if="{{sign!=null}}" class='sign'>{{sign}}</text>
     <view class='border'></view>
-    <view class='register'>
+    <!-- <view class='register'>
       <view class='ruler f26'>打卡规则</view>
       <button wx:if="{{isregister==true}}" bindtap='makeRegister' class='register-btn mt20'>打卡</button>
       <view wx:if="{{isregister==true}}" class="btn-around"></view>
@@ -44,7 +44,7 @@
       <view class='f26 cen mt20'>恭喜你</view>
       <view class='f26 cen mt10'>已连续打卡
         <span class="c62e">{{registers.length - 1}}</span> 天</view>
-    </view>
+    </view> -->
     <!-- <view class='line2'></view> -->
   </view>
   <!-- 收藏 -->

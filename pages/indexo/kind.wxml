@@ -2,7 +2,7 @@
 <view wx:if="{{curId!=0}}" style='padding-top:340rpx;' class='body'>
   <view bindtap='goDetail' data-id='{{item.id}}' wx:key="{{item.id}}" class='kinds' wx:for="{{list}}">
     <swiper wx:if="{{item.video==null}}" indicator-active-color="#58d1d3" indicator-dots="true" circular='false' class="kinds-img">
-      <swiper-item wx:for="{{item.img}}" class="kinds-img">
+      <swiper-item wx:key="{{index}}" wx:for="{{item.img}}" class="kinds-img">
         <image class="kinds-img" mode="aspectFit" data-item="{{item}}" src="{{item}}" />
       </swiper-item>
     </swiper>

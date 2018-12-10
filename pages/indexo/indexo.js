@@ -3,9 +3,7 @@ import regeneratorRuntime from '../../utils/runtime'
 const Page = require('../../utils/ald-stat.js').Page;
 const Poster = require('../../utils/poster');
 const app = getApp();
-
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -28,6 +26,7 @@ Page({
     ewrImg: "",  //小程序二维码图片
     tphone:"",
     scrolltop:0,
+    recomId:999,
     curId:0,
     titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "隆鼻", search: "隆鼻", search2: "鼻综合", }, { id: 2, name: "双眼皮", search: "双眼皮", search2: "眼综合", }, { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充", }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }]
   },
@@ -36,6 +35,15 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    
+    if (options.recommend!=undefined)
+    {
+      console.log(options.recommend)
+    that.setData({
+      recomId:options.recommend
+    })
+    console.log(that.data.recomId)
+    }
     wx.getSystemInfo({
       success: (res) => {
         that.setData({
@@ -44,27 +52,29 @@ Page({
       }
     })
    
-    let MyUser = new wx.BaaS.User()
-    wx.BaaS.login(false).then(res => {
-      MyUser.get(res.id).then(res => {
-        that.setData({
-          collection: res.data.collection
-        })
-        if (res.data.is_authorized == false) {
-          // if (res.data.jundge == false) {
-          wx.redirectTo({
-            url: '../../pages/login/login',
+    // let MyUser = new wx.BaaS.User()
+    // wx.BaaS.login(false).then(res => {
+    //   MyUser.get(res.id).then(res => {
+    //     that.setData({
+    //       collection: res.data.collection
+    //     })
+    //     console.log(that.data.recomId)
+    //     if (res.data.is_authorized == false) {
+    //       // if (res.data.jundge == false) {  
+    //       wx.redirectTo({
+    //         url: '../../pages/login/login?recomId='+that.data.recomId,
 
-          })
-        }
-        that.getList(" "," ")
-      }, err => {
-        // err
-      })
-      // 登录成功
-    }, err => {
-      // 登录失败
-    })
+    //       })
+    //     }
+    //     that.getList(" "," ")
+    //   }, err => {
+    //     // err
+    //   })
+    //   // 登录成功
+    // }, err => {
+    //   // 登录失败
+    // })
+    that.getUserInfoByToken();
   },
   pre: function () {
     let current = this.data.ewrImg
@@ -106,17 +116,22 @@ Page({
     let MyUser = new wx.BaaS.User()
     let that = this
     wx.BaaS.login(false).then(res => {
+      that.setData({
+        recommend:res.id
+      })
       MyUser.get(res.id).then(res => {
         // success
         that.setData({
           collection: res.data.collection
         })
+        console.log(that.data.recomId)
         if (res.data.is_authorized == false) {
           // if (res.data.jundge == false) {
           wx.redirectTo({
-            url: '../../pages/login/login',
+            url: '../../pages/login/login?recomId='+that.data.recomId,
           })
         }
+        that.getList(" ", " ")
       }, err => {
         // err
       })
@@ -473,7 +488,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.getUserInfoByToken()
+    // this.getUserInfoByToken()
 
   },
 
@@ -542,13 +557,12 @@ Page({
    
   },
   onShareAppMessage: function(res) {
-   
-   
+   let that=this
+   let recommend=that.data.recommend
         return {
           title: '海草日记',
           desc: '最具人气的小程序开发联盟!',
-          path: '/pages/indexo/indexo',
+          path: '/pages/indexo/indexo?recommend='+recommend,
         }
-    
     }
 })

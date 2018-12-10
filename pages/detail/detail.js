@@ -35,6 +35,7 @@ Page({
     tphone: "",
     isMakingPoster: false,
     play:false,
+    recomId:999
   },
 
   /**
@@ -66,8 +67,10 @@ Page({
       });
     } else {
       if (options.getshare != undefined) {
+        console.log(options)
         that.setData({
           getshare: 1,
+          recomId: parseInt(options.recommend)
         })
       }
       that.setData({
@@ -76,7 +79,7 @@ Page({
       that.getUserInfoByToken();
       that.getcomment();
       that.getList();
-      that.getPoster();
+      // that.getPoster();
       app.aldstat.sendEvent('日记打开', {
         '日记id': that.data.id,
         '打开时间': time
@@ -148,6 +151,9 @@ that.setData({
   },
   getPoster:function(){
     let that=this 
+    that.setData({
+      isMakingPoster: true
+    })
     let MyTableObject = new wx.BaaS.TableObject(59309)
     MyTableObject.find().then(res => {
     let list0 = res.data.objects
@@ -164,28 +170,40 @@ that.setData({
       shuffle(list0);
    
       shuffle(list0[0].content)
-      console.log(list0[0].image_all.path)
       let img2 = list0[0].image_all.path
-      that.setData({
-        content2: list0[0].content[0]
-      })
-     
+      // that.setData({
+      //   content2: list0[0].content[0]
+      // })
      wx.getImageInfo({
        src: img2,
        success: function(res) {
-         console.log(res)
          that.setData({
            img2:res.path,
            w2:res.width,
            h2:res.height
          })
+         setTimeout(function(){that.btnchose2();},500)
        },
        fail: function(res) {
-         console.log("err")
+         wx.showToast({
+           title: '加载失败，请重新合成',
+           success:function(){
+             that.setData({
+               isMakingPoster: false
+             })
+           }
+         })
        },
      })
     }, err => {
-      // err
+      wx.showToast({
+        title: '合成失败，请重新合成',
+        success: function () {
+          that.setData({
+            isMakingPoster: false
+          })
+        }
+      })
     })
   },
   drawText: function (context,text,h1){
@@ -235,7 +253,6 @@ that.setData({
     let w1 = that.data.tphone.screenWidth
     let w2=that.data.w2
     let h2=that.data.h2
-    console.log(h2)
     let ewrImg=that.data.ewrImg
     if(ewrImg==undefined){
       wx.showToast({
@@ -244,10 +261,7 @@ that.setData({
       })
     }
     else{
-    let content2=that.data.content2
-    that.setData({
-      isMakingPoster: true
-    })
+    // let content2=that.data.content2
     let Img2 = that.data.img2
     wx.getImageInfo({
       src: Img2,
@@ -825,7 +839,7 @@ that.setData({
         if (res.data.is_authorized == false) {
           // if (res.data.jundge == false) {
           wx.redirectTo({
-            url: '../../pages/login3/login3?id=' + that.data.id,
+            url: '../../pages/login3/login3?id=' + that.data.id+"&recomId="+that.data.recomId,
           })
         }
         that.setData({
@@ -1156,14 +1170,16 @@ that.setData({
     let id = that.data.id
     let tableID = 55960
     let recordID = id
+    console.log(that.data.user2Id)
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
     let share = that.data.share + 1
     let title = that.LimitNumbersadf(that.data.list.content)
+    let recommend = that.data.user2Id
     return {
       title: title,
       // desc: '最具人气的小程序',
-      path: '/pages/detail/detail?id=' + id + "&getshare=" + 1,
+      path: '/pages/detail/detail?id=' + id + "&getshare=" + 1+"&recommend="+recommend,
       imageUrl: that.data.list.img[0],
       success: (e) => {
         product.set('share', share)
