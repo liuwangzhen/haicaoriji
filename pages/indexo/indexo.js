@@ -28,7 +28,8 @@ Page({
     scrolltop:0,
     recomId:999,
     curId:0,
-    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "隆鼻", search: "隆鼻", search2: "鼻综合", }, { id: 2, name: "双眼皮", search: "双眼皮", search2: "眼综合", }, { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充", }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }]
+    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "医美", search: "医", search2: "手术", },{id:2,name:"健身",search:"健身",search2:"健身"},{id:3,name:"穿搭",search:"穿搭",search2:"穿搭"}]
+    //  { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充", }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -51,29 +52,7 @@ Page({
         })
       }
     })
-   
-    // let MyUser = new wx.BaaS.User()
-    // wx.BaaS.login(false).then(res => {
-    //   MyUser.get(res.id).then(res => {
-    //     that.setData({
-    //       collection: res.data.collection
-    //     })
-    //     console.log(that.data.recomId)
-    //     if (res.data.is_authorized == false) {
-    //       // if (res.data.jundge == false) {  
-    //       wx.redirectTo({
-    //         url: '../../pages/login/login?recomId='+that.data.recomId,
-
-    //       })
-    //     }
-    //     that.getList(" "," ")
-    //   }, err => {
-    //     // err
-    //   })
-    //   // 登录成功
-    // }, err => {
-    //   // 登录失败
-    // })
+    that.getContent(1542855353624223,1544580599805762)
     that.getUserInfoByToken();
   },
   pre: function () {
@@ -112,6 +91,26 @@ Page({
       url: '../search/search?val=' + val,
     })
   },
+  getContent: function(contentGroupID, categoryID){
+    return new Promise((resolve,reject)=>{
+      let that = this
+      let MyContentGroup = new wx.BaaS.ContentGroup(contentGroupID)
+      let query = new wx.BaaS.Query()
+      query.arrayContains('categories', [categoryID])
+      MyContentGroup.setQuery(query).find().then(res => {
+        // success
+        that.setData({
+          content:res.data.objects
+        })
+        resolve();
+      }, err => {
+        // err
+        reject();
+      })
+    })
+    
+     
+  },
   getUserInfoByToken() {
     let MyUser = new wx.BaaS.User()
     let that = this
@@ -124,7 +123,6 @@ Page({
         that.setData({
           collection: res.data.collection
         })
-        console.log(that.data.recomId)
         if (res.data.is_authorized == false) {
           // if (res.data.jundge == false) {
           wx.redirectTo({
@@ -277,7 +275,7 @@ Page({
     query2.contains('content', b)
     let andQuery = wx.BaaS.Query.or(query, query2)
     if(a==" "){
-      Product.orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
+      Product.orderBy('-created_at').expand('created_by').limit(20).offset(0).find().then(res => {
         let list0 = res.data.objects
         function shuffle(arr) {
           let i = arr.length,
@@ -309,7 +307,7 @@ Page({
       })
     }
     else{
-    Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(5).offset(0).find().then(res => {
+    Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(20).offset(0).find().then(res => {
       let list0 = res.data.objects
       function shuffle(arr) {
         let i = arr.length,
@@ -372,7 +370,7 @@ Page({
     query2.contains('content', b)
     let andQuery = wx.BaaS.Query.or(query, query2)
     if(a==" "){
-      Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
+      Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(20).offset(page * 20).find().then(res => {
         // success  
         if (res.data.objects == "") {
           wx.showToast({
@@ -414,7 +412,7 @@ Page({
       })
     }
     else{
-    Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(5).offset(page * 5).find().then(res => {
+    Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(20).offset(page * 20).find().then(res => {
       // success  
       if (res.data.objects == "") {
         wx.showToast({

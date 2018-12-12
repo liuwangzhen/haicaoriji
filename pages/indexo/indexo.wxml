@@ -30,40 +30,6 @@
     </view>
   </view>
   </view>
-  <!-- <scroll-view bindscrolltoupper="onPullDownRefresh" upper-threshold="-1" scroll-y style="height:{{tphone.screenHeight}}px;" bindscroll="bindscroll" bindscrolltolower="onReachBottom" enable-back-to-top="true" scroll-top="{{scrolltop}}"> -->
-  <view wx:if="{{curId==0}}" style='padding-top:340rpx;' class='body'>
-    <view class='wait' wx:if="{{list.length==0}}">
-      <image mode='widthFix' src='../../images/loading.svg'></image>
-      <view class='f28 ml38'>加载中</view>
-    </view>
-    <view wx:else class="content">
-      <view class="left">
-        <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-          <view bindtap='goDetail' data-id='{{item.id}}' class="item">
-            <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-            <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
-            <view class="item-title-box">
-              <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-              <view wx:else class="item-title">{{item.content}}</view>
-            </view>
-          </view>
-        </view>
-        <view class='bottom'></view>
-      </view>
-      <view class="right">
-        <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-          <view bindtap='goDetail' data-id='{{item.id}}' class="item">
-            <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-            <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
-            <view class="item-title-box">
-              <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-              <view wx:else class="item-title">{{item.content}}</view>
-            </view>
-          </view>
-        </view>
-        <view class='bottom'></view>
-      </view>
-    </view>
-  </view>
+  
   <include src="kind.wxml" />
   <!-- </scroll-view> -->

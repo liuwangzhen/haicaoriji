@@ -29,7 +29,7 @@
     <video  class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
     <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
-    <canvas class='canvas' canvas-id='firstCanvas' style='width:{{w2/2}}px;height:{{h2/2}}px;position:fixed;top:-10000px;'></canvas>
+    <canvas class='canvas' canvas-id='firstCanvas' style='width:{{w2}}px;height:{{h2}}px;position:fixed;top:-10000px;'></canvas>
     <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button>
    
     <text class='content2'>
@@ -158,7 +158,7 @@
           <span class="share-1" >分享</span>
         </view>
       </button>
-      <view wx:if="{{share>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view>
+      <!-- <view wx:if="{{share>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{share}}</view> -->
     </view>
   </view>
 </view>

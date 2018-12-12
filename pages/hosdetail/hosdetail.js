@@ -1,24 +1,29 @@
-// pages/contact/contact.js
+// pages/hosdetail/hosdetail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-  
+    height4: getApp().globalData.height,
   },
-
+ 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
   
   },
-  handleContact(e) {
-    console.log(e.path)
-    console.log(e.query)
+  goback: function () {
+    wx.navigateBack({
+      delta: 1,
+    })
   },
-
+  goIndex: function () {
+    wx.switchTab({
+      url: '../indexo/indexo',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

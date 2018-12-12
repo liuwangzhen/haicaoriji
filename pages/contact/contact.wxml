@@ -1,5 +1,0 @@
-<view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>添加日记</view>
-</view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
-<button open-type="contact" bindcontact="handleContact">客服</button>

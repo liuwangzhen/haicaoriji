@@ -1,0 +1,8 @@
+<import src="../../wxParser/index.wxml"/>
+<cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</cover-view>
+</cover-view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view class="wxParser">
+  <template is="wxParser" data="{{wxParserData:richText.nodes}}"/>
+</view>

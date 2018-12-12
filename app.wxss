@@ -5,6 +5,7 @@
 @import '/common/iconfont4.wxss';
 @import '/common/iconfont5.wxss';
 @import '/common/iconfont6.wxss';
+@import '/wxParser/index.wxss';
 /* {
         "pagePath": "pages/addNote/addNote",
         "text": "写日记",

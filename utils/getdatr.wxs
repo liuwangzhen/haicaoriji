@@ -24,7 +24,7 @@ var filter = {
   },
   LimitNumbersadf:function(txt) {
     var str = txt;
-    str = str.substring(0, 23);
+    str = str.substring(0, 20);
     str += '...'
     return str;
   },
@@ -34,9 +34,16 @@ var filter = {
     str += '...'
     return str;
   },
+  LimitNumbersadf3: function (txt,num) {
+    var str = txt;
+    str = str.substring(0, num);
+    str += '...'
+    return str;
+  },
 }
 module.exports = {
   getDate: filter.getDate,
   Limit:filter.LimitNumbersadf,
   Limit2: filter.LimitNumbersadf2,
+  Limit3:filter.LimitNumbersadf3,
 }

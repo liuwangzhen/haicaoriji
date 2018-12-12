@@ -1,0 +1,17 @@
+<wxs module="filter" src="../../utils/getdatr.wxs">
+</wxs>
+<cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</cover-view>
+</cover-view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1' wx:for="{{list}}" wx:key="{{item.id}}">
+  <view class='col hos-head'>
+    <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
+    <view class='hos-score'>{{item.score}}</view>
+  </view>
+  <view class='col hos-na'>
+    <view class='hos-name'>{{item.name}}</view>
+    <text wx:if="{{item.address.length<70}}" class='hos-address'>{{item.address}}</text>
+    <text wx:else class='hos-address'>{{filter.Limit3(item.address,70)}}</text>
+  </view>
+</navigator>

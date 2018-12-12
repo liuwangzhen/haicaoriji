@@ -53,9 +53,17 @@ Page({
       }
     })
     if (options.scene != undefined) {
+      console.log(options.scene)
+      let id = options.scene.substr(0,scene.length - 8)
+      console.log(id)
+      let recomId = parseInt(options.scene.substr(scene.length - 8,8));
+      console.log(recomId)
       that.setData({
         getshare: 1,
-        id: options.scene
+        // id: options.scene
+        id:id,
+        recomId:recomId,
+
       })
       that.getUserInfoByToken();
       that.getcomment();
@@ -128,25 +136,6 @@ that.setData({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    let that = this
-    let h1 = that.data.tphone.screenHeight
-    let w1 = that.data.tphone.screenWidth
-    const params = {
-      scene: that.data.id,
-      page: 'pages/detail/detail',
-      width: 250
-    }
-    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
-      wx.getImageInfo({
-        src: res.download_url,
-        success: function(res) {
-          that.setData({
-            ewrImg: res.path
-          })
-        //  that.btnchose();
-        }
-      })
-    })
    
   },
   getPoster:function(){
@@ -168,7 +157,7 @@ that.setData({
         }
       }
       shuffle(list0);
-   
+      
       shuffle(list0[0].content)
       let img2 = list0[0].image_all.path
       // that.setData({
@@ -256,7 +245,7 @@ that.setData({
     let ewrImg=that.data.ewrImg
     if(ewrImg==undefined){
       wx.showToast({
-        title: '网络不好，请退回主页重新进入',
+        title: '网络不好，请重新合成',
         icon:"loading"
       })
     }
@@ -287,13 +276,14 @@ that.setData({
             that.setData({
               isMakingPoster: false
             })
-            console.log("prew")
+            console.log(w1)
+            console.log(w2)
             wx.canvasToTempFilePath({
               canvasId: 'firstCanvas',
-              width: w1,
-              height: h1,
-              destWidth: w1 * 2,
-              destHeight: h1 * 2,
+              width: w2/2,
+              height: h2/2,
+              destWidth: w2,
+              destHeight: h2,
               fileType: 'jpg',
               quality: 1,
               success: (res) => {
@@ -316,51 +306,13 @@ that.setData({
               resolve(console.log("0000"))
             })
         }
-        let promise2 = function () {
-          return new Promise(
-            function (resolve, reject) {
-              // ctx.fillRect(0, 0, w1, h1)
-              // ctx.setFillStyle('#fff')
-              // ctx.fillRect(0, w1*2/3, w1, h1)
-
-              ctx.setFontSize(30)
-              ctx.setFillStyle('#000')
-              ctx.fillText('海草日记', 200, h1 * 2 / 3 + 84)
-              // ctx.draw(true)
-              resolve(console.log("111"))
-            })
-        }
-        let promise5 = function () {
-          return new Promise(
-            function (resolve, reject) {
-              // ctx.fillRect(0, 0, w1, h1)
-              ctx.setFontSize(18)
-              ctx.setFillStyle('#000')
-              ctx.fillText('长按小程序码查看', 200, h1 * 2 / 3 + 50)
-              // ctx.draw(true)
-              resolve(console.log("111"))
-            })
-        }
-        let promise4 = function(){
-          return new Promise(
-            function (resolve, reject) {
-              
-              // ctx.fillRect(0, 0, w1, h1)
-              ctx.setFontSize(18)
-              ctx.setFillStyle('#06051b')
-              let measure=ctx.measureText(content2)
-              console.log(measure.width)
-              that.drawText(ctx,content2,2*w1/3 + 50); 
-              // ctx.fillText(content2, 20, 2*w1/3 + 30,w1-30)
-              // ctx.draw(true)
-              resolve(console.log(content2))
-            })
-        }
+       
+       
         let promise3 = function () {
           return new Promise(
             function (resolve, reject) {
               // ctx.drawImage(ewrImg, 30, h1*2/3+50, 130, 130)
-              ctx.drawImage(ewrImg, 30, h2*1/3, 130, 130)
+              ctx.drawImage(ewrImg, w2/16, h2*40/100, 200, 200)
               resolve(console.log("222"))
               reject(console.log("333"))
             })
@@ -392,107 +344,7 @@ that.setData({
     })
     }
   },
-  btnchose: function(){
-    let that = this
-    let h1 = that.data.tphone.screenHeight
-    let w1 = that.data.tphone.screenWidth
-    let ewrImg = that.data.ewrImg
-    let Img2=that.data.list.img[0]
-    let content2=that.data.content2
-    wx.getImageInfo({
-      src: Img2,
-      success: function (res) {
-        that.setData({
-          ewrImg2: res.path
-        })
-        let ewrImg2=res.path
-        let preview = function () {
-          return new Promise((resolve, reject) => {
-            prew().then((filePath) => {
-              wx.previewImage({
-                urls: [filePath]
-              });
-              resolve();
-            }).catch((err) => {
-              reject(err);
-            });
-          });
-        }
-        let prew=function() {
-          return new Promise((resolve, reject) => {
-            that.setData({
-              isMakingPoster: false
-            })
-            console.log("prew")
-            wx.canvasToTempFilePath({
-              canvasId: 'firstCanvas',
-              width: w1,
-              height: h1,
-              destWidth: w1 * 2,
-              destHeight: h1 * 2,
-              fileType: 'jpg',
-              quality: 1,
-              success: (res) => {
-                resolve(res.tempFilePath);
-              }
-            })
-          })
-        }
-        let ctx = wx.createCanvasContext('firstCanvas', this)
-        let promise = function () {
-          return new Promise(
-            function (resolve, reject) {
-              // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-              ctx.drawImage(ewrImg2, 0, 0, w1, 2*w1/3)
-              resolve(console.log("0000"))
-            })
-        }
-        let promise2 = function () {
-          return new Promise(
-            function (resolve, reject) {
-              // ctx.fillRect(0, 0, w1, h1)
-              ctx.setFontSize(30)
-              ctx.setFillStyle('#d5d5d5')
-              ctx.fillText('海草日记', 40, 40)
-              // ctx.draw(true)
-              resolve(console.log("111"))
-            })
-        }
-        let promise4 = function(){
-          return new Promise(
-            function (resolve, reject) {
-              // ctx.fillRect(0, 0, w1, h1)
-              ctx.setFontSize(28)
-              ctx.setFillStyle('black')
-              console.log(content2)
-              ctx.fillText(content2, 20, 2 * w1/3,w1-30)
-              // ctx.draw(true)
-              resolve(console.log("444"))
-            })
-        }
-        let promise3 = function () {
-          return new Promise(
-            function (resolve, reject) {
-              ctx.drawImage(ewrImg, w1 / 2, h1 / 2, 150, 150)
-              resolve(console.log("222"))
-              reject(
-              )
-            })
-        }
-        Promise.all([
-          promise(),
-          promise2(),
-          promise4(),
-          promise3(),
-        ]).then(
-          () =>
-              ctx.draw(false)      
-        )
-      },
-     
-    })
-    
-  },
+ 
   goUser: function() {
     var id = this.data.userid;
     if (id == getApp().globalData.userId) {
@@ -850,6 +702,7 @@ that.setData({
         })
         that.getPic();
         that.getAdmin();
+        that.getEwrimg();
       }, err => {
         // err
       })
@@ -857,6 +710,33 @@ that.setData({
 
     }, err => {
       // 登录失败
+    })
+  },
+  getEwrimg:function(){
+    let that = this
+    let h1 = that.data.tphone.screenHeight
+    let w1 = that.data.tphone.screenWidth
+    let user2 = (that.data.user2Id).toString()
+    let a="&"
+    let scene = that.data.id  + user2
+   
+    let id = that.data.id
+    const params = {
+      scene:scene,
+      page: 'pages/detail/detail',
+      width: 250,
+      is_hyaline:true,
+    }
+    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
+      wx.getImageInfo({
+        src: res.download_url,
+        success: function (res) {
+          that.setData({
+            ewrImg: res.path
+          })
+          //  that.btnchose();
+        }
+      })
     })
   },
   getAdmin: function() {
@@ -1135,42 +1015,12 @@ that.setData({
       showModal: false
     })
   },
-  getCanvas: function() {
-    let that = this
-    let h1 = that.data.tphone.screenHeight
-    let w1 = that.data.tphone.screenWidth
-    const params = {
-      scene: '5c00a4cee2146e0ac313b709',
-      page: 'pages/detail/detail',
-      width: 250
-    }
-    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
-      wx.getImageInfo({
-        src: res.download_url,
-        success: function(res) {
-          that.setData({
-            ewrImg: res.path
-          })
-          var ctx = wx.createCanvasContext('firstCanvas', this)
-          ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-          ctx.draw()
-          ctx.setFontSize(30)
-          ctx.setFillStyle('#fff')
-          ctx.fillText('海草日记小程序', 40, 40)
-
-          ctx.drawImage(that.data.ewrImg, w1 / 2, h1 / 2, 150, 150)
-          ctx.draw(true)
-        }
-
-      })
-    })
-  },
+  
   onShareAppMessage: function() {
     let that = this
     let id = that.data.id
     let tableID = 55960
     let recordID = id
-    console.log(that.data.user2Id)
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
     let share = that.data.share + 1

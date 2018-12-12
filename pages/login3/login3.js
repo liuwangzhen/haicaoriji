@@ -13,7 +13,7 @@ Page({
      id:e.id,
      recomId:e.recomId
    })
-
+   
   },
   userInfoHandler(data) {
     let that=this
@@ -96,7 +96,7 @@ Page({
         currentUser.set({
         'recommend':parseInt(that.data.recomId),
       }).update().then(res => {
-       console.log(res)
+         console.log(res)
       })}
         },
           err => {
