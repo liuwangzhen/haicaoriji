@@ -1,8 +1,10 @@
 <!--pages/search/search.wxml-->
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
+<view class='top-pad'></view>
 <view class='topone'>
-  <view style='height:{{height4*2+20}}px' class='nav-wrap'>
-    <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>搜索</view>
+  <view  class='nav-wrap2'>
+     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>搜索</view>
+     
     <view style='display: flex; justify-content: space-around;flex-direction: column'>
       <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
         <view bindtap='goback'>
@@ -11,27 +13,27 @@
         <view bindtap='goIndex'>
           <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
         </view>
-        <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
+        <!-- <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view> -->
       </view>
     </view>
   </view>
-  <view style='height:{{height4*2+20}}px;' class='pad'></view>
-  <view wx:if="{{inputShowed==false}}" bindtap="showInput" class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+  <!-- <view style='height:{{height4*2+20}}px;' class='pad'></view> -->
+  <view wx:if="{{inputShowed==false}}" style='top:{{height4*2 + 48}}px;'  bindtap="showInput" class='nav2'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
-      <input disabled="true" value='{{inputVal}}' class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
+      <input disabled="true" value='{{inputVal}}' style='height:37px;' class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
     </view>
   </view>
-  <view wx:else class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+  <view wx:else style='top:{{height4*2 + 48}}px;' class='nav2'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
-      <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2"   placeholder-class="search-p"></input>
+      <input style='height:37px;' value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2"   placeholder-class="search-p"></input>
     </view>
     <view class="cancel" bindtap="hideInput">取消</view>
     <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="getList">搜索</view>
   </view>
 </view>
-<view class='body'>
+<view style='padding-top:{{height4*2 + 48+44}}px;margin-top:20rpx;' class='body'>
   <view class='title'>
     #{{title}}
   </view>

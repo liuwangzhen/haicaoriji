@@ -2,7 +2,7 @@
 const wxParser = require('../../wxParser/index');
 
 Page({
-
+ 
   /**
    * 页面的初始数据
    */

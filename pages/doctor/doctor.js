@@ -1,4 +1,4 @@
-// pages/hospital/hospital.js
+// pages/doctor/doctor.js
 const myFirst = require('../../utils/myfirst');
 const myfirst = new myFirst()
 Page({
@@ -14,27 +14,38 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    let that=this
-    that.getHospital()
+    let that = this
+    that.getDoctors();
   },
-  
-  getHospital: function() {
+  getDoctors: function() {
     let that = this
     return new Promise(
-      (resolve,reject)=>{
-        myfirst.getTable(59863).then(
-          (res)=>{
+      (resolve, reject) => {
+        myfirst.getTable(59866).then(
+          (res) => {
             console.log(res)
             that.setData({
-              list:res.data.objects
+              doctors:res.data.objects
             })
             resolve()
+          },
+          (err) => {
+            reject()
           }
         )
       }
     )
   },
-
+  goback: function() {
+    wx.navigateBack({
+      delta: 1,
+    })
+  },
+  goIndex: function() {
+    wx.switchTab({
+      url: '../indexo/indexo',
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

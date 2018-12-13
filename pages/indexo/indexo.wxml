@@ -1,18 +1,21 @@
 <wxs module="filter" src="../../utils/getdatr.wxs">
 </wxs>
+<view class='top-pad'></view>
 <view class='topone'>
-  <view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <!-- <view style='height:{{height4*2+20}}px' class='nav-wrap'> -->
+<view  class='nav-wrap2'>
     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   </view>
-  <view style='height:{{height4*2+20}}px;' class='pad'></view>
-  <view wx:if="{{inputShowed==false}}" bindtap="showInput" class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+  <view style='height:{{height4*2+30}}px;' class='pad'></view>
+  
+  <view wx:if="{{inputShowed==false}}" style='top:{{height4*2 + 30}}px;' bindtap="showInput" class='nav'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
       <input disabled="true" class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
     </view>
   </view>
-  <view wx:if="{{inputShowed==true}}" class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;top:21rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
+  <view wx:if="{{inputShowed==true}}" style='top:{{height4*2 + 30}}px;'  class='nav'>
+    <view style='color:black; position: absolute;margin-left: 65rpx;margin-top:35rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
       <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder-class="search-p"></input>
     </view>
@@ -20,16 +23,17 @@
     <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
     <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
   </view>
-  <view class='recom'>
+  <view style='top:{{height4*2 + 30+37}}px;' class='recom'>
     <view class='recom2'>
-    <scroll-view  scroll-x="true"  class='recommend'>
-      <view data-id='{{item.id}}' bindtap='change' class="f30 mt20 {{index == 0 ? '' : 'ml30'}} {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
-        {{item.name}}
-      </view>
-    </scroll-view>
+      <scroll-view scroll-x="true" class='recommend'>
+        <view data-id='{{item.id}}' bindtap='change' class="f30 mt20 {{index == 0 ? '' : 'ml30'}} {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
+          {{item.name}}
+        </view>
+      </scroll-view>
     </view>
   </view>
-  </view>
   
-  <include src="kind.wxml" />
-  <!-- </scroll-view> -->
+</view>
+
+<include src="kind.wxml" />
+<!-- </scroll-view> -->

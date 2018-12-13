@@ -1,7 +1,7 @@
 // pages/indexo/indexo.js
 import regeneratorRuntime from '../../utils/runtime'
 const Page = require('../../utils/ald-stat.js').Page;
-const Poster = require('../../utils/poster');
+
 const app = getApp();
 Page({
   /**

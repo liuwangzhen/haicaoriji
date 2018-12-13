@@ -127,6 +127,9 @@ Page({
                   idx: "",
                   src: ""
                 }
+                that.setData({
+                  isMakingPoster: true,
+                })
                 let list = new Array(n)
                 let list0 = new Array
                 for(let i = 0; i < arr1.length; i++){
@@ -140,9 +143,7 @@ Page({
                     categoryName: 'SDK'
                   }
                   MyFile.upload(fileParams, metaData).then(e => {
-                    that.setData({
-                      isMakingPoster: true,
-                    })
+                    
                       list[i].src = e.data.path
                       list[i].idx = i;
                         that.setData({

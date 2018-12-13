@@ -30,8 +30,18 @@
   color: transparent;
 
 }
+.c8a{ color: #8a8a8a;}
 .canvas{
   background-color: #d5d5d5;
+}
+.mt15{
+  margin-top: 15rpx;
+}
+.ce5{
+  color:#fcbcc7;
+}
+.mt5{
+  margin-top: 5rpx;
 }
 .top {
   position: fixed;

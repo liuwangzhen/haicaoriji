@@ -11,6 +11,22 @@ padding-top:15rpx;
 font-size:32rpx;
 
 }
+.top-pad{
+  position: fixed;
+  background-color: #fff;
+  z-index: 9;
+  width: 100%;
+  top:0;
+  height: 20px;
+}
+.nav-title2{
+  text-align:center;
+font-size:36rpx;
+color:#2c2b2b;
+font-weight:600;
+position: absolute;
+margin-top: 100rpx;
+}
 .number{
 width:730rpx;
 height:60rpx;
