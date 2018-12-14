@@ -8,6 +8,7 @@ Page({
    */
   data: {
     height4: getApp().globalData.height,
+    list:[],
   },
 
   /**
@@ -24,7 +25,6 @@ Page({
       (resolve,reject)=>{
         myfirst.getTable(59863).then(
           (res)=>{
-            console.log(res)
             that.setData({
               list:res.data.objects
             })

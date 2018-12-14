@@ -33,7 +33,11 @@
     <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="getList">搜索</view>
   </view>
 </view>
-<view style='padding-top:{{height4*2 + 48+44}}px;margin-top:20rpx;' class='body'>
+<view style='padding-top:{{height4*2 + 48+44}}px;' class='wait' wx:if="{{list==''}}">
+  <image mode='widthFix' src='../../images/loading.svg'></image>
+  <view class='f28 ml38'>加载中</view>
+</view>
+<view wx:else style='padding-top:{{height4*2 + 48+44}}px;margin-top:20rpx;' class='body'>
   <view class='title'>
     #{{title}}
   </view>

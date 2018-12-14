@@ -5,12 +5,57 @@
       <view bindtap='goback'>
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
-      <view bindtap='goIndex'>
+      <!-- <view bindtap='goIndex'>
         <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
-      </view>
+      </view> -->
       <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
     </view>
   </view>
 </view>
 
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view  class='wait' wx:if="{{hospital==''}}">
+  <image mode='widthFix' src='../../images/loading.svg'></image>
+  <view class='f28 ml38'>加载中</view>
+</view>
+<view wx:else>
+  <swiper indicator-active-color="#58d1d3" indicator-dots="true" bindchange="change" circular='false' class="swiper">
+    <swiper-item wx:for="{{hospital.poster}}" wx:key="{{index}}" class="swiper-item">
+      <image class="swiper-item" data-item="{{item}}" mode='aspectFill' src="{{item.path}}" />
+    </swiper-item>
+  </swiper>
+  <view class='b f35 cen mt30'>{{hospital.name}}</view>
+  <view class='cen f26 mt20 cc5'>
+    <span wx:if="{{hospital.public==true}}" class='f26'>公立医院:</span>
+    <span wx:else class='f26'>私立医院 : </span>
+    <span class='ml10 f25'>{{hospital.score}}</span>
+    <span wx:key="{{index}}" wx:for="{{score}}" style="color:#edbc3b;position:relative;top:3rpx;" class="iconfont7 icon-xingxing"></span>
+    
+  </view>
+  <view class='f28 cen mt20 license'>查看医疗执业许可</view>
+  <view class='line2'></view>
+  <text class='mt30 f28 w670 ml20 text cc5'>{{hospital.detail}}</text>
+  <view class='mt30 f28 w670 ml20 cc5'>地址：{{hospital.address}}</view>
+  <view class='line3 mt20'></view>
+  <view class='contain ml20 mt20 f30'>
+    <view class='b mt20'>本院医师</view>
+    <view class='more f28 cc5'>更多医师
+      <span style="font-size:26rpx;position:relative;top:-1rpx;" class="iconfont icon-qianjin"></span>
+    </view>
+    <navigator url="../doctorDetail/doctorDetail?id={{item.id}}" hover-class='none' class='r1 doctor f28' wx:key="{{item.id}}" wx:for="{{doctors}}">
+      <image mode='aspectFill' class='img' src='{{item.headimg.path}}'></image>
+      <view class='col ml30 mt20'>
+        <view class='f32 b'>{{item.name}}</view>
+        <view class='r1 mt10 cc5'>
+          <view>{{item.job}}</view>
+          <view class='line ml20'></view>
+          <view class='ml20'>{{item.time}}年经验</view>
+        </view>
+        <view class='r1 cbc mt10'>
+        <view style='color:#58c2db;font-size:30rpx;position:relative;top:2rpx;' class='iconfont7 icon-dianzan'></view>
+          <view class='ml20'>{{item.superiority}}</view>
+        </view>
+      </view>
+    </navigator>
+  </view>
+</view>

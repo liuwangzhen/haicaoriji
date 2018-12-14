@@ -717,7 +717,7 @@ that.setData({
     let h1 = that.data.tphone.screenHeight
     let w1 = that.data.tphone.screenWidth
     let user2 = (that.data.user2Id).toString()
-    let a="&"
+    
     let scene = that.data.id  + user2
    
     let id = that.data.id

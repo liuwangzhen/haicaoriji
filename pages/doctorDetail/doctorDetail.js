@@ -1,4 +1,4 @@
-// pages/hosdetail/hosdetail.js
+// pages/doctorDetail/doctorDetail.js
 const myFirst = require('../../utils/myfirst');
 const myfirst = new myFirst()
 Page({
@@ -8,54 +8,17 @@ Page({
    */
   data: {
     height4: getApp().globalData.height,
-    hospital:"",
   },
- 
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-   let that=this
-   let id=options.id
-   that.setData({
-     id:options.id
-   })
-    that.getHospital(59863,id)
-    that.getDoctors()
-  },
-  getHospital:function(a,b){
-    return new Promise(
-      (resolve,reject)=>{
-        let that = this
-        myfirst.getRecord(a, b).then(
-          res => {
-            that.setData({
-              hospital: res.data,
-              score:Math.round(res.data.score)
-            })
-            resolve(res)
-          },
-          err=>{
-            reject(err)
-          }
-        )
-      }
-    )
-  },
-  getDoctors:function(){
-    let that=this
-    let tableId=59866
-    let id=that.data.id
-    let a='hospital_id'
-    let query = new wx.BaaS.Query()
-    query.contains(a,id)
-    myfirst.getQueryTable(tableId,query).then(
-      res=>{
-        that.setData({
-          doctors:res.data.objects
-        })
-      }
-    )
+     let that=this
+     that.setData({
+       id:options.id
+     })
+     that.getDoctor(options.id)
   },
   goback: function () {
     wx.navigateBack({
@@ -66,6 +29,25 @@ Page({
     wx.switchTab({
       url: '../indexo/indexo',
     })
+  },
+  getDoctor:function(id){
+    let that=this
+    return new Promise(
+      (resolve,reject)=>{
+        myfirst.getRecord(59866,id).then(
+          res=>{
+            that.setData({
+              doctor:res.data
+            })
+            console.log(res.data)
+            resolve()
+          },
+          err=>{
+            reject()
+          }
+        )
+      }
+    )
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

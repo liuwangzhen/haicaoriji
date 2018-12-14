@@ -21,11 +21,11 @@
 </view>
 <view wx:else>
   <view class='contain2'>
-    <swiper wx:if="{{list.video==null}}" indicator-active-color="#58d1d3" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
-      <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
-        <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
-      </swiper-item>
-    </swiper>
+      <swiper wx:if="{{list.video==null}}" indicator-active-color="#58d1d3" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
+        <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
+          <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
+        </swiper-item>
+      </swiper>
     <video  class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
     <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
@@ -42,7 +42,7 @@
     <view class='line2 mt30'></view>
   </view>
   <view class='line2 mt30'></view>
-  <view class='comment'>
+  <!-- <view class='comment'>
     <view class='ml20 pl10 mt30 f32 b'>笔记评论</view>
     <view class='line3'></view>
     <view class='r1 mt20 ml20 pl10'>
@@ -60,8 +60,7 @@
               <view class='block r1'>
                 <view data-id='{{item.id}}' bindtap='answer' style='margin-right:30rpx;color:#57b0f0'>回复</view>
                 <view data-id='{{item.id}}' wx:if="{{candelete==true}}" bindtap='deleteComment' style='font-size:32rpx;position:relative;top:5rpx;' class='iconfont icon-iconfontshanchu6'></view>
-                <!-- <view class='iconfont icon-dianzan'></view>
-              <view>2</view> -->
+             
               </view>
             </view>
             <view class='time2'>{{item.created_at}}</view>
@@ -76,7 +75,7 @@
         <span style="font-size:25rpx;position:relative;bottom:2rpx;" class='iconfont2 icon-qianjin'></span>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class='line2'></view>
 
   <view bindblur='inputVal3' style="bottom:{{height2}}px;" wx:if="{{input==true}}" class='comment-inp r1'>
@@ -153,7 +152,7 @@
     <view class='line'>
     </view>
     <view style='position:absolute;left:475rpx;' class='r1'>
-      <button open-type="share" bindtap='onShareAppMessage' class='share'>
+      <button  bindtap='onShare' class='share'>
         <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
           <span class="share-1" >分享</span>
         </view>

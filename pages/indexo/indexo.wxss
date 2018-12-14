@@ -166,6 +166,7 @@ padding-top:230rpx;
   position: fixed;
   width: 100%;
   z-index: 2;
+  top:0rpx;
 }
 ::-webkit-scrollbar {
 
