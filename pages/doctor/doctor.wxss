@@ -37,3 +37,12 @@ padding-bottom:30rpx;
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.sitem{
+ width: 450rpx;
+ text-overflow: ellipsis;
+  display: -webkit-box;
+  /* -webkit-box-orient: vertical; */
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  white-space:nowrap;
+}

@@ -8,6 +8,7 @@ Page({
    */
   data: {
     height4: getApp().globalData.height,
+    rotate:false,
   },
 
   /**
@@ -30,6 +31,13 @@ Page({
       url: '../indexo/indexo',
     })
   },
+  goRotate:function(){
+    let that=this;
+    let rotate=that.data.rotate
+    that.setData({
+      rotate:!rotate
+    })
+  },
   getDoctor:function(id){
     let that=this
     return new Promise(
@@ -37,13 +45,33 @@ Page({
         myfirst.getRecord(59866,id).then(
           res=>{
             that.setData({
-              doctor:res.data
+              doctor:res.data,
+              hos_id: res.data.hospital_id
             })
             console.log(res.data)
-            resolve()
+            resolve(that.getHospital(59863,res.data.hospital_id))
           },
           err=>{
             reject()
+          }
+        )
+      }
+    )
+  },
+  getHospital:function(a,b){
+    return new Promise(
+      (resolve, reject) => {
+        let that = this
+        myfirst.getRecord(a,b).then(
+          res => {
+            that.setData({
+              hospital: res.data,
+            })
+            console.log(res.data)
+            resolve(res)
+          },
+          err => {
+            reject(err)
           }
         )
       }

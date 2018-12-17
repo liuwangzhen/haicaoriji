@@ -15,17 +15,22 @@ Page({
    */
   onLoad: function(options) {
     let that = this
-    that.getDoctors();
+    that.setData({
+      hospital_id:options.hospital_id
+    })
+    that.getDoctors(59866,that.data.hospital_id);
   },
-  getDoctors: function() {
+  getDoctors: function(tableId,id) {
     let that = this
     return new Promise(
       (resolve, reject) => {
-        myfirst.getTable(59866).then(
+        let query = new wx.BaaS.Query()
+        query.contains('hospital_id', id)
+        myfirst.getQueryTable(tableId, query).then(
           (res) => {
             console.log(res)
             that.setData({
-              doctors:res.data.objects
+              doctors:res.data.objects,
             })
             resolve()
           },

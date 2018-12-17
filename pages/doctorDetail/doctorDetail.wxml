@@ -13,9 +13,69 @@
   </view>
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
-<view class='cen mt30'>
-  <image mode='aspectFill' src='{{doctor.headimg.path}}' class='img'></image>
-  <view class='cen mt20 b f32'>{{doctor.name}}</view>
-  <view class='certificate mt20'>职业资格证号：{{doctor.credentials}}</view>
-  
-</view>
+<view class='padding'>
+  <view class='cen mt30'>
+    <image mode='aspectFill' src='{{doctor.headimg.path}}' class='img'></image>
+    <view class='cen mt20 b f32'>{{doctor.name}}</view>
+    <view class='certificate mt20 cc5'>执业资格证号：{{doctor.credentials}}</view>
+    <view class='r1a mt20 h100'>
+      <view class='col abs ditem w200'>
+        <view style='font-size:52rpx;color:#58c2db;' class='iconfont icon-xueshimao'></view>
+        <view class='f26 b mt10'>本科</view>
+      </view>
+      <view class='col abs ditem2 w200'>
+        <view style='font-size:52rpx;color:#58c2db;' class='iconfont icon-yingyezhizhao'></view>
+        <view class='f26 b mt10'>{{doctor.job}}</view>
+      </view>
+      <view class='col abs ditem3 w200'>
+        <view style='font-size:52rpx;color:#58c2db;' class='iconfont icon-jiangzhangxunzhang'></view>
+        <view class='f26 b mt10'>{{doctor.time}}年经验</view>
+      </view>
+    </view>
+  </view>
+  <view class='line2 mt20'></view>
+  <view class='mt30 ml30 f30 r1'>
+    <view class='b'>擅长领域</view>
+    <view class="superiority ml30 f28 mt5 r1">
+      <view wx:key="{{index}}" wx:for="{{doctor.superiority}}">{{item}}
+        <span wx:if="{{index!=doctor.superiority.length-1}}">/</span>
+      </view>
+    </view>
+  </view>
+  <view class='mt30 line2'></view>
+  <view class='ml30 mt20'>
+    <view class='mt20 f30 b'>医生介绍</view>
+    <view wx:if="{{doctor.abstract.length>100}}">
+      <text class='mt30 f28 text2 cc5 {{rotate==false ? "h1" : "h2"}}'>{{doctor.abstract}}</text>
+      <view bindtap='goRotate' wx:if="{{rotate==false}}" class='col'>
+        <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:5rpx;' class='iconfont icon-xiangxia'></view>
+        <view style='text-align:center;width:690rpx;' class='iconfont icon-xiangxia'></view>
+      </view>
+      <view bindtap='goRotate' wx:if="{{rotate==true}}" class='col'>
+        <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:5rpx;transform:rotate(180deg);' class='iconfont icon-xiangxia'></view>
+        <view style='text-align:center;width:690rpx;transform:rotate(180deg);' class='iconfont icon-xiangxia'></view>
+      </view>
+      </view>
+      <view wx:if="{{doctor.abstract.length<=100}}">
+      <text class='mt30 f28 text2 cc5 h2'>{{doctor.abstract}}</text>
+      </view>
+    </view>
+    <view class='line2 mt10'></view>
+    <view class='ml30'>
+      <view class='mt20 f30 b'>所属医院</view>
+      <navigator hover-class='none' url="../hosdetail/hosdetail?id={{hos_id}}" class='mt20 r1'>
+        <image class='img2' mode='aspectFit' src='{{hospital.headimg.path}}'></image>
+        <view class='col ml30'>
+          <view class='b f30 mt10'>{{hospital.name}}</view>
+          <view wx:if="{{hospital.public==true}}" class='f26 mt20 cc5'>公立医院</view>
+          <view wx:else class='f26 mt20 cc5'>私立医院</view>
+        </view>
+        <view style='position:absolute;right:30rpx;color:#545454;font-size:36rpx;margin-top:30rpx;' class='iconfont icon-qianjin'></view>
+      </navigator>
+      <view class='line3 mt20'></view>
+      <view class='r1 mt30'>
+        <view style='color:#58c2db;font-size:40rpx;margin-top:10rpx;' class='iconfont icon-weibiaoti-3'></view>
+        <view class='ml20 f26 b address'>{{hospital.address}}</view>
+      </view>
+    </view>
+  </view>

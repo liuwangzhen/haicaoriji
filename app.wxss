@@ -6,6 +6,7 @@
 @import '/common/iconfont5.wxss';
 @import '/common/iconfont6.wxss';
 @import '/common/iconfont7.wxss';
+@import '/common/iconfont8.wxss';
 @import '/wxParser/index.wxss';
 /* {
         "pagePath": "pages/addNote/addNote",
@@ -31,6 +32,9 @@
 .w690{
   width: 690rpx;
 }
+.blo-in{
+  display: block-inline
+}
 ::-webkit-scrollbar{
 
   width: 0;
@@ -38,7 +42,20 @@
   height: 0;
 
   color: transparent;
-
+}
+.mt5{
+  margin-top: 5rpx;
+}
+.c58{
+  color:#58c2db;
+}
+.h100{
+  height: 100rpx;
+}
+.r1a{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 .c8a{ color: #8a8a8a;}
 .canvas{
@@ -47,6 +64,7 @@
 .mt15{
   margin-top: 15rpx;
 }
+
 .ce5{
   color:#fcbcc7;
 }
@@ -252,7 +270,12 @@ top:-2rpx;
 .abs {
   position: absolute;
 }
-
+.w150{
+  width: 150rpx;
+}
+.w200{
+  width: 200rpx;
+}
 .r40 {
   right: 40rpx;
 }
