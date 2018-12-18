@@ -1,0 +1,26 @@
+<view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
+  <view style='display: flex; justify-content: space-around;flex-direction: column'>
+    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
+      <view bindtap='goback'>
+        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
+      </view>
+      <view bindtap='goIndex'>
+        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
+      </view>
+      <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
+    </view>
+  </view>
+</view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view class='b tit ml40'>您觉得自己哪些地方可以更美呢？</view>
+<view class='r1 chose f40 b'>
+  <view data-index="{{index}}" data-name="{{item.title}}" data-id="{{item.id}}" bindtap='ischose' wx:for="{{cdata}}" wx:key="{{index}}" class='citem {{item.id==index ? "bg1" : "bg2"}}'>{{item.title}}</view>
+</view>
+<view class='f28 c8c cen mt30 b'>标签可多选</view>
+<view class='r1 ml40 cname'>
+  <view class='b ca2 f36 mt10'>您的姓名</view>
+  <input bindinput='inputVal' value='{{inputVal}}' class='inp ml40 b'></input>
+  <view wx:if="{{inputVal!=''}}" style='background:linear-gradient(to right,#58e6c8, #58c2db);padding-top:10rpx;height:40rpx;width:50rpx;border-radius:50%;color:#fff;text-align:center;font-size:32rpx;margin-top:10rpx;' class='iconfont icon-xuanze'></view>
+</view>
+<button bindtap="{{list.length>=1&&inputVal!=''? 'upload' : ''}}" class='cbtn {{list.length>=1&&inputVal!=""? "bg1" : "bg2" }}'>开始变更美</button>

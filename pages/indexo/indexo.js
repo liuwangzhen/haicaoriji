@@ -28,7 +28,7 @@ Page({
     scrolltop:0,
     recomId:999,
     curId:0,
-    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "医美", search: "医", search2: "手术", },{id:2,name:"健身",search:"健身",search2:"健身"},{id:3,name:"穿搭",search:"穿搭",search2:"穿搭"}]
+    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "隆鼻", search: "鼻综合", search2: "隆鼻", }, { id: 2, name: "双眼皮", search: "双眼皮", search2: "眼综合" }, { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充" }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }]
     //  { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充", }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }
   },
   /**
@@ -512,7 +512,6 @@ Page({
   },
   
   onPullDownRefresh: function() {
-   
     wx.stopPullDownRefresh();
     var that = this;
     let a=that.data.search

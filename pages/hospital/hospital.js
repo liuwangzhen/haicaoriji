@@ -23,7 +23,7 @@ Page({
     let that = this
     return new Promise(
       (resolve,reject)=>{
-        myfirst.getTable(59863).then(
+        myfirst.getTable(59863,20,0,'created_at').then(
           (res)=>{
             that.setData({
               list:res.data.objects

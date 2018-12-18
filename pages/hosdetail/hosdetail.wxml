@@ -21,7 +21,7 @@
 <view style='padding-bottom:50rpx;' wx:else>
   <swiper indicator-active-color="#58d1d3" indicator-dots="true" circular='false' class="swiper">
     <swiper-item wx:for="{{hospital.poster}}" wx:key="{{index}}" class="swiper-item">
-      <image class="swiper-item" data-item="{{item}}" mode='aspectFill' src="{{item.path}}" />
+      <image data-path="{{item.path}}" bindtap='previewImage' class="swiper-item" data-item="{{item}}" mode='aspectFill' src="{{item.path}}" />
     </swiper-item>
   </swiper>
   <view class='b f35 cen mt30'>{{hospital.name}}</view>
@@ -36,13 +36,13 @@
   <view class='line2'></view>
   <view wx:if="{{hospital.detail.length>100}}">
     <text class='mt30 f28 w670 ml30 text cc5 {{rotate==false ? "h1" : "h2"}}'>{{hospital.detail}}</text>
-    <view bindtap='goRotate' wx:if="{{rotate==false}}" class='col'>
-      <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:5rpx;' class='iconfont icon-xiangxia'></view>
-      <view style='text-align:center;width:690rpx;' class='iconfont icon-xiangxia'></view>
+    <view bindtap='goRotate' wx:if="{{rotate==false}}" class='col rotate'>
+      <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:18rpx;color:#58c2db;opacity:0.5;' class='iconfont icon-xiangxia'></view>
+      <view style='text-align:center;width:690rpx;color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
     </view>
-    <view bindtap='goRotate' wx:if="{{rotate==true}}" class='col'>
-      <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:5rpx;transform:rotate(180deg);' class='iconfont icon-xiangxia'></view>
-      <view style='text-align:center;width:690rpx;transform:rotate(180deg);' class='iconfont icon-xiangxia'></view>
+    <view bindtap='goRotate' wx:if="{{rotate==true}}" class='col rotate'>
+      <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:18rpx;color:#58c2db;transform:rotate(180deg);opacity:0.5;' class='iconfont icon-xiangxia'></view>
+      <view style='text-align:center;width:690rpx;transform:rotate(180deg);color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
     </view>
   </view>
   <view wx:if="{{hospital.detail.length<=100}}">
@@ -66,7 +66,7 @@
           </view>
           <view class='r1 cbc mt10 '>
             <view style='color:#58c2db;font-size:30rpx;position:relative;top:5rpx;' class='iconfont icon-dianzan'></view>
-            <view class='ml20 '>{{item.superiority}}</view>
+            <view class='ml10 '>{{item.superiority}}</view>
           </view>
         </view>
       </navigator>

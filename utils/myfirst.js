@@ -2,11 +2,11 @@ class Common{
   constructor(){
     
   }
-  getTable(tableId){
+  getTable(tableId,num1,num2,order){
   return new Promise(
     (resolve, reject) => {
       let MyTableObject = new wx.BaaS.TableObject(tableId)
-      MyTableObject.find().then(
+      MyTableObject.orderBy(order).limit(num1).offset(num2).find().then(
         res => {
           resolve(res)
         },
@@ -17,12 +17,28 @@ class Common{
     }
   )
 }
-getQueryTable(tableId,query){
+renew(a){
+  return new Promise(
+    (resolve,reject)=>{
+      let MyUser = new wx.BaaS.User()
+      let currentUser = MyUser.getCurrentUserWithoutData()
+      // a 为自定义字段
+      currentUser.set(a).update().then(res => {
+        // success
+        resolve(res)
+      }, err => {
+        // err
+        reject(err)
+      })
+    }
+  )
+}
+getQueryTable(tableId,query,num1,num2,order){
   return new Promise(
     (resolve, reject) => {
       let MyTableObject = new wx.BaaS.TableObject(tableId)
      
-      MyTableObject.setQuery(query).find().then(
+      MyTableObject.setQuery(query).limit(num1).offset(num2).orderBy(order).find().then(
         res => {
           resolve(res)
         },

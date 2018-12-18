@@ -116,9 +116,24 @@ Page({
                           })
                         }})
 
-                    },err=>{})
+                    },err=>{
+                      that.setData({
+                        isMakingPoster: false,
+                      })
+                      wx.showToast({
+                        title: '发布失败',
+                        icon:"none"
+                      })
+                    })
                   })
                   }, err => {
+                    that.setData({
+                      isMakingPoster: false,
+                    })
+                    wx.showToast({
+                      title: '发布失败',
+                      icon: "none"
+                    })
                   })
               }
               }

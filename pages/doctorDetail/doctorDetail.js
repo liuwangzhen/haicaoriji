@@ -1,6 +1,8 @@
 // pages/doctorDetail/doctorDetail.js
 const myFirst = require('../../utils/myfirst');
 const myfirst = new myFirst()
+const nowDate=new Date()
+const year = parseInt(nowDate.getFullYear())
 Page({
 
   /**
@@ -9,6 +11,7 @@ Page({
   data: {
     height4: getApp().globalData.height,
     rotate:false,
+    doctor:"",
   },
 
   /**
@@ -38,18 +41,22 @@ Page({
       rotate:!rotate
     })
   },
+  
   getDoctor:function(id){
     let that=this
     return new Promise(
       (resolve,reject)=>{
-        myfirst.getRecord(59866,id).then(
+        myfirst.getRecord(59866, id, 10, 0,'created_at').then(
           res=>{
+            console.log(year)
+            console.log(res.data.startTime)
+            let time=year-res.data.startTime
             that.setData({
               doctor:res.data,
-              hos_id: res.data.hospital_id
+              hos_id: res.data.hospital_id,
+              time:time
             })
-            console.log(res.data)
-            resolve(that.getHospital(59863,res.data.hospital_id))
+            resolve(that.getHospital(59863, res.data.hospital_id, 10, 0, 'created_at'))
           },
           err=>{
             reject()
@@ -62,12 +69,11 @@ Page({
     return new Promise(
       (resolve, reject) => {
         let that = this
-        myfirst.getRecord(a,b).then(
+        myfirst.getRecord(a, b, 10, 0, 'created_at').then(
           res => {
             that.setData({
               hospital: res.data,
             })
-            console.log(res.data)
             resolve(res)
           },
           err => {

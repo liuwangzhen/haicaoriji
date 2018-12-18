@@ -35,6 +35,28 @@
 .blo-in{
   display: block-inline
 }
+.bolder{
+  font-weight: bolder;
+}
+.f36{
+  font-size: 36rpx;
+}
+.c8c{
+  color: #c8c8c8;
+}
+.ca2{
+  color: #a2a2a2;
+}
+
+.f40{
+  font-size: 40rpx;
+}
+.ml40{
+  margin-left: 40rpx;
+}
+.mt50{
+  margin-top: 50rpx;
+}
 ::-webkit-scrollbar{
 
   width: 0;

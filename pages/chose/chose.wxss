@@ -1,0 +1,52 @@
+/* pages/chose/chose.wxss */
+.tit{
+  width: 550rpx;
+  font-size: 60rpx;
+  margin-top: 50rpx;
+}
+.chose{
+  width: 575rpx;
+  margin-left: 100rpx;
+  flex-wrap:wrap;
+  margin-top:50rpx;
+
+}
+.citem{
+  width:200rpx;
+  color: #fff;
+  /* background:linear-gradient(to right,#58e6c8, #58c2db); */
+  border-radius:50rpx;
+ height:70rpx;
+ margin-top:20rpx;
+ margin-left:50rpx;
+ padding-top:20rpx;
+ text-align:center;
+ letter-spacing:3rpx;
+}
+.cname{
+  width: 690rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid #ddd;
+  margin-top: 100rpx;
+}
+.inp{
+  width: 400rpx;
+  font-size: 50rpx;
+  margin-top: 3rpx;
+}
+.cbtn{
+  width: 450rpx;
+  line-height: 90rpx;
+  margin-top:150rpx;
+border-radius:50rpx;
+color:#f9f9fc;
+font-weight:bold;
+font-size:40rpx;
+letter-spacing:3rpx;
+}
+.bg1{
+  background:linear-gradient(to right,#58e6c8, #58c2db);
+}
+.bg2{
+  background-color: #cbcbcb;
+}

@@ -67,3 +67,10 @@ margin-left:55rpx;
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+.superiority{
+  width: 500rpx;
+  display: flex;
+  flex-flow:row wrap;
+ 
+  white-space: normal;
+}

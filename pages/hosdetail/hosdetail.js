@@ -1,6 +1,8 @@
 // pages/hosdetail/hosdetail.js
 const myFirst = require('../../utils/myfirst');
 const myfirst = new myFirst()
+const nowDate = new Date()
+const year = parseInt(nowDate.getFullYear())
 Page({
 
   /**
@@ -37,24 +39,36 @@ Page({
     let list2=new Array
     for(let i=0;i<list.length;i++){
        list[i]=list[i].path
-       list2.push(list[i])
-       
+       list2.push(list[i])  
     }
     that.setData({
       list2:list2
+    })
+  },
+  getPoster: function () {
+    let that = this
+    let list = that.data.hospital.poster
+    let list2 = new Array
+    for (let i = 0; i < list.length; i++) {
+      list[i] = list[i].path
+      list2.push(list[i])
+
+    }
+    that.setData({
+      list: list2
     })
   },
   getHospital:function(a,b){
     return new Promise(
       (resolve,reject)=>{
         let that = this
-        myfirst.getRecord(a, b).then(
+        myfirst.getRecord(a, b, 10, 0, 'created_at').then(
           res => {
             that.setData({
               hospital: res.data,
               score:Math.round(res.data.score)
             })
-            resolve(that.getQualification())
+            resolve(that.getQualification(),that.getPoster())
           },
           err=>{
             reject(err)
@@ -76,13 +90,23 @@ Page({
     let a='hospital_id'
     let query = new wx.BaaS.Query()
     query.contains(a,id)
-    myfirst.getQueryTable(tableId,query).then(
+    myfirst.getQueryTable(tableId, query, 10, 0, 'created_at').then(
       res=>{
         that.setData({
           doctors:res.data.objects
         })
       }
     )
+  },
+  previewImage:function(e){
+    let that=this
+    console.log(e)
+    let current=e.currentTarget.dataset.path
+    let arr1 = that.data.list
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: arr1 // 需要预览的图片http链接列表
+    })
   },
   preview: function(){
     let that=this
