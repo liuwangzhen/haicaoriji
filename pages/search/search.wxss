@@ -1,5 +1,7 @@
 /* pages/search/search.wxss */
 @import '../indexo/indexo.wxss';
+@import '../doctor/doctor.wxss';
+@import '../hospital/hospital.wxss';
 .title{
 width:730rpx;
 height:60rpx;
@@ -9,7 +11,19 @@ padding-left:20rpx;
 color:#9aacb7;
 padding-top:15rpx;
 font-size:32rpx;
-
+}
+.title2{
+width:730rpx;
+height:60rpx;
+margin-top:20rpx;
+background-color:#fff;
+padding-left:20rpx;
+color:#9aacb7;
+padding-top:15rpx;
+font-size:32rpx;
+}
+.active3{
+  font-weight: bold;
 }
 .top-pad{
   position: fixed;
@@ -18,6 +32,9 @@ font-size:32rpx;
   width: 100%;
   top:0;
   height: 20px;
+}
+.mlato{
+  margin-left: 100rpx;
 }
 .nav-title2{
   text-align:center;

@@ -29,10 +29,21 @@
   border-bottom: 1rpx solid #ddd;
   margin-top: 100rpx;
 }
+.cname2{
+  width: 690rpx;
+  padding-bottom: 20rpx;
+  padding-top: 20rpx;
+  border-bottom: 1rpx solid #ddd;
+  position: fixed;
+ 
+  z-index: 99;
+  background-color: #fff;
+}
 .inp{
   width: 400rpx;
   font-size: 50rpx;
   margin-top: 3rpx;
+  height: 60rpx;
 }
 .cbtn{
   width: 450rpx;

@@ -12,6 +12,9 @@ Page({
       inputVal:"",
   list:[],
   isClick:true,
+  focus2:false,
+  elastic:true,
+  
   },
   /**
    * 生命周期函数--监听页面加载
@@ -29,8 +32,6 @@ Page({
      let a=e.currentTarget.dataset.name
      let list=that.data.list
      let isClick = that.data.isClick
-     console.log(that.data.list)
-     console.log(a)
      if(isClick==true){
        that.setData({
          isClick: false
@@ -56,7 +57,25 @@ Page({
         list:that.data.list.concat(a),
         cdata:cdata,
       })
-      console.log(that.data.list)
+  },
+  getFocus:function(){
+    let that=this
+    that.setData({
+      focus2:true,
+      elastic:false,
+    })
+  },
+  bindfocus:function(e){
+    let that=this
+    that.setData({
+      height5:e.detail.height
+    })
+  },
+  bindblur:function(e){
+    let that = this
+    that.setData({
+      elastic:true
+    })
   },
   offchose:function(idx,a){
     let that = this
@@ -147,6 +166,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+     
   }
 })

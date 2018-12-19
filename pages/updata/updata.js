@@ -68,7 +68,7 @@ Page({
   },
   upsign: function() {
     wx.navigateTo({
-      url: '../upsign/upsign',
+      url: '../uprealname/uprealname',
     })
   },
   getUserInfo: function() {
@@ -93,7 +93,7 @@ Page({
           img: res.data.headimg.replace(/\"/g, ""),
           index: (res.data.sex)-1,
           date: dateformat,
-          sign: res.data.sign,
+          sign: res.data.realname,
         })
       }, err => {
         // err

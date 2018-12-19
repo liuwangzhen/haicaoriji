@@ -2,8 +2,8 @@
 const app = getApp();
 const Page = require('../../utils/ald-stat.js').Page;
 var ex = require('../../common/common.js')
-const myDate=new Date()
-const today=myDate.toLocaleDateString();     //获取当前日期
+const myDate = new Date()
+const today = myDate.toLocaleDateString(); //获取当前日期
 // const today = '2018/12/2';     //获取当前日期
 
 
@@ -13,41 +13,46 @@ Page({
    * 页面的初始数据
    */
   data: {
-    select:"note",
-    list:[],
-    ishavecollect:true,
-    list2:[],
-    img:"",
-    sign:"",
-    date:"",
-    page:0,
-    page2:0,
-    collection:[],
-    aid:"",
-    attention:[1],
-    fans:[1],
+    select: "collect",
+    list: [],
+    ishavecollect: true,
+    list2: [],
+    img: "",
+    sign: "",
+    date: "",
+    page: 0,
+    page2: 0,
+    collection: [],
+    aid: "",
+    attention: [1],
+    fans: [1],
     height4: getApp().globalData.height,
-    isClick:true,
+    isClick: true,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  // this.getInfo();
+  onLoad: function(options) {
+    // this.getInfo();
     this.getUserInfoByToken();
     this.getFans();
-   
+
   },
-  updata: function () {
+  updata: function() {
     wx.navigateTo({
       url: '../updata/updata',
     })
   },
- 
-  makeRegister:function(){
-    let that=this
-    let register=that.data.registers
+  goChose: function() {
+    wx.navigateTo({
+      url: '../chose/chose',
+    })
+  },
+
+  makeRegister: function() {
+    let that = this
+    let register = that.data.registers
     register.unshift(today)
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
@@ -56,20 +61,22 @@ Page({
       // success
       that.addIntegration(10)
       that.setData({
-        isregister:false
+        isregister: false
       })
     }, err => {
       // err
     })
   },
-  addIntegration:function(n){
-    let that=this
+  addIntegration: function(n) {
+    let that = this
     let recordID = that.data.recordID;
     let integration = that.data.integration + n
     let Product = new wx.BaaS.TableObject(56146)
     let product = Product.getWithoutData(recordID)
-    product.set({'integration': integration,
-                'test':'aaa'})
+    product.set({
+      'integration': integration,
+      'test': 'aaa'
+    })
     product.update().then(res => {
       that.setData({
         integration: res.data.integration
@@ -104,28 +111,28 @@ Page({
     })
   },
   tab(event) {
-    var that=this;
+    var that = this;
     var temp = event.currentTarget.dataset.id
     this.setData({
       select: temp,
-     
+
     })
-    if(temp=='note'){
-    this.getList();}
-    else{
+    if (temp == 'note') {
+      this.getList();
+    } else {
       that.getcol()
     }
-    
+
   },
-  getUserInfoByToken: function () {
+  getUserInfoByToken: function() {
     let that = this
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
-        let id=res.data.id
+        let id = res.data.id
         if (res.data.is_authorized == false) {
           wx.redirectTo({
-            url: '../../pages/login4/login4?id='+id,
+            url: '../../pages/login4/login4?id=' + id,
           })
         }
         // success
@@ -141,27 +148,26 @@ Page({
         }
         var dateformat = year + "-" + month + "-" + date;
         let timestamp2 = new Date().getTime();
-        let timestamp3=new Date(res.data.birthday).getTime();
-        let age = Math.floor((timestamp2-timestamp3)/31536000000);
+        let timestamp3 = new Date(res.data.birthday).getTime();
+        let age = Math.floor((timestamp2 - timestamp3) / 31536000000);
         that.setData({
           userInfo: res.data,
           img2: res.data.headimg.replace(/\"/g, ""),
           index: res.data.gender,
           date: dateformat,
           sign: res.data.sign,
-          nick:res.data.nick,
+          nick: res.data.nick,
           collection: res.data.collection,
-          aid:res.data.id,
-          attention:res.data.attention,
-          age:age,
-          registers:res.data.register
+          aid: res.data.id,
+          attention: res.data.attention,
+          age: age,
+          registers: res.data.register
         })
-        if(that.data.registers[0]==today){
+        if (that.data.registers[0] == today) {
           that.setData({
             isregister: false
           })
-        }
-        else{
+        } else {
           that.setData({
             isregister: true
           })
@@ -169,13 +175,13 @@ Page({
       }, err => {
         // err
       })
-     
+
 
     }, err => {
       // 登录失败
     })
   },
-  ifcollect: function (e) {
+  ifcollect: function(e) {
     let that = this
     let isClick = that.data.isClick
     let a = e.currentTarget.dataset.id
@@ -186,18 +192,17 @@ Page({
       })
       if (e.currentTarget.dataset.collect == 0) {
         that.collect(a, b)
-      }
-      else {
+      } else {
         that.nocollect(a, b)
       }
-      setTimeout(function () {
+      setTimeout(function() {
         that.setData({
           isClick: true
         })
       }, 500)
     }
   },
-  collect: function (a, b) {
+  collect: function(a, b) {
     let that = this
     let id = a
     let idx = b
@@ -220,23 +225,21 @@ Page({
       // err
     })
   },
-  updatacollect: function (id, collection) {
+  updatacollect: function(id, collection) {
     let tableID = 55960
     let recordID = id
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
     product.set('collection', collection)
-    product.update().then(res => {
-    }, err => {
-    })
+    product.update().then(res => {}, err => {})
   },
-  nocollect: function (a, b) {
+  nocollect: function(a, b) {
     let that = this
     let id = a
     let idx = b
     let collection = that.data.collection
-    let distinct = function () {
-       let len = collection.length;
+    let distinct = function() {
+      let len = collection.length;
       for (let i = 0; i < len; i++) {
         for (let j = i + 1; j < len; j++) {
           if (collection[i] == collection[j]) {
@@ -271,7 +274,7 @@ Page({
     })
 
   },
-  getList: function () {
+  getList: function() {
     let tableID = 55960
     let that = this
     let Product = new wx.BaaS.TableObject(tableID)
@@ -279,12 +282,12 @@ Page({
     let query = new wx.BaaS.Query()
     let userId = getApp().globalData.userId
     query.compare("created_by", '=', userId)
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(700).offset(0).find().then(res => {
       let list0 = res.data.objects
-      if(list0.length==0){
+      if (list0.length == 0) {
         that.setData({
-          ishavecollect:false,
-          isno:true,
+          ishavecollect: false,
+          isno: true,
         })
       }
       for (var i = 0; i < res.data.objects.length; i++) {
@@ -299,9 +302,9 @@ Page({
           list.push(list0[i]);
         }
       }
-    that.setData({
+      that.setData({
         list: list,
-      ishavecollect:false,
+        ishavecollect: false,
         page: 0
       })
 
@@ -316,20 +319,19 @@ Page({
     str += '...'
     return str;
   },
-  userinfo: function (e) {
+  userinfo: function(e) {
     let id = e.currentTarget.dataset.user
     if (id == getApp().globalData.userId) {
       wx.switchTab({
         url: '../mine/mine',
       })
-    }
-    else {
+    } else {
       wx.navigateTo({
         url: '../userinfo/userinfo?id=' + id,
       })
     }
   },
-  getList2: function () {
+  getList2: function() {
     let tableID = 55960
     let that = this
     let Product = new wx.BaaS.TableObject(tableID)
@@ -346,8 +348,7 @@ Page({
         wx.showToast({
           title: '没有更多内容了',
         })
-      }
-      else {
+      } else {
         let list0 = res.data.objects
         for (var i = 0; i < res.data.objects.length; i++) {
           let collection = that.data.collection
@@ -374,14 +375,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
-  onShow: function () {
+  onShow: function() {
     let MyUser = new wx.BaaS.User()
     let that = this
     wx.BaaS.login(false).then(res => {
-    MyUser.get(res.id).then(res => {
+      MyUser.get(res.id).then(res => {
         that.setData({
           collection: res.data.collection
         })
@@ -396,33 +397,34 @@ Page({
     })
     this.getUserInfoByToken()
   },
-  getcol: function () {
+  getcol: function() {
     let tableID = 55960
     let that = this
-    let collection=that.data.collection
+    let collection = that.data.collection
     let query = new wx.BaaS.Query()
     query.in('id', collection)
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
-     let list=res.data.objects
-     if(list.length==0){
-       that.setData({
-         ishavecollect: false,
-         isno:true,
-       })
-     }else{
-     that.setData({
-       list2:list,
-       page2:0,
-       ishavecollect: false,
-       isno: false,
-     })}
+      let list = res.data.objects
+      if (list.length == 0) {
+        that.setData({
+          ishavecollect: false,
+          isno: true,
+        })
+      } else {
+        that.setData({
+          list2: list,
+          page2: 0,
+          ishavecollect: false,
+          isno: false,
+        })
+      }
     }, err => {
       // err
     })
   },
-  getcol2: function () {
+  getcol2: function() {
     let tableID = 55960
     let that = this
     let page2 = that.data.page2
@@ -432,7 +434,7 @@ Page({
     query.in('id', collection)
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page2*10).find().then(res => {
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page2 * 10).find().then(res => {
       if (res.data.objects == "") {
         wx.showToast({
           title: '没有更多内容了',
@@ -447,12 +449,12 @@ Page({
       // err
     })
   },
-  nocollect2: function (e) {
+  nocollect2: function(e) {
     let that = this
     let id = e.currentTarget.dataset.id
     let num = e.currentTarget.dataset.num
     let collection = that.data.collection
-    let distinct = function () {
+    let distinct = function() {
       let len = collection.length;
       for (let i = 0; i < len; i++) {
         for (let j = i + 1; j < len; j++) {
@@ -471,7 +473,7 @@ Page({
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     currentUser.set('collection', collection).update().then(res => {
-      num=parseInt(num)-1
+      num = parseInt(num) - 1
       that.getUserInfoByToken()
       that.getcol();
       that.updatacollect(id, num)
@@ -482,25 +484,25 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     wx.stopPullDownRefresh();
     var that = this;
-    setTimeout(function () {
-        that.getcol();
+    setTimeout(function() {
+      that.getcol();
       wx.showToast({
         title: '正在刷新',
         duration: 2000,
@@ -512,11 +514,11 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
     let that = this;
     wx.stopPullDownRefresh();
-    setTimeout(function () {
-        that.getcol2();
+    setTimeout(function() {
+      that.getcol2();
       wx.showToast({
         title: '正在加载',
         duration: 2000,
@@ -527,7 +529,7 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',

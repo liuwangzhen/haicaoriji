@@ -1,0 +1,49 @@
+<!--我的-->
+<wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
+<view class='nav3'>
+  <view class='item2 {{select=="collect"? "cactive" :""}}' data-id="collect" bindtap='tab'>收藏</view>
+  <view class='item1 {{select=="note"? "cactive" :""}}' data-id="note" bindtap='tab'>笔记</view>
+</view>
+<view class='line2'></view>
+
+<view wx:if="{{select=='note'}}" class="content">
+  <view class="left">
+    <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+     <template is='mytemp' data='{{item}}'></template>
+    </view>
+    <view class='bottom'></view>
+  </view>
+  <view class="right">
+    <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+      <template is='mytemp' data='{{item}}'></template>
+    </view>
+    <view class='bottom'></view>
+  </view>
+</view>
+
+<!-- 收藏 -->
+<view wx:if="{{select=='collect'}}" class="content">
+  <view class="left">
+    <view wx:if="{{index%2==0}}" wx:for="{{list2}}" wx:key="{{item.id}}">
+      <template is='mytemp' data='{{item}}'></template>
+    </view>
+    <view class='bottom'></view>
+  </view>
+  <view class="right">
+    <view wx:for="{{list2}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+      <template is='mytemp' data='{{item}}'></template>
+    </view>
+    <view class='bottom'></view>
+  </view>
+</view>
+
+<template name="mytemp">
+   <navigator url="../detail/detail?id={{item.id}}" class="item">
+        <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
+        <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
+        <view class="item-title-box">
+          <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
+          <view wx:else class="item-title">{{item.content}}</view>
+        </view>
+      </navigator>
+</template>

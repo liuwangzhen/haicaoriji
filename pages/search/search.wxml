@@ -1,10 +1,12 @@
 <!--pages/search/search.wxml-->
+<import src="../mine/mine2.wxml" />
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
+
 <view class='top-pad'></view>
 <view class='topone'>
-  <view  class='nav-wrap2'>
-     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>搜索</view>
-     
+  <view class='nav-wrap2'>
+    <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>搜索</view>
+
     <view style='display: flex; justify-content: space-around;flex-direction: column'>
       <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
         <view bindtap='goback'>
@@ -13,12 +15,11 @@
         <view bindtap='goIndex'>
           <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
         </view>
-        <!-- <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view> -->
       </view>
     </view>
   </view>
   <!-- <view style='height:{{height4*2+20}}px;' class='pad'></view> -->
-  <view wx:if="{{inputShowed==false}}" style='top:{{height4*2 + 48}}px;'  bindtap="showInput" class='nav2'>
+  <view wx:if="{{inputShowed==false}}" style='top:{{height4*2 + 48}}px;' bindtap="showInput" class='nav2'>
     <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
       <input disabled="true" value='{{inputVal}}' style='height:37px;' class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
@@ -27,52 +28,45 @@
   <view wx:else style='top:{{height4*2 + 48}}px;' class='nav2'>
     <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
-      <input style='height:37px;' value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2"   placeholder-class="search-p"></input>
+      <input style='height:37px;' value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder-class="search-p"></input>
     </view>
     <view class="cancel" bindtap="hideInput">取消</view>
-    <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="getList">搜索</view>
+    <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="search">搜索</view>
   </view>
 </view>
-<view style='padding-top:{{height4*2 + 48+44}}px;' class='wait' wx:if="{{list==''}}">
+<view style='padding-top:{{height4*2 + 48+44}}px;' class='wait' wx:if="{{jundge==0}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>
 </view>
 <view wx:else style='padding-top:{{height4*2 + 48+44}}px;margin-top:20rpx;' class='body'>
-  <view class='title'>
+  <!-- <view class='title'>
     #{{title}}
+  </view> -->
+  <view class='title2 r1'>
+    <view data-id="{{item.id}}" class='{{item.id==curId ? "active3" : ""}} {{index==0 ? "" : "mlato"}}' wx:key="{{index}}" wx:for="{{titles}}" bindtap="chose">{{item.title}}</view>
   </view>
-  <view class='number'>为您找到以下日记</view>
-  <view wx:if="{{list!=null}}" class="content">
-    <view class="left">
-      <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-        <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix">
-          </image>
-          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </navigator>
+  <view wx:if="{{curId==0}}">
+    <view wx:if="{{list.length==0}}" class='number'>暂无相关笔记</view>
+    <view wx:else class='number'>为您找到以下日记</view>
+    <view wx:if="{{list!=null}}" class="content">
+      <view class="left">
+        <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+          <template is="mytemp" data="{{item}}"></template>
+        </view>
+        <view class='bottom'></view>
       </view>
-      <view class='bottom'></view>
-    </view>
-    <view class="right">
-      <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-        <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix">
-          </image>
-           <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </navigator>
+      <view class="right">
+        <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+          <template is="mytemp" data="{{item}}"></template>
+        </view>
+        <view class='bottom'></view>
       </view>
-      <view class='bottom'></view>
     </view>
   </view>
-  <view wx:if="{{list==null}}" class='body'>
-    对不起，暂无搜索结果
+  <view wx:if="{{curId==1}}">
+    <include src='hospital.wxml' />
+  </view>
+  <view wx:if="{{curId==2}}">
+    <include src='doctor.wxml' />
   </view>
 </view>

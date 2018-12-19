@@ -62,11 +62,11 @@
     <view style='margin-top:6rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
   </view>
   <view class='line'></view>
-  <view bindtap='upsign' class='header2'>
-    <view  class='item2'>
-      个性签名
+  <view bindtap='upsign' class='header'>
+    <view  class='item'>
+      姓名
     </view>
-    <view class="item2-name"><span class="span" wx:if="{{sign==null}}">请填写签名</span>
+    <view class="item-name"><span class="span" wx:if="{{sign==null}}">请填写真实姓名</span>
     <span wx:if="{{sign!=null}}">{{sign}}</span></view>
     <view style='margin-top:6rpx;position:absolute;right:30rpx;' class='iconfont2 icon-qianjin'></view>
   </view>

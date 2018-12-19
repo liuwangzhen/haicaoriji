@@ -34,7 +34,7 @@ padding-bottom:30rpx;
   font-size: 30rpx;
   margin-top:25rpx;
   color: #8a8a8a;
-  height: 162rpx;
+  height: 170rpx;
   overflow: hidden;
   text-overflow: ellipsis;
 }

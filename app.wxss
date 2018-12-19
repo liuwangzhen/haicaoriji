@@ -32,6 +32,9 @@
 .w690{
   width: 690rpx;
 }
+.rel{
+  position: relative
+}
 .blo-in{
   display: block-inline
 }

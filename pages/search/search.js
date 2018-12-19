@@ -1,6 +1,8 @@
 // pages/search/search.js
 const app = getApp();
 const Page = require('../../utils/ald-stat.js').Page;
+const myFirst=require('../../utils/myfirst.js')
+const myfirst=new myFirst()
 Page({
 
   /**
@@ -17,6 +19,9 @@ Page({
     getshare:0,
     height4: getApp().globalData.height,
     isClick:true,
+    jundge:0,
+    titles: [{ id: 0, title: "笔记" }, { id: 1, title: "医院" }, { id: 2, title: "医生" },],
+    curId:0,
   },
 
   /**
@@ -45,6 +50,61 @@ Page({
     wx.switchTab({
       url: '../indexo/indexo',
     })
+  },
+  chose:function(e){
+    let that=this
+    let idx=e.currentTarget.dataset.id
+    that.setData({
+      curId:idx,
+    })
+    if(idx==0){
+      that.getList()
+    }
+    if (idx == 1) {
+      that.getHospital()
+    }
+    if(idx==2){
+      that.getDoctor()
+    }
+  },
+  getDoctor:function(){
+    let that=this
+    let query = new wx.BaaS.Query()
+    let order='created_at'
+    query.contains('hospital_name',that.data.inputVal)
+    myfirst.getQueryTable(59866, query, 20, 0, order).then(
+      res=>{
+        that.setData({
+          doctors: res.data.objects
+        })
+      }
+    )
+  },
+  getHospital:function(){
+    let that = this
+    let query = new wx.BaaS.Query()
+    let order = 'created_at'
+    query.contains('name', that.data.inputVal)
+    myfirst.getQueryTable(59863, query, 20, 0, order).then(
+      res => {
+        that.setData({
+          hospital: res.data.objects
+        })
+      }
+    )
+  },
+  search:function(){
+    let that=this
+     let idx=that.data.curId
+    if (idx == 0) {
+      that.getList()
+    }
+    if (idx == 1) {
+      that.getHospital()
+    }
+    if (idx == 2) {
+      that.getDoctor()
+    }
   },
   showInput: function () {
     this.setData({
@@ -80,18 +140,14 @@ Page({
     let MyUser = new wx.BaaS.User()
     let that = this
     wx.BaaS.login(false).then(res => {
-
       MyUser.get(res.id).then(res => {
-
         // success
         that.setData({
           collection: res.data.collection
         })
-
         if (res.data.is_authorized == false) {
           wx.redirectTo({
             url: '../../pages/login/login',
-
           })
         }
         
@@ -222,8 +278,20 @@ Page({
     let query = new wx.BaaS.Query()
     let apple = that.data.inputVal;
     query.contains('content', apple)
+    that.setData({
+      jundge:0
+    })
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
       // success
+      if(res.data.objects==""){
+        that.setData({
+          jundge:2,
+          page: 0,
+          title: that.data.inputVal,
+          list:[]
+        })
+      }
+      else{
       let list0 = res.data.objects
       for (var i = 0; i < res.data.objects.length; i++) {
         let collection = that.data.collection
@@ -240,11 +308,14 @@ Page({
         list: list,
         page: 0,
         title: that.data.inputVal,
+        jundge:1
       })
+      }
 
     }, err => {
       // err
     })
+    
   },
   LimitNumbersadf(txt) {
     var str = txt;

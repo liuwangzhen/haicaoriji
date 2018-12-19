@@ -1,4 +1,5 @@
 <!--pages/detail/detail.wxml-->
+<import src="../mine/mine2.wxml" />
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
@@ -92,27 +93,13 @@
     <view class='content3'>相关推荐</view>
     <view style='margin-left:20rpx' class="left">
       <view wx:if="{{index%2==0}}" wx:for="{{getlist}}" wx:key="{{item.id}}">
-        <view data-id="{{item.id}}" bindtap='goCommend' class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </view>
+        <template is="mytemp" data="{{item}}" />
       </view>
       <view style='height:200rpx;' class='bottom'></view>
     </view>
     <view style='margin-right:20rpx' class="right">
       <view wx:for="{{getlist}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-        <view data-id="{{item.id}}" bindtap='goCommend' class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;'  class='iconfont icon-bofang'></view>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </view>
+        <template is="mytemp" data="{{item}}" />
       </view>
       <view style='height:200rpx;' class='bottom'></view>
     </view>
@@ -147,12 +134,12 @@
           </view>
         </button>
       </view>
-      <view wx:if="{{list.collection>0}}" class='f26' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
+      <view wx:if="{{list.collection>0}}" class='f32' style='color:#fff;position:relative;right:36rpx;top:10rpx;'>{{list.collection}}</view>
     </view>
     <view class='line'>
     </view>
     <view style='position:absolute;left:475rpx;' class='r1'>
-      <button   bindtap='onShare' class='share'>
+      <button  open-type="share" bindtap='onShareAppMessage' class='share'>
         <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
           <span class="share-1" >分享</span>
         </view>
@@ -161,12 +148,12 @@
     </view>
   </view>
 </view>
-<view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
+<!-- <view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
   <image src='../../images/loading2.svg' style='width:68px' mode='widthFix' />
   <view class='text-sm text-trivial'>海报生成中</view>
-</view>
+</view> -->
 
-<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<!-- <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view wx:if="{{showModal}}" class="modalDlg">
   <view class='r1'>
     <button class='btnshare' open-type="share" bindtap='onShareAppMessage'>
@@ -183,4 +170,4 @@
   </view>
   <view class='btn-line2'></view>
   <view class='closebtn' bindtap="go">取消</view>
-</view>
+</view> -->

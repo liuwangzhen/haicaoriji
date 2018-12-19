@@ -1,3 +1,4 @@
+<import src="../mine/mine2.wxml" />
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>收藏</view>
@@ -15,7 +16,7 @@
       </view>
       <view class='col ml20'>
         <view class='nick2 bold'>{{userInfo.nick}}</view>
-        <view class='age'>年龄：{{age}}</view>
+        <view  class='age'>年龄：{{age}}</view>
         <!-- <view class='age'>积分：{{integration}}</view> -->
       </view>
       <view bindtap='updata' class='edit'>
@@ -49,35 +50,23 @@
   </view>
   <!-- 收藏 -->
 
-  <view class='isno' wx:if="{{isno==true}}">亲，你还没有添加任何收藏哦</view>
+  <!-- <view class='isno' wx:if="{{isno==true}}">亲，你还没有添加任何收藏哦</view>
   <view wx:if="{{isno==true}}" class='cen'>~w_w~ ... ...</view>
   <view wx:else class="content">
     <view class="left">
       <view wx:if="{{index%2==0}}" wx:for="{{list2}}" wx:key="{{item.id}}">
-        <!-- <template is="item" data="{{...item}}" ></template> -->
-        <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </navigator>
+       <template is="mytemp" data="{{item}}"></template>
       </view>
       <view class='bottom'></view>
     </view>
     <view class="right">
       <view wx:for="{{list2}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-        <navigator url="../detail/detail?id={{item.id}}" class="item">
-          <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-          <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
-          <view class="item-title-box">
-            <view wx:if="{{item.content.length>24}}" class="item-title">{{filter.Limit(item.content)}}</view>
-            <view wx:else class="item-title">{{item.content}}</view>
-          </view>
-        </navigator>
+        <template is="mytemp" data="{{item}}"></template>
       </view>
       <view class='bottom'></view>
     </view>
   </view>
+</view> -->
+
+  <include src="mine2.wxml" />
 </view>

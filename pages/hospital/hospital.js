@@ -9,6 +9,7 @@ Page({
   data: {
     height4: getApp().globalData.height,
     list:[],
+    page:0,
   },
 
   /**
@@ -23,10 +24,35 @@ Page({
     let that = this
     return new Promise(
       (resolve,reject)=>{
-        myfirst.getTable(59863,20,0,'created_at').then(
+        myfirst.getTable(59863,10,0,'created_at').then(
           (res)=>{
             that.setData({
-              list:res.data.objects
+              list:res.data.objects,
+              page:0,
+            })
+            resolve()
+          }
+        )
+      }
+    )
+  },
+  getHospital2: function () {
+    let that = this
+    let page=that.data.page
+    page++
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getTable(59863, 10, page*10, 'created_at').then(
+          (res) => {
+            if(res.data.objects==""){
+              wx.showToast({
+                title: '亲，(╯-╰) 没有啦',
+                icon: 'none',
+              })
+            }
+            that.setData({
+              list: that.data.list.concat(res.data.objects),
+              page:page
             })
             resolve()
           }
@@ -67,14 +93,26 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    let that = this
+    wx.stopPullDownRefresh();
+    setTimeout(
+      function () {
+        that.getHospital();
+      }, 500
+    )
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    let that=this
+    wx.stopPullDownRefresh();
+    setTimeout(
+      function(){
+        that.getHospital2();
+      },500
+    )
   },
 
   /**

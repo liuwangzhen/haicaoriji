@@ -63,7 +63,7 @@ Page({
         // id: options.scene
         id:id,
         recomId:recomId,
-
+         
       })
       that.getUserInfoByToken();
       that.getcomment();
@@ -276,8 +276,6 @@ that.setData({
             that.setData({
               isMakingPoster: false
             })
-            console.log(w1)
-            console.log(w2)
             wx.canvasToTempFilePath({
               canvasId: 'firstCanvas',
               width: w2/2,
@@ -457,16 +455,16 @@ that.setData({
       that.setData({
         userid: res.data.created_by
       })
-      if (that.data.userid == that.data.user2Id) {
-        that.setData({
-          canDele: true
-        })
-      }
-      // if (res.data.created_by == getApp().globalData.userId) {
+      // if (that.data.userid == that.data.user2Id) {
       //   that.setData({
       //     candelete: true
       //   })
       // }
+      if (res.data.created_by == getApp().globalData.userId) {
+        that.setData({
+          candelete: true
+        })
+      }
       MyUser.get(id).then(res => {
         that.setData({
           headimg: res.data.headimg,

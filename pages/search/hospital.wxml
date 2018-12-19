@@ -1,0 +1,11 @@
+<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1' wx:for="{{hospital}}" wx:key="{{item.id}}">
+  <view class='col hos-head'>
+    <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
+    <view class='hos-score'>{{item.score}}</view>
+  </view>
+  <view class='col hos-na'>
+    <view class='hos-name'>{{item.name}}</view>
+    <text wx:if="{{item.address.length<65}}" class='hos-address'>{{item.address}}</text>
+    <text wx:else class='hos-address'>{{filter.Limit3(item.address,65)}}</text>
+  </view>
+</navigator>

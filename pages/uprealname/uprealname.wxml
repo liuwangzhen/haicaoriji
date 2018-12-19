@@ -1,0 +1,20 @@
+<!--pages/upnick/upnick.wxml-->
+<view style='height:{{height4*2+20}}px' class='nav-wrap'>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>姓名</view>
+  <view style='display: flex; justify-content: space-around;flex-direction: column'>
+    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
+      <view  bindtap='goback'>
+        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
+      </view>
+      <view bindtap='goIndex'>
+        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
+      </view>
+      <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
+    </view>
+  </view>
+</view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view class='f28 ml20 head'>姓名请填写1-18个字符</view>
+<input bindblur='upnick' value='{{nick}}' maxlength='18' minlength="2" class='nick'>
+</input>
+<view bindtap='submit' class='footer'>确认修改</view>

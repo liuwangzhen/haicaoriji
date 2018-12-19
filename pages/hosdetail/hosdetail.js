@@ -62,7 +62,7 @@ Page({
     return new Promise(
       (resolve,reject)=>{
         let that = this
-        myfirst.getRecord(a, b, 10, 0, 'created_at').then(
+        myfirst.getRecord(a, b, 1, 0, 'created_at').then(
           res => {
             that.setData({
               hospital: res.data,
@@ -90,17 +90,22 @@ Page({
     let a='hospital_id'
     let query = new wx.BaaS.Query()
     query.contains(a,id)
-    myfirst.getQueryTable(tableId, query, 10, 0, 'created_at').then(
+    myfirst.getQueryTable(tableId, query, 3, 0, 'created_at').then(
       res=>{
+        let list = new Array
+        let list0=res.data.objects
+        for(let i=0;i<list0.length;i++){
+          list0[i].time=year-list0[i].startTime
+          list.push(list0[i])
+        }
         that.setData({
-          doctors:res.data.objects
+          doctors:list
         })
       }
     )
   },
   previewImage:function(e){
     let that=this
-    console.log(e)
     let current=e.currentTarget.dataset.path
     let arr1 = that.data.list
     wx.previewImage({

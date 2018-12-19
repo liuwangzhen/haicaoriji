@@ -23,6 +23,7 @@
     "pages/doctorDetail/doctorDetail",
     "pages/doctor/doctor",
     "pages/chose/chose",
+    "pages/uprealname/uprealname",
     "pages/comments/comments" 
   ],
   "window": {
@@ -57,12 +58,7 @@
         "iconPath": "images/rizhi2.png",
         "selectedIconPath": "images/rizhi.png"
       },
-      {
-        "pagePath": "pages/chose/chose",
-        "text": "选择",
-        "iconPath": "images/rizhi2.png",
-        "selectedIconPath": "images/rizhi.png"
-      },
+      
       {
         "pagePath": "pages/mine/mine",
         "text": "收藏",

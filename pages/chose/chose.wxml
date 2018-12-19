@@ -18,9 +18,14 @@
   <view data-index="{{index}}" data-name="{{item.title}}" data-id="{{item.id}}" bindtap='ischose' wx:for="{{cdata}}" wx:key="{{index}}" class='citem {{item.id==index ? "bg1" : "bg2"}}'>{{item.title}}</view>
 </view>
 <view class='f28 c8c cen mt30 b'>标签可多选</view>
-<view class='r1 ml40 cname'>
+<view wx:if="{{elastic==true}}" bindtap='getFocus' class='r1 ml40 cname'>
   <view class='b ca2 f36 mt10'>您的姓名</view>
-  <input bindinput='inputVal' value='{{inputVal}}' class='inp ml40 b'></input>
+  <input disabled='true' focus='{{focus}}' maxlength='8' bindinput='inputVal' value='{{inputVal}}' class='inp ml40 b'></input>
+  <view wx:if="{{inputVal!=''}}" style='background:linear-gradient(to right,#58e6c8, #58c2db);padding-top:10rpx;height:40rpx;width:50rpx;border-radius:50%;color:#fff;text-align:center;font-size:32rpx;margin-top:10rpx;' class='iconfont icon-xuanze'></view>
+</view>
+<view style='bottom:{{height5}}px;' wx:if="{{elastic==false}}"  class='r1 ml40 cname2'>
+  <view class='b ca2 f36 mt10'>您的姓名</view>
+  <input focus='{{focus2}}' bindfocus='bindfocus' adjust-position='{{false}}' maxlength='8' bindinput='inputVal' bindblur='bindblur' value='{{inputVal}}' class='inp ml40 b'></input>
   <view wx:if="{{inputVal!=''}}" style='background:linear-gradient(to right,#58e6c8, #58c2db);padding-top:10rpx;height:40rpx;width:50rpx;border-radius:50%;color:#fff;text-align:center;font-size:32rpx;margin-top:10rpx;' class='iconfont icon-xuanze'></view>
 </view>
 <button bindtap="{{list.length>=1&&inputVal!=''? 'upload' : ''}}" class='cbtn {{list.length>=1&&inputVal!=""? "bg1" : "bg2" }}'>开始变更美</button>

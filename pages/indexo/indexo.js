@@ -275,7 +275,8 @@ Page({
     query2.contains('content', b)
     let andQuery = wx.BaaS.Query.or(query, query2)
     if(a==" "){
-      Product.orderBy('-created_at').expand('created_by').limit(20).offset(0).find().then(res => {
+      Product.orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
+        console.log(res.data.objects[0])
         let list0 = res.data.objects
         function shuffle(arr) {
           let i = arr.length,
@@ -307,7 +308,8 @@ Page({
       })
     }
     else{
-    Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(20).offset(0).find().then(res => {
+    Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(10).offset(0).find().then(res => {
+      console.log(res.data.objects[0])
       let list0 = res.data.objects
       function shuffle(arr) {
         let i = arr.length,
@@ -370,7 +372,7 @@ Page({
     query2.contains('content', b)
     let andQuery = wx.BaaS.Query.or(query, query2)
     if(a==" "){
-      Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(20).offset(page * 20).find().then(res => {
+      Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
         // success  
         if (res.data.objects == "") {
           wx.showToast({
@@ -412,7 +414,7 @@ Page({
       })
     }
     else{
-    Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(20).offset(page * 20).find().then(res => {
+    Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
       // success  
       if (res.data.objects == "") {
         wx.showToast({
