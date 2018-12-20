@@ -31,8 +31,8 @@
     <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
     <canvas class='canvas' canvas-id='firstCanvas' style='width:{{w2}}px;height:{{h2}}px;position:fixed;top:-10000px;'></canvas>
-    <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button>
-   
+    <!-- <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button> -->
+   <button class='contact' bindtap="gochose">咨询</button>
     <text class='content2'>
     {{list.content}}
   </text>
@@ -139,7 +139,7 @@
     <view class='line'>
     </view>
     <view style='position:absolute;left:475rpx;' class='r1'>
-      <button  open-type="share" bindtap='onShareAppMessage' class='share'>
+      <button bindtap='onShare' class='share'>
         <view style='color:#1bad1a;font-size:50rpx;' class='iconfont icon-weixin'>
           <span class="share-1" >分享</span>
         </view>
@@ -148,26 +148,26 @@
     </view>
   </view>
 </view>
-<!-- <view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
+<view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
   <image src='../../images/loading2.svg' style='width:68px' mode='widthFix' />
   <view class='text-sm text-trivial'>海报生成中</view>
-</view> -->
+</view>
 
-<!-- <view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+<view class="mask" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
 <view wx:if="{{showModal}}" class="modalDlg">
   <view class='r1'>
-    <button class='btnshare' open-type="share" bindtap='onShareAppMessage'>
+    <button class='btnshare mr20' open-type="share" bindtap='onShareAppMessage'>
       <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-weixin3'>
       </view>
-      <view class='btn-text'>分享给朋友</view>
+      <view class='btn-text'>分享朋友</view>
     </button>
     <view class='btn-line'></view>
-    <button bindtap='getPoster' class='btnshare'>
+    <button bindtap='getPoster' class='btnshare ml20'>
       <view style='color:#1bad1a;font-size:90rpx;' class='iconfont icon-pengyouquan'>
       </view>
-      <view class='btn-text'>分享朋友圈</view>
+      <view class='btn-text'>分享海报</view>
     </button>
   </view>
   <view class='btn-line2'></view>
   <view class='closebtn' bindtap="go">取消</view>
-</view> -->
+</view>

@@ -20,12 +20,12 @@
 <view wx:else class='padding'>
   <view class='cen mt30'>
     <image mode='aspectFill' src='{{doctor.headimg.path}}' class='img'></image>
-    <view class='cen mt20 b f32'>{{doctor.name}}</view>
+    <view class='cen mt20 b f32'>{{doctor.name}}<span wx:if="{{doctor.startTime==null||doctor.education==null||doctor.startTime==undefined||doctor.education==undefined}}" class="f28 ml20 djob">{{doctor.job}}</span></view>
     <view wx:if="{{doctor.credentials!=null}}" class='certificate mt20 cc5'>执业资格证号：{{doctor.credentials}}</view>
-    <view class='r1a mt20 h100'>
+    <view wx:if="{{doctor.startTime!=null&&doctor.education!=null&&doctor.startTime!=undefined&&doctor.education!=undefined}}" class='r1a mt20 h100'>
       <view class='col abs ditem w200'>
         <view style='font-size:52rpx;color:#58c2db;' class='iconfont icon-xueshimao'></view>
-        <view class='f26 b mt10'>本科</view>
+        <view class='f26 b mt10'>{{doctor.education}}</view>
       </view>
       <view class='col abs ditem2 w200'>
         <view style='font-size:52rpx;color:#58c2db;' class='iconfont icon-yingyezhizhao'></view>

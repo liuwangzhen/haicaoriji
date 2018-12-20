@@ -9,7 +9,7 @@
   <view class='f28 ml38'>加载中</view>
 </view>
 <view wx:else>
-<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1' wx:for="{{list}}" wx:key="{{item.id}}">
+<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1 mt20' wx:for="{{list}}" wx:key="{{item.id}}">
   <view class='col hos-head'>
     <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
     <view class='hos-score'>{{item.score}}</view>

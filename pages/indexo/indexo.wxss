@@ -91,7 +91,7 @@ margin-left:15rpx;
   z-index: 4; */
   width: 100%;
   background-color: #fff;
- 
+  padding-top: 10px;
 }
 .nav-wrap2 {
   /* position: fixed; */

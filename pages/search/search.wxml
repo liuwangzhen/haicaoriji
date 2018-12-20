@@ -34,39 +34,47 @@
     <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="search">搜索</view>
   </view>
 </view>
-<view style='padding-top:{{height4*2 + 48+44}}px;' class='wait' wx:if="{{jundge==0}}">
-  <image mode='widthFix' src='../../images/loading.svg'></image>
-  <view class='f28 ml38'>加载中</view>
-</view>
-<view wx:else style='padding-top:{{height4*2 + 48+44}}px;margin-top:20rpx;' class='body'>
+
+<view style='padding-top:{{height4*2 + 48+44}}px;margin-top:20rpx;' class='body'>
   <!-- <view class='title'>
     #{{title}}
   </view> -->
+  
   <view class='title2 r1'>
     <view data-id="{{item.id}}" class='{{item.id==curId ? "active3" : ""}} {{index==0 ? "" : "mlato"}}' wx:key="{{index}}" wx:for="{{titles}}" bindtap="chose">{{item.title}}</view>
   </view>
-  <view wx:if="{{curId==0}}">
-    <view wx:if="{{list.length==0}}" class='number'>暂无相关笔记</view>
-    <view wx:else class='number'>为您找到以下日记</view>
-    <view wx:if="{{list!=null}}" class="content">
-      <view class="left">
-        <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-          <template is="mytemp" data="{{item}}"></template>
+  <view class='wait' wx:if="{{jundge==0}}">
+    <image mode='widthFix' src='../../images/loading.svg'></image>
+    <view class='f28 ml38'>加载中</view>
+  </view>
+  <view wx:else>
+    <view wx:if="{{curId==0}}">
+      <view wx:if="{{list.length==0}}" class='number'>暂无相关笔记</view>
+      <view wx:else class='number'>为您找到以下日记</view>
+      <view wx:if="{{list!=null}}" class="content">
+        <view class="left">
+          <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+            <template is="mytemp" data="{{item}}"></template>
+          </view>
+          <view class='bottom'></view>
         </view>
-        <view class='bottom'></view>
-      </view>
-      <view class="right">
-        <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-          <template is="mytemp" data="{{item}}"></template>
+        <view class="right">
+          <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+            <template is="mytemp" data="{{item}}"></template>
+          </view>
+          <view class='bottom'></view>
         </view>
-        <view class='bottom'></view>
       </view>
     </view>
-  </view>
-  <view wx:if="{{curId==1}}">
-    <include src='hospital.wxml' />
-  </view>
-  <view wx:if="{{curId==2}}">
-    <include src='doctor.wxml' />
+    <view wx:if="{{curId==1}}">
+      <view wx:if="{{hospital.length==0}}" class='number'>暂无相关医院</view>
+      <view wx:else class='number'>为您找到以下医院</view>
+      <include src='hospital.wxml' />
+    </view>
+    <view wx:if="{{curId==2}}">
+      <view wx:if="{{doctors.length==0}}" class='number'>暂无相关医生</view>
+      <view wx:else class='number'>为您找到以下医生</view>
+      <include src='doctor.wxml' />
+    </view>
   </view>
 </view>

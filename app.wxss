@@ -35,6 +35,9 @@
 .rel{
   position: relative
 }
+.mr20{
+  margin-right: 20rpx;
+}
 .blo-in{
   display: block-inline
 }

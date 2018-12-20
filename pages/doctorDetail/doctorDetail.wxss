@@ -18,6 +18,10 @@ width:600rpx;
 margin-left:55rpx;
 
 }
+.djob{
+  font-weight: normal;
+  margin-top: 2rpx;
+}
 .ditem{
   left: 55rpx;
 }

@@ -95,6 +95,10 @@ Page({
   onPullDownRefresh: function() {
     let that = this
     wx.stopPullDownRefresh();
+    wx.showToast({
+      title: '正在刷新',
+      duration:300,
+    })
     setTimeout(
       function () {
         that.getHospital();

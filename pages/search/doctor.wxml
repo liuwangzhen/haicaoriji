@@ -1,5 +1,5 @@
 <view>
-  <navigator hover-class='none' url='../doctorDetail/doctorDetail?id={{item.id}}' class='hospitals r1' wx:for="{{doctors}}" wx:key="{{item.id}}">
+  <navigator hover-class='none' url='../doctorDetail/doctorDetail?id={{item.id}}' class='hospitals r1 mt20' wx:for="{{doctors}}" wx:key="{{item.id}}">
     <view class='col hos-head'>
       <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
     </view>

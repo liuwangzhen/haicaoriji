@@ -123,6 +123,11 @@ that.setData({
       urls: arr1 // 需要预览的图片http链接列表
     })
   },
+  gochose:function(){
+    wx.navigateTo({
+      url: '../chose/chose',
+    })
+  },
   goCommend: function(e) {
     let id = e.currentTarget.dataset.id
     wx.navigateTo({
@@ -310,7 +315,7 @@ that.setData({
           return new Promise(
             function (resolve, reject) {
               // ctx.drawImage(ewrImg, 30, h1*2/3+50, 130, 130)
-              ctx.drawImage(ewrImg, w2/16, h2*40/100, 200, 200)
+              ctx.drawImage(ewrImg, w2*34/1000, h2*40/100, 200, 200)
               resolve(console.log("222"))
               reject(console.log("333"))
             })
@@ -717,13 +722,15 @@ that.setData({
     let user2 = (that.data.user2Id).toString()
     
     let scene = that.data.id  + user2
-   
+    // let scene = that.data.id
     let id = that.data.id
     const params = {
       scene:scene,
       page: 'pages/detail/detail',
       width: 250,
-      is_hyaline:true,
+      is_hyaline:false,
+      // auto_color:false,
+      // line_color: {"r": "128", "g": "0", "b": "0"},
     }
     wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
       wx.getImageInfo({

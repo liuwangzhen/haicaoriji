@@ -43,6 +43,24 @@ renew(a){
     }
   )
 }
+  getUserInfoByToken() {
+    return new Promise(
+      (resolve,reject)=>{
+        let MyUser = new wx.BaaS.User()
+        wx.BaaS.login(false).then(res => {
+          MyUser.get(res.id).then(res => {
+            resolve(res)
+          }, err => {
+            // err
+            rejecct(err)
+          })
+          // 登录成功
+        }, err => {
+          // 登录失败
+        })
+      }
+    )
+  }
 getQueryTable(tableId,query,num1,num2,order){
   return new Promise(
     (resolve, reject) => {
@@ -74,5 +92,7 @@ getRecord(tableID,recordID){
     }
   )
 }
+//获取电话
+
 }
 module.exports = Common;

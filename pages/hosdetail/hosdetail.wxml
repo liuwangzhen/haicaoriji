@@ -49,8 +49,8 @@
     <text class='mt30 f28 w670 ml30 text cc5'>{{hospital.detail}}</text>
   </view>
     <view class=' mt30 f28 w670 ml30 cc5 '>地址：{{hospital.address}}</view>
-    <!-- <view class='line3 mt20 '></view> -->
-    <!-- <view class='contain ml30 mt20 f30 '>
+    <view class='line3 mt20 '></view>
+    <view class='contain ml30 mt20 f30 '>
       <view class='b mt20 '>本院医师</view>
       <view bindtap='goDoctors' class='more f28 cc5'>更多医师
         <span style="font-size:26rpx;position:relative;top:-1rpx;" class="iconfont icon-qianjin"></span>
@@ -71,5 +71,5 @@
           </view>
         </view>
       </navigator>
-    </view> -->
+    </view>
   </view>

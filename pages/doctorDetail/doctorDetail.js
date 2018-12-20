@@ -48,8 +48,8 @@ Page({
       (resolve,reject)=>{
         myfirst.getRecord(59866, id, 10, 0,'created_at').then(
           res=>{
-            console.log(year)
             console.log(res.data.startTime)
+            console.log(res.data.education)
             let time=year-res.data.startTime
             that.setData({
               doctor:res.data,

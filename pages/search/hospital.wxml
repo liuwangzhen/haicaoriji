@@ -1,4 +1,4 @@
-<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1' wx:for="{{hospital}}" wx:key="{{item.id}}">
+<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1 mt20' wx:for="{{hospital}}" wx:key="{{item.id}}">
   <view class='col hos-head'>
     <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
     <view class='hos-score'>{{item.score}}</view>
