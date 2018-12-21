@@ -95,7 +95,7 @@ Page({
         let list = new Array
         let list0=res.data.objects
         for(let i=0;i<list0.length;i++){
-          list0[i].time=year-list0[i].startTime
+          list0[i].time=year-parseInt(list0[i].startTime)
           list.push(list0[i])
         }
         that.setData({

@@ -42,7 +42,7 @@
     </view>
     <view class='line2 mt30'></view>
   </view>
-  <view class='line2 mt30'></view>
+  <!-- <view class='line2 mt30'></view> -->
   <!-- <view class='comment'>
     <view class='ml20 pl10 mt30 f32 b'>笔记评论</view>
     <view class='line3'></view>
@@ -77,7 +77,7 @@
       </view>
     </view>
   </view> -->
-  <view class='line2'></view>
+  <!-- <view class='line2'></view> -->
 
   <view bindblur='inputVal3' style="bottom:{{height2}}px;" wx:if="{{input==true}}" class='comment-inp r1'>
     <image class='img2' src='{{user.headimg}}' mode='aspectFill'></image>

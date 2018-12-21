@@ -99,6 +99,12 @@
 .mt5{
   margin-top: 5rpx;
 }
+.mt40{
+  margin-top: 40rpx;
+}
+.pb20{
+  padding-bottom: 20rpx;
+}
 .top {
   position: fixed;
   top: 0rpx;

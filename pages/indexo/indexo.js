@@ -308,7 +308,6 @@ Page({
     }
     else{
     Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(10).offset(0).find().then(res => {
-      console.log(res.data.objects[0])
       let list0 = res.data.objects
       function shuffle(arr) {
         let i = arr.length,

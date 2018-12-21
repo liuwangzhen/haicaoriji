@@ -38,7 +38,7 @@
 .more{
   position: absolute;
   right: 20rpx;
-  margin-top:-28rpx;
+  margin-top:23rpx;
 }
 .contain{
   padding-bottom: 30rpx;

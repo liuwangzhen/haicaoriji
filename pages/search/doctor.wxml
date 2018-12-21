@@ -6,7 +6,7 @@
     <view class='col hos-na f30'>
       <view class='r1'>
         <view class='hos-name'>{{item.name}}</view>
-        <view class='cc5 b ml30 mt5'>{{item.job}}</view>
+        <view class='cc5 b ml30 mt15'>{{item.job}}</view>
       </view>
       <view class='cc5 b mt20'>{{item.hospital_name}}</view>
       <view class='b mt15'>案例：{{item.time}}</view>

@@ -26,7 +26,7 @@
   <view style='top:{{height4*2 + 30+37}}px;' class='recom'>
     <view class='recom2'>
       <scroll-view scroll-x="true" class='recommend'>
-        <view data-id='{{item.id}}' bindtap='change' class="f30 mt20 {{index == 0 ? '' : 'ml30'}} {{swiperIndex == index ? 'active' : ''}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
+        <view data-id='{{item.id}}' bindtap='change' class="f30 mt20 {{index == 0 ? '' : 'ml30'}} {{swiperIndex == index ? 'active' : 'c8a'}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
           {{item.name}}
         </view>
       </scroll-view>

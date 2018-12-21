@@ -143,36 +143,52 @@ Page({
     let a = e.currentTarget.dataset.id
     let encryptedData = e.detail.encryptedData
     let iv = e.detail.iv
+    let list=that.data.list
+    let substr = ""
+    for (let i = 0; i < list.length; i++) {
+      substr = substr + list[i] + ','
+    }
+    console.log(substr)
     wx.checkSession({
       success: function(res) {
         console.log("处于登录态");
         wx.BaaS.wxDecryptData(encryptedData, iv, 'phone-number').then(decrytedData => {
           console.log(decrytedData)
+          
           let a = {
             'phone': decrytedData.phoneNumber,
-            label: that.data.list,
+            label: substr,
             realname: that.data.inputVal,
+            consult:true
+          }
+          let b={
+            consult: false
           }
           myfirst.renew(a).then(
             res => {
-              console.log(res)
-              wx.showToast({
-                title: '提交成功',
-                icon: "success",
-                duration:200,
-                success: function () {
-                  wx.showModal({
-                    title: '提示',
-                    content: '感谢提交,我们的咨询人员将会与您联系',
-                    showCancel: false,
+              myfirst.renew(b).then(
+                res=>{
+                  wx.showToast({
+                    title: '提交成功',
+                    icon: "success",
+                    duration: 200,
                     success: function () {
-                      wx.navigateBack({
-                        delta: 1
+                      wx.showModal({
+                        title: '提示',
+                        content: '感谢提交',
+                        showCancel: false,
+                        success: function () {
+                          wx.navigateBack({
+                            delta: 1
+                          })
+                        },
                       })
-                    },
+                    }
                   })
                 }
-              })
+              )
+              console.log(res)
+              
             },
             err => {
               wx.showToast({
@@ -194,16 +210,29 @@ Page({
         wx.BaaS.login()
       }
     })
-
-
+  },
+  
+  submit:function(e){
+    console.log(e)
+    let formID = e.detail.formId
+    wx.BaaS.wxReportTicket(formID)
   },
   upload: function() {
     let that = this
     let list = that.data.list
+    let substr=""
+    for(let i=0;i<list.length;i++){
+       substr=substr+list[i]+','
+    }
+    console.log(substr)
     let inputVal = that.data.inputVal
     let a = {
-      label: list,
-      realname: inputVal
+      label: substr,
+      realname: inputVal,
+      consult:true
+    }
+    let b={
+      consult:false
     }
     wx.showModal({
       title: '提示',
@@ -212,23 +241,27 @@ Page({
         if (res.confirm) {
           myfirst.renew(a).then(
             res => {
-              wx.showToast({
-                title: '提交成功',
-                icon:"success",
-                duration: 200,
-                success:function(){
-                  wx.showModal({
-                    title: '提示',
-                    content: '感谢提交,我们的咨询人员将会与您联系',
-                    showCancel:false,
-                    success:function(){
-                      wx.navigateBack({
-                        delta:1
+              myfirst.renew(b).then(
+                res=>{
+                  wx.showToast({
+                    title: '提交成功',
+                    icon: "success",
+                    duration: 200,
+                    success: function () {
+                      wx.showModal({
+                        title: '提示',
+                        content: '感谢提交',
+                        showCancel: false,
+                        success: function () {
+                          wx.navigateBack({
+                            delta: 1
+                          })
+                        },
                       })
-                    },
+                    }
                   })
                 }
-              })
+              )
             }, err => {
               console.log(err)
               wx.showToast({

@@ -48,7 +48,7 @@
 .cbtn{
   width: 450rpx;
   line-height: 90rpx;
-  margin-top:150rpx;
+  margin-top:80rpx;
 border-radius:50rpx;
 color:#f9f9fc;
 font-weight:bold;

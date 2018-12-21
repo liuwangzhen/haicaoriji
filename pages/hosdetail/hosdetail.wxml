@@ -48,28 +48,30 @@
   <view wx:if="{{hospital.detail.length<=100}}">
     <text class='mt30 f28 w670 ml30 text cc5'>{{hospital.detail}}</text>
   </view>
-    <view class=' mt30 f28 w670 ml30 cc5 '>地址：{{hospital.address}}</view>
-    <view class='line3 mt20 '></view>
-    <view class='contain ml30 mt20 f30 '>
-      <view class='b mt20 '>本院医师</view>
+  <view class=' mt30 f28 w670 ml30 cc5 '>地址：{{hospital.address}}</view>
+  <view class='line3 mt20 '></view>
+  <view class='contain ml30 mt40 f30 '>
+    <view class='r1'>
+      <view class='b mt20 pb20'>本院医师</view>
       <view bindtap='goDoctors' class='more f28 cc5'>更多医师
         <span style="font-size:26rpx;position:relative;top:-1rpx;" class="iconfont icon-qianjin"></span>
       </view>
-      <navigator  url="../doctorDetail/doctorDetail?id={{item.id}}" hover-class='none ' class='r1 doctor f28 ' wx:key="{{item.id}}" wx:for="{{doctors}}">
-        <image mode='aspectFill ' class='img ' src='{{item.headimg.path}} '></image>
-        <view class='col ml30 mt20 '>
-          <view class='f32 b '>{{item.name}}</view>
-          <view class='r1 mt10 cc5 '>
-            <view>{{item.job}}</view>
-            <view class='line ml20 '></view>
-            <view wx:if="{{item.time==null||item.time==0}}" class='ml20 '>1年经验</view>
-            <view wx:else class='ml20 '>{{item.time}}年经验</view>
-          </view>
-          <view class='r1 cbc mt10 '>
-            <view style='color:#58c2db;font-size:30rpx;position:relative;top:5rpx;' class='iconfont icon-dianzan'></view>
-            <view class='ml10 '>{{item.superiority}}</view>
-          </view>
-        </view>
-      </navigator>
     </view>
+    <navigator url="../doctorDetail/doctorDetail?id={{item.id}}" hover-class='none ' class='r1 doctor f28 ' wx:key="{{item.id}}" wx:for="{{doctors}}">
+      <image mode='aspectFill ' class='img ' src='{{item.headimg.path}} '></image>
+      <view class='col ml30 mt20 '>
+        <view class='f32 b '>{{item.name}}</view>
+        <view class='r1 mt10 cc5 '>
+          <view>{{item.job}}</view>
+          <view class='line ml20 '></view>
+          <view wx:if="{{item.time==null||item.time==0}}" class='ml20 '>1年经验</view>
+          <view wx:else class='ml20 '>{{item.time}}年经验</view>
+        </view>
+        <view class='r1 cbc mt10 '>
+          <view style='color:#58c2db;font-size:30rpx;position:relative;top:5rpx;' class='iconfont icon-dianzan'></view>
+          <view class='ml10 '>{{item.superiority}}</view>
+        </view>
+      </view>
+    </navigator>
   </view>
+</view>

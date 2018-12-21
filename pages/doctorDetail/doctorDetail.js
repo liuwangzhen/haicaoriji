@@ -50,7 +50,7 @@ Page({
           res=>{
             console.log(res.data.startTime)
             console.log(res.data.education)
-            let time=year-res.data.startTime
+            let time=year-parseInt(res.data.startTime)
             that.setData({
               doctor:res.data,
               hos_id: res.data.hospital_id,
