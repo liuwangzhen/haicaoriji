@@ -2,7 +2,7 @@
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
     <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view bindtap='goback'>
+      <view wx:if="{{getshare==0}}" bindtap='goback'>
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
       <view bindtap='goIndex'>
@@ -57,7 +57,7 @@
         <span style="font-size:26rpx;position:relative;top:-1rpx;" class="iconfont icon-qianjin"></span>
       </view>
     </view>
-    <navigator url="../doctorDetail/doctorDetail?id={{item.id}}" hover-class='none ' class='r1 doctor f28 ' wx:key="{{item.id}}" wx:for="{{doctors}}">
+    <view data-id='{{item.id}}' bindtap='goDoctor' class='r1 doctor f28 ' wx:key="{{item.id}}" wx:for="{{doctors}}">
       <image mode='aspectFill ' class='img ' src='{{item.headimg.path}} '></image>
       <view class='col ml30 mt20 '>
         <view class='f32 b '>{{item.name}}</view>
@@ -72,6 +72,6 @@
           <view class='ml10 '>{{item.superiority}}</view>
         </view>
       </view>
-    </navigator>
+    </view>
   </view>
 </view>

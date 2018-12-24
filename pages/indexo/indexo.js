@@ -1,7 +1,7 @@
 // pages/indexo/indexo.js
 import regeneratorRuntime from '../../utils/runtime'
 const Page = require('../../utils/ald-stat.js').Page;
-
+const myFirst=require('../../utils/myfirst.js')
 const app = getApp();
 Page({
   /**
@@ -9,33 +9,27 @@ Page({
    */
   data: {
     list: [],
-    arr2: [],
     swiperIndex: 0,
-    arr1: 1539847068639177,
     inputShowed: false,
     inputVal: "",
     page: 0,
-    showModal: false,
     collection: [],
     height4: getApp().globalData.height,
     isClick: true,
     search:" ",
     search2:" ",
-    bgImg: "../../images/bg.jpg",  //背景图
-    dataImg: "../../images/pic01.jpg",   //内容缩略图
     ewrImg: "",  //小程序二维码图片
     tphone:"",
     scrolltop:0,
     recomId:999,
     curId:0,
     titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "隆鼻", search: "鼻综合", search2: "隆鼻", }, { id: 2, name: "双眼皮", search: "双眼皮", search2: "眼综合" }, { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充" }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }]
-    //  { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充", }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    var that = this
+    let that = this
     
     if (options.recommend!=undefined)
     {
@@ -52,7 +46,6 @@ Page({
         })
       }
     })
-    that.getContent(1542855353624223,1544580599805762)
     that.getUserInfoByToken();
   },
   pre: function () {
@@ -91,26 +84,7 @@ Page({
       url: '../search/search?val=' + val,
     })
   },
-  getContent: function(contentGroupID, categoryID){
-    return new Promise((resolve,reject)=>{
-      let that = this
-      let MyContentGroup = new wx.BaaS.ContentGroup(contentGroupID)
-      let query = new wx.BaaS.Query()
-      query.arrayContains('categories', [categoryID])
-      MyContentGroup.setQuery(query).find().then(res => {
-        // success
-        that.setData({
-          content:res.data.objects
-        })
-        resolve();
-      }, err => {
-        // err
-        reject();
-      })
-    })
-    
-     
-  },
+ 
   getUserInfoByToken() {
     let MyUser = new wx.BaaS.User()
     let that = this
@@ -339,12 +313,6 @@ Page({
     })
     }
   },
-  LimitNumbersadf(txt) {
-    var str = txt;
-    str = str.substr(0, 13);
-    str += '...'
-    return str;
-  },
   userinfo: function(e) {
     let id = e.currentTarget.dataset.user
     if (id == getApp().globalData.userId) {
@@ -486,7 +454,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // this.getUserInfoByToken()
 
   },
 
@@ -540,18 +507,8 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  go: function () {
-    this.setData({
-      showModal: false
-    })
-  },
-  submit:function(){
-    this.setData({
-      showModal: true
-    })
-  },
   onReady: function () {
-   
+
   },
   onShareAppMessage: function(res) {
    let that=this

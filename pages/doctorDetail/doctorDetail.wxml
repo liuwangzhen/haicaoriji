@@ -2,7 +2,7 @@
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
     <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view bindtap='goback'>
+      <view wx:if="{{getshare==0}}" bindtap='goback'>
         <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
       </view>
       <view bindtap='goIndex'>
@@ -67,7 +67,7 @@
   <view class='line2 mt10'></view>
   <view class='ml30'>
     <view class='mt20 f30 b'>所属医院</view>
-    <navigator hover-class='none' url="../hosdetail/hosdetail?id={{hos_id}}" class='mt20 r1'>
+    <view bindtap='goHospital' class='mt20 r1'>
       <image class='img2' mode='aspectFit' src='{{hospital.headimg.path}}'></image>
       <view class='col ml30'>
         <view class='b f30 mt10'>{{hospital.name}}</view>
@@ -75,7 +75,7 @@
         <view wx:else class='f26 mt20 cc5'>私立医院</view>
       </view>
       <view style='position:absolute;right:30rpx;color:#ddd;font-size:36rpx;margin-top:30rpx;' class='iconfont icon-qianjin'></view>
-    </navigator>
+    </view>
     <view class='line3 mt20'></view>
     <view class='r1 mt30'>
       <view style='color:#58c2db;font-size:40rpx;margin-top:10rpx;' class='iconfont icon-weibiaoti-3'></view>

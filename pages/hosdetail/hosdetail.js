@@ -12,6 +12,7 @@ Page({
     height4: getApp().globalData.height,
     hospital:"",
     rotate:false,
+    getshare:0,
   },
  
   /**
@@ -20,11 +21,72 @@ Page({
   onLoad: function (options) {
    let that=this
    let id=options.id
+
+   
+     if(options.getshare!=undefined){
+     that.setData({
+       getshare:1
+     })
+       that.getHospital(59863, id)
+       that.getDoctors(options.id)
+       that.getToken()
+   }
+   else{
+       console.log(options.recommend)
+   if(options.recommend!=undefined){
+     that.setData({
+       id: options.id,
+       recommend:options.recommend
+     })
+     that.getHospital(59863, id)
+     that.getDoctors(options.id)
+     that.getToken()
+     console.log(that.data.id)
+   }
+   else{
+     console.log(options.id)
    that.setData({
-     id:options.id
+     id:options.id,
    })
-    that.getHospital(59863,id)
-    that.getDoctors()
+     that.getHospital(59863, id)
+     that.getDoctors(options.id)
+     that.getToken()
+   }}
+ 
+   
+    // that.getHospital(59863, id)
+    // that.getDoctors()
+    // that.getToken()
+  },
+  getToken(){
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getUserInfoByToken().then(
+          res => {
+            that.setData({
+              recomId: res.data.id
+            })
+            resolve(res)
+          }
+        )
+      }
+    )
+  },
+  goDoctor:function(e){
+    let that=this
+    let id=e.currentTarget.dataset.id
+    let recommend = that.data.recommend
+    if (recommend != undefined) {
+      wx.navigateTo({
+        url: "../doctorDetail/doctorDetail?id=" + id+'&recommend='+recommend
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: "../doctorDetail/doctorDetail?id=" + id
+      })
+    }
   },
   goRotate: function () {
     let that = this;
@@ -52,7 +114,6 @@ Page({
     for (let i = 0; i < list.length; i++) {
       list[i] = list[i].path
       list2.push(list[i])
-
     }
     that.setData({
       list: list2
@@ -78,15 +139,24 @@ Page({
     )
   },
   goDoctors:function(){
-     let that=this
-     wx.navigateTo({
-       url: '../doctor/doctor?hospital_id='+that.data.id,
-     })
+    let that=this
+    let recommend = that.data.recommend
+    if (recommend != undefined){
+      wx.navigateTo({
+        url: '../doctor/doctor?hospital_id=' + that.data.id + '&recommend=' + recommend
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '../doctor/doctor?hospital_id=' + that.data.id,
+      })
+    }
   },
-  getDoctors:function(){
+  getDoctors: function (id){
+    console.log("0000")
     let that=this
     let tableId=59866
-    let id=that.data.id
+    console.log(id)
     let a='hospital_id'
     let query = new wx.BaaS.Query()
     query.contains(a,id)
@@ -128,9 +198,18 @@ Page({
     })
   },
   goIndex: function () {
+    let that=this
+    let recommend=that.data.recommend
+    if(recommend!=undefined){
+      wx.switchTab({
+        url: '../indexo/indexo?recommend=' + recommend,
+      })
+    }
+    else{
     wx.switchTab({
       url: '../indexo/indexo',
     })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -178,6 +257,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that = this
+    let recommend = that.data.recomId
+    let id=that.data.id
+    return {
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/hosdetail/hosdetail?recommend='+recommend+'&id='+id+'&getshare='+1,
+    }
   }
 })

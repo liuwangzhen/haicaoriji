@@ -53,12 +53,12 @@ Page({
         that.setData({
           phone: res.data.phone
         })
-        console.log(that.data.phone)
       },
       err => {
         console.log(err)
       }
     )
+    that.getToken()
   },
   goback: function() {
     wx.navigateBack({
@@ -146,9 +146,13 @@ Page({
     let list=that.data.list
     let substr = ""
     for (let i = 0; i < list.length; i++) {
+      if(i==list.length-1){
+        substr = substr + list[i] 
+      }
+      else{
       substr = substr + list[i] + ','
+      }
     }
-    console.log(substr)
     wx.checkSession({
       success: function(res) {
         console.log("处于登录态");
@@ -222,9 +226,13 @@ Page({
     let list = that.data.list
     let substr=""
     for(let i=0;i<list.length;i++){
+      if (i == list.length - 1) {
+        substr = substr + list[i]
+      }
+      else{
        substr=substr+list[i]+','
+      }
     }
-    console.log(substr)
     let inputVal = that.data.inputVal
     let a = {
       label: substr,
@@ -316,11 +324,33 @@ Page({
   onReachBottom: function() {
 
   },
-
+ getToken(){
+    let that=this
+    return new Promise(
+      (resolve,reject)=>{
+        myfirst.getUserInfoByToken().then(
+          res => {
+            that.setData({
+              recommend:res.data.id
+            })
+            resolve(res)
+          }
+        )
+      }
+    )
+    
+ },
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
-
-  }
+  onShareAppMessage: function(){
+    let that = this
+    let recommend = that.data.recommend
+    return {
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/indexo/indexo?recommend=' + recommend,
+    }
+  },
+  
 })

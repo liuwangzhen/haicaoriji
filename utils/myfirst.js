@@ -43,7 +43,7 @@ renew(a){
     }
   )
 }
-  getUserInfoByToken() {
+  getUserInfoByToken(){
     return new Promise(
       (resolve,reject)=>{
         let MyUser = new wx.BaaS.User()
@@ -92,7 +92,7 @@ getRecord(tableID,recordID){
     }
   )
 }
-//获取电话
+
 
 }
 module.exports = Common;

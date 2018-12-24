@@ -52,12 +52,7 @@
         "iconPath": "images/hospital.png",
         "selectedIconPath": "images/hospital2.png"
       },
-     {
-      "pagePath": "pages/addNote/addNote",
-      "text": "写日记",
-      "iconPath": "images/rizhi2.png",
-      "selectedIconPath": "images/rizhi.png"
-    },
+    
       
       {
         "pagePath": "pages/mine/mine",

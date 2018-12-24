@@ -18,8 +18,23 @@ Page({
   onLoad: function(options) {
     let that=this
     that.getHospital()
+    that.getToken()
   },
-  
+  getToken() {
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getUserInfoByToken().then(
+          res => {
+            that.setData({
+              recomId: res.data.id
+            })
+            resolve(res)
+          }
+        )
+      }
+    )
+  },
   getHospital: function() {
     let that = this
     return new Promise(
@@ -118,11 +133,17 @@ Page({
       },500
     )
   },
-
+ 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    let that = this
+    let recommend = that.data.recomId
+    return {
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/indexo/indexo?recommend=' + recommend,
+    }
   }
 })

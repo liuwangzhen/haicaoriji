@@ -9,7 +9,8 @@ Page({
   data: {
     height4: getApp().globalData.height,
     page:0,
-    doctors:""
+    doctors:"",
+    getshare:0,
   },
 
   /**
@@ -17,13 +18,58 @@ Page({
    */
   onLoad: function(options) {
     let that = this
-    that.setData({
-      hospital_id:options.hospital_id
-    })
-    that.getDoctors(59866, that.data.hospital_id, 10, 0,'created_at');
+    if(options.getshare!=undefined){
+      that.setData({
+        getshare:1
+      })
+    }
+    else{
+    if (options.recommend != undefined) {
+      that.setData({
+        hospital_id: options.hospital_id,
+        recommend: options.recommend
+      })
+    }
+    else {
+      that.setData({
+        hospital_id: options.hospital_id
+      })
+    }}
+    that.getDoctors(59866, options.hospital_id, 10, 0,'created_at');
+  },
+  goDoctor:function(e){
+    let that=this
+    let id=e.currentTarget.dataset.id
+    let recommend=that.data.recommend
+    if(recommend!=undefined){
+      wx.navigateTo({
+        url: '../doctorDetail/doctorDetail?id='+id+'&recommend'+recommend
+      })
+    }
+    else{
+      wx.navigateTo({
+        url: '../doctorDetail/doctorDetail?id=' + id
+      })
+    }
+  },
+  getToken() {
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getUserInfoByToken().then(
+          res => {
+            that.setData({
+              recomId: res.data.id
+            })
+            resolve(res)
+          }
+        )
+      }
+    )
   },
   getDoctors: function(tableId,id,a,b,c){
     let that = this
+    console.log(id)
     return new Promise(
       (resolve, reject) => {
         let query = new wx.BaaS.Query()
@@ -74,9 +120,19 @@ Page({
     })
   },
   goIndex: function() {
-    wx.switchTab({
-      url: '../indexo/indexo',
-    })
+    let that=this
+    let recommend = that.data.recommend
+    console.log(recommend)
+    if (recommend != undefined) {
+      wx.switchTab({
+        url: '../indexo/indexo?recommend=' + recommend,
+      })
+    }
+    else {
+      wx.switchTab({
+        url: '../indexo/indexo',
+      })
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -144,6 +200,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    let that = this
+    let recommend = that.data.recomId
+    let id = that.data.hospital_id
+    return {
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/doctor/doctor?recommend=' + recommend + '&hospital_id=' + id+'&getshare'+1,
+    }
   }
 })

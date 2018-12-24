@@ -4,7 +4,6 @@ const myfirst = new myFirst()
 const nowDate=new Date()
 const year = parseInt(nowDate.getFullYear())
 Page({
-
   /**
    * 页面的初始数据
    */
@@ -12,17 +11,62 @@ Page({
     height4: getApp().globalData.height,
     rotate:false,
     doctor:"",
+    getshare:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-     let that=this
-     that.setData({
-       id:options.id
-     })
-     that.getDoctor(options.id)
+    let that=this
+    if(options.getshare!=undefined){
+      that.setData({
+        getshare:options.getshare
+      })
+    }
+    else{
+    if (options.recommend != undefined){
+      that.setData({
+        id: options.id,
+        recommend: options.recommend
+      })
+    }
+    else {
+      that.setData({
+        id: options.id,
+      })
+    }}
+    that.getDoctor(options.id)
+    that.getToken()
+  },
+  goHospital:function(){
+    let that=this
+    let recommend=that.data.recommend
+    if (recommend != undefined) {
+      wx.navigateTo({
+        url: '../hosdetail/hosdetail?id=' + that.data.hos_id + '&recommend=' + recommend
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '../hosdetail/hosdetail?id=' + that.data.hos_id,
+      })
+    }
+  },
+  getToken() {
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getUserInfoByToken().then(
+          res => {
+            that.setData({
+              recomId: res.data.id
+            })
+            resolve(res)
+          }
+        )
+      }
+    )
   },
   goback: function () {
     wx.navigateBack({
@@ -30,9 +74,19 @@ Page({
     })
   },
   goIndex: function () {
-    wx.switchTab({
-      url: '../indexo/indexo',
-    })
+    let that=this
+    let recommend = that.data.recommend
+    console.log(recommend)
+    if (recommend != undefined) {
+      wx.switchTab({
+        url: '../indexo/indexo?recommend=' + recommend,
+      })
+    }
+    else {
+      wx.switchTab({
+        url: '../indexo/indexo',
+      })
+    }
   },
   goRotate:function(){
     let that=this;
@@ -129,6 +183,13 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that = this
+    let recommend = that.data.recomId
+    let id = that.data.id
+    return {
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/doctorDetail/doctorDetail?recommend=' + recommend + '&id=' + id+'&getshare='+1,
+    }
   }
 })
