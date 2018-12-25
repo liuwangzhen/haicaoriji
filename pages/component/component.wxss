@@ -1,0 +1,4 @@
+/* pages/component/component.wxss */
+.inner {
+  color: red;
+}

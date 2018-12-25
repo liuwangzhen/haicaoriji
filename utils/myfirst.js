@@ -17,6 +17,20 @@ class Common{
     }
   )
 }
+getRecord(tableID,recordID){
+  return new Promise(
+    (resolve,reject)=>{
+      let Product = new wx.BaaS.TableObject(tableID)
+      Product.get(recordID).then(res => {
+        // success
+        resolve(res)
+      }, err => {
+        // err
+        reject(err)
+      })
+    }
+  )
+}
 shuffle(arr) {
   let i = arr.length,
     t, j;

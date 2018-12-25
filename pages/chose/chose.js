@@ -331,7 +331,7 @@ Page({
         myfirst.getUserInfoByToken().then(
           res => {
             that.setData({
-              recommend:res.data.id
+              recomId:res.data.id
             })
             resolve(res)
           }
@@ -345,7 +345,7 @@ Page({
    */
   onShareAppMessage: function(){
     let that = this
-    let recommend = that.data.recommend
+    let recommend = that.data.recomId
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',

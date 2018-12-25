@@ -21,7 +21,9 @@ Page({
     let that=this
     if(options.getshare!=undefined){
       that.setData({
-        getshare:options.getshare
+        getshare:options.getshare,
+        recommend:options.recommend,
+        id: options.id,
       })
     }
     else{
@@ -78,7 +80,7 @@ Page({
     let recommend = that.data.recommend
     console.log(recommend)
     if (recommend != undefined) {
-      wx.switchTab({
+      wx.reLaunch({
         url: '../indexo/indexo?recommend=' + recommend,
       })
     }

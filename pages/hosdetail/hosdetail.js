@@ -21,42 +21,30 @@ Page({
   onLoad: function (options) {
    let that=this
    let id=options.id
-
-   
+   console.log(options)
      if(options.getshare!=undefined){
      that.setData({
-       getshare:1
+       getshare:1,
+       recommend:options.recommend,
+       id: options.id,
      })
-       that.getHospital(59863, id)
-       that.getDoctors(options.id)
-       that.getToken()
    }
    else{
-       console.log(options.recommend)
    if(options.recommend!=undefined){
+     console.log(options.recommend)
      that.setData({
        id: options.id,
        recommend:options.recommend
      })
-     that.getHospital(59863, id)
-     that.getDoctors(options.id)
-     that.getToken()
-     console.log(that.data.id)
    }
    else{
-     console.log(options.id)
    that.setData({
      id:options.id,
    })
-     that.getHospital(59863, id)
-     that.getDoctors(options.id)
-     that.getToken()
    }}
- 
-   
-    // that.getHospital(59863, id)
-    // that.getDoctors()
-    // that.getToken()
+    that.getHospital(59863, options.id)
+    that.getDoctors(options.id)
+    that.getToken()
   },
   getToken(){
     let that = this
@@ -141,10 +129,13 @@ Page({
   goDoctors:function(){
     let that=this
     let recommend = that.data.recommend
+    console.log(recommend)
     if (recommend != undefined){
       wx.navigateTo({
         url: '../doctor/doctor?hospital_id=' + that.data.id + '&recommend=' + recommend
       })
+      console.log(that.data.id)
+      
     }
     else {
       wx.navigateTo({
@@ -153,10 +144,8 @@ Page({
     }
   },
   getDoctors: function (id){
-    console.log("0000")
     let that=this
     let tableId=59866
-    console.log(id)
     let a='hospital_id'
     let query = new wx.BaaS.Query()
     query.contains(a,id)
@@ -201,7 +190,7 @@ Page({
     let that=this
     let recommend=that.data.recommend
     if(recommend!=undefined){
-      wx.switchTab({
+      wx.reLaunch({
         url: '../indexo/indexo?recommend=' + recommend,
       })
     }

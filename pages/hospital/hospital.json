@@ -1,1 +1,5 @@
-{"enablePullDownRefresh": true}
+{"enablePullDownRefresh": true,
+"usingComponents": {
+  "component-tag-name": "../component/component"
+}
+}

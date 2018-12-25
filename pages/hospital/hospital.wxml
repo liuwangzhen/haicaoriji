@@ -9,6 +9,9 @@
   <view class='f28 ml38'>加载中</view>
 </view>
 <view wx:else>
+<!-- <view>
+  <component-tag-name innerText="Some text"></component-tag-name>
+</view> -->
 <navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1 mt20' wx:for="{{list}}" wx:key="{{item.id}}">
   <view class='col hos-head'>
     <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>

@@ -20,7 +20,9 @@ Page({
     let that = this
     if(options.getshare!=undefined){
       that.setData({
-        getshare:1
+        getshare:1,
+        hospital_id: options.hospital_id,
+        recommend: options.recommend
       })
     }
     else{
@@ -35,6 +37,7 @@ Page({
         hospital_id: options.hospital_id
       })
     }}
+    that.getToken()
     that.getDoctors(59866, options.hospital_id, 10, 0,'created_at');
   },
   goDoctor:function(e){
@@ -43,7 +46,7 @@ Page({
     let recommend=that.data.recommend
     if(recommend!=undefined){
       wx.navigateTo({
-        url: '../doctorDetail/doctorDetail?id='+id+'&recommend'+recommend
+        url: '../doctorDetail/doctorDetail?id='+id+'&recommend='+recommend
       })
     }
     else{
@@ -69,7 +72,6 @@ Page({
   },
   getDoctors: function(tableId,id,a,b,c){
     let that = this
-    console.log(id)
     return new Promise(
       (resolve, reject) => {
         let query = new wx.BaaS.Query()
@@ -122,9 +124,8 @@ Page({
   goIndex: function() {
     let that=this
     let recommend = that.data.recommend
-    console.log(recommend)
     if (recommend != undefined) {
-      wx.switchTab({
+      wx.reLaunch({
         url: '../indexo/indexo?recommend=' + recommend,
       })
     }
@@ -202,11 +203,12 @@ Page({
   onShareAppMessage: function() {
     let that = this
     let recommend = that.data.recomId
+    console.log(recommend)
     let id = that.data.hospital_id
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
-      path: '/pages/doctor/doctor?recommend=' + recommend + '&hospital_id=' + id+'&getshare'+1,
+      path: '/pages/doctor/doctor?recommend=' + recommend + '&hospital_id=' + id+'&getshare='+1,
     }
   }
 })

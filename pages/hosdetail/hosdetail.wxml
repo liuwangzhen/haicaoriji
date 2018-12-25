@@ -37,18 +37,18 @@
   <view wx:if="{{hospital.detail.length>100}}">
     <text class='mt30 f28 w670 ml30 text cc5 {{rotate==false ? "h1" : "h2"}}'>{{hospital.detail}}</text>
     <view bindtap='goRotate' wx:if="{{rotate==false}}" class='col rotate'>
-      <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:18rpx;color:#58c2db;opacity:0.5;' class='iconfont icon-xiangxia'></view>
-      <view style='text-align:center;width:690rpx;color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
+      <view style='margin-top:20rpx;text-align:center;width:750rpx;position:relative;top:18rpx;color:#58c2db;opacity:0.5;' class='iconfont icon-xiangxia'></view>
+      <view style='text-align:center;width:750rpx;color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
     </view>
     <view bindtap='goRotate' wx:if="{{rotate==true}}" class='col rotate'>
-      <view style='margin-top:20rpx;text-align:center;width:690rpx;position:relative;top:18rpx;color:#58c2db;transform:rotate(180deg);opacity:0.5;' class='iconfont icon-xiangxia'></view>
-      <view style='text-align:center;width:690rpx;transform:rotate(180deg);color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
+      <view style='margin-top:20rpx;text-align:center;width:750rpx;position:relative;top:18rpx;color:#58c2db;transform:rotate(180deg);opacity:0.5;' class='iconfont icon-xiangxia'></view>
+      <view style='text-align:center;width:750rpx;transform:rotate(180deg);color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
     </view>
   </view>
   <view wx:if="{{hospital.detail.length<=100}}">
     <text class='mt30 f28 w670 ml30 text cc5'>{{hospital.detail}}</text>
   </view>
-  <view class=' mt30 f28 w670 ml30 cc5 '>地址：{{hospital.address}}</view>
+  <text class=' mt30 f28 w670 ml30 cc5 blo'>地址：{{hospital.address}}</text>
   <view class='line3 mt20 '></view>
   <view class='contain ml30 mt40 f30 '>
     <view class='r1'>

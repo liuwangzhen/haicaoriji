@@ -41,6 +41,9 @@
 .blo-in{
   display: block-inline
 }
+.blo{
+  display: block;
+}
 .bolder{
   font-weight: bolder;
 }
@@ -50,6 +53,7 @@
 .c8c{
   color: #c8c8c8;
 }
+
 .ca2{
   color: #a2a2a2;
 }

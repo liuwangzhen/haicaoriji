@@ -348,10 +348,11 @@ Page({
   onShareAppMessage: function () {
     let that=this
     let val=that.data.title
+    let recommend=getApp().globalData.userId
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
-      path: '/pages/indexo/indexo',
+      path: '/pages/indexo/indexo?recommend='+recommend,
     }
   }
 })

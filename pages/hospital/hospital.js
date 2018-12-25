@@ -39,7 +39,7 @@ Page({
     let that = this
     return new Promise(
       (resolve,reject)=>{
-        myfirst.getTable(59863,10,0,'created_at').then(
+        myfirst.getTable(59863,10,0,'-score').then(
           (res)=>{
             that.setData({
               list:res.data.objects,
@@ -57,7 +57,7 @@ Page({
     page++
     return new Promise(
       (resolve, reject) => {
-        myfirst.getTable(59863, 10, page*10, 'created_at').then(
+        myfirst.getTable(59863, 10, page*10, '-score').then(
           (res) => {
             if(res.data.objects==""){
               wx.showToast({
