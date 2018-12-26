@@ -1,8 +1,13 @@
 <cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</cover-view>
+  <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>咨询</cover-view>
 </cover-view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
-<view class=''>
-<button bindtap='goCounselors' class='f32'>选择咨询师</button>
-<button bindtap='goConsolt' class='f32'>直接咨询</button>
-</view>
+  <view bindtap='goCounselors' class='cen mt100'>
+    <image mode='aspectFill' class='pimg' src='../../images/adperson3.jpg'>
+    </image>
+    <view class='permake b'>私人定制</view>
+  </view>
+  <view bindtap='goConsolt' class='cen mt100'>
+    <image mode='aspectFill' class='pimg' src='../../images/adperson2.jpg'></image>
+    <view class='permake b'>我要变美</view>
+  </view>

@@ -14,12 +14,18 @@ Page({
   onLoad: function (options) {
   
   },
+  call:function(e){
+    console.log(1111)
+    wx.makePhoneCall({
+      phoneNumber: '1234567',
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    this.dialog = this.selectComponent('#dialog');
   },
 
   /**

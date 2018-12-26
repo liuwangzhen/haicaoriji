@@ -42,12 +42,23 @@ Page({
     isClick2: true,
     focus2: false,
     elastic: true,
+    counselor:'无'
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     let that = this
+    if(options.recommend!=undefined){
+      that.setData({
+        recommend:options.recommend
+      })
+    }
+    if(options.name!=undefined){
+      that.setData({
+        counselor:options.name
+      })
+    }
     myfirst.getUserInfoByToken().then(
       res => {
         that.setData({
@@ -144,6 +155,7 @@ Page({
     let encryptedData = e.detail.encryptedData
     let iv = e.detail.iv
     let list=that.data.list
+    let counselor = that.data.counselor
     let substr = ""
     for (let i = 0; i < list.length; i++) {
       if(i==list.length-1){
@@ -158,12 +170,12 @@ Page({
         console.log("处于登录态");
         wx.BaaS.wxDecryptData(encryptedData, iv, 'phone-number').then(decrytedData => {
           console.log(decrytedData)
-          
           let a = {
             'phone': decrytedData.phoneNumber,
             label: substr,
             realname: that.data.inputVal,
-            consult:true
+            consult:true,
+            counselor:counselor,
           }
           let b={
             consult: false
@@ -191,8 +203,6 @@ Page({
                   })
                 }
               )
-              console.log(res)
-              
             },
             err => {
               wx.showToast({
@@ -224,6 +234,7 @@ Page({
   upload: function() {
     let that = this
     let list = that.data.list
+    let counselor=that.data.counselor
     let substr=""
     for(let i=0;i<list.length;i++){
       if (i == list.length - 1) {
@@ -237,7 +248,8 @@ Page({
     let a = {
       label: substr,
       realname: inputVal,
-      consult:true
+      consult:true,
+      counselor:counselor,
     }
     let b={
       consult:false
@@ -333,6 +345,12 @@ Page({
             that.setData({
               recomId:res.data.id
             })
+            if (res.data.is_authorized == false) {
+              // if (res.data.jundge == false) {
+              wx.redirectTo({
+                url: '../../pages/login/login?recomId=' + that.data.recommend,
+              })
+            }
             resolve(res)
           }
         )
@@ -349,7 +367,7 @@ Page({
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
-      path: '/pages/indexo/indexo?recommend=' + recommend,
+      path: '/pages/chose/chose?recommend=' + recommend,
     }
   },
   

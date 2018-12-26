@@ -13,7 +13,16 @@
   </view>
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
-<view data-id="{{item.id}}" wx:key="{{item.id}}" wx:for="{{counselors}}" bindtap='goCounselor' class=''>
-  <view>咨询师</view>
- <view>{{item.name}}</view>
+<view class='cbar f32 mt50 ml30'>您的咨询师</view>
+<swiper bindchange="intervalChange" previous-margin="175rpx" next-margin="90rpx" class='cswiper'>
+  <swiper-item bindtap="goCounselor" data-name="{{item.name}}" class="{{index==curId ? 'citem' :'citem2'}}" wx:key="{{item.id}}" wx:for="{{counselors}}">
+    <image class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.poster.path}}'></image>
+  </swiper-item>
+</swiper>
+<view wx:key="{{item.id}}" wx:for="{{counselors}}">
+  <view class='ml30 mt50' wx:if="{{index==curId}}">
+     <view>{{item.honor}}</view>
+     <view>{{item.skills}}</view>
+     <view>{{item.abstract}}</view>
+  </view>
 </view>

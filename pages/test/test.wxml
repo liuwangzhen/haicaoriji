@@ -1,1 +1,2 @@
-<header></header>
+<header okEvent="点点点" id="header" bind:okEvent="call" title="海绵宝宝"></header>
+<view>{{aa}}</view>

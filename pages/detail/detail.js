@@ -116,7 +116,8 @@ that.setData({
 })
   },
   previewImage: function(e) {
-    let current = e.currentTarget.dataset.item
+    console.log(e.currentTarget.dataset.item)
+    let current = e.currentTarget.dataset.item +'!/format/webp/watermark/text/5rW36I2J5pel6K6w/font/simhei/color/ff0000'
     let arr1 = this.data.list.img
     wx.previewImage({
       current: current, // 当前显示图片的http链接

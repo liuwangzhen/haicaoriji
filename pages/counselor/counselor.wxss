@@ -1,1 +1,17 @@
 /* pages/counselor/counselor.wxss */
+.pimg{
+  width: 690rpx;
+  height: 386rpx;
+  box-shadow: 6px 6px 25rpx #ddd;
+  border-radius: 20rpx;
+}
+.top3{
+  margin-top: 100rpx;
+}
+.permake{
+  position: absolute;
+  left:420rpx;
+  margin-top:-240rpx;
+width:220rpx;
+font-size:40rpx;
+}

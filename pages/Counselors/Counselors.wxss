@@ -1,1 +1,37 @@
 /* pages/Counselors/Counselors.wxss */
+
+.cswiper{
+  width:750rpx;
+  height: 800rpx;
+  margin-top: 80rpx;
+}
+.citem{
+  width: 450rpx;
+  height: 800rpx;
+  margin-left: -20rpx;
+  
+}
+.citem2{
+  width: 400rpx;
+  height: 710rpx;
+  margin-top: 45rpx;
+  margin-left: 1rpx;
+}
+.cimg{
+  width: 450rpx;
+  height: 800rpx;
+}
+.cimg2{
+  width: 400rpx;
+  height: 710rpx;
+}
+.cbar{
+  color: #fff;
+  background:linear-gradient(to right,#58e6c8, #58c2db);
+  width:170rpx;
+height:55rpx;
+border-radius:15rpx;
+padding-top:10rpx;
+padding-left:10rpx;
+
+}

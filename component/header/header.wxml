@@ -1,10 +1,12 @@
 <view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
+  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>{{title}}</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
     <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view wx:if="{{getshare==0}}" bindtap='goback'>
-        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
-      </view>
+      <block wx:if="{{canGoBack}}">
+        <view bindtap='goback'>
+          <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
+        </view>
+      </block>
       <view bindtap='goIndex'>
         <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
       </view>
@@ -13,3 +15,4 @@
   </view>
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view class='mt30' bindtap='groupClick'>{{okEvent}}</view>

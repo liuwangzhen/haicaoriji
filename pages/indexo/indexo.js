@@ -98,7 +98,7 @@ Page({
         if (res.data.is_authorized == false) {
           // if (res.data.jundge == false) {
           wx.redirectTo({
-            url: '../../pages/login/login?recomId='+that.data.recomId,
+            url: '../../pages/login/login?recomId=' + that.data.recomId,
           })
         }
         that.getList(" ", " ")
