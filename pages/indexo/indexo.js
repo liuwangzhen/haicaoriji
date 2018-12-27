@@ -71,12 +71,14 @@ Page({
     });
   },
   inputTyping: function(e) {
+    console.log('000')
     this.setData({
       inputVal: e.detail.value
     });
 
   },
   search: function() {
+    console.log('110')
     let val = this.data.inputVal
     wx.navigateTo({
       url: '../search/search?val=' + val,

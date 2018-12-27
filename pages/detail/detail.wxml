@@ -22,14 +22,17 @@
 </view>
 <view wx:else>
   <view class='contain2'>
-      <swiper wx:if="{{list.video==null}}" indicator-active-color="#58d1d3" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="swiper">
-        <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="swiper-item">
-          <image data-item="{{item}}" bindtap='previewImage' mode='widthFix' src="{{item}}" />
+      <swiper wx:if="{{list.video==null}}" indicator-active-color="#58d1d3" indicator-dots="true" bindchange="change" style='height:{{height*750}}rpx;max-height:1000rpx;' circular='false' class="dswiper">
+        <swiper-item wx:for="{{list.img}}" wx:key="{{index}}" class="dswiper-item">
+          <image data-item="{{item}}" mode='widthFix' src="{{item}}" />
         </swiper-item>
       </swiper>
     <video  class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
     <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
+    <!-- <view class='r1 mt30'>
+      <image class='dhead' src='{{headimg}}'></image>
+    </view> -->
     <canvas class='canvas' canvas-id='firstCanvas' style='width:{{w2/2}}px;height:{{h2/2}}px;position:fixed;top:-10000px;'></canvas>
     <!-- <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button> -->
    <button class='contact' bindtap="gochose">咨询</button>

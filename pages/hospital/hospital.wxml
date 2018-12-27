@@ -12,15 +12,18 @@
 <!-- <view>
   <component-tag-name innerText="Some text"></component-tag-name>
 </view> -->
-<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1 mt20' wx:for="{{list}}" wx:key="{{item.id}}">
+<view style='padding-bottom:100rpx;'>
+<navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1 mt30' wx:for="{{list}}" wx:key="{{item.id}}">
   <view class='col hos-head'>
     <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
     <view class='hos-score'>{{item.score}}</view>
   </view>
   <view class='col hos-na'>
-    <view class='hos-name'>{{item.name}}</view>
-    <text wx:if="{{item.address.length<65}}" class='hos-address'>{{item.address}}</text>
-    <text wx:else class='hos-address'>{{filter.Limit3(item.address,65)}}</text>
+    <view class='hos-name f32'>{{item.name}}</view>
+    <text wx:if="{{item.address.length<45}}" class='hos-address f28'>{{item.address}}</text>
+    <text wx:else class='hos-address f28'>{{filter.Limit3(item.address,45)}}</text>
   </view>
+  <image class='hosimg' src='../../images/next.png'></image>
 </navigator>
+</view>
 </view>

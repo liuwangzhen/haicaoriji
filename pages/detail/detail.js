@@ -117,7 +117,7 @@ that.setData({
   },
   previewImage: function(e) {
     console.log(e.currentTarget.dataset.item)
-    let current = e.currentTarget.dataset.item +'!/format/webp/watermark/text/5rW36I2J5pel6K6w/font/simhei/color/ff0000'
+    let current = e.currentTarget.dataset.item
     let arr1 = this.data.list.img
     wx.previewImage({
       current: current, // 当前显示图片的http链接
@@ -448,6 +448,7 @@ that.setData({
     let Product = new wx.BaaS.TableObject(tableID)
     Product.get(recordID).then(res => {
       let list = res.data
+      let imgs=res.data.img
       let collection = that.data.collection
       let i = collection.indexOf(recordID)
       if (i > -1) {
@@ -461,11 +462,6 @@ that.setData({
       that.setData({
         userid: res.data.created_by
       })
-      // if (that.data.userid == that.data.user2Id) {
-      //   that.setData({
-      //     candelete: true
-      //   })
-      // }
       if (res.data.created_by == getApp().globalData.userId) {
         that.setData({
           candelete: true
@@ -497,7 +493,6 @@ that.setData({
         date = "0" + date;
       }
       var dateformat = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
-      // var str = res.data.content.split('↵').join('\n');
       that.setData({
         list: list,
         // content:str,

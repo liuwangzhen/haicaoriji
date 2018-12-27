@@ -2,6 +2,9 @@
 @import '../indexo/indexo.wxss';
 @import '../doctor/doctor.wxss';
 @import '../hospital/hospital.wxss';
+page{
+  background-color: #f0f0f0;
+}
 .title{
 width:730rpx;
 height:60rpx;

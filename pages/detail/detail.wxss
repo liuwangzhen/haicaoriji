@@ -1,6 +1,6 @@
 /* pages/detail/detail.wxss */
 @import '../indexo/indexo.wxss';
-.swiper {
+.dswiper {
   width: 100%;
 }
 body{
@@ -9,7 +9,7 @@ body{
 page{
   background-color: #fff;
 }
-.swiper-item {
+.dswiper-item {
   width: 100%;
   display: flex;
 }
@@ -17,7 +17,7 @@ page{
   width: 750rpx;
   height: 562rpx;
 }
-.swiper-item image {
+.dswiper-item image {
   width: 750rpx;
   align-self: center;
 }

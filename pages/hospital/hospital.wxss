@@ -1,10 +1,17 @@
 /* pages/hospital/hospital.wxss */
+page{
+  background-color: #f0f0f0
+}
 .hospitals{
-  width: 750rpx;
-  border-bottom: 1rpx solid #f5f5f5;
-  padding-top:40rpx;
-padding-bottom:30rpx;
-background-color: #fff;
+width:670rpx;
+border-bottom:1rpx solid #f5f5f5;
+padding-top:20rpx;
+padding-bottom:20rpx;
+background-color:#fff;
+margin-left:40rpx;
+border-radius:30rpx;
+height: 268rpx;
+
 }
 .hos-headimg{
   width: 150rpx;
@@ -15,7 +22,7 @@ background-color: #fff;
   margin-left: 30rpx;
 }
 .hos-score{
-  color:#de3e29;
+  color:#ffb843;
   font-size: 36rpx;
   margin-top: 30rpx;
   text-align: center;
@@ -26,15 +33,25 @@ background-color: #fff;
   width: 500rpx;
 }
 .hos-name{
-  font-size: 34rpx;
   font-weight: bold;
   margin-top: 10rpx;
+  width:450rpx;
+
+}
+.hosimg{
+  width:60rpx;
+height:60rpx;
+position:absolute;
+right:70rpx;
+margin-top:100rpx;
+
 }
 .hos-address{
-  font-size: 30rpx;
   margin-top:25rpx;
-  color: #8a8a8a;
-  height: 170rpx;
+  color:#9b9b9b;
+  /* height: 170rpx; */
   overflow: hidden;
   text-overflow: ellipsis;
+  width:350rpx;
+
 }

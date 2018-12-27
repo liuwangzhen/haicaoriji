@@ -44,7 +44,7 @@
   -webkit-line-clamp: 1;
   overflow: hidden;
   font-family: 'PingFang SC-Medium';
-  color: #1e1e1e;
+  /* color: #1e1e1e; */
   margin: 15rpx;
   height: 180rpx;
 }
