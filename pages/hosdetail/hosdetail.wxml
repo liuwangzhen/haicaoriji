@@ -30,6 +30,7 @@
     <span wx:else class='f26'>私立医院 : </span>
     <span class='ml10 f25'>{{hospital.score}}</span>
     <span wx:key="{{index}}" wx:for="{{score}}" style="color:#edbc3b;position:relative;top:3rpx;" class="iconfont icon-xingxing"></span>
+     <span wx:key="{{index}}" wx:for="{{5-score}}" style="color:#dbdbdb;position:relative;top:3rpx;" class="iconfont icon-xingxing"></span>
 
   </view>
   <view bindtap='preview' class='f28 cen mt20 license'>查看医疗执业许可</view>

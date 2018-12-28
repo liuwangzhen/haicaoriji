@@ -33,14 +33,32 @@
 .w690{
   width: 690rpx;
 }
+.f44{
+  font-size: 44rpx;
+}
 .rel{
   position: relative
 }
 .mt100{
   margin-top: 100rpx;
 }
+.c9b{
+  color:#9b9b9b;
+}
+.ml100{
+  margin-left: 100rpx;
+}
 .mr20{
   margin-right: 20rpx;
+}
+.le1{
+  letter-spacing:1rpx;
+}
+.le3{
+  letter-spacing:3rpx;
+}
+.mt6{
+  margin-top: 6rpx;
 }
 .blo-in{
   display: block-inline

@@ -27,7 +27,11 @@ Page({
   onReady: function () {
     this.dialog = this.selectComponent('#dialog');
   },
-
+  goIndex: function () {
+    wx.switchTab({
+      url: '../indexo/indexo',
+    })
+  },
   /**
    * 生命周期函数--监听页面显示
    */

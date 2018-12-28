@@ -5,6 +5,8 @@ Component({
   options: {
     multipleSlots: true,
   },
+  externalClasses: ['my-class'],
+
   /**
    * 组件的属性列表
    */
@@ -20,7 +22,10 @@ Component({
     okEvent:{
       type: String,
       value: '陛下'
-    }
+    },
+    canGoIndex:{
+      type:Boolean,
+      value:false}
   },
 
   /**
@@ -30,7 +35,6 @@ Component({
     // 私有数据，可用于模板渲染
     canGoBack: false,
     height4:getApp().globalData.height,
-    aa:'你是真的刚'
   },
   lifetimes: {
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
@@ -87,26 +91,23 @@ Component({
               that.setData({
                 recomId: res.data.id
               })
-              console.log('9990')
               resolve(res)
             }
           )
         }
       )
     },
-    goIndex: function () {
-      let that = this
-      let recommend = that.data.recomId
-      console.log(recommend)
-      if (recommend != undefined) {
-        wx.reLaunch({
-          url: '../indexo/indexo?recommend=' + recommend,
-        })
-      } else {
-        wx.switchTab({
-          url: '../indexo/indexo',
-        })
-      }
-    },
+    cGoIndex:function(){
+      wx.switchTab({
+        url: '../../pages/indexo/indexo',
+      })
+    }
+    // cGoIndex: function () {
+     
+    //    const myEventDetail = {} // detail对象，提供给事件监听函数
+    //   const myEventOption = {} // 触发事件的选项
+    //   this.triggerEvent('goIndex', myEventDetail, myEventOption)
+
+    // },
   }
 })

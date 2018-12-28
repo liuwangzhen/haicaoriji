@@ -1,5 +1,6 @@
 <!--我的-->
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
+<view style='padding-top:150rpx;'>
 <view class='nav3'>
   <view class='item2 {{select=="collect"? "cactive" :""}}' data-id="collect" bindtap='tab'>收藏</view>
   <view class='item1 {{select=="note"? "cactive" :""}}' data-id="note" bindtap='tab'>笔记</view>
@@ -35,6 +36,7 @@
     </view>
     <view class='bottom'></view>
   </view>
+</view>
 </view>
 
 <template name="mytemp">

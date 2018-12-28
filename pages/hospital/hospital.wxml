@@ -20,8 +20,8 @@
   </view>
   <view class='col hos-na'>
     <view class='hos-name f32'>{{item.name}}</view>
-    <text wx:if="{{item.address.length<45}}" class='hos-address f28'>{{item.address}}</text>
-    <text wx:else class='hos-address f28'>{{filter.Limit3(item.address,45)}}</text>
+    <text wx:if="{{item.address.length<45}}" class='hos-address le1 f28'>{{item.address}}</text>
+    <text wx:else class='hos-address le1 f28'>{{filter.Limit3(item.address,45)}}</text>
   </view>
   <image class='hosimg' src='../../images/next.png'></image>
 </navigator>

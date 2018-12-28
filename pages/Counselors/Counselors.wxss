@@ -2,28 +2,38 @@
 
 .cswiper{
   width:750rpx;
-  height: 800rpx;
-  margin-top: 80rpx;
+  height: 795rpx;
+  margin-top: 30rpx;
 }
 .citem{
-  width: 450rpx;
-  height: 800rpx;
-  margin-left: -20rpx;
+  width: 550rpx;
+  height: 765rpx;
+  margin-left: 100rpx;
+  border-radius:25rpx;
   
+
 }
 .citem2{
-  width: 400rpx;
-  height: 710rpx;
-  margin-top: 45rpx;
+  width: 450rpx;
+  height: 626rpx;
+  margin-top: 70rpx;
   margin-left: 1rpx;
+  border-radius:25rpx;
+
 }
 .cimg{
-  width: 450rpx;
-  height: 800rpx;
+   width: 550rpx;
+  height: 765rpx;
+  border:1px solid #ddd;
+box-shadow:4rpx 4rpx 25rpx #ddd;
+border-radius:25rpx;
+
 }
 .cimg2{
-  width: 400rpx;
-  height: 710rpx;
+  width: 450rpx;
+  height: 626rpx;
+  border-radius:25rpx;
+
 }
 .cbar{
   color: #fff;
@@ -34,4 +44,12 @@ border-radius:15rpx;
 padding-top:10rpx;
 padding-left:10rpx;
 
+}
+.cpers{
+  margin-left: 40rpx;
+  margin-top: 10rpx;
+}
+.cabs{
+  width: 550rpx;
+  display: block;
 }

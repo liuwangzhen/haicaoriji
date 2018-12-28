@@ -1,20 +1,6 @@
-<view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
-  <view style='display: flex; justify-content: space-around;flex-direction: column'>
-    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view bindtap='goback'>
-        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
-      </view>
-      <view bindtap='goIndex'>
-        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
-      </view>
-      <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
-    </view>
-  </view>
-</view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<header canGoIndex="true"></header>
 <form bindsubmit="submit" report-submit='true'>
-<view class='b tit ml40'>您想要了解哪些方面呢？</view>
+<view class='b tit ml40 le3'>您想要了解哪些方面呢？</view>
 <view class='r1 chose f40 b'>
   <view data-index="{{index}}" data-name="{{item.title}}" data-id="{{item.id}}" bindtap='ischose' wx:for="{{cdata}}" wx:key="{{index}}" class='citem {{item.id==index ? "bg1" : "bg2"}}'>{{item.title}}</view>
 </view>
@@ -25,10 +11,10 @@
   <view wx:if="{{inputVal!=''}}" style='background:linear-gradient(to right,#58e6c8, #58c2db);padding-top:10rpx;height:40rpx;width:50rpx;border-radius:50%;color:#fff;text-align:center;font-size:32rpx;margin-top:10rpx;' class='iconfont icon-xuanze'></view>
 </view>
 <view style='bottom:{{height5}}px;' wx:if="{{elastic==false}}" class='r1 ml40 cname2'>
-  <view class='b ca2 f36 mt10'>您的姓名</view>
+  <view class='b ca2 f36 mt10 le3'>您的姓名</view>
   <input focus='{{focus2}}' bindfocus='bindfocus' adjust-position='{{false}}' maxlength='8' bindinput='inputVal' bindblur='bindblur' value='{{inputVal}}' class='inp ml40 b'></input>
   <view wx:if="{{inputVal!=''}}" style='background:linear-gradient(to right,#58e6c8, #58c2db);padding-top:10rpx;height:40rpx;width:50rpx;border-radius:50%;color:#fff;text-align:center;font-size:32rpx;margin-top:10rpx;' class='iconfont icon-xuanze'></view>
 </view>
-<button form-type="submit" wx:if="{{phone!=undefined&&phone!=null}}" bindtap="{{list.length>=1&&inputVal!=''? 'upload' : ''}}" class='cbtn {{list.length>=1&&inputVal!=""? "bg1" : "bg2" }}'>提交</button>
-  <button wx:else form-type="submit"  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class='cbtn {{list.length>=1&&inputVal!=""? "bg1" : "bg2" }}'>提交</button>
+<button form-type="submit" wx:if="{{phone!=undefined&&phone!=null}}" bindtap="{{list.length>=1&&inputVal!=''? 'upload' : ''}}" class='cbtn le1 {{list.length>=1&&inputVal!=""? "bg1" : "bg2" }}'>提交</button>
+  <button wx:else form-type="submit"  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" class='cbtn le1 {{list.length>=1&&inputVal!=""? "bg1" : "bg2" }}'>提交</button>
 </form>

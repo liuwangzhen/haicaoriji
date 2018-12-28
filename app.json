@@ -71,7 +71,7 @@
         "selectedIconPath": "images/hospital2.png"
       },
       {
-        "pagePath": "pages/mine/mine",
+        "pagePath": "pages/test/test",
         "text": "收藏",
         "iconPath": "images/shoucang21.png",
         "selectedIconPath": "images/shoucang22.png"

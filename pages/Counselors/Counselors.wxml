@@ -1,28 +1,16 @@
-<view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
-  <view style='display: flex; justify-content: space-around;flex-direction: column'>
-    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view wx:if="{{getshare==0}}" bindtap='goback'>
-        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
-      </view>
-      <view bindtap='goIndex'>
-        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
-      </view>
-      <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
-    </view>
-  </view>
-</view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
-<view class='cbar f32 mt50 ml30'>您的咨询师</view>
-<swiper bindchange="intervalChange" previous-margin="175rpx" next-margin="90rpx" class='cswiper'>
+<header canGoIndex="true"></header>
+<!-- <view class='cbar f32 mt50 ml30'>您的咨询师</view> -->
+<view style='padding-bottom:100rpx;'>
+<view class='b f44 le3 cpers'>您的专属咨询师</view>
+<swiper bindchange="intervalChange"  next-margin="60rpx" class='cswiper'>
   <swiper-item bindtap="goCounselor" data-name="{{item.name}}" class="{{index==curId ? 'citem' :'citem2'}}" wx:key="{{item.id}}" wx:for="{{counselors}}">
-    <image class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.poster.path}}'></image>
+    <image mode="aspectFill" class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.poster.path}}'></image>
   </swiper-item>
 </swiper>
 <view wx:key="{{item.id}}" wx:for="{{counselors}}">
-  <view class='ml30 mt50' wx:if="{{index==curId}}">
-     <view>{{item.honor}}</view>
-     <view>{{item.skills}}</view>
-     <view>{{item.abstract}}</view>
+  <view class='mt10' wx:if="{{index==curId}}">
+     <view class='cen f30 b le1'>擅长项目：{{item.skills}}</view>
+     <text class='ml100 le3 c9b mt30 cabs f30'>{{item.abstract}}</text>
   </view>
+</view>
 </view>

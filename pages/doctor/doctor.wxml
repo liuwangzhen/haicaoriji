@@ -18,13 +18,13 @@
   <view class='f28 ml38'>加载中</view>
 </view>
 <view wx:else>
-  <view bindtap='goDoctor' data-id="{{item.id}}" class='hospitals r1' wx:for="{{doctors}}" wx:key="{{item.id}}">
+  <view bindtap='goDoctor' data-id="{{item.id}}" class='dhospitals r1' wx:for="{{doctors}}" wx:key="{{item.id}}">
     <view class='col hos-head'>
       <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
     </view>
     <view class='col hos-na f30'>
       <view class='r1'>
-        <view class='hos-name'>{{item.name}}</view>
+        <view class='dhos-name'>{{item.name}}</view>
         <view class='cc5 b ml30 mt5'>{{item.job}}</view>
       </view>
       <view class='cc5 b mt20'>{{item.hospital_name}}</view>

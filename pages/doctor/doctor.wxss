@@ -1,5 +1,5 @@
 /* pages/hospital/hospital.wxss */
-.hospitals{
+.dhospitals{
   width: 750rpx;
   border-bottom: 1rpx solid #f5f5f5;
   padding-top:40rpx;
@@ -25,7 +25,7 @@ padding-bottom:30rpx;
   margin-left: 30rpx;
   width: 500rpx;
 }
-.hos-name{
+.dhos-name{
   font-size: 34rpx;
   font-weight: bold;
 }

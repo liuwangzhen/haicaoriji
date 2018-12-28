@@ -7,7 +7,7 @@
           <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
         </view>
       </block>
-      <view bindtap='goIndex'>
+      <view wx:if="{{canGoIndex}}" bindtap='cGoIndex'>
         <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
       </view>
       <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
@@ -15,4 +15,3 @@
   </view>
 </view>
 <view style='height:{{height4*2+20}}px;' class='pad'></view>
-<view class='mt30' bindtap='groupClick'>{{okEvent}}</view>

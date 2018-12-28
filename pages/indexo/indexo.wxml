@@ -1,11 +1,11 @@
 <wxs module="filter" src="../../utils/getdatr.wxs">
 </wxs>
 <view class='topone'>
-<view  class='nav-wrap2'>
+  <view class='nav-wrap2'>
     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   </view>
   <!-- <view style='height:{{height4*2+30}}px;' class='pad'></view> -->
-  
+
   <!-- <view wx:if="{{inputShowed==false}}" style='top:{{height4*2 + 30}}px;' bindtap="showInput" class='nav'>
     <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
     <view hover-class='none'>
@@ -21,23 +21,35 @@
     <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
     <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
   </view> -->
-  <view style='margin-top:{{height4*2 + 44}}px;' class='r1 newV'>
-   <view style='position:absolute;font-size:50rpx;color:#9b9b9b;margin-top:15rpx;left:70rpx;' class='iconfont icon-sousuokuang'></view>
-   <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
-   <view bindtap="search" class='newSearch ab'>搜索</view>
+  <view style='margin-top:{{height4*2 + 29}}px;' class='r1 newV'>
+    <view style='position:absolute;font-size:50rpx;color:#9b9b9b;margin-top:15rpx;left:70rpx;' class='iconfont icon-sousuokuang'></view>
+    <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
+    <view bindtap="search" class='newSearch ab'>搜索</view>
   </view>
-  
+
   <!-- <view style='top:{{height4*2 + 30+37}}px;' class='recom'> -->
-  <view>
-    <view class='recom2'>
-      <scroll-view scroll-x="true" class='recommend'>
-        <view data-id='{{item.id}}' bindtap='change' class="f32 mt20 {{index == 0 ? '' : 'ml50'}} {{swiperIndex == index ? 'active' : 'c8a'}}" wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
+
+  <view class='recom2'>
+    <scroll-view scroll-x="true" class='recommend'>
+      <view class='r1 cdc'>
+        <view wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}" data-id='{{item.id}}' bindtap='change' class="col f32 mt20 {{index == 0 ? '' : 'ml50'}}">
+          <view class="{{swiperIndex == index ? 'active' : 'c8a'}}">
+            {{item.name}}
+          </view>
+          <view class="{{swiperIndex == index ? 'lineT' : ''}}"></view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+
+  <!-- <scroll-view scroll-x style="width:600rpx;height:60rpx;">
+  <view class='r1 cdc'>
+  <view wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
           {{item.name}}
         </view>
-      </scroll-view>
-    </view>
-  </view>
-  
+        </view>
+  </scroll-view> -->
+
 </view>
 
 <include src="kind.wxml" />
