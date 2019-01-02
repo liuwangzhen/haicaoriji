@@ -129,13 +129,15 @@ line-height:50rpx;
   background-color:#000000;
 line-height:67rpx;
 height:70rpx;
-width:300rpx;
+width:310rpx;
 border-radius:50rpx;
 color:#fff;
 font-size:36rpx;
 border:1rpx solid #000;
 font-weight:bold;
 letter-spacing:4rpx;
+margin-left:30rpx;
+
 }
 /* .share::after {
   border: none;
@@ -144,7 +146,7 @@ letter-spacing:4rpx;
  background-color:#fff;
 line-height:67rpx;
 height:70rpx;
-width:300rpx;
+width:310rpx;
 border-radius:50rpx;
 color:#000000;
 font-size:36rpx;

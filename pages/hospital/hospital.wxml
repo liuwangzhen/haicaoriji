@@ -1,9 +1,6 @@
 <wxs module="filter" src="../../utils/getdatr.wxs">
 </wxs>
-<cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</cover-view>
-</cover-view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<header></header>
 <view  class='wait' wx:if="{{list==''}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>

@@ -247,7 +247,7 @@
 
 .newInput {
  border:1rpx solid #9b9b9b;
-width:380rpx;
+width:390rpx;
 height:80rpx;
 border-bottom-left-radius:60rpx;
 border-top-left-radius:60rpx;

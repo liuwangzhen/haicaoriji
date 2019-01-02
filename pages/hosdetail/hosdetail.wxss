@@ -1,11 +1,20 @@
 /* pages/hosdetail/hosdetail.wxss */
+page{
+  background-color: #f0f0f0;
+}
 .swiper{
-  width: 100%;
-  height: 500rpx;
+ width:690rpx;
+height:500rpx;
+margin-left:30rpx;
+margin-top:30rpx;
+border-radius:25rpx;
+
 }
 .swiper-item{
   width: 100%;
   height: 500rpx;
+  border-radius:25rpx;
+
 }
 .doctor{
   padding-bottom: 20rpx;
@@ -15,6 +24,8 @@
 .img{
   width: 180rpx;
   height: 180rpx;
+  border-radius:25rpx;
+
 }
 .license{
   color:#58c2db;
@@ -64,6 +75,76 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
-.rotate{
-  
+.hcard{
+width:660rpx;
+background-color:#fff;
+border:1rpx solid #f3f3f3;
+border-radius:25rpx;
+position:relative;
+margin-top:-100rpx;
+margin-left:45rpx;
+opacity:0.9;
+
+padding-bottom:40rpx;
+
+}
+.hcard2{
+width:660rpx;
+background-color:#fff;
+border:1rpx solid #f3f3f3;
+border-radius:25rpx;
+margin-left:45rpx;
+opacity:0.9;
+
+padding-bottom:20rpx;
+
+}
+.hregister{
+ border-radius:50rpx;
+border:1rpx solid #d8d8d8;
+width:180rpx;
+height:45rpx;
+position:absolute;
+right:20rpx;
+line-height:45rpx;
+font-size:24rpx;
+font-weight:bold;
+padding-left:32rpx;
+}
+
+.hline{
+ width:700rpx;
+height:6rpx;
+background-color:#ddd;
+margin-top:40rpx;
+margin-left:5rpx;
+border-bottom-left-radius:30%;
+}
+.cscore{
+  position: absolute;
+  right: 40rpx;
+}
+.hosname{
+  width:450rpx;
+}
+.hostext{
+  width:590rpx;
+max-height:120rpx;
+display:block;
+overflow:hidden;
+overflow-y:scroll;overflow-x:auto;
+margin-left:10rpx;
+}
+.addline{
+ width:635rpx;
+margin-left:20rpx;
+height:2rpx;
+background-color:#f3f3f3;
+margin-top:20rpx;
+}
+.wcontent{
+  width:590rpx;
+}
+.bx{
+  box-shadow:1rpx 1rpx 10rpx #ddd;
 }

@@ -4,31 +4,12 @@
   <view class='nav-wrap2'>
     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   </view>
-  <!-- <view style='height:{{height4*2+30}}px;' class='pad'></view> -->
-
-  <!-- <view wx:if="{{inputShowed==false}}" style='top:{{height4*2 + 30}}px;' bindtap="showInput" class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
-    <view hover-class='none'>
-      <input disabled="true" class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
-    </view>
-  </view>
-  <view wx:if="{{inputShowed==true}}" style='top:{{height4*2 + 30}}px;'  class='nav'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;margin-top:35rpx;z-index:3' class='iconfont icon-sousuokuang'></view>
-    <view hover-class='none'>
-      <input value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder-class="search-p"></input>
-    </view>
-    <view wx:if="{{inputVal==''}}" class="cancel2" bindtap="hideInput">取消</view>
-    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="hideInput">取消</view>
-    <view wx:if="{{inputVal!=''}}" class="cancel" bindtap="search">搜索</view>
-  </view> -->
+  <!-- <view style='margin-top:{{height4*2 + 29}}px;' class='r1 newV'> -->
   <view style='margin-top:{{height4*2 + 29}}px;' class='r1 newV'>
     <view style='position:absolute;font-size:50rpx;color:#9b9b9b;margin-top:15rpx;left:70rpx;' class='iconfont icon-sousuokuang'></view>
     <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
     <view bindtap="search" class='newSearch ab'>搜索</view>
   </view>
-
-  <!-- <view style='top:{{height4*2 + 30+37}}px;' class='recom'> -->
-
   <view class='recom2'>
     <scroll-view scroll-x="true" class='recommend'>
       <view class='r1 cdc'>
@@ -41,14 +22,6 @@
       </view>
     </scroll-view>
   </view>
-
-  <!-- <scroll-view scroll-x style="width:600rpx;height:60rpx;">
-  <view class='r1 cdc'>
-  <view wx:for="{{titles}}" wx:key="{{item.id}}" data-idx='{{index}}' data-search="{{item.search}}" data-searchtwo="{{item.search2}}">
-          {{item.name}}
-        </view>
-        </view>
-  </scroll-view> -->
 
 </view>
 

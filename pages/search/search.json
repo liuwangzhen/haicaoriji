@@ -1,1 +1,4 @@
-{"enablePullDownRefresh": true}
+{"enablePullDownRefresh": true,
+"usingComponents":{
+  "hearder":"../../component/header/header"
+}}

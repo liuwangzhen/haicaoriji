@@ -45,6 +45,9 @@ Page({
       }
     })
     that.getUserInfoByToken();
+    wx.BaaS.invokeFunction('getArt').then(res => {
+      console.log(res.data)  // 'hello world'
+    })
   },
   pre: function () {
     let current = this.data.ewrImg

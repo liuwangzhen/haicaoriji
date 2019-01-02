@@ -53,3 +53,22 @@ padding-left:10rpx;
   width: 550rpx;
   display: block;
 }
+.consbtn{
+  width: 450rpx;
+  color: #fff;
+  background: linear-gradient(to right,#58e6c8, #58c2db);
+  opacity: 0.8;
+  position:fixed;
+bottom:50rpx;
+left:150rpx;
+border-radius:50rpx;
+line-height:70rpx;
+font-size:36rpx;
+}
+.consbtn:hover{
+  opacity: 1;
+}
+.csk{
+  width:450rpx;
+margin-left:150rpx;
+}

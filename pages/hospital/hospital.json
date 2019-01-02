@@ -1,5 +1,5 @@
 {"enablePullDownRefresh": true,
 "usingComponents": {
-  "component-tag-name": "../component/component"
+ "header":"../../component/header/header"
 }
 }

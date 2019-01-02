@@ -63,7 +63,7 @@ Page({
     let that = this
     return new Promise(
       (resolve, rejecct) => {
-        myfirst.getTable(60959, 50, 0, 'created_by').then(
+        myfirst.getTable(60959, 30, 0, 'order').then(
           res => {
             that.setData({
               counselors: res.data.objects

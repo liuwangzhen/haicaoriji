@@ -52,7 +52,7 @@
     <!-- <view class='line2'></view> -->
   </view>
   <!-- 收藏 -->
-  <view style='padding-top:154rpx'>
+  <!-- <view style='padding-top:154rpx'>
     <view wx:if="{{isno==true}}">
       <image mode='aspectFit' class='catimg' src='../../images/cat.jpg'></image>
     </view>
@@ -72,7 +72,7 @@
       </view>
     </view>
   </view>
-</view>
-
-<!-- <include src="mine2.wxml" />
 </view> -->
+
+<include src="mine2.wxml" />
+</view>

@@ -1,30 +1,16 @@
-<view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
-  <view style='display: flex; justify-content: space-around;flex-direction: column'>
-    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view wx:if="{{getshare==0}}" bindtap='goback'>
-        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
-      </view>
-      <view bindtap='goIndex'>
-        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
-      </view>
-      <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
-    </view>
-  </view>
-</view>
-
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<header canGoIndex="true"></header>
 <view class='wait' wx:if="{{hospital==''}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>
 </view>
 <view style='padding-bottom:50rpx;' wx:else>
-  <swiper indicator-active-color="#58d1d3" indicator-dots="true" circular='false' class="swiper">
+  <swiper circular='false' class="swiper">
     <swiper-item wx:for="{{hospital.poster}}" wx:key="{{index}}" class="swiper-item">
       <image data-path="{{item.path}}" bindtap='previewImage' class="swiper-item" data-item="{{item}}" mode='aspectFill' src="{{item.path}}" />
     </swiper-item>
   </swiper>
-  <view class='b f35 cen mt30'>{{hospital.name}}</view>
+  <include src="hosdetailTwo.wxml" />
+  <!-- <view class='b f35 cen mt30'>{{hospital.name}}</view>
   <view class='cen f26 mt20 cc5'>
     <span wx:if="{{hospital.public==true}}" class='f26'>公立医院:</span>
     <span wx:else class='f26'>私立医院 : </span>
@@ -74,5 +60,5 @@
         </view>
       </view>
     </view>
-  </view>
+  </view> -->
 </view>

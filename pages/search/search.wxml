@@ -2,78 +2,87 @@
 <import src="../mine/mine2.wxml" />
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
 
-<view class='top-pad'></view>
 <view class='topone'>
   <view class='nav-wrap2'>
-    <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>搜索</view>
+    <!-- <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>搜索</view> -->
 
     <view style='display: flex; justify-content: space-around;flex-direction: column'>
-      <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
+      <view class='nav-capsule' style='height:{{height4*2 + 44}}px;'>
         <view bindtap='goback'>
           <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
         </view>
         <view bindtap='goIndex'>
           <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
         </view>
+        <view class='stitle'>搜索</view>
       </view>
     </view>
   </view>
-  <!-- <view style='height:{{height4*2+20}}px;' class='pad'></view> -->
-  <view wx:if="{{inputShowed==false}}" style='top:{{height4*2 + 48}}px;' bindtap="showInput" class='nav2'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
-    <view hover-class='none'>
-      <input disabled="true" value='{{inputVal}}' style='height:37px;' class="search" placeholder="搜索关键字" placeholder-class="search-p"></input>
-    </view>
+  <view style='margin-top:-{{height4/2 + 4}}px;' class='r1 newV'>
+    <view style='position:absolute;font-size:50rpx;color:#9b9b9b;margin-top:15rpx;left:70rpx;' class='iconfont icon-sousuokuang'></view>
+    <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
+    <view bindtap="search" class='newSearch ab'>搜索</view>
   </view>
-  <view wx:else style='top:{{height4*2 + 48}}px;' class='nav2'>
-    <view style='color:black; position: absolute;margin-left: 65rpx;z-index:3;margin-top:35rpx;' class='iconfont icon-sousuokuang'></view>
-    <view hover-class='none'>
-      <input style='height:37px;' value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" class="search2" placeholder-class="search-p"></input>
-    </view>
-    <view class="cancel" bindtap="hideInput">取消</view>
-    <view class="cancel" wx:if="{{inputVal!=''}}" bindtap="search">搜索</view>
+  <!-- <view class='trow'>
+    <view wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='chose' wx:for="{{titles}}">{{item.title}}</view>
+  </view> -->
+  <view class='recom2'>
+    <scroll-view scroll-x="true" class='srecommend'>
+      <view class='r1 cdc'>
+        <view wx:for="{{titles}}" wx:key="{{item.id}}" data-id='{{item.id}}' bindtap='chose' class="col f32 mt20 {{index == 0 ? '' : 'ml50'}}">
+          <view class="{{curId == index ? 'active' : 'c8a'}}">
+            {{item.title}}
+          </view>
+          <view class="{{curId == index ? 'lineT' : ''}}"></view>
+        </view>
+      </view>
+    </scroll-view>
   </view>
 </view>
 
-<view style='padding-top:{{height4*2 + 48+44}}px;margin-top:20rpx;' class='body'>
-  <!-- <view class='title'>
-    #{{title}}
-  </view> -->
-  
-  <view class='title2 r1'>
-    <view data-id="{{item.id}}" class='{{item.id==curId ? "active3" : ""}} {{index==0 ? "" : "mlato"}}' wx:key="{{index}}" wx:for="{{titles}}" bindtap="chose">{{item.title}}</view>
-  </view>
+<view style='padding-top:{{height4*2+48+100}}px;' class='body'>
   <view class='wait' wx:if="{{jundge==0}}">
     <image mode='widthFix' src='../../images/loading.svg'></image>
     <view class='f28 ml38'>加载中</view>
   </view>
   <view wx:else>
     <view wx:if="{{curId==0}}">
-      <view wx:if="{{list.length==0}}" class='number'>暂无相关笔记</view>
-      <view wx:else class='number'>为您找到以下日记</view>
+      <view wx:if="{{list.length==0}}" class=''>
+        <view class='number'>暂无相关笔记</view>
+        <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
+      </view>
+      <view wx:else class='number'>为您推荐：</view>
       <view wx:if="{{list!=null}}" class="content">
-        <view class="left">
-          <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-            <template is="mytemp" data="{{item}}"></template>
-          </view>
-          <view class='bottom'></view>
+        <view style='width:320rpx;' class="ml20 left">
+        <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+          <template is="mytemp" data="{{item}}"></template>
         </view>
-        <view class="right">
-          <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-            <template is="mytemp" data="{{item}}"></template>
-          </view>
-          <view class='bottom'></view>
+        <view class='bottom'></view>
+      </view>
+      <view style='width:320rpx;margin-right:20rpx;' class="right">
+        <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+          <template is="mytemp" data="{{item}}"></template>
         </view>
+        <view class='bottom'></view>
+      </view>
       </view>
     </view>
     <view wx:if="{{curId==1}}">
-      <view wx:if="{{hospital.length==0}}" class='number'>暂无相关医院</view>
-      <view wx:else class='number'>为您找到以下医院</view>
+    <view wx:if="{{hospital.length==0}}">
+      <view class='number'>
+        暂无相关医院
+        </view>
+         <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
+    </view>
+      <view wx:else class='number'>为您推荐：</view>
       <include src='hospital.wxml' />
     </view>
     <view wx:if="{{curId==2}}">
-      <view wx:if="{{doctors.length==0}}" class='number'>暂无相关医生</view>
-      <view wx:else class='number'>为您找到以下医生</view>
+    <view wx:if="{{doctors.length==0}}">
+      <view  class='number'>暂无相关医生</view>
+       <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
+      </view>
+      <view wx:else class='number'>为您推荐：</view>
       <include src='doctor.wxml' />
     </view>
   </view>

@@ -1,0 +1,46 @@
+<view class='hcard bx ml15'>
+  <view class="r1 mt35">
+    <view class='b f35 hosname ml20 le3'>{{hospital.name}}</view>
+    <view class='r1 cscore'>
+      <view style="color:#fbb509;position:relative;top:3rpx;padding-right:2rpx;font-size:45rpx;" class="iconfont icon-xingxing"></view>
+      <view class='ml10 f40 b cfb'>{{hospital.score}}</view>
+    </view>
+  </view>
+  <view class='r1 ml20 mt40'>
+    <view style='color:#9b9b9b;margin-top:8rpx;' class='iconfont icon-yiyuan'></view>
+    <span wx:if="{{hospital.public==true}}" class='f26 c9b ml10 mt10'>公立医院</span>
+    <span wx:else class='f26 c9b ml10 mt8'>私立医院</span>
+    <view bindtap='preview' class='hregister le1'>医疗执业许可</view>
+  </view>
+</view>
+<view class='hcard2 bx mt20'>
+  <view class='r1 ml15 mt30'>
+    <view style='color:#9b9b9b;' class='iconfont icon-map'></view>
+    <view class='c9b f30 ml10 wcontent'>{{hospital.address}}</view>
+  </view>
+  <view class='addline'></view>
+  <view class='r1 ml15 mt30'>
+    <view style='color:#9b9b9b;' class='iconfont icon-rizhiguanli'></view>
+    <text selectable="true" class='f30 hostext c9b'>{{hospital.detail}}</text>
+  </view>
+</view>
+<view>
+  <view class='b f35 ml45 mt30'>本院医生</view>
+  <view class='mt10'>
+    <view data-id='{{item.id}}' bindtap='goDoctor' class='r1 hcard2 f28 pt20 mt20' wx:key="{{item.id}}" wx:for="{{doctors}}">
+      <image mode='aspectFill ' class='img ml35' src='{{item.headimg.path}} '></image>
+      <view class='col ml30 mt20 '>
+        <view class='f32 b '>{{item.name}}</view>
+        <view class='r1 mt10 cc5 '>
+          <view>{{item.job}}</view>
+          <view wx:if="{{item.time!=null}}" class='line ml20 '></view>
+          <view wx:if="{{item.time!=null}}" class='ml20 '>{{item.time}}年经验</view>
+        </view>
+        <view class='r1 cbc mt10 '>
+          <view style='color:#545454;font-size:30rpx;position:relative;top:5rpx;font-weight:bold;' class='iconfont icon-dianzan'></view>
+          <view class='ml10 '>{{item.superiority}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

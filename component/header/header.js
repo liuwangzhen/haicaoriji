@@ -71,7 +71,6 @@ Component({
    */
   methods: {
     goback: function() {
-      console.log(99)
       wx.navigateBack({
         delta: 1,
       })
