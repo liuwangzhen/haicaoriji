@@ -24,6 +24,19 @@
     <text selectable="true" class='f30 hostext c9b'>{{hospital.detail}}</text>
   </view>
 </view>
+<block wx:if="{{hospital.activity.length!=0&&hospital.activity!=undefined}}">
+<view class='b f35 ml45 mt30'>最新活动</view>
+<scroll-view scroll-x class='hoscroll mt20'>
+  <view class='newActive'>
+    <image  data-path="{{item.path}}" bindtap='actPreview' mode="aspectFill" wx:key="{{index}}" class='acimg {{index==0 ?"" :"ml50"}}' wx:for="{{hospital.activity}}" src='{{item.path}}'></image>
+  </view>
+</scroll-view>
+</block>
+<!-- <swiper circular='false' next-margin="0rpx" previous-margin="0rpx" class='actSwiper mt20'>
+  <swiper-item data-path="{{item.path}}" bindtap='actPreview' wx:key="{{index}}" wx:for="{{hospital.activity}}">
+  <image class='acimg2' mode='aspectFill'  src='{{item.path}}'></image>
+  </swiper-item>
+</swiper> -->
 <view>
   <view class='b f35 ml45 mt30'>本院医生</view>
   <view class='mt10'>

@@ -63,9 +63,12 @@ Page({
         // id: options.scene
         id:id,
         recomId:recomId,
-         
       })
-      that.getUserInfoByToken();
+      that.getUserInfoByToken().then(
+        res => {
+          that.getEwrimg()
+        }
+      );
       that.getcomment();
       that.getList();
       // that.getPoster();
@@ -84,7 +87,11 @@ Page({
       that.setData({
         id: options.id,
       })
-      that.getUserInfoByToken();
+      that.getUserInfoByToken().then(
+        res => {
+          that.getEwrimg()
+        }
+      );
       that.getcomment();
       that.getList();
       // that.getPoster();
@@ -682,6 +689,8 @@ that.setData({
     that.getcomment();
   },
   getUserInfoByToken() {
+    return new Promise(
+    (resolve,reject)=>{
     let MyUser = new wx.BaaS.User()
     let that = this
     let id = that.data.id
@@ -701,7 +710,8 @@ that.setData({
         })
         that.getPic();
         that.getAdmin();
-        that.getEwrimg();
+        // that.getEwrimg();
+        resolve()
       }, err => {
         // err
       })
@@ -710,6 +720,8 @@ that.setData({
     }, err => {
       // 登录失败
     })
+      }
+    )
   },
   getEwrimg:function(){
     let that = this
@@ -728,7 +740,7 @@ that.setData({
       // auto_color:false,
       // line_color: {"r": "128", "g": "0", "b": "0"},
     }
-    wx.BaaS.getWXACode('wxacodeunlimit', params, true).then(res => {
+    wx.BaaS.getWXACode('wxacodeunlimit', params, true,'二维码').then(res => {
       wx.getImageInfo({
         src: res.download_url,
         success: function (res) {

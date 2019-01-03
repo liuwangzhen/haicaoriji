@@ -1,8 +1,8 @@
 <header canGoIndex="true"></header>
 <!-- <view class='cbar f32 mt50 ml30'>您的咨询师</view> -->
 <view style='padding-bottom:100rpx;'>
-  <view class='b f44 le3 cpers'>您的专属咨询师</view>
-  <swiper bindchange="intervalChange" next-margin="60rpx" class='cswiper'>
+  <!-- <view class='b f44 le3 cpers'>您的专属咨询师</view> -->
+  <swiper bindchange="intervalChange" next-margin="60rpx" class='cswiper mt30'>
     <swiper-item  data-name="{{item.name}}" class="{{index==curId ? 'citem' :'citem2'}}" wx:key="{{item.id}}" wx:for="{{counselors}}">
       <image mode="aspectFill" class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.poster.path}}'></image>
     </swiper-item>
@@ -11,7 +11,7 @@
     <view class='mt10' wx:if="{{index==curId}}">
       <view class='cen f30 b le1 csk'>擅长项目：{{item.skills}}</view>
       <text class='ml100 le3 c9b mt30 cabs f30'>{{item.abstract}}</text>
-      <button data-name="{{item.name}}" bindtap='goCounselor' class='consbtn bg le3'>开始定制</button>
+      <button data-name="{{item.name}}" bindtap='goCounselor' class='consbtn le3'>开始定制</button>
     </view>
   </view>
   

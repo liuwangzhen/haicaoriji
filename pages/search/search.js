@@ -55,7 +55,6 @@ Page({
   chose:function(e){
     let that=this
     let idx=e.currentTarget.dataset.id
-    console.log(idx)
     if(that.data.inputVal==""){
       wx.showToast({
         title: '请输入关键字',

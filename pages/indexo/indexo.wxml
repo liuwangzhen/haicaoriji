@@ -5,7 +5,9 @@
     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   </view>
   <!-- <view style='margin-top:{{height4*2 + 29}}px;' class='r1 newV'> -->
-  <view style='margin-top:{{height4*2 + 29}}px;' class='r1 newV'>
+  <view wx:if="{{height4>40}}" style='margin-top:{{height4*2 + 29-height4/2}}px;'></view>
+  <view wx:else style='margin-top:{{height4*2 + 29}}px;'></view>
+  <view class='r1 newV'>
     <view style='position:absolute;font-size:50rpx;color:#9b9b9b;margin-top:15rpx;left:70rpx;' class='iconfont icon-sousuokuang'></view>
     <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
     <view bindtap="search" class='newSearch ab'>搜索</view>

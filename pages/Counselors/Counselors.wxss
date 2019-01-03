@@ -56,13 +56,13 @@ padding-left:10rpx;
 .consbtn{
   width: 450rpx;
   color: #fff;
-  background: linear-gradient(to right,#58e6c8, #58c2db);
-  opacity: 0.8;
+  /* opacity: 0.8; */
+  background-color:#000;
   position:fixed;
 bottom:50rpx;
 left:150rpx;
 border-radius:50rpx;
-line-height:70rpx;
+line-height:80rpx;
 font-size:36rpx;
 }
 .consbtn:hover{

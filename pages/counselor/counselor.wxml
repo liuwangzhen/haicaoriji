@@ -1,10 +1,15 @@
 <header title="咨询"></header>
-  <view bindtap='goCounselors' class='cen mt100'>
+<view bindtap='goActives' class='cen mt20'>
+    <image mode='aspectFill' class='pimg' src='../../images/actives3.png'></image>
+    <view class='permake b le1'>我要省钱</view>
+  </view>
+  <view bindtap='goCounselors' class='cen mt20'>
     <image mode='aspectFill' class='pimg' src='../../images/adperson3.jpg'>
     </image>
     <view class='permake b le1'>私人定制</view>
   </view>
-  <view bindtap='goConsolt' class='cen mt100'>
+  <view bindtap='goConsolt' class='cen mt20'>
     <image mode='aspectFill' class='pimg' src='../../images/adperson2.jpg'></image>
     <view class='permake b le1'>我要变美</view>
   </view>
+  

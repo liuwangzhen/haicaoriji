@@ -23,7 +23,6 @@ Page({
   onLoad: function(options) {
     let that = this
     let id = options.id
-    console.log(options)
     if (options.getshare != undefined) {
       that.setData({
         getshare: 1,
@@ -46,6 +45,22 @@ Page({
     that.getHospital(59863, options.id)
     that.getDoctors(options.id, 0)
     that.getToken()
+  },
+  actPreview:function(e){
+    let that=this
+    let current = e.currentTarget.dataset.path
+    let activity = that.data.hospital.activity
+    let arr1=activity.map(
+      (item)=>{
+      return item.path
+      }
+    )
+    console.log(arr1)
+    wx.previewImage({
+      current: current, // 当前显示图片的http链接
+      urls: arr1 // 需要预览的图片http链接列表
+    })
+
   },
   getToken() {
     let that = this
@@ -117,6 +132,8 @@ Page({
               hospital: res.data,
               score: Math.round(res.data.score)
             })
+            console.log(res.data)
+            console.log(res.data.activity)
             resolve(that.getQualification(), that.getPoster())
           },
           err => {

@@ -1,7 +1,7 @@
 <!--pages/detail/detail.wxml-->
 <import src="../mine/mine2.wxml" />
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
-<view style='height:{{height4*2+20}}px' class='nav-wrap'>
+<!-- <view style='height:{{height4*2+20}}px' class='nav-wrap'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   <view style='display: flex; justify-content: space-around;flex-direction: column'>
     <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
@@ -15,7 +15,8 @@
     </view>
   </view>
 </view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view> -->
+<header canGoIndex="true"></header>
 <view class='wait' wx:if="{{list==''}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>

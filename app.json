@@ -30,7 +30,8 @@
     "pages/Counselors/Counselors",
     "pages/CounselorOne/CounselorOne",
     "component/header/header",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/activities/activities"
   ],
   "window": {
     "backgroundTextStyle": "light",

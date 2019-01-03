@@ -6,59 +6,8 @@
 <view style='padding-bottom:50rpx;' wx:else>
   <swiper circular='false' class="swiper">
     <swiper-item wx:for="{{hospital.poster}}" wx:key="{{index}}" class="swiper-item">
-      <image data-path="{{item.path}}" bindtap='previewImage' class="swiper-item" data-item="{{item}}" mode='aspectFill' src="{{item.path}}" />
+      <image  data-path="{{item.path}}" bindtap='previewImage' class="swiper-item" data-item="{{item}}" mode='aspectFill' src="{{item.path}}" />
     </swiper-item>
   </swiper>
   <include src="hosdetailTwo.wxml" />
-  <!-- <view class='b f35 cen mt30'>{{hospital.name}}</view>
-  <view class='cen f26 mt20 cc5'>
-    <span wx:if="{{hospital.public==true}}" class='f26'>公立医院:</span>
-    <span wx:else class='f26'>私立医院 : </span>
-    <span class='ml10 f25'>{{hospital.score}}</span>
-    <span wx:key="{{index}}" wx:for="{{score}}" style="color:#edbc3b;position:relative;top:3rpx;" class="iconfont icon-xingxing"></span>
-     <span wx:key="{{index}}" wx:for="{{5-score}}" style="color:#dbdbdb;position:relative;top:3rpx;" class="iconfont icon-xingxing"></span>
-
-  </view>
-  <view bindtap='preview' class='f28 cen mt20 license'>查看医疗执业许可</view>
-  <view class='line2'></view>
-  <view wx:if="{{hospital.detail.length>100}}">
-    <text class='mt30 f28 w670 ml30 text cc5 {{rotate==false ? "h1" : "h2"}}'>{{hospital.detail}}</text>
-    <view bindtap='goRotate' wx:if="{{rotate==false}}" class='col rotate'>
-      <view style='margin-top:20rpx;text-align:center;width:750rpx;position:relative;top:18rpx;color:#58c2db;opacity:0.5;' class='iconfont icon-xiangxia'></view>
-      <view style='text-align:center;width:750rpx;color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
-    </view>
-    <view bindtap='goRotate' wx:if="{{rotate==true}}" class='col rotate'>
-      <view style='margin-top:20rpx;text-align:center;width:750rpx;position:relative;top:18rpx;color:#58c2db;transform:rotate(180deg);opacity:0.5;' class='iconfont icon-xiangxia'></view>
-      <view style='text-align:center;width:750rpx;transform:rotate(180deg);color:#58c2db;opacity:0.7;' class='iconfont icon-xiangxia'></view>
-    </view>
-  </view>
-  <view wx:if="{{hospital.detail.length<=100}}">
-    <text class='mt30 f28 w670 ml30 text cc5'>{{hospital.detail}}</text>
-  </view>
-  <text class=' mt30 f28 w670 ml30 cc5 blo'>地址：{{hospital.address}}</text>
-  <view class='line3 mt20 '></view>
-  <view class='contain ml30 mt40 f30 '>
-    <view class='r1'>
-      <view class='b mt20 pb20'>本院医师</view>
-      <view bindtap='goDoctors' class='more f28 cc5'>更多医师
-        <span style="font-size:26rpx;position:relative;top:-1rpx;" class="iconfont icon-qianjin"></span>
-      </view>
-    </view>
-    <view data-id='{{item.id}}' bindtap='goDoctor' class='r1 doctor f28 ' wx:key="{{item.id}}" wx:for="{{doctors}}">
-      <image mode='aspectFill ' class='img ' src='{{item.headimg.path}} '></image>
-      <view class='col ml30 mt20 '>
-        <view class='f32 b '>{{item.name}}</view>
-        <view class='r1 mt10 cc5 '>
-          <view>{{item.job}}</view>
-          <view class='line ml20 '></view>
-          <view wx:if="{{item.time==null||item.time==0}}" class='ml20 '>1年经验</view>
-          <view wx:else class='ml20 '>{{item.time}}年经验</view>
-        </view>
-        <view class='r1 cbc mt10 '>
-          <view style='color:#58c2db;font-size:30rpx;position:relative;top:5rpx;' class='iconfont icon-dianzan'></view>
-          <view class='ml10 '>{{item.superiority}}</view>
-        </view>
-      </view>
-    </view>
-  </view> -->
 </view>

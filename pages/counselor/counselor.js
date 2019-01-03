@@ -45,6 +45,12 @@ Page({
      url: '../Counselors/Counselors',
    })
   },
+  goActives:function(){
+     let that=this
+     wx.navigateTo({
+       url: '../activities/activities',
+     })
+  },
   
   /**
    * 生命周期函数--监听页面初次渲染完成

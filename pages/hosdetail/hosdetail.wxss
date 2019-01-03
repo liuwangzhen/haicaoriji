@@ -148,3 +148,26 @@ margin-top:20rpx;
 .bx{
   box-shadow:1rpx 1rpx 10rpx #ddd;
 }
+.acimg{
+  width: 250rpx;
+  height: 450rpx;
+  border-radius:25rpx;
+}
+.hoscroll{
+  width: 670rpx;
+  height:500rpx;
+  margin-left:40rpx;
+}
+.newActive{
+  white-space:nowrap;
+}
+.actSwiper{
+  width: 670rpx;
+  height: 500rpx;
+  margin-left: 40rpx;
+}
+.acimg2{
+  width: 450rpx;
+  height: 500rpx;
+  margin-left: 110rpx;
+}

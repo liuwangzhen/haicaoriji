@@ -18,7 +18,9 @@
       </view>
     </view>
   </view>
-  <view style='margin-top:-{{height4/2 + 4}}px;' class='r1 newV'>
+  <view wx:if="{{height4<40}}" style='margin-top:-{{height4/2 + 4}}px;'></view>
+  <view wx:else style='margin-top:-{{height4/2+14}}px;'></view>
+  <view  class='r1 newV'>
     <view style='position:absolute;font-size:50rpx;color:#9b9b9b;margin-top:15rpx;left:70rpx;' class='iconfont icon-sousuokuang'></view>
     <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
     <view bindtap="search" class='newSearch ab'>搜索</view>
@@ -39,8 +41,9 @@
     </scroll-view>
   </view>
 </view>
-
-<view style='padding-top:{{height4*2+48+100}}px;' class='body'>
+<view wx:if="{{height4<40}}" style='padding-top:{{height4*2+48+100-height4/2}}px;'></view>
+  <view wx:else style='padding-top:{{height4*2+48+90-height4/2}}px;'></view>
+<view style='padding-top:0px;' class='body'>
   <view class='wait' wx:if="{{jundge==0}}">
     <image mode='widthFix' src='../../images/loading.svg'></image>
     <view class='f28 ml38'>加载中</view>

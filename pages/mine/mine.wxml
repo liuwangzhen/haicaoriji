@@ -1,6 +1,5 @@
 <import src="../mine/mine2.wxml" />
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
-
 <view style='height:{{height4*2+20}}px' class='mnav-wrap bg'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;color:#fff;'>收藏</view>
 </view>
