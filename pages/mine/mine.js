@@ -37,7 +37,7 @@ Page({
     // this.getInfo();
     this.getUserInfoByToken();
     this.getFans();
-
+    wx.hideShareMenu();
   },
   updata: function() {
     wx.navigateTo({

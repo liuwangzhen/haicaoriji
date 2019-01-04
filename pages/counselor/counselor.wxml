@@ -1,7 +1,7 @@
 <header title="咨询"></header>
 <view bindtap='goActives' class='cen mt20'>
     <image mode='aspectFill' class='pimg' src='../../images/actives3.png'></image>
-    <view class='permake b le1'>我要省钱</view>
+    <view class='permake b le1'>最新活动</view>
   </view>
   <view bindtap='goCounselors' class='cen mt20'>
     <image mode='aspectFill' class='pimg' src='../../images/adperson3.jpg'>

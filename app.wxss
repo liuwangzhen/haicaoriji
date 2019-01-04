@@ -34,8 +34,20 @@
 .ml35{
   margin-left: 35rpx;
 }
+.ce4{
+  color:#e4e4e4;
+}
+.cae{
+  color: #aeaeae;
+}
+.w460{
+  width: 460rpx;
+}
 .w690{
   width: 690rpx;
+}
+.c00{
+  color: #000;
 }
 .f44{
   font-size: 44rpx;

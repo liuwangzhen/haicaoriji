@@ -45,6 +45,7 @@ Page({
     that.getHospital(59863, options.id)
     that.getDoctors(options.id, 0)
     that.getToken()
+   
   },
   actPreview:function(e){
     let that=this
@@ -132,8 +133,6 @@ Page({
               hospital: res.data,
               score: Math.round(res.data.score)
             })
-            console.log(res.data)
-            console.log(res.data.activity)
             resolve(that.getQualification(), that.getPoster())
           },
           err => {

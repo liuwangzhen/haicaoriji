@@ -1,1 +1,21 @@
-<header canGoIndex="true" title="特价活动"></header>
+<header canGoIndex="true" title="最新活动"></header>
+<view class='mt30' style='padding-bottom:120rpx;'>
+  <view class='ml50' wx:key="{{index}}" wx:for="{{posters}}">
+    <view data-id="{{item.id}}" bindtap='goHospital' wx:if="{{index==curId}}" class='r1'>
+      <image mode='aspectFill' class='actimg' src='{{item.headimg.path}}'></image>
+      <view class='col ml20 mt20'>
+        <view class='b f30 c00 w460'>{{item.name}}</view>
+        <view class='cae f28 mt10' wx:if="{{item.public==false}}">私立医院</view>
+        <view class='cae f28 mt10' wx:else>公立医院</view>
+      </view>
+      <view style='color:#f4f4f4;font-size:40rpx;position:absolute;right:30rpx;margin-top:43rpx;' class='iconfont2 icon-qianjin'></view>
+    </view>
+  </view>
+  <!-- <view class='line mt20'></view> -->
+  <swiper style='height:{{height*650}}rpx;max-height:1800rpx;' next-margin="30rpx" class='cswiper mt30' bindchange="change">
+    <swiper-item wx:key="{{index}}" wx:for="{{posters}}">
+      <image data-path="{{item.path}}" bindtap='preview' mode="widthFix" class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.path}}'></image>
+    </swiper-item>
+  </swiper>
+  <button open-type="contact" bindcontact="handleContact" class='consbtn le3 bg'>我想咨询</button>
+</view>

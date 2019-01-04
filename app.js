@@ -27,6 +27,8 @@ App({
           this.globalData.height=res.statusBarHeight
       }
     })
+    
+   
   },
   // onShow: function () {
   //   // 比如记录小程序启动时长

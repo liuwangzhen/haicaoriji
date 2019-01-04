@@ -17,6 +17,21 @@ class Common{
     }
   )
 }
+getTableSelect(tableId,num1,num2,order,sele,query){
+  return new Promise(
+    (resolve,reject)=>{
+      let MyTableObject = new wx.BaaS.TableObject(tableId)
+      MyTableObject.orderBy(order).setQuery(query).limit(num1).offset(num2).select(sele).find().then(
+        res => {
+          resolve(res)
+        },
+        err => {
+          reject(err)
+        }
+      )
+    }
+  )
+}
 getRecord(tableID,recordID){
   return new Promise(
     (resolve,reject)=>{
@@ -79,7 +94,6 @@ getQueryTable(tableId,query,num1,num2,order){
   return new Promise(
     (resolve, reject) => {
       let MyTableObject = new wx.BaaS.TableObject(tableId)
-     
       MyTableObject.setQuery(query).limit(num1).offset(num2).orderBy(order).find().then(
         res => {
           resolve(res)

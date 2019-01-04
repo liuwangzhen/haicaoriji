@@ -19,6 +19,7 @@ Page({
     let that=this
     that.getHospital()
     that.getToken()
+    
   },
   getToken() {
     let that = this

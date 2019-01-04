@@ -45,18 +45,10 @@ Page({
       }
     })
     that.getUserInfoByToken();
-    wx.BaaS.invokeFunction('getArt').then(res => {
-      console.log(res.data)  // 'hello world'
-    })
-  },
-  pre: function () {
-    let current = this.data.ewrImg
+    // wx.getMenuButtonBoundingClientRect()
    
-    wx.previewImage({
-      current: current, // 当前显示图片的http链接
-      urls: [current] // 需要预览的图片http链接列表
-    })
   },
+ 
   showInput: function() {
     this.setData({
       inputShowed: true

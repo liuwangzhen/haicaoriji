@@ -49,7 +49,6 @@ Page({
    */
   onLoad: function(options) {
     let that = this
-    console.log(options.name)
     if(options.recommend!=undefined){
       that.setData({
         recommend:options.recommend
@@ -357,7 +356,6 @@ Page({
         )
       }
     )
-    
  },
   /**
    * 用户点击右上角分享
