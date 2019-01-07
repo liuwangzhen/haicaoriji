@@ -35,6 +35,7 @@ Component({
     // 私有数据，可用于模板渲染
     canGoBack: false,
     height4:getApp().globalData.height,
+    model: getApp().globalData.model,
   },
   lifetimes: {
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
@@ -54,6 +55,7 @@ Component({
       success: (res) => {
         this.setData({
           height4: res.statusBarHeight,
+          model:res.model,
           canGoBack: this.data.previousPage || getCurrentPages().length > 1,
         })
       }

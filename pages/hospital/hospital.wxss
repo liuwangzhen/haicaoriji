@@ -55,3 +55,60 @@ margin-top:100rpx;
   width:350rpx;
 
 }
+.sm-line{
+  width: 100%;
+  height: 4rpx;
+  background-color: #000;
+  border-radius: 20rpx;
+  margin-top: 10rpx;
+}
+.ency-hos{
+  z-index: 8;
+  background-color: #fff;
+  width: 100%;
+  height: 40px;
+  
+}
+.ency-item{
+  width: 80rpx;
+  text-align: center;
+  margin-left: 197rpx;
+  z-index:99;
+}
+.nav-wrap2 {
+  
+  width: 100%;
+  top: 0;
+  background: #fff;
+  color: #000;
+ 
+}
+.topone {
+  background-color: #fff;
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+  top: 0rpx;
+}
+.proency{
+  padding-top: 30rpx;
+  justify-content:space-around;
+}
+.proitem{
+  width: 140rpx;
+  height: 200rpx;
+}
+.srcoll{
+  width: 700rpx;
+  margin-left: 50rpx;
+}
+.proimg{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  margin-left:20rpx;
+
+}
+.border{
+  border: 4rpx solid #e6eff1;
+}

@@ -22,6 +22,12 @@
         "iconPath": "images/rizhi2.png",
         "selectedIconPath": "images/rizhi.png"
       }, */
+       /* {
+        "pagePath": "pages/counselor/counselor",
+        "text": "咨询",
+        "iconPath": "images/cons1.png",
+        "selectedIconPath": "images/cons2.png"
+      }, */
 .bold{
   font-weight: bold;
 }
@@ -33,6 +39,12 @@
 }
 .ml35{
   margin-left: 35rpx;
+}
+.w100p{
+  width:100%;
+}
+.bg-fff{
+  background-color: #fff;
 }
 .ce4{
   color:#e4e4e4;

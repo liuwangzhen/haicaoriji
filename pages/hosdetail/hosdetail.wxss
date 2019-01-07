@@ -155,7 +155,7 @@ margin-top:20rpx;
 }
 .hoscroll{
   width: 670rpx;
-  height:500rpx;
+  height:460rpx;
   margin-left:40rpx;
 }
 .newActive{

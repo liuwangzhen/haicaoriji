@@ -25,6 +25,7 @@ App({
     wx.getSystemInfo({
       success: (res) => {
           this.globalData.height=res.statusBarHeight
+          this.globalData.model=res.model
       }
     })
     
@@ -45,6 +46,7 @@ App({
     userId:"",
     userInfo:"",
     height:0,
+    model:""
   }
 })
 // App({

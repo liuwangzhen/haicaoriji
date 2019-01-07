@@ -1,4 +1,4 @@
-// pages/hospital/hospital.js
+// pages/hospital/hospital.js 61848
 const myFirst = require('../../utils/myfirst');
 const myfirst = new myFirst()
 Page({
@@ -10,6 +10,12 @@ Page({
     height4: getApp().globalData.height,
     list:[],
     page:0,
+    isHospital:true,
+    curId:0,
+    tableId: 61848,
+    idx:0,
+    title: [{ id: 61848, name: "项目", src: "../../images/ren.png" }, { id: 1, name: "药品", src: "../../images/yaowan.png" }, { id: 2, name: "材料", src: "../../images/cailiao.png" }, { id: 3, name: "仪器", src: "../../images/yiqi.png" },],
+    proTwo:'',
   },
 
   /**
@@ -20,6 +26,22 @@ Page({
     that.getHospital()
     that.getToken()
     
+  },
+  
+  aChange:function(e){
+    let that=this
+    let isHospital=e.currentTarget.dataset.ex
+    console.log(isHospital)
+    that.setData({
+      isHospital:isHospital
+    })
+  },
+  pickPro:function(e){
+    let that=this
+    let idx=e.currentTarget.dataset.idx
+    that.setData({
+      curId:idx,
+    })
   },
   getToken() {
     let that = this

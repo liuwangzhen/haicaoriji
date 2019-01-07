@@ -8,6 +8,7 @@ Page({
    */
   data: {
     height4: getApp().globalData.height,
+    model: getApp().globalData.model,
   },
 
   /**

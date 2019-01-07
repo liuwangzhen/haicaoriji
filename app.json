@@ -31,6 +31,7 @@
     "pages/CounselorOne/CounselorOne",
     "component/header/header",
     "pages/test/test",
+    "pages/audio/audio",
     "pages/activities/activities"
   ],
   "window": {
@@ -66,8 +67,8 @@
       "selectedIconPath": "images/rizhi.png"
     },
       {
-        "pagePath": "pages/counselor/counselor",
-        "text": "咨询",
+        "pagePath": "pages/audio/audio",
+        "text": "音频",
         "iconPath": "images/cons1.png",
         "selectedIconPath": "images/cons2.png"
       },

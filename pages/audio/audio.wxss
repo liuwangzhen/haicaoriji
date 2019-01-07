@@ -1,0 +1,5 @@
+/* pages/audio/audio.wxss */
+.audio{
+  width: 500rpx;
+  height: 200rpx;
+}

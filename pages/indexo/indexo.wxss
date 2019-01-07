@@ -176,7 +176,6 @@
 
 .topone {
   background-color: #fff;
-  /* height: 230rpx; */
   position: fixed;
   width: 100%;
   z-index: 2;

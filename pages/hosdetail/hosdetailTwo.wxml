@@ -1,9 +1,9 @@
 <view class='hcard bx ml15'>
   <view class="r1 mt35">
-    <view class='b f35 hosname ml20 le3'>{{hospital.name}}</view>
+    <view class='b f36 hosname ml20 le3'>{{hospital.name}}</view>
     <view class='r1 cscore'>
-      <view style="color:#fbb509;position:relative;top:3rpx;padding-right:2rpx;font-size:45rpx;" class="iconfont icon-xingxing"></view>
-      <view class='ml10 f40 b cfb'>{{hospital.score}}</view>
+      <view style="color:#fbb509;position:relative;top:4rpx;padding-right:2rpx;font-size:40rpx;" class="iconfont icon-xingxing"></view>
+      <view class='ml10 f36 b cfb mt5'>{{hospital.score}}</view>
     </view>
   </view>
   <view class='r1 ml20 mt40'>
@@ -32,13 +32,8 @@
   </view>
 </scroll-view>
 </block>
-<!-- <swiper circular='false' next-margin="0rpx" previous-margin="0rpx" class='actSwiper mt20'>
-  <swiper-item data-path="{{item.path}}" bindtap='actPreview' wx:key="{{index}}" wx:for="{{hospital.activity}}">
-  <image class='acimg2' mode='aspectFill'  src='{{item.path}}'></image>
-  </swiper-item>
-</swiper> -->
 <view>
-  <view class='b f35 ml45 mt30'>本院医生</view>
+  <view class='b f35 ml45 mt20'>本院医生</view>
   <view class='mt10'>
     <view data-id='{{item.id}}' bindtap='goDoctor' class='r1 hcard2 f28 pt20 mt20' wx:key="{{item.id}}" wx:for="{{doctors}}">
       <image mode='aspectFill ' class='img ml35' src='{{item.headimg.path}} '></image>

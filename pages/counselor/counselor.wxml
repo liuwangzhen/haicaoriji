@@ -1,5 +1,6 @@
 <header title="咨询"></header>
-<view bindtap='goActives' class='cen mt20'>
+<view wx:if="{{model=='iPhone X'}}" style='padding-top:20rpx;'></view>
+<view bindtap='goActives' class='cen mt30'>
     <image mode='aspectFill' class='pimg' src='../../images/actives3.png'></image>
     <view class='permake b le1'>最新活动</view>
   </view>

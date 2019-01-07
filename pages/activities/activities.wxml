@@ -1,5 +1,5 @@
 <header canGoIndex="true" title="最新活动"></header>
-<view class='mt30' style='padding-bottom:120rpx;'>
+<view class='mt10' style='padding-bottom:160rpx;'>
   <view class='ml50' wx:key="{{index}}" wx:for="{{posters}}">
     <view data-id="{{item.id}}" bindtap='goHospital' wx:if="{{index==curId}}" class='r1'>
       <image mode='aspectFill' class='actimg' src='{{item.headimg.path}}'></image>
@@ -14,7 +14,7 @@
   <!-- <view class='line mt20'></view> -->
   <swiper style='height:{{height*650}}rpx;max-height:1800rpx;' next-margin="30rpx" class='cswiper mt30' bindchange="change">
     <swiper-item wx:key="{{index}}" wx:for="{{posters}}">
-      <image data-path="{{item.path}}" bindtap='preview' mode="widthFix" class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.path}}'></image>
+      <image data-path="{{item.path}}" bindtap='preview' mode="{{index==curId?'widthFix':'aspectFill'}}" class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.path}}'></image>
     </swiper-item>
   </swiper>
   <button open-type="contact" bindcontact="handleContact" class='consbtn le3 bg'>我想咨询</button>

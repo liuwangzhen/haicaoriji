@@ -1,0 +1,17 @@
+<view class='w100p bg-fff'>
+  <view class='r1 proency'>
+    <view bindtap='pickPro' data-idx="{{index}}" class='col proitem {{index==curId?"border":""}}' wx:for="{{title}}" wx:key="{{index}}">
+    <image class='proimg mt10' src='{{item.src}}' mode='aspectFill'></image>
+    <view class='{{index==curId?"f32 b c00":"c9b f32"}} cen mt20'>{{item.name}}</view>
+    </view>
+  </view>
+  <view class='cen f28 b c00 mt30'>热门{{title[curId].name}}</view>
+  <scroll-view scroll-x="true" class='scroll'>
+  <view wx:key="{{index}}" wx:for="{{proTwo}}" class='r1'>
+     <view class='col {{idx==index?"":""}}'>{{item.name}}</view>
+  </view>
+  </scroll-view>
+</view>
+<view>
+  
+</view>

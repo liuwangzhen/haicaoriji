@@ -93,8 +93,6 @@ Page({
   content: function(e) {
     var that = this;
     var value = e.detail.value;
-    // let str = value.split('\n').join('&hc')
-    // value = value.replace(/\ /g, "");
     this.setData({
       content: value,
       focus1:true,

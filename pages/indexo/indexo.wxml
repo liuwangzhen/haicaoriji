@@ -4,7 +4,6 @@
   <view class='nav-wrap2'>
     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   </view>
-  <!-- <view style='margin-top:{{height4*2 + 29}}px;' class='r1 newV'> -->
   <view wx:if="{{height4>40}}" style='margin-top:{{height4*2 + 29-height4/2}}px;'></view>
   <view wx:else style='margin-top:{{height4*2 + 29}}px;'></view>
   <view class='r1 newV'>

@@ -1,0 +1,4 @@
+<header title="音频" />
+<view>这是一首歌</view>
+<audio  class='audio' src='https://cloud-minapp-21181.cloud.ifanrusercontent.com/1ggRaDTO41bnXhx4.mp3' id="firstAudio"></audio>
+<button bindtap='paly'>开始播放</button>
