@@ -78,8 +78,8 @@
         "iconPath": "images/shoucang21.png",
         "selectedIconPath": "images/shoucang22.png"
       }
-    ]}
- 
+    ]},
+  "requiredBackgroundModes":["audio"]
     
   
 }

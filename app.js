@@ -31,12 +31,30 @@ App({
     
    
   },
-  // onShow: function () {
-  //   // 比如记录小程序启动时长
-  //   this.aldstat.sendEvent('小程序的启动时长', {
-  //     time: Date.now() - startTime
-  //   })
-  // },
+  onShow: function (opt) {
+    console.log(opt.shareTicket)
+   if(opt.shareTicket!=undefined){
+     wx.getShareInfo({
+       shareTicket: opt.shareTicket,
+       success:function(res){
+                  wx.checkSession({
+              success: function () {
+                console.log(res)
+                wx.BaaS.wxDecryptData(res.encryptedData, res.iv, 'open-gid').then(decrytedData => {
+                  console.log(decrytedData)
+                }, err => {
+                  console.log("shibai")
+                })
+              },
+              fail: function () {
+                wx.BaaS.logout()
+                wx.BaaS.login()
+              }
+            })
+       }
+     })
+   }
+  },
 
   
   globalData: {
