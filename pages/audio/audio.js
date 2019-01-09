@@ -1,5 +1,6 @@
 // pages/audio/audio.js
-
+const myFirst = require('../../utils/myfirst');
+const myfirst = new myFirst()
 const backgroundAudioManager = wx.getBackgroundAudioManager()
 
 Page({
@@ -8,56 +9,77 @@ Page({
    * 页面的初始数据
    */
   data: {
-   start:0,
-   end:200,
-   canSlider:true,
-   value:0,
+   
+   poster:[],
+   audios:[],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let that=this
     wx.showShareMenu({
       withShareTicket: true
     })
+    this.getAudioAd().then(
+      res=>{
+        that.getAudios()
+      }
+    )
   },
-  playBack:function(){
+  getAudioAd:function(){
     let that=this
-    backgroundAudioManager.title = '恶作剧'
-    backgroundAudioManager.epname = '恶作剧之吻'
-    backgroundAudioManager.singer = '蓝音'
-    backgroundAudioManager.coverImgUrl = 'http://y.gtimg.cn/music/photo_new/T002R300x300M000003rsKF44GyaSk.jpg?max_age=2592000'
-    // 设置了 src 之后会自动播放
-    backgroundAudioManager.src = 'https://cloud-minapp-21181.cloud.ifanrusercontent.com/1ggRaDTO41bnXhx4.mp3'
-    backgroundAudioManager.onCanplay(()=>{
-      that.setData({
-        canSlider: false,
-        end: parseInt(backgroundAudioManager.duration)
-      })
-      backgroundAudioManager.onTimeUpdate(
-        () => {
-          that.setData({
-            value: parseInt(backgroundAudioManager.currentTime)
+    return new Promise(
+      (resolve,reject)=>{
+        let query = new wx.BaaS.Query()
+        query.isNotNull("advertisement")
+        myfirst.getTableSelect(62000, 9, 0, 'advertisement', ['id','advertisement','poster'], query).then(
+          res => {
+            that.setData({
+              poster:res.data.objects
+            })
+            resolve()
           })
-        }
-      )
-    })
+      }
+    )
   },
-  pause:function(){
+  goAudioDe:function(e){
+     let that=this
+     let id=e.currentTarget.dataset.id
+     wx.navigateTo({
+       url: '../audioDetail/audioDetail?id='+id,
+     })
+  },
+  getAudios:function(){
     let that=this
-    backgroundAudioManager.pause()
+    return new Promise(
+      (resolve,reject)=>{
+        let query = new wx.BaaS.Query()
+        query.isNotNull("title")
+        myfirst.getTableSelect(62000, 10, 0, 'advertisement', ['id', 'title', 'advertisement', 'poster', 'synopsis', 'browse','music'], query).then(
+          res => {
+            that.setData({
+              audios: res.data.objects
+            })
+            resolve()
+          })
+      }
+    )
   },
-  seek:function(){
+  forEa:function(){
     let that=this
-    backgroundAudioManager.seek(backgroundAudioManager.currentTime+10)
-    
+    let a=that.data.audios
+    for(let i=0;i<a.length;i++){
+      that.getTime(i)
+    }
   },
-  slider4change:function(e){
-   backgroundAudioManager.seek(parseInt(e.detail.value))
-  
+  getTime:function(i){
+    let that=this
+    let ass=that.data.audios
+    backgroundAudioManager.src=ass[i].music.path
+    console.log(backgroundAudioManager.duration)
   },
- 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

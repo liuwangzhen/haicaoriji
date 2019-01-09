@@ -32,6 +32,7 @@
     "component/header/header",
     "pages/test/test",
     "pages/audio/audio",
+    "pages/audioDetail/audioDetail",
     "pages/activities/activities"
   ],
   "window": {
@@ -51,14 +52,14 @@
       {
         "pagePath": "pages/indexo/indexo",
         "text": "首页",
-        "iconPath": "images/首页灰.png",
-        "selectedIconPath": "images/首页.png"
+        "iconPath": "images/nobook.png",
+        "selectedIconPath": "images/book.png"
       },
       {
         "pagePath": "pages/hospital/hospital",
-        "text": "机构",
-        "iconPath": "images/hospital.png",
-        "selectedIconPath": "images/hospital2.png"
+        "text": "服务",
+        "iconPath": "images/noserve.png",
+        "selectedIconPath": "images/serve.png"
       },
      {
       "pagePath": "pages/addNote/addNote",
@@ -69,14 +70,14 @@
       {
         "pagePath": "pages/audio/audio",
         "text": "音频",
-        "iconPath": "images/cons1.png",
-        "selectedIconPath": "images/cons2.png"
+        "iconPath": "images/noerji.png",
+        "selectedIconPath": "images/erji.png"
       },
       {
         "pagePath": "pages/mine/mine",
         "text": "收藏",
-        "iconPath": "images/shoucang21.png",
-        "selectedIconPath": "images/shoucang22.png"
+        "iconPath": "images/nocollect.png",
+        "selectedIconPath": "images/collect.png"
       }
     ]},
   "requiredBackgroundModes":["audio"]

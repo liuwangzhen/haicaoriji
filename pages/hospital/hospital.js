@@ -16,6 +16,7 @@ Page({
     idx:0,
     title: [{ id: 61848, name: "项目", src: "../../images/ren.png" }, { id: 1, name: "药品", src: "../../images/yaowan.png" }, { id: 2, name: "材料", src: "../../images/cailiao.png" }, { id: 3, name: "仪器", src: "../../images/yiqi.png" },],
     proTwo:'',
+    serves: [{ id: 0, name: "活动", path: "../../images/active.png" }, { id: 1, name: "医院", path: "../../images/hospital.png" }, { id: 2, name: "百科", path: "../../images/ency.png" }, { id: 3, name: "咨询师", path: "../../images/counselor.png" }, { id: 4, name: "意向", path: "../../images/intent.png" },],
   },
 
   /**

@@ -32,7 +32,6 @@ App({
    
   },
   onShow: function (opt) {
-    console.log(opt.shareTicket)
    if(opt.shareTicket!=undefined){
      wx.getShareInfo({
        shareTicket: opt.shareTicket,

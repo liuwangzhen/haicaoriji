@@ -1,6 +1,7 @@
 <wxs module="filter" src="../../utils/getdatr.wxs">
 </wxs>
-<view class='topone'>
+<header title="服务" />
+<!-- <view class='topone'>
   <view class='nav-wrap2'>
     <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
   </view>
@@ -18,29 +19,25 @@
 </view>
 </view>
 <view wx:if="{{height4>40}}" style='padding-top:{{height4*2+44+40-height4/2}}px;'></view>
-<view wx:else style='padding-top:{{height4*2+44+35}}px;;'></view>
+<view wx:else style='padding-top:{{height4*2+44+35}}px;;'></view> -->
 <view class='wait' wx:if="{{list==''}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>
 </view>
 <view wx:else>
   <view style='padding-bottom:100rpx;'>
-    <block wx:if="{{isHospital}}">
-      <navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='hospitals r1 mt30' wx:for="{{list}}" wx:key="{{item.id}}">
-        <view class='col hos-head'>
-          <image mode='aspectFill' class='hos-headimg' src='{{item.headimg.path}}'></image>
-          <view class='hos-score'>{{item.score}}</view>
-        </view>
-        <view class='col hos-na'>
-          <view class='hos-name f32'>{{item.name}}</view>
-          <text wx:if="{{item.address.length<45}}" class='hos-address le1 f28'>{{item.address}}</text>
-          <text wx:else class='hos-address le1 f28'>{{filter.Limit3(item.address,45)}}</text>
-        </view>
-        <image class='hosimg' src='../../images/next.png'></image>
-      </navigator>
-    </block>
-    <block wx:else>
-     <include src="ency.wxml" />
-    </block>
-  </view>
+    <swiper indicator-dots class='hoswiper ml40 mt20'>
+      <swiper-item>
+        <image class='hoswiper' mode="aspectFill" src='{{hospital[0].headimg.path}}'></image>
+      </swiper-item>
+    </swiper>
+    <scroll-view scroll-x class='mt30 scroll'>
+   <view wx:key="{{index}}" wx:for="{{serves}}" class=' r1 '>
+    <view class='col '>
+       <image mode='aspectFill ' class='serve-img ' src='{{item.path}} '></image>
+       <view class=' '>{{item.name}}</view>
+    </view>
+   </view>
+ </scroll-view>
+ </view>
 </view>

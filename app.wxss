@@ -31,14 +31,41 @@
 .bold{
   font-weight: bold;
 }
+.w380{
+  width: 380rpx;
+}
+.mt25{
+  margin-top: 25rpx;
+}
+.h60{
+  height: 60rpx;
+}
+.h80{
+  height: 80rpx;
+}
+.h70{
+  height: 70rpx;
+}
+.f24{
+  font-size: 24rpx;
+}
+.f20{
+  font-size: 20rpx;
+}
 .padr{
   padding-right: 20rpx;
 }
 .w710{
   width: 710rpx;
 }
+.mt60{
+  margin-top: 60rpx;
+}
 .ml35{
   margin-left: 35rpx;
+}
+.mt15{
+  margin-top: 15rpx;
 }
 .w100p{
   width:100%;

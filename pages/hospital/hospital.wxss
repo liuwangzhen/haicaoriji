@@ -112,3 +112,11 @@ margin-top:100rpx;
 .border{
   border: 4rpx solid #e6eff1;
 }
+
+.hoswiper{
+  width: 670rpx;
+  height: 400rpx;
+}
+.srcoll{
+  width: 
+}

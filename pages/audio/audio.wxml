@@ -1,11 +1,29 @@
 <wxs module="filter" src="../../utils/getdatr.wxs" />
 <header title="音频" />
-<view>这是一首歌</view>
-<slider activeColor="#000" value='{{value}}' disabled='{{canSlider}}' bindchange="slider4change" min="{{start}}" max="{{end}}" />
-<view>{{filter.stosh(value)}}</view>
-
-<button bindtap='playBack'>播放背景乐</button>
-<button bindtap='pause'>暂停背景乐</button>
-<button bindtap='seek'>快进</button>
-<open-data type="groupName" open-gid="{{gid}}"></open-data>
-
+<swiper indicator-dots class='aswiper ml40 mt20'>
+  <swiper-item data-id="{{item.id}}" bindtap='goAudioDe' wx:key="{{index}}" wx:for="{{poster}}">
+    <image mode='aspectFill' src='{{item.poster.path}}' class='aimage'></image>
+  </swiper-item>
+</swiper>
+<view style='padding-bottom:60rpx;'>
+  <view class='b c00 f36 mt50 ml40'>播放列表</view>
+  <view class='mt15 ml40'>
+    <view bindtap='goAudioDe' data-id="{{item.id}}" class='au-item mt10 r1' wx:for="{{audios}}" wx:key="{{index}}">
+      <image src='{{item.poster.path}}' class='ml20 ait-img'></image>
+      <view class='col ml20 mt25 w380'>
+        <view class='f32 b c00'>
+          {{item.title}}
+        </view>
+        <view wx:if="{{item.synopsis.length>30}}" class='f24 c9b mt10 h-auto'>{{filter.Limit3(item.synopsis,30)}}</view>
+        <view wx:else class='f24 c9b mt10 h-auto'>{{item.synopsis}}</view>
+        <view class='f20 r1 c9b mt20'>
+          <view>时长</view>
+          <view class='col-line ml20'></view>
+          <view class='ml20'>{{item.browse}}人看过</view>
+        </view>
+      </view>
+      <image mode='aspectFill' class='erji' src='../../images/erji.png'></image>
+    </view>
+    
+  </view>
+</view>

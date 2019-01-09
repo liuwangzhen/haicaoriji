@@ -30,7 +30,6 @@ Page({
    */
   onLoad: function(options) {
     let that = this
-    console.log(options.recommend)
     if (options.recommend!=undefined)
     {
     that.setData({
