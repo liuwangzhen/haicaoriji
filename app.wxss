@@ -37,6 +37,9 @@
 .mt25{
   margin-top: 25rpx;
 }
+.ml5{
+  margin-left: 5rpx;
+}
 .h60{
   height: 60rpx;
 }
@@ -45,6 +48,21 @@
 }
 .h70{
   height: 70rpx;
+}
+.ml60{
+  margin-left: 60rpx;
+}
+.ml70{
+  margin-left: 70rpx;
+}
+.ml75{
+  margin-left: 75rpx;
+}
+.ml80{
+  margin-left: 80rpx;
+}
+.ml85{
+  margin-left: 85rpx;
 }
 .f24{
   font-size: 24rpx;
@@ -236,6 +254,9 @@ color: #fbb509;
 }
 .cen{
   text-align: center;
+}
+.w360{
+  width: 360rpx;
 }
 .mask{
 
@@ -481,9 +502,17 @@ top:-2rpx;
 .c66 {
   color: #ddd;
 }
-
+.h84{
+  height: 84rpx;
+}
+.ml115{
+  margin-left: 115rpx;
+}
 .f28 {
   font-size: 28rpx;
+}
+.mt35{
+  margin-top: 35rpx;
 }
 
 .r {

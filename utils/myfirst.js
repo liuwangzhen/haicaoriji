@@ -17,6 +17,21 @@ class Common{
     }
   )
 }
+  getTableSeleNoQuery(tableId, num1, num2, order,sele){
+    return new Promise(
+      (resolve, reject) => {
+        let MyTableObject = new wx.BaaS.TableObject(tableId)
+        MyTableObject.orderBy(order).limit(num1).offset(num2).select(sele).find().then(
+          res => {
+            resolve(res)
+          },
+          err => {
+            reject(err)
+          }
+        )
+      }
+    )
+  }
 getTableSelect(tableId,num1,num2,order,sele,query){
   return new Promise(
     (resolve,reject)=>{

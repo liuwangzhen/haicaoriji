@@ -1,0 +1,18 @@
+<wxs module="filter" src="../../utils/getdatr.wxs">
+</wxs>
+  <navigator hover-class='none' url='../hosdetail/hosdetail?id={{item.id}}' class='seHospital r1 ml30' wx:for="{{list}}" wx:key="{{item.id}}">
+      <image mode='aspectFill' class='seHeadimg mt35' src='{{item.headimg.path}}'></image>
+    <view class='col ml20 w360'>
+    <view class='r1 mt35'>
+      <view class='f32 b h84'>{{item.name}}</view> 
+      <!-- <view class='r1 abs serScore'>
+      <view style="color:#fbb509;font-size:32rpx;" class="iconfont icon-xingxing"></view>
+      <view class='ml10 f28 b cfb'>{{item.score}}</view>
+      </view> -->
+    </view>
+      <text wx:if="{{item.address.length<22}}" class='se-address le1 f28'>{{item.address}}</text>
+      <text wx:else class='se-address le1 f28'>{{filter.Limit3(item.address,21)}}</text>
+    </view>
+    <!-- <image class='hosimg' src='../../images/next.png'></image> -->
+    <view style='position:absolute;right:20rpx;color:#9b9b9b;font-size:40rpx;margin-top:100rpx;' class='iconfont2 icon-qianjin'></view>
+  </navigator>

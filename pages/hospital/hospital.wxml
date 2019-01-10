@@ -20,7 +20,7 @@
 </view>
 <view wx:if="{{height4>40}}" style='padding-top:{{height4*2+44+40-height4/2}}px;'></view>
 <view wx:else style='padding-top:{{height4*2+44+35}}px;;'></view> -->
-<view class='wait' wx:if="{{list==''}}">
+<view class='wait' wx:if="{{BigPoster==''}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>
 </view>
@@ -28,16 +28,30 @@
   <view style='padding-bottom:100rpx;'>
     <swiper indicator-dots class='hoswiper ml40 mt20'>
       <swiper-item>
-        <image class='hoswiper' mode="aspectFill" src='{{hospital[0].headimg.path}}'></image>
+        <image class='hoswiper' mode="aspectFill" src='{{BigPoster[0].image.path}}'></image>
       </swiper-item>
     </swiper>
-    <scroll-view scroll-x class='mt30 scroll'>
-   <view wx:key="{{index}}" wx:for="{{serves}}" class=' r1 '>
-    <view class='col '>
-       <image mode='aspectFill ' class='serve-img ' src='{{item.path}} '></image>
-       <view class=' '>{{item.name}}</view>
+    <scroll-view scroll-x="true" class='mt30 scroll2'>
+      <view class='r1 '>
+        <view data-tag="{{item.id}}" bindtap='serveChange' wx:key="{{index}}" wx:for="{{serves}}" class='col serve-item {{item.id==0?"ml40":"ml115"}}'>
+          <image mode='aspectFit ' class='serve-img ml5' src='{{item.path}} '></image>
+          <view class='mt20 cen {{item.id==serveId?"f26 c00 b":"f26 c9b"}}'>{{item.name}}</view>
+          <image mode='aspectFit' wx:if="{{item.id==serveId}}" class='serve-logo' src='../../images/progress.png'></image>
+        </view>
+      </view>
+    </scroll-view>
+    <view class='sx-line'></view>
+    <view wx:if="{{serveId==0}}">
+      <include src="active.wxml" />
     </view>
-   </view>
- </scroll-view>
- </view>
+    <view wx:if="{{serveId==1}}">
+      <include src="smhospital.wxml" />
+    </view>
+    <view wx:if="{{serveId==3}}">
+      <include src="counselor.wxml" />
+    </view>
+    <view wx:if="{{serveId==4}}">
+      <include src="intent.wxml" />
+    </view>
+  </view>
 </view>

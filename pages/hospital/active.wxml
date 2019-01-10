@@ -1,0 +1,12 @@
+<view class='falls ml40 mt20'>
+  <view class='aleft'>
+  <block wx:for="{{list}}" wx:key="{{index}}">
+    <image data-path='{{item.path}}' bindtap='preview' class='activeImg mt20' mode='widthFix' wx:if="{{index%2==0}}"  src='{{item.path}}'></image>
+    </block>
+  </view>
+  <view class='aright ml20'>
+  <block wx:for="{{list}}" wx:key="{{index}}">
+    <image data-path='{{item.path}}' bindtap='preview'  class='activeImg mt20' mode='widthFix' wx:if="{{index%2==1}}"  src='{{item.path}}'></image>
+    </block>
+  </view>
+</view>

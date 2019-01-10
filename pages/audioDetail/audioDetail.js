@@ -72,13 +72,12 @@ Page({
           that.setData({
             value: parseInt(backgroundAudioManager.currentTime)
           })
-          console.log(that.data.value)
-          console.log(that.data.end)
         }
       )
     })
     backgroundAudioManager.onPlay(
       () => {
+        console.log("play")
         that.setData({
           canPlay: false,
           canSlider: false,
@@ -89,7 +88,6 @@ Page({
   back:function(){
     let that = this
     backgroundAudioManager.seek(backgroundAudioManager.currentTime - 10)
-
   },
   Pause: function () {
     let that = this
