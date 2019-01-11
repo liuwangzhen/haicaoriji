@@ -91,13 +91,29 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    backgroundAudioManager.onPlay(
-      ()=>{
-        console.log("poooopo")
-      }
-    )
+    let that=this
+    wx.getStorage({
+      key: 'audioId',
+      success: function(res){
+        if(res.data[0]!=undefined){
+          let a=!res.data[2]
+            that.setData({
+               music:true,
+               musicId:res.data[0],
+               musicUrl:res.data[4],
+               canRotate:a
+            })
+        }
+      },
+    })
   },
-
+ goMusic:function(){
+   let that=this
+   let id=that.data.musicId
+   wx.navigateTo({
+     url: '../audioDetail/audioDetail?id='+id,
+   })
+ },
   /**
    * 生命周期函数--监听页面隐藏
    */

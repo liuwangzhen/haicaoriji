@@ -27,4 +27,7 @@
     
   </view>
 </view>
-<view wx:if="{{music==true}}">音乐</view>
+<view class='v-music' wx:if="{{music==true}}" bindtap='goMusic'>
+<image src='{{musicUrl}}' mode="aspectFill" class='goMusic {{canRotate==true?"rotate":""}}' ></image>
+<view class='w-line'></view>
+</view>

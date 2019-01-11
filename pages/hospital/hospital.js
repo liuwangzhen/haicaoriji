@@ -19,7 +19,7 @@ Page({
     proTwo:'',
     serves: [{ id: 0, name: "活动", path: "../../images/active.png" }, { id: 1, name: "医院", path: "../../images/hospital.png" },
     //  { id: 2, name: "百科", path: "../../images/ency.png" }, 
-     { id: 3, name: "咨询师", path: "../../images/counselor.png" }, { id: 4, name: "意向", path: "../../images/intent.png" },],
+     { id: 3, name: "咨询师", path: "../../images/counselor.png" }, { id: 4, name: "查价格", path: "../../images/intent.png" },],
     serveId:0,
     // 意向表
     cdata: [{
@@ -51,13 +51,8 @@ Page({
       title: '吸脂瘦身'
     },
     ],
-    list2:[],
-    inputVal: "",
-    isClick: true,
-    isClick2: true,
-    focus2: false,
-    elastic: true,
-    counselor: '无'
+    valueName:"",
+    queryProject:"",
   },
 
 
@@ -260,109 +255,39 @@ Page({
   },
 
   // 意向表
-  ischose: function (e) {
+  inputName:function(e){
     let that = this
-    let idx = e.currentTarget.dataset.index
-    let a = e.currentTarget.dataset.name
-    let list = that.data.list2
-    let isClick = that.data.isClick
-    if (isClick == true) {
-      that.setData({
-        isClick: false
-      })
-      if (list.indexOf(a) > -1) {
-        that.offchose(idx, a);
-      } else {
-        that.onchose(idx, a);
-      }
-      setTimeout(function () {
-        that.setData({
-          isClick: true
-        })
-      }, 100)
-    }
-  },
-  onchose: function (idx, a) {
-    let that = this
-    let cdata = that.data.cdata
-    cdata[idx].id = idx
     that.setData({
-      list2: that.data.list2.concat(a),
-      cdata: cdata,
+      valueName: e.detail.value
     })
   },
-  getFocus: function () {
+  inputProject: function (e) {
     let that = this
     that.setData({
-      focus2: true,
-      elastic: false,
-    })
-  },
-  bindfocus: function (e) {
-    let that = this
-    that.setData({
-      height5: e.detail.height
-    })
-    
-  },
-  bindblur: function (e) {
-    let that = this
-    that.setData({
-      elastic: true
-    })
-  },
-  offchose: function (idx, a) {
-    let that = this
-    let cdata = that.data.cdata
-    cdata[idx].id = 9
-    let list = that.data.list2
-    let num = list.indexOf(a)
-    list.splice(num, 1)
-    that.setData({
-      list2: list,
-      cdata: cdata,
-    })
-  },
- 
-  inputVal: function (e) {
-    let that = this
-    that.setData({
-      inputVal: e.detail.value
+      queryProject: e.detail.value
     })
   },
   getPhoneNumber(e) {
     let that = this
-    let a = e.currentTarget.dataset.id
+    let valueName = that.data.valueName
+    let queryProject = that.data.queryProject
     let encryptedData = e.detail.encryptedData
     let iv = e.detail.iv
-    let list = that.data.list2
-    let counselor = that.data.counselor
-    let substr = ""
-    for (let i = 0; i < list.length; i++) {
-      if (i == list.length - 1) {
-        substr = substr + list[i]
-      }
-      else {
-        substr = substr + list[i] + ','
-      }
-    }
     wx.checkSession({
       success: function (res) {
         console.log("处于登录态");
         wx.BaaS.wxDecryptData(encryptedData, iv, 'phone-number').then(decrytedData => {
-          console.log(decrytedData)
           let a = {
             'phone': decrytedData.phoneNumber,
-            label: substr,
-            realname: that.data.inputVal,
-            consult: true,
-            counselor: counselor,
+            realname: valueName,
+            queryProject: queryProject,
+            isQuery: true
           }
           let b = {
-            consult: false
+            isQuery: false
           }
-          myfirst.renew(a).then(
-            res => {
+           myfirst.renew(a).then(
+             res=>{
               myfirst.renew(b).then(
                 res => {
                   wx.showToast({
@@ -375,8 +300,10 @@ Page({
                         content: '感谢提交',
                         showCancel: false,
                         success: function () {
-                          wx.navigateBack({
-                            delta: 1
+                          that.setData({
+                            valueName: "",
+                            queryProject: "",
+                            phone:"15882397196"
                           })
                         },
                       })
@@ -384,13 +311,7 @@ Page({
                   })
                 }
               )
-            },
-            err => {
-              wx.showToast({
-                title: '提交失败',
-              })
-            }
-          )
+             })
         }, err => {
           // 失败的原因有可能是以下几种：用户未登录或 session_key 过期，微信解密插件未开启，提交的解密信息有误
         })
@@ -414,34 +335,30 @@ Page({
   },
   upload: function () {
     let that = this
-    let list = that.data.list2
-    let counselor = that.data.counselor
-    let substr = ""
-    for (let i = 0; i < list.length; i++) {
-      if (i == list.length - 1) {
-        substr = substr + list[i]
-      }
-      else {
-        substr = substr + list[i] + ','
-      }
-    }
-    let inputVal = that.data.inputVal
+    let valueName = that.data.valueName
+    let queryProject = that.data.queryProject
     let a = {
-      label: substr,
-      realname: inputVal,
-      consult: true,
-      counselor: counselor,
+      realname: valueName,
+      queryProject:queryProject,
+      isQuery: true
     }
     let b = {
-      consult: false
+      isQuery: false
     }
+    if(valueName==""||queryProject==""){
+      wx.showToast({
+        title: '请填写完整',
+        icon:"none"
+      })
+    }
+    else{
     wx.showModal({
       title: '提示',
       content: '是否确认提交',
       success: function (res) {
         if (res.confirm) {
           myfirst.renew(a).then(
-            res => {
+          res=>{
               myfirst.renew(b).then(
                 res => {
                   wx.showToast({
@@ -454,8 +371,9 @@ Page({
                         content: '感谢提交',
                         showCancel: false,
                         success: function () {
-                          wx.navigateBack({
-                            delta: 1
+                          that.setData({
+                            valueName:"",
+                            queryProject:"",
                           })
                         },
                       })
@@ -463,18 +381,11 @@ Page({
                   })
                 }
               )
-            }, err => {
-              console.log(err)
-              wx.showToast({
-                title: '提交失败',
-                icon: "none",
-              })
-            }
-          )
-        } else if (res.cancel) { }
+        })
+        } else if (res.cancel){}
       }
     })
-
+    }
   },
   
   /**

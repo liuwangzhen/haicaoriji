@@ -7,7 +7,7 @@
 
 <view class='r1 auplay mt50'>
 <image bindtap='back' class='auback mt20' mode="aspectFill" src='../../images/audioback.png'></image>
-<image wx:if="{{canPlay==true}}" bindtap='playBack' class='auplayimg' mode="aspectFill" src='../../images/audioplay.png'></image>
+<image wx:if="{{canPlay==true}}" bindtap='Play' class='auplayimg' mode="aspectFill" src='../../images/audioplay.png'></image>
 <image wx:else bindtap='Pause' class='auplayimg' mode="aspectFill" src='../../images/audiopause.jpg'></image>
 <image bindtap='seek' class='aufore mt20' mode="aspectFill" src='../../images/audioback.png'></image>
 </view>

@@ -14,6 +14,7 @@ Page({
     canSlider: true,
     value: 0,
     canPlay:true,
+    currentTime:0,
   },
 
   /**
@@ -24,10 +25,37 @@ Page({
     that.setData({
       audioid:options.id
     })
-   
           that.getAudio(options.id).then(
             res => {
-              that.playBack()
+              wx.getStorage({
+                key: 'audioId',
+                complete: function(res) { 
+                  console.log(res)
+                  if(res.errMsg=="getStorage:ok"){
+                  if(options.id==res.data[0]){
+                    backgroundAudioManager.onTimeUpdate(
+                      () => {
+                        that.setData({
+                          value: parseInt(backgroundAudioManager.currentTime)
+                        })
+                      }
+                    )
+                    that.setData({
+                      canSlider: res.data[2],
+                      end:res.data[3],
+                      canPlay: res.data[1],
+                    })
+                    
+                  }
+                  else{
+                    that.playBack()
+                  }
+                  }
+                  else{
+                    that.playBack()
+                  }
+                },
+              })
             }
           )
   },
@@ -67,17 +95,17 @@ Page({
         value: parseInt(backgroundAudioManager.currentTime),
         end: parseInt(backgroundAudioManager.duration)
       })
-      backgroundAudioManager.onTimeUpdate(
-        () => {
-          that.setData({
-            value: parseInt(backgroundAudioManager.currentTime)
-          })
-        }
-      )
     })
+    backgroundAudioManager.onTimeUpdate(
+      () => {
+        that.setData({
+          value: parseInt(backgroundAudioManager.currentTime)
+        })
+      }
+    )
     backgroundAudioManager.onPlay(
       () => {
-        console.log("play")
+        
         that.setData({
           canPlay: false,
           canSlider: false,
@@ -89,6 +117,15 @@ Page({
     let that = this
     backgroundAudioManager.seek(backgroundAudioManager.currentTime - 10)
   },
+  Play:function(){
+    let that = this
+    // backgroundAudioManager.startTime(that.data.currentTime)
+    backgroundAudioManager.play()
+    that.setData({
+      canPlay: false,
+      canSlider: false,
+    })
+  },
   Pause: function () {
     let that = this
     backgroundAudioManager.pause()
@@ -96,7 +133,7 @@ Page({
       ()=>{
         that.setData({
           canPlay:true,
-          canSlider: true,
+          canSlider:true,
         })
       }
     )
@@ -115,21 +152,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+     
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+     
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    let that = this
+    wx.setStorage({
+      key: 'audioId',
+      data: [that.data.audio.id, that.data.canPlay, that.data.canSlider, that.data.end, that.data.audio.poster.path],
+    })
   },
 
   /**

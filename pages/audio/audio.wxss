@@ -39,3 +39,30 @@ margin-top:75rpx;
   width: 2rpx;
   height: 50rpx;
 }
+.goMusic{
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+.v-music{
+  position: fixed;
+  bottom: 150rpx;
+  right: 60rpx;
+}
+/* .w-line{
+  width:6rpx;
+  height: 60rpx;
+  background-color: #fff;
+} */
+.rotate{
+  animation:mymove 10s infinite;
+  z-index: 4;
+}
+@keyframes mymove
+{
+  0% {transform: rotate(0deg)}
+25%  {transform:rotate(90deg);}
+50%  {transform:rotate(180deg);}
+75%  {transform:rotate(270deg);}
+100% {transform:rotate(360deg);}
+}

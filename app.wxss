@@ -46,6 +46,9 @@
 .h80{
   height: 80rpx;
 }
+.f24{
+  font-size: 24rpx;
+}
 .h70{
   height: 70rpx;
 }

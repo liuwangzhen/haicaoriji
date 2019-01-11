@@ -51,13 +51,13 @@
     "list": [
       {
         "pagePath": "pages/indexo/indexo",
-        "text": "首页",
+        "text": "看日记",
         "iconPath": "images/nobook.png",
         "selectedIconPath": "images/book.png"
       },
       {
         "pagePath": "pages/hospital/hospital",
-        "text": "服务",
+        "text": "去变美",
         "iconPath": "images/noserve.png",
         "selectedIconPath": "images/serve.png"
       },
