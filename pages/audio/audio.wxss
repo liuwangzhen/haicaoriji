@@ -40,23 +40,75 @@ margin-top:75rpx;
   height: 50rpx;
 }
 .goMusic{
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
+ width:100rpx;
+height:100rpx;
+border-radius:50%;
+border:4rpx solid #fff;
+box-shadow:2rpx 2rpx 20rpx #b9b9b9;
 }
 .v-music{
   position: fixed;
   bottom: 150rpx;
   right: 60rpx;
 }
-/* .w-line{
-  width:6rpx;
-  height: 60rpx;
-  background-color: #fff;
-} */
+.w-line{
+width:8rpx;
+height:30rpx;
+background-color:#fff;
+position:absolute;
+right:30rpx;
+bottom:30rpx;
+
+opacity:0.7;
+}
+.w-line2{
+width:8rpx;
+height:60rpx;
+background-color:#fff;
+position:absolute;
+right:50rpx;
+bottom:30rpx;
+opacity:0.7;
+}
+.w-line3{
+width:8rpx;
+height:30rpx;
+background-color:#fff;
+position:absolute;
+right:70rpx;
+bottom:30rpx;
+opacity:0.7;
+}
 .rotate{
   animation:mymove 10s infinite;
   z-index: 4;
+}
+.animate{
+  animation: action 1s infinite;
+}
+.animate2{
+  animation: action2 1s infinite;
+}
+.animate3{
+  animation: action3 1s infinite;
+}
+@keyframes action
+{
+  0%{height: 30rpx;}
+  50%{height: 45rpx;}
+  100%{height: 60rpx;}
+}
+@keyframes action2
+{
+  0%{height: 60rpx;}
+  50%{height: 45rpx;}
+  100%{height: 30rpx;}
+}
+@keyframes action3
+{
+  0%{height: 30rpx;}
+  50%{height: 45rpx;}
+  100%{height: 60rpx;}
 }
 @keyframes mymove
 {

@@ -2,14 +2,14 @@
 <header title="音频" />
 <image mode='aspectFill' src='{{audio.poster.path}}' class='aswiper ml40 mt20'>
 </image>
-<slider block-color="#58e6c8" activeColor="#58c2db" class='slid' block-size="12"  value='{{value}}' disabled='{{canSlider}}' bindchange="slider4change" min="{{start}}" max="{{end}}"></slider>
+<slider block-color="#58e6c8" step='1' activeColor="#58c2db" class='slid' block-size="12"  value='{{value}}' disabled='{{canSlider}}' bindchange="slider4change" min="{{start}}" max="{{end}}"></slider>
 <!-- <view>{{filter.stosh(value)}}</view> -->
 
 <view class='r1 auplay mt50'>
 <image bindtap='back' class='auback mt20' mode="aspectFill" src='../../images/audioback.png'></image>
 <image wx:if="{{canPlay==true}}" bindtap='Play' class='auplayimg' mode="aspectFill" src='../../images/audioplay.png'></image>
 <image wx:else bindtap='Pause' class='auplayimg' mode="aspectFill" src='../../images/audiopause.jpg'></image>
-<image bindtap='seek' class='aufore mt20' mode="aspectFill" src='../../images/audioback.png'></image>
+<image bindtap='next' class='aufore mt20' mode="aspectFill" src='../../images/audioback.png'></image>
 </view>
 <button class='btn-share cff le3 f30 mt40' open-type='share'>一键分享</button>
 <view class='mid-line mt30'></view>

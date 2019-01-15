@@ -15,6 +15,7 @@ Page({
     BigPoster:[],
     tableId: 61848,
     idx:0,
+    counselorId:0,
     title: [{ id: 61848, name: "项目", src: "../../images/ren.png" }, { id: 1, name: "药品", src: "../../images/yaowan.png" }, { id: 2, name: "材料", src: "../../images/cailiao.png" }, { id: 3, name: "仪器", src: "../../images/yiqi.png" },],
     proTwo:'',
     serves: [{ id: 0, name: "活动", path: "../../images/active.png" }, { id: 1, name: "医院", path: "../../images/hospital.png" },
@@ -229,8 +230,9 @@ Page({
       serveId:tag,
       list:[],
       page:0,
+      counselorId:0,
     })
-    switch (tag) {
+    switch (tag){
       case 0:
         that.getActivies().then(
           res=>{
@@ -242,10 +244,7 @@ Page({
         that.getHospital();
         break;
       case 3:
-      that.setData({
-        counselorId:0
-      })
-      that.getCounselor();
+        that.getCounselor()
       break;
       case 4:
       break;

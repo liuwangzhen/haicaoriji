@@ -24,7 +24,11 @@ Page({
     })
     this.getAudioAd().then(
       res=>{
-        that.getAudios()
+        that.getAudios().then(
+          res=>{
+            that.getAudiosId();
+          }
+        )
       }
     )
   },
@@ -50,6 +54,18 @@ Page({
      wx.navigateTo({
        url: '../audioDetail/audioDetail?id='+id,
      })
+  },
+  getAudiosId:function(){
+    let that=this
+    let list=that.data.audios.map(
+      (item)=>{
+        return item.id
+      }
+    )
+    console.log(list)
+    that.setData({
+      listId:list
+    })
   },
   getAudios:function(){
     let that=this
@@ -84,7 +100,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+      
   },
 
   /**
@@ -103,11 +119,36 @@ Page({
                musicUrl:res.data[4],
                canRotate:a
             })
+          if (wx.getBackgroundAudioManager().paused == true) {
+            that.setData({
+              canRotate: false
+            })
+           if(res.data[5]==true)
+            {
+            wx.setStorage({
+              key: 'audioId',
+              data: [res.data[0], true, true, res.data[3], res.data[4],false],
+            })
+            }
+          }
+          if(wx.getBackgroundAudioManager().paused == undefined){
+            that.setData({
+              canRotate: false
+            })
+            wx.setStorage({
+              key: 'audioId',
+              data: [res.data[0],true,true,res.data[3],res.data[4]],
+            })
+          }
         }
       },
     })
+    // wx.getBackgroundAudioManager().onStop(
+    //   console.log("00000")
+    // )
+    // wx.getBackgroundAudioManager().onPause(console.log("暂停"))
   },
- goMusic:function(){
+   goMusic:function(){
    let that=this
    let id=that.data.musicId
    wx.navigateTo({
@@ -118,7 +159,18 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function() {
-
+    let that = this
+    if (that.data.canRotate == true){
+    wx.getStorage({
+      key: 'audioId',
+      success: function(res) {
+        wx.setStorage({
+          key: 'audioId',
+          data: [res.data[0], res.data[1], res.data[2], res.data[3], res.data[4],true],
+        })
+      },
+    })
+    }
   },
 
   /**

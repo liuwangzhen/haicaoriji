@@ -129,7 +129,7 @@ border-bottom-left-radius:30%;
 }
 .hostext{
   width:590rpx;
-max-height:120rpx;
+max-height:220rpx;
 display:block;
 overflow:hidden;
 overflow-y:scroll;overflow-x:auto;
@@ -170,4 +170,15 @@ margin-top:20rpx;
   width: 450rpx;
   height: 500rpx;
   margin-left: 110rpx;
+}
+.doc-sup{
+  height: 76rpx;
+  overflow: hidden;
+}
+
+/* shipin */
+.vedio{
+width:670rpx;
+height:503rpx;
+margin-left:40rpx;
 }

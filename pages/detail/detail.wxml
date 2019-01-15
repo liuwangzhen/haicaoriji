@@ -1,21 +1,6 @@
 <!--pages/detail/detail.wxml-->
 <import src="../mine/mine2.wxml" />
 <wxs module="filter" src="../../utils/getdatr.wxs"></wxs>
-<!-- <view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
-  <view style='display: flex; justify-content: space-around;flex-direction: column'>
-    <view class='nav-capsule' style='height:{{height4*2 + 48}}px;'>
-      <view wx:if="{{getshare==0}}" bindtap='goback'>
-        <image src='../../images/fanhui.png' mode='aspectFill' class='back-pre'></image>
-      </view>
-      <view bindtap='goIndex'>
-        <image src='../../images/shouye22.png' mode='aspectFill' class='back-home'></image>
-      </view>
-      <view style='width:100%;height:{{height4*2+20}}px;background-color:#fff;'></view>
-    </view>
-  </view>
-</view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view> -->
 <header canGoIndex="true"></header>
 <view class='wait' wx:if="{{list==''}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
@@ -29,14 +14,9 @@
       </swiper-item>
     </swiper>
     <video class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
-      <!-- <cover-image wx:if="{{!play}}" class="img"  src="{{list.img[0]}}" /> -->
     </video>
-    <!-- <view class='r1 mt30'>
-      <image class='dhead' src='{{headimg}}'></image>
-    </view> -->
     <canvas class='canvas' canvas-id='firstCanvas' style='width:{{w2/2}}px;height:{{h2/2}}px;position:fixed;top:-10000px;'></canvas>
-    <!-- <button class='contact' open-type="contact" bindcontact="handleContact">咨询</button> -->
-    <!-- <button class='contact' bindtap="gochose">咨询</button> -->
+   
     <text class='content2'>
     {{list.content}}
   </text>
@@ -46,42 +26,7 @@
     </view>
     <view class='line2 mt30'></view>
   </view>
-  <!-- <view class='line2 mt30'></view> -->
-  <!-- <view class='comment'>
-    <view class='ml20 pl10 mt30 f32 b'>笔记评论</view>
-    <view class='line3'></view>
-    <view class='r1 mt20 ml20 pl10'>
-      <image style='width:60rpx;' class='img2' src='{{user.headimg}}' mode='aspectFill'></image>
-      <view class='ml20 comment2' bindtap='comment'>说点什么，让TA也认识看笔记的你吧...</view>
-    </view>
-    <view class='ml20 mt20 line4'></view>
-    <view wx:if="{{commentslen.length!=0}}">
-      <view wx:if="{{index<3}}" wx:for="{{comments}}" wx:key="{{item.id}}">
-        <view class='r1 cont mt30'>
-          <image class='img2 ml30' src='{{item.created_by.headimg}}' mode='aspectFill'></image>
-          <view class='col ml20'>
-            <view class='r1'>
-              <text style='width:500rpx;' class='f30'>{{item.created_by.nick}}</text>
-              <view class='block r1'>
-                <view data-id='{{item.id}}' bindtap='answer' style='margin-right:30rpx;color:#57b0f0'>回复</view>
-                <view data-id='{{item.id}}' wx:if="{{candelete==true}}" bindtap='deleteComment' style='font-size:32rpx;position:relative;top:5rpx;' class='iconfont icon-iconfontshanchu6'></view>
-             
-              </view>
-            </view>
-            <view class='time2'>{{item.created_at}}</view>
-            <text class='content22'>{{item.comment}}</text>
-            <text decode="true" wx:if="{{item.answers.length==1}}" class='comment3'>{{item.answers[0].created_by.nick}}:{{item.answers[0].answer}}</text>
-            <text bindtap='getAllComments' wx:if="{{item.answers.length>1}}" class='comment3'>{{item.answers[0].created_by.nick}}等人 <text class='c57'>共{{item.answers.length}}条回复</text></text>
-          </view>
-        </view>
-        <view class='ml20 mt20 line4'></view>
-      </view>
-      <view wx:if="{{comments.length>0}}" class='cen w1 pt20 h60 f28' bindtap='getAllComments'>查看全部{{commentslen.length}}条评论
-        <span style="font-size:25rpx;position:relative;bottom:2rpx;" class='iconfont2 icon-qianjin'></span>
-      </view>
-    </view>
-  </view> -->
-  <!-- <view class='line2'></view> -->
+  
 
   <view bindblur='inputVal3' style="bottom:{{height2}}px;" wx:if="{{input==true}}" class='comment-inp r1'>
     <image class='img2' src='{{user.headimg}}' mode='aspectFill'></image>

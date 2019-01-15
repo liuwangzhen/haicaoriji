@@ -1,3 +1,5 @@
+<wxs module="filter" src="../../utils/getdatr.wxs">
+</wxs>
 <view class='hcard bx ml15'>
   <view class="r1 mt35">
     <view class='b f36 hosname ml20 le3'>{{hospital.name}}</view>
@@ -13,6 +15,7 @@
     <view bindtap='preview' class='hregister le1'>医疗执业许可</view>
   </view>
 </view>
+
 <view class='hcard2 bx mt20'>
   <view class='r1 ml15 mt30'>
     <view style='color:#9b9b9b;' class='iconfont icon-map'></view>
@@ -32,7 +35,10 @@
   </view>
 </scroll-view>
 </block>
-<view>
+<view wx:if="{{hospital.vedio!=undefined}}">
+  <video class='vedio mt50' src="{{hospital.vedio.path}}"></video>
+</view>
+<view wx:if="{{doctors!=''}}">
   <view class='b f35 ml45 mt20'>本院医生</view>
   <view class='mt10'>
     <view data-id='{{item.id}}' bindtap='goDoctor' class='r1 hcard2 f28 pt20 mt20' wx:key="{{item.id}}" wx:for="{{doctors}}">
@@ -46,7 +52,8 @@
         </view>
         <view class='r1 cbc mt10 '>
           <view style='color:#545454;font-size:30rpx;position:relative;top:5rpx;font-weight:bold;' class='iconfont icon-dianzan'></view>
-          <view class='ml10 '>{{item.superiority}}</view>
+          <view  class='ml10 w340 doc-sup'>{{item.superiority}}</view>
+          
         </view>
       </view>
     </view>

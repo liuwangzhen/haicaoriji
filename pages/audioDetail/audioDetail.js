@@ -11,9 +11,10 @@ Page({
     audio:"",
     start: 0,
     end: 200,
-    canSlider: true,
+    canSlider: false,
     value: 0,
     canPlay:true,
+    stPlay:false,
     currentTime:0,
   },
 
@@ -21,6 +22,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log(options.listId)
     let that=this
     that.setData({
       audioid:options.id
@@ -30,7 +32,6 @@ Page({
               wx.getStorage({
                 key: 'audioId',
                 complete: function(res) { 
-                  console.log(res)
                   if(res.errMsg=="getStorage:ok"){
                   if(options.id==res.data[0]){
                     backgroundAudioManager.onTimeUpdate(
@@ -45,7 +46,6 @@ Page({
                       end:res.data[3],
                       canPlay: res.data[1],
                     })
-                    
                   }
                   else{
                     that.playBack()
@@ -90,22 +90,24 @@ Page({
     backgroundAudioManager.coverImgUrl = that.data.audio.poster.path
     // 设置了 src 之后会自动播放
     backgroundAudioManager.src = that.data.audio.music.path
-    backgroundAudioManager.onCanplay(() => {
-      that.setData({
-        value: parseInt(backgroundAudioManager.currentTime),
-        end: parseInt(backgroundAudioManager.duration)
-      })
+    backgroundAudioManager.onCanplay(() =>{
+      setTimeout(function(){
+        that.setData({
+          value: parseInt(backgroundAudioManager.currentTime),
+          end: parseInt(backgroundAudioManager.duration)
+        })
+      },100)
     })
     backgroundAudioManager.onTimeUpdate(
       () => {
         that.setData({
           value: parseInt(backgroundAudioManager.currentTime)
+
         })
       }
     )
     backgroundAudioManager.onPlay(
       () => {
-        
         that.setData({
           canPlay: false,
           canSlider: false,
@@ -119,12 +121,21 @@ Page({
   },
   Play:function(){
     let that = this
-    // backgroundAudioManager.startTime(that.data.currentTime)
+    if(backgroundAudioManager.paused==true){
+      if(that.data.stPlay==true){
+        that.playBack()
+      }
+      else{
     backgroundAudioManager.play()
     that.setData({
       canPlay: false,
       canSlider: false,
     })
+      }
+    }
+    else{
+      that.playBack()
+    }
   },
   Pause: function () {
     let that = this
@@ -141,25 +152,55 @@ Page({
   seek: function () {
     let that = this
     backgroundAudioManager.seek(backgroundAudioManager.currentTime + 10)
-
-  },
-  slider4change: function (e) {
-    backgroundAudioManager.seek(parseInt(e.detail.value))
     
   },
-
+  slider4change: function (e) {
+    let that=this
+    // console.log(e.detail.value)
+    // that.setData({
+    //   value: e.detail.value
+    // })
+    // backgroundAudioManager.onSeeking(
+    //   () => {
+    //     console.log("tiaozhuan")
+    //   }
+    // )
+    backgroundAudioManager.seek(parseInt(e.detail.value))
+  },
+  // next:function(){
+  //  let 
+  // },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-     
+    let that=this
+    if (backgroundAudioManager.paused == true) {
+      wx.getStorage({
+        key: 'audioId',
+        success: function(res) {
+          if(res.data[2]==false||res.data[5]==false){
+            console.log("777")
+            that.setData({
+              canPlay: true,
+              canSlider: true,
+              stPlay: true,
+            })
+          }
+        },
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-     
+    let that = this
+    wx.setStorage({
+      key: 'audioId',
+      data: [that.data.audio.id, that.data.canPlay, that.data.canSlider, that.data.end, that.data.audio.poster.path],
+    })
   },
 
   /**

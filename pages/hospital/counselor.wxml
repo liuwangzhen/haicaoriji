@@ -1,5 +1,5 @@
 <view style='padding-bottom:20rpx;'>
-<swiper bindchange="intervalChange" next-margin="60rpx" class='cswiper mt30'>
+<swiper current="{{counselorId}}" bindchange="intervalChange" next-margin="60rpx" class='cswiper mt30'>
   <swiper-item data-name="{{item.name}}" class="{{index==counselorId ? 'citem' :'citem2'}}" wx:key="{{item.id}}" wx:for="{{list}}">
     <image mode="aspectFill" class="{{index==counselorId ? 'cimg' :'cimg2'}}" src='{{item.poster.path}}'></image>
   </swiper-item>
@@ -8,7 +8,7 @@
   <view class='mt10' wx:if="{{index==counselorId}}">
     <view class='cen f30 b le1 csk'>擅长项目：{{item.skills}}</view>
     <text class='ml100 le3 c9b mt30 cabs f30'>{{item.abstract}}</text>
-    <button data-name="{{item.name}}" bindtap='goCounselor' class='consbtn le3 mt30'>开始定制</button>
+    <button data-name="{{item.name}}" bindtap='goCounselor' class='consbtn le3 mt30'>免费定制</button>
   </view>
 </view>
 </view>

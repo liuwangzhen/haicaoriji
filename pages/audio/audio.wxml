@@ -29,5 +29,7 @@
 </view>
 <view class='v-music' wx:if="{{music==true}}" bindtap='goMusic'>
 <image src='{{musicUrl}}' mode="aspectFill" class='goMusic {{canRotate==true?"rotate":""}}' ></image>
-<view class='w-line'></view>
+<view class='w-line {{canRotate==true?"animate":""}}'></view>
+<view class='w-line2 {{canRotate==true?"animate2":""}}'></view>
+<view class='w-line3 {{canRotate==true?"animate3":""}}'></view>
 </view>
