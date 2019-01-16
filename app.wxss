@@ -34,11 +34,17 @@
 .w380{
   width: 380rpx;
 }
+.w80{
+  width: 80rpx;
+}
 .mt25{
   margin-top: 25rpx;
 }
 .ml5{
   margin-left: 5rpx;
+}
+.ml68{
+  margin-left: 68rpx;
 }
 .h60{
   height: 60rpx;
@@ -435,7 +441,9 @@ margin-top:70rpx;
   padding-top:10rpx;
   padding-left: 30rpx;
 }
-
+.pr20{
+  padding-right: 20rpx;
+}
 .nav-capsule .back-home {
  width:42rpx;
 height:38rpx;

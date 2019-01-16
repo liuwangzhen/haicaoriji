@@ -93,9 +93,12 @@ margin-top:100rpx;
 .proency{
   padding-top: 30rpx;
   justify-content:space-around;
+  margin-left:40rpx;
+  width:670rpx;
+
 }
 .proitem{
-  width: 140rpx;
+  width: 130rpx;
   height: 200rpx;
 }
 .srcoll{
@@ -103,11 +106,10 @@ margin-top:100rpx;
   margin-left: 50rpx;
 }
 .proimg{
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  margin-left:20rpx;
-
+ width:70rpx;
+height:70rpx;
+border-radius:50%;
+margin-left:30rpx;
 }
 .border{
   border: 4rpx solid #e6eff1;
@@ -124,11 +126,12 @@ margin-top:100rpx;
 
 }
 .serve-img{
-  width: 60rpx;
-  height: 60rpx;
+ width:80rpx;
+height:80rpx;
+
 }
 .serve-item{
-  width: 80rpx;
+  width: 82rpx;
   height: 124rpx;
 }
 .sx-line{
@@ -273,4 +276,20 @@ padding-left:20rpx;
   line-height: 70rpx;
   width: 450rpx;
   border-radius:50rpx;
+}
+
+/* baike */
+.scroll{
+  width: 750rpx;
+  height: 200rpx
+}
+.projectimg{
+  width:200rpx;
+height:120rpx;
+border-radius: 20rpx;
+}
+.projectLine{
+  width: 710rpx;
+  height: 2rpx;
+  background-color: #ddd;
 }

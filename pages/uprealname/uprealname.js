@@ -37,7 +37,7 @@ Page({
 
         that.setData({
           userInfo: res.data,
-          nick: res.data.nick
+          nick: res.data.realname
 
         })
       }, err => {

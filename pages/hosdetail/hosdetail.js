@@ -289,7 +289,7 @@ Page({
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
-      path: '/pages/hosdetail/hosdetail?recommend=' + recommend + '&id=' + id + '&getshare=' + 1,
+      path: '/pages/hosdetail/hosdetail?recommend=' + recommend + '&id=' + id ,
     }
   }
 })

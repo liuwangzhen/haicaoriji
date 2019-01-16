@@ -12,6 +12,7 @@ Page({
    music:false,
    poster:[],
    audios:[],
+   page:0,
   },
 
   /**
@@ -24,11 +25,7 @@ Page({
     })
     this.getAudioAd().then(
       res=>{
-        that.getAudios().then(
-          res=>{
-            that.getAudiosId();
-          }
-        )
+        that.getAudios()
       }
     )
   },
@@ -55,28 +52,18 @@ Page({
        url: '../audioDetail/audioDetail?id='+id,
      })
   },
-  getAudiosId:function(){
-    let that=this
-    let list=that.data.audios.map(
-      (item)=>{
-        return item.id
-      }
-    )
-    console.log(list)
-    that.setData({
-      listId:list
-    })
-  },
+  
   getAudios:function(){
     let that=this
+    let page=that.data.page
     return new Promise(
       (resolve,reject)=>{
         let query = new wx.BaaS.Query()
         query.isNotNull("title")
-        myfirst.getTableSelect(62000, 10, 0, 'advertisement', ['id', 'title', 'advertisement', 'poster', 'synopsis', 'browse','music'], query).then(
+        myfirst.getTableSelect(62000, 10, page*10, 'advertisement', ['id', 'title','times', 'advertisement', 'poster', 'synopsis', 'browse','music'], query).then(
           res => {
             that.setData({
-              audios: res.data.objects
+              audios: that.data.audios.concat(res.data.objects)
             })
             resolve()
           })
@@ -143,10 +130,6 @@ Page({
         }
       },
     })
-    // wx.getBackgroundAudioManager().onStop(
-    //   console.log("00000")
-    // )
-    // wx.getBackgroundAudioManager().onPause(console.log("暂停"))
   },
    goMusic:function(){
    let that=this
@@ -172,7 +155,6 @@ Page({
     })
     }
   },
-
   /**
    * 生命周期函数--监听页面卸载
    */
@@ -184,14 +166,35 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    let that=this
+    that.setData({
+      page: 0,
+      audios: []
+    })
+    wx.stopPullDownRefresh();
+    setTimeout(
+      function () {
+        that.getAudios();
+      }, 200
+    )
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    let that=this
+    let page=that.data.page
+    page++
+    that.setData({
+      page:page
+    })
+    wx.stopPullDownRefresh();
+    setTimeout(
+      function () {
+        that.getAudios();
+      }, 200
+    )
   },
 
   /**

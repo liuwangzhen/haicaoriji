@@ -135,7 +135,24 @@ getRecord(tableID,recordID){
     }
   )
 }
-
-
+// gengxin
+update(a,b,c){
+  return new Promise(
+    (resolve,reject)=>{
+      let tableId = a
+      let recordID = b  // 数据行 id
+      let Product = new wx.BaaS.TableObject(tableId)
+      let product = Product.getWithoutData(recordID)
+      product.set(c)
+      product.update().then(res => {
+        // success
+        resolve(res)
+      }, err => {
+        // err
+        reject(err)
+      })
+    }
+  )
+}
 }
 module.exports = Common;

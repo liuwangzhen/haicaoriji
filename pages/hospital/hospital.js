@@ -17,9 +17,9 @@ Page({
     idx:0,
     counselorId:0,
     title: [{ id: 61848, name: "项目", src: "../../images/ren.png" }, { id: 1, name: "药品", src: "../../images/yaowan.png" }, { id: 2, name: "材料", src: "../../images/cailiao.png" }, { id: 3, name: "仪器", src: "../../images/yiqi.png" },],
-    proTwo:'',
+    proTwo:[],
     serves: [{ id: 0, name: "活动", path: "../../images/active.png" }, { id: 1, name: "医院", path: "../../images/hospital.png" },
-    //  { id: 2, name: "百科", path: "../../images/ency.png" }, 
+     { id: 2, name: "百科", path: "../../images/ency.png" }, 
      { id: 3, name: "咨询师", path: "../../images/counselor.png" }, { id: 4, name: "查价格", path: "../../images/intent.png" },],
     serveId:0,
     // 意向表
@@ -92,13 +92,7 @@ Page({
       isHospital:isHospital
     })
   },
-  pickPro:function(e){
-    let that=this
-    let idx=e.currentTarget.dataset.idx
-    that.setData({
-      curId:idx,
-    })
-  },
+  
   getToken() {
     let that = this
     return new Promise(
@@ -387,11 +381,52 @@ Page({
     }
   },
   
+  // 百科项目
+  pickPro: function (e) {
+    let that = this
+    let idx = e.currentTarget.dataset.idx
+    that.setData({
+      curId: idx,
+    })
+    switch (idx) {
+      case 0:
+        that.getProject()
+        break;
+      case 1:
+        // that.getMedicines();
+        break;
+      case 2:
+        // that.getMaterial();
+        break;
+      case 3:
+        
+        break;
+      // default:
+      //   n 与 case 1 和 case 2 不同时执行的代码
+    }
+  },
+  getProject:function(){
+    let that=this
+    let query = new wx.BaaS.Query()
+    query.isNotNull('hot')
+    return new Promise(
+      (resolve,reject)=>{
+        myfirst.getTableSelect(61848, 10, 0, 'create_at', ['id','proImage','proName'], query).then(
+          res=>{
+            that.setData({
+              proTwo:res.data.objects
+            })
+            resolve()
+          }
+        )
+      }
+    )
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    
   },
 
   /**

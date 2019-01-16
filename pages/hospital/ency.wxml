@@ -1,17 +1,22 @@
-<view class='w100p bg-fff'>
+<view  class='w100p bg-fff'>
   <view class='r1 proency'>
     <view bindtap='pickPro' data-idx="{{index}}" class='col proitem {{index==curId?"border":""}}' wx:for="{{title}}" wx:key="{{index}}">
-    <image class='proimg mt10' src='{{item.src}}' mode='aspectFill'></image>
-    <view class='{{index==curId?"f32 b c00":"c9b f32"}} cen mt20'>{{item.name}}</view>
+      <image class='proimg mt10' src='{{item.src}}' mode='aspectFill'></image>
+      <view class='{{index==curId?"f32 b c00":"c9b f32"}} cen mt20'>{{item.name}}</view>
     </view>
   </view>
-  <view class='cen f28 b c00 mt30'>热门{{title[curId].name}}</view>
-  <scroll-view scroll-x="true" class='scroll'>
-  <view wx:key="{{index}}" wx:for="{{proTwo}}" class='r1'>
-     <view class='col {{idx==index?"":""}}'>{{item.name}}</view>
-  </view>
+  <view wx:if="{{curId==0}}" class='cen f28 b c00 mt20'>热门项目</view>
+  <view wx:else class='cen f28 b c00 mt20'>热门品牌</view>
+  <scroll-view scroll-x="true" class='scroll mt20'>
+    <view wx:if="{{curId==0}}" class='r1'>
+      <view wx:key="{{index}}" wx:for="{{proTwo}}" class='col {{index==0?"ml40":"ml30"}} {{index==proTwo.length-1 ?"pr20":""}}'>
+        <image mode='aspectFill' class='projectimg' src='{{item.proImage.path}}'></image>
+        <view class='f24 b mt20 cen '>{{item.proName}}</view>
+      </view>
+    </view>
   </scroll-view>
-</view>
-<view>
-  
+  <view class='projectLine ml40'></view>
+  <view class='ml40 col'>
+     <view wx:key="{{index}}" wx:for="{{proTwo}}"></view>
+  </view>
 </view>

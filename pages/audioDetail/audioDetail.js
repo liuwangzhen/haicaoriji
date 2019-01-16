@@ -22,11 +22,21 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.listId)
     let that=this
+    console.log(options.id)
+    if(options.recommend != undefined) {
+      that.setData({
+        recommend: options.recommend
+      })
+    }
     that.setData({
-      audioid:options.id
+      audioid:options.id,
     })
+    that.getAudios().then(
+      res=>{
+        that.getAudiosId()
+      }
+    );
           that.getAudio(options.id).then(
             res => {
               wx.getStorage({
@@ -58,8 +68,15 @@ Page({
               })
             }
           )
+    that.getToken() 
   },
-
+  updateBrows:function(){
+    let that=this
+    let c={
+      browse:that.data.audio.browse+1
+    }
+    myfirst.update(62000,that.data.audioid,c)
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -76,6 +93,7 @@ Page({
             that.setData({
              audio:res.data
             })
+            that.updateBrows()
             resolve()
           })
       }
@@ -115,9 +133,78 @@ Page({
       }
     )
   },
+ 
+  getAudios: function () {
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        let query = new wx.BaaS.Query()
+        query.isNotNull("title")
+        myfirst.getTableSelect(62000, 200, 0, 'advertisement', 'id', query).then(
+          res => {
+            that.setData({
+              audios: res.data.objects
+            })
+            resolve()
+          })
+      }
+    )
+  },
+  getAudiosId: function () {
+    let that = this
+    let list = that.data.audios.map(
+      (item) => {
+        return item.id
+      }
+    )
+    that.setData({
+      listId: list
+    })
+  },
+  next:function(){
+    let that=this
+    let auid=that.data.audioid
+    let list=that.data.listId
+    let idx=list.indexOf(auid)
+    if(idx<list.length-1){
+       let i=list[idx+1]
+       that.setData({
+         audioid:list[idx+1]
+       })
+      that.getAudio(i).then(
+        res=>{
+          that.playBack()
+        }
+      )
+    } else {
+      wx.showToast({
+        title: '已经是最后一首了',
+        icon:"none"
+      })
+    }
+  },
   back:function(){
     let that = this
-    backgroundAudioManager.seek(backgroundAudioManager.currentTime - 10)
+    let auid = that.data.audioid
+    let list = that.data.listId
+    let idx = list.indexOf(auid)
+    if (idx > 0) {
+      let i = list[idx - 1]
+      that.setData({
+        audioid: list[idx - 1]
+      })
+      that.getAudio(i).then(
+        res => {
+          that.playBack()
+        }
+      )
+    }
+    else{
+      wx.showToast({
+        title: '已经是第一首了',
+        icon: "none"
+      })
+    }
   },
   Play:function(){
     let that = this
@@ -156,20 +243,10 @@ Page({
   },
   slider4change: function (e) {
     let that=this
-    // console.log(e.detail.value)
-    // that.setData({
-    //   value: e.detail.value
-    // })
-    // backgroundAudioManager.onSeeking(
-    //   () => {
-    //     console.log("tiaozhuan")
-    //   }
-    // )
+    
     backgroundAudioManager.seek(parseInt(e.detail.value))
   },
-  // next:function(){
-  //  let 
-  // },
+  
   /**
    * 生命周期函数--监听页面显示
    */
@@ -227,11 +304,40 @@ Page({
   onReachBottom: function () {
   
   },
-
+  getToken(){
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getUserInfoByToken().then(
+          res => {
+            that.setData({
+              recomId: res.data.id
+            })
+            if (res.data.is_authorized == false) {
+              // if (res.data.jundge == false) {
+                
+              wx.redirectTo({
+                url: '../../pages/login/login?recomId=' + that.data.recommend,
+              })
+            }
+            resolve(res)
+          }
+        )
+      }
+    )
+  },
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    let that=this
+    let title=that.data.audio.title
+    let recommend = that.data.recomId
+    console.log(that.data.audioid)
+    return {
+      title: title,
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/audioDetail/audioDetail?id=' + that.data.audioid+"&recommend="+recommend,
+    }
   }
 })

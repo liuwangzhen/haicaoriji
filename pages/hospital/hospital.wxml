@@ -1,25 +1,7 @@
 <wxs module="filter" src="../../utils/getdatr.wxs">
 </wxs>
 <header title="服务" />
-<!-- <view class='topone'>
-  <view class='nav-wrap2'>
-    <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>海草日记</view>
-  </view>
-  <view wx:if="{{height4>40}}" style='margin-top:{{height4*2 + 29-height4/2}}px;'></view>
-  <view wx:else style='margin-top:{{height4*2 + 29}}px;'></view>
-  <view  class='r1 ency-hos'>
-  <view data-ex='{{true}}' bindtap='aChange' class='col ency-item'>
-    <view class='{{isHospital==true?"b f32 c00":"f32 c9b"}} cen'>医院</view>
-    <view class='{{isHospital==true?"sm-line":""}}'></view>
-  </view>
-  <view data-ex='{{false}}' bindtap='aChange' class='col ency-item'>
-    <view class='{{isHospital==false?"b f32 c00":"f32 c9b"}} cen'>百科</view>
-    <view class='{{isHospital==false?"sm-line":""}}'></view>
-  </view>
-</view>
-</view>
-<view wx:if="{{height4>40}}" style='padding-top:{{height4*2+44+40-height4/2}}px;'></view>
-<view wx:else style='padding-top:{{height4*2+44+35}}px;;'></view> -->
+
 <view class='wait' wx:if="{{BigPoster==''}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
   <view class='f28 ml38'>加载中</view>
@@ -33,9 +15,9 @@
     </swiper>
     <scroll-view scroll-x="true" class='mt30 scroll2'>
       <view class='r1 '>
-        <view data-tag="{{item.id}}" bindtap='serveChange' wx:key="{{index}}" wx:for="{{serves}}" class='col serve-item {{item.id==0?"ml40":"ml115"}}'>
-          <image mode='aspectFit ' class='serve-img ml10' src='{{item.path}} '></image>
-          <view class='mt20 cen {{item.id==serveId?"f24 c00 b":"f24 c9b"}}'>{{item.name}}</view>
+        <view data-tag="{{item.id}}" bindtap='serveChange' wx:key="{{index}}" wx:for="{{serves}}" class='col serve-item {{item.id==0?"ml40":"ml80"}}'>
+          <image mode='aspectFit ' class='serve-img' src='{{item.path}} '></image>
+          <view class='mt20 w80 cen {{item.id==serveId?"f24 c00 b":"f24 c9b"}}'>{{item.name}}</view>
           <image mode='aspectFit' wx:if="{{item.id==serveId}}" class='serve-logo' src='../../images/three.png'></image>
         </view>
       </view>
@@ -46,6 +28,9 @@
     </view>
     <view wx:if="{{serveId==1}}">
       <include src="smhospital.wxml" />
+    </view>
+    <view wx:if="{{serveId==2}}">
+      <include src="ency.wxml" />
     </view>
     <view wx:if="{{serveId==3}}">
       <include src="counselor.wxml" />

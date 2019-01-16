@@ -36,8 +36,10 @@ margin-top:75rpx;
   height: 55rpx;
 }
 .col-line{
-  width: 2rpx;
-  height: 50rpx;
+ width:2rpx;
+ height:20rpx;
+ background-color:#9b9b9b;
+ margin-top:5rpx;
 }
 .goMusic{
  width:100rpx;

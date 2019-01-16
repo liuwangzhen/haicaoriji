@@ -17,14 +17,14 @@
         <view wx:if="{{item.synopsis.length>30}}" class='f24 c9b mt10 h-auto'>{{filter.Limit3(item.synopsis,30)}}</view>
         <view wx:else class='f24 c9b mt10 h-auto'>{{item.synopsis}}</view>
         <view class='f20 r1 c9b mt20'>
-          <view>时长</view>
-          <view class='col-line ml20'></view>
-          <view class='ml20'>{{item.browse}}人看过</view>
+        
+          <view wx:if="{{item.times!=null}}">时长：{{item.times}}</view>
+          <view wx:if="{{item.times!=null}}" class='col-line ml20'></view>
+          <view class='{{item.times!=null?"ml20":""}}'>{{item.browse}}人看过</view>
         </view>
       </view>
       <image mode='aspectFill' class='erji' src='../../images/erji.png'></image>
     </view>
-    
   </view>
 </view>
 <view class='v-music' wx:if="{{music==true}}" bindtap='goMusic'>

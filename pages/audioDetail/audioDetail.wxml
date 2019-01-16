@@ -1,5 +1,5 @@
 <wxs module="filter" src="../../utils/getdatr.wxs" />
-<header title="音频" />
+<header canGoIndex="true" title="音频" />
 <image mode='aspectFill' src='{{audio.poster.path}}' class='aswiper ml40 mt20'>
 </image>
 <slider block-color="#58e6c8" step='1' activeColor="#58c2db" class='slid' block-size="12"  value='{{value}}' disabled='{{canSlider}}' bindchange="slider4change" min="{{start}}" max="{{end}}"></slider>

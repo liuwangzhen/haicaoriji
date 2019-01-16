@@ -42,7 +42,8 @@ Page({
     isClick2: true,
     focus2: false,
     elastic: true,
-    counselor:'无'
+    counselor:'无',
+    
   },
   /**
    * 生命周期函数--监听页面加载
