@@ -46,6 +46,9 @@
 .ml68{
   margin-left: 68rpx;
 }
+.ml8{
+  margin-left: 8rpx;
+}
 .h60{
   height: 60rpx;
 }

@@ -15,7 +15,8 @@
     </swiper>
     <scroll-view scroll-x="true" class='mt30 scroll2'>
       <view class='r1 '>
-        <view data-tag="{{item.id}}" bindtap='serveChange' wx:key="{{index}}" wx:for="{{serves}}" class='col serve-item {{item.id==0?"ml40":"ml80"}}'>
+        <!-- <view data-tag="{{item.id}}" bindtap='serveChange' wx:key="{{index}}" wx:for="{{serves}}" class='col serve-item {{item.id==0?"ml40":"ml80"}} {{item.id==4?"pr20":""}}'> -->
+        <view data-tag="{{item.id}}" bindtap='{{item.id==2?"alert":"serveChange"}}' wx:key="{{index}}" wx:for="{{serves}}" class='col serve-item {{item.id==0?"ml40":"ml80"}} {{item.id==4?"pr20":""}}'>
           <image mode='aspectFit ' class='serve-img' src='{{item.path}} '></image>
           <view class='mt20 w80 cen {{item.id==serveId?"f24 c00 b":"f24 c9b"}}'>{{item.name}}</view>
           <image mode='aspectFit' wx:if="{{item.id==serveId}}" class='serve-logo' src='../../images/three.png'></image>

@@ -3,6 +3,8 @@ const app = getApp();
 const Page = require('../../utils/ald-stat.js').Page;
 var ex = require('../../common/common.js')
 const myDate = new Date()
+const myFirst = require('../../utils/myfirst.js')
+const myfirst = new myFirst();
 const today = myDate.toLocaleDateString(); //获取当前日期
 // const today = '2018/12/2';     //获取当前日期
 
@@ -28,6 +30,7 @@ Page({
     fans: [1],
     height4: getApp().globalData.height,
     isClick: true,
+    isAdmin: false,
   },
 
   /**
@@ -35,8 +38,21 @@ Page({
    */
   onLoad: function(options) {
     // this.getInfo();
-    this.getUserInfoByToken();
-    this.getFans();
+    let that = this
+    // that.getUserInfoByToken().then(
+    //   res => {
+    //     that.getAdmin().then(
+    //       res=>{
+    //         that.getcol()
+    //       }
+    //     )
+    //   }
+    // );
+    that.getUserInfoByToken().then(
+       r=>{ that.getAdmin()}
+    ).then(r=>{that.getcol()}).catch(
+      err=>{console.log(err)}
+    );
     wx.hideShareMenu();
   },
   updata: function() {
@@ -49,73 +65,14 @@ Page({
       url: '../chose/chose',
     })
   },
-
-  makeRegister: function() {
-    let that = this
-    let register = that.data.registers
-    register.unshift(today)
-    let MyUser = new wx.BaaS.User()
-    let currentUser = MyUser.getCurrentUserWithoutData()
-    // age 为自定义字段
-    currentUser.set('register', register).update().then(res => {
-      // success
-      that.addIntegration(10)
-      that.setData({
-        isregister: false
-      })
-    }, err => {
-      // err
-    })
-  },
-  addIntegration: function(n) {
-    let that = this
-    let recordID = that.data.recordID;
-    let integration = that.data.integration + n
-    let Product = new wx.BaaS.TableObject(56146)
-    let product = Product.getWithoutData(recordID)
-    product.set({
-      'integration': integration,
-      'test': 'aaa'
-    })
-    product.update().then(res => {
-      that.setData({
-        integration: res.data.integration
-      })
-      wx.showToast({
-        title: '打卡成功',
-        // image: "../../images/pic01.jpg",
-        icon: "success",
-        mask: true
-      })
-      // success
-    }, err => {
-      // err
-    })
-  },
-  getFans() {
-    let that = this
-    let aid = getApp().globalData.userId
-    let query = new wx.BaaS.Query()
-    query.compare('created_by', '=', aid)
-    let Product = new wx.BaaS.TableObject(56146)
-    Product.orderBy('-created_at').setQuery(query).find().then(res => {
-      // success
-      console.log(res.data.objects[0].test)
-      that.setData({
-        recordID: res.data.objects[0].id,
-        fans: res.data.objects[0].fans,
-        integration: res.data.objects[0].integration,
-      })
-    }, err => {
-      // err
-    })
-  },
   tab(event) {
     var that = this;
     var temp = event.currentTarget.dataset.id
     this.setData({
       select: temp,
-
+      page:0,
+      list:[],
+      list2:[],
     })
     if (temp == 'note') {
       this.getList();
@@ -126,60 +83,64 @@ Page({
   },
   getUserInfoByToken: function() {
     let that = this
-    let MyUser = new wx.BaaS.User()
-    wx.BaaS.login(false).then(res => {
-      MyUser.get(res.id).then(res => {
-        let id = res.data.id
-        if (res.data.is_authorized == false) {
-          wx.redirectTo({
-            url: '../../pages/login4/login4?id=' + id,
+    return new Promise(
+      (resolve, reject) => {
+        let MyUser = new wx.BaaS.User()
+        wx.BaaS.login(false).then(res => {
+          MyUser.get(res.id).then(res => {
+            let id = res.data.id
+            if (res.data.is_authorized == false) {
+              wx.redirectTo({
+                url: '../../pages/login4/login4?id=' + id,
+              })
+            }
+            // success
+            var datetime = new Date(res.data.birthday);
+            var year = datetime.getFullYear();
+            var month = datetime.getMonth() + 1;
+            if (month <= 9) {
+              month = "0" + month;
+            }
+            var date = datetime.getDate();
+            if (date <= 9) {
+              date = "0" + date;
+            }
+            var dateformat = year + "-" + month + "-" + date;
+            let timestamp2 = new Date().getTime();
+            let timestamp3 = new Date(res.data.birthday).getTime();
+            let age = Math.floor((timestamp2 - timestamp3) / 31536000000);
+            that.setData({
+              userInfo: res.data,
+              img2: res.data.headimg.replace(/\"/g, ""),
+              index: res.data.gender,
+              date: dateformat,
+              sign: res.data.sign,
+              nick: res.data.nick,
+              collection: res.data.collection,
+              aid: res.data.id,
+              attention: res.data.attention,
+              age: age,
+              registers: res.data.register
+            })
+            if (that.data.registers[0] == today) {
+              that.setData({
+                isregister: false
+              })
+            } else {
+              that.setData({
+                isregister: true
+              })
+            }
+            resolve(res)
+          }, err => {
+            // err
           })
-        }
-        // success
-        var datetime = new Date(res.data.birthday);
-        var year = datetime.getFullYear();
-        var month = datetime.getMonth() + 1;
-        if (month <= 9) {
-          month = "0" + month;
-        }
-        var date = datetime.getDate();
-        if (date <= 9) {
-          date = "0" + date;
-        }
-        var dateformat = year + "-" + month + "-" + date;
-        let timestamp2 = new Date().getTime();
-        let timestamp3 = new Date(res.data.birthday).getTime();
-        let age = Math.floor((timestamp2 - timestamp3) / 31536000000);
-        that.setData({
-          userInfo: res.data,
-          img2: res.data.headimg.replace(/\"/g, ""),
-          index: res.data.gender,
-          date: dateformat,
-          sign: res.data.sign,
-          nick: res.data.nick,
-          collection: res.data.collection,
-          aid: res.data.id,
-          attention: res.data.attention,
-          age: age,
-          registers: res.data.register
+
+
+        }, err => {
+          // 登录失败
         })
-        if (that.data.registers[0] == today) {
-          that.setData({
-            isregister: false
-          })
-        } else {
-          that.setData({
-            isregister: true
-          })
-        }
-      }, err => {
-        // err
       })
-
-
-    }, err => {
-      // 登录失败
-    })
   },
   ifcollect: function(e) {
     let that = this
@@ -277,19 +238,21 @@ Page({
   getList: function() {
     let tableID = 55960
     let that = this
+    let page = that.data.page
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
     let query = new wx.BaaS.Query()
     let userId = getApp().globalData.userId
     query.compare("created_by", '=', userId)
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(700).offset(0).find().then(res => {
-      let list0 = res.data.objects
-      if (list0.length == 0) {
-        that.setData({
-          ishavecollect: false,
-          isno: true,
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
+      if (res.data.objects == "") {
+        wx.showToast({
+          title: '没有更多内容了',
+          icon: "none"
         })
       }
+      let list0 = res.data.objects
+      
       for (var i = 0; i < res.data.objects.length; i++) {
         let collection = that.data.collection
         if (collection.indexOf(list0[i].id) > -1) {
@@ -303,10 +266,15 @@ Page({
         }
       }
       that.setData({
-        list: list,
+        list: that.data.list.concat(list),
         ishavecollect: false,
-        page: 0
       })
+      // if (list0.length == 0) {
+      //   that.setData({
+      //     ishavecollect: false,
+      //     isno: true,
+      //   })
+      // }
 
     }, err => {
       // err
@@ -331,47 +299,28 @@ Page({
       })
     }
   },
-  getList2: function() {
-    let tableID = 55960
+  
+  // chankanshifouguanliyaun
+  getAdmin: function() {
     let that = this
-    let Product = new wx.BaaS.TableObject(tableID)
-    let list = new Array;
-    let page = that.data.page
-    page++;
+    let aid = that.data.aid
     let query = new wx.BaaS.Query()
-    let userId = getApp().globalData.userId
-
-    query.compare("created_by", '=', userId)
-
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
-      if (res.data.objects == "") {
-        wx.showToast({
-          title: '没有更多内容了',
-        })
-      } else {
-        let list0 = res.data.objects
-        for (var i = 0; i < res.data.objects.length; i++) {
-          let collection = that.data.collection
-          if (collection.indexOf(list0[i].id) > -1) {
-            list0[i].collect = 1;
-            list0[i].content = that.LimitNumbersadf(list0[i].content);
-            list.push(list0[i]);
-          } else {
-            list0[i].collect = 0;
-            list0[i].content = that.LimitNumbersadf(list0[i].content);
-            list.push(list0[i]);
+    query.compare('adminid', '=', aid)
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getTableSelect(58773, 200, 0, 'created_at', 'adminid', query).then(
+          res => {
+            if (res.data.objects != "") {
+              that.setData({
+                isAdmin: true
+              })
+            }
+            resolve(res)
           }
-        }
-        that.setData({
-          list: that.data.list.concat(list),
-          page: page
-        })
+        )
       }
-    }, err => {
-      // err
-    })
+    )
   },
-
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -386,7 +335,7 @@ Page({
         that.setData({
           collection: res.data.collection
         })
-        this.getcol()
+        // this.getcol()
       }, err => {
         // err
       })
@@ -400,55 +349,36 @@ Page({
   getcol: function() {
     let tableID = 55960
     let that = this
+    let page = that.data.page
     let collection = that.data.collection
     let query = new wx.BaaS.Query()
     query.in('id', collection)
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
       let list = res.data.objects
-      if (list.length == 0) {
-        that.setData({
-          ishavecollect: false,
-          isno: true,
-        })
-      } else {
-        that.setData({
-          list2: list,
-          page2: 0,
-          ishavecollect: false,
-          isno: false,
-        })
-      }
-    }, err => {
-      // err
-    })
-  },
-  getcol2: function() {
-    let tableID = 55960
-    let that = this
-    let page2 = that.data.page2
-    page2++;
-    let collection = that.data.collection
-    let query = new wx.BaaS.Query()
-    query.in('id', collection)
-    let Product = new wx.BaaS.TableObject(tableID)
-    let list = new Array;
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page2 * 10).find().then(res => {
       if (res.data.objects == "") {
         wx.showToast({
           title: '没有更多内容了',
+          icon: "none"
         })
       }
-      let list = res.data.objects
-      that.setData({
-        list2: that.data.list2.concat(list),
-        page2: page2,
-      })
+     
+        that.setData({
+          list2: that.data.list2.concat(list),
+          ishavecollect: false,
+          // isno: false,
+        })
+      if (that.data.list2 == 0) {
+        that.setData({
+          isno: true,
+        })
+      } 
     }, err => {
       // err
     })
   },
+  
   nocollect2: function(e) {
     let that = this
     let id = e.currentTarget.dataset.id
@@ -500,14 +430,24 @@ Page({
    */
   onPullDownRefresh: function() {
     wx.stopPullDownRefresh();
-    var that = this;
-    setTimeout(function() {
-      that.getcol();
-      wx.showToast({
-        title: '正在刷新',
-        duration: 2000,
-      })
-    }, 500);
+    let that = this;
+    let isAdmin = that.data.isAdmin
+    let select=that.data.select
+    that.setData({
+      page: 0,
+      list:[],
+      list2:[],
+    })
+    if (isAdmin == true && select == 'note') {
+      setTimeout(function () {
+        that.getList()
+      }, 200)
+    } else {
+      setTimeout(function () {
+        console.log(that.data.page)
+        that.getcol()
+      }, 200)
+    }
 
   },
 
@@ -516,24 +456,29 @@ Page({
    */
   onReachBottom: function() {
     let that = this;
+    let isAdmin=that.data.isAdmin
+    let select = that.data.select
     wx.stopPullDownRefresh();
-    setTimeout(function() {
-      that.getcol2();
-      wx.showToast({
-        title: '正在加载',
-        duration: 2000,
-      })
-    }, 500);
+    let page = that.data.page
+    page++
+    that.setData({
+      page: page
+    })
+    if (isAdmin == true && select == 'note') {
+      setTimeout(function() {
+        console.log(that.data.page)
+        that.getList()
+      }, 200)
+    } else {
+      setTimeout(function() {
+        that.getcol()
+      }, 200)
+    }
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    return {
-      title: '海草日记',
-      desc: '最具人气的小程序开发联盟!',
-      path: '/pages/indexo/indexo',
-    }
   }
 })

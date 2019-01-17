@@ -31,27 +31,12 @@
       <view bindtap='updata' class='edit'>
         <text class='edit-text'>编辑资料</text>
       </view>
+      <navigator url='../addNote/addNote' wx:if="{{isAdmin==true}}" class='adminBtn f30'>笔记</navigator>
     </view>
-    <!-- <view wx:if="{{sign!=null}}">
-    <text wx:if="{{sign.length>36}}" class='sign f28'>{{filter.Limit3(sign,36)}}</text>
-    <text wx:else class='sign f28'>{{sign}}</text>
-    </view> -->
-    <!-- <view class='border'></view> -->
-
-    <!-- <view class='register'>
-      <view class='ruler f26'>打卡规则</view>
-      <button wx:if="{{isregister==true}}" bindtap='makeRegister' class='register-btn mt20'>打卡</button>
-      <view wx:if="{{isregister==true}}" class="btn-around"></view>
-      <view wx:if="{{isregister==true}}" class="btn-around2"></view>
-      <button wx:if="{{isregister==false}}" class='registered-btn'>已打卡</button>
-      <view class='f26 cen mt20'>恭喜你</view>
-      <view class='f26 cen mt10'>已连续打卡
-        <span class="c62e">{{registers.length - 1}}</span> 天</view>
-    </view> -->
-    <!-- <view class='line2'></view> -->
+  
   </view>
   <!-- 收藏 -->
-  <!-- <view style='padding-top:154rpx'>
+  <view wx:if="{{isAdmin==false}}" style='padding-top:154rpx'>
     <view wx:if="{{isno==true}}">
       <image mode='aspectFit' class='catimg' src='../../images/cat.jpg'></image>
     </view>
@@ -71,7 +56,10 @@
       </view>
     </view>
   </view>
-</view> -->
-
-<include src="mine2.wxml" />
+  <block wx:else>
+  <include src="mine2.wxml" />
+  </block>
 </view>
+
+<!-- <include src="mine2.wxml" />
+</view> -->

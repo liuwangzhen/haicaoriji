@@ -1,1 +1,4 @@
-{"navigationStyle": "default"}
+{
+"usingComponents": {
+  "header": "../../component/header/header"
+}}

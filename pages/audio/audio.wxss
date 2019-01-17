@@ -87,12 +87,15 @@ opacity:0.7;
 }
 .animate{
   animation: action 1s infinite;
+  animation-direction:alternate;
 }
 .animate2{
   animation: action2 1s infinite;
+  animation-direction:alternate;
 }
 .animate3{
   animation: action3 1s infinite;
+  animation-direction:alternate;
 }
 @keyframes action
 {

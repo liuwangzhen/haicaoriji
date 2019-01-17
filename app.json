@@ -61,18 +61,8 @@
         "iconPath": "images/noserve.png",
         "selectedIconPath": "images/serve.png"
       },
-     {
-      "pagePath": "pages/addNote/addNote",
-      "text": "写日记",
-      "iconPath": "images/rizhi2.png",
-      "selectedIconPath": "images/rizhi.png"
-    },
-      {
-        "pagePath": "pages/audio/audio",
-        "text": "音频",
-        "iconPath": "images/noerji.png",
-        "selectedIconPath": "images/erji.png"
-      },
+     
+      
       {
         "pagePath": "pages/mine/mine",
         "text": "收藏",

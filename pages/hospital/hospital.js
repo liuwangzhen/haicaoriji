@@ -137,7 +137,7 @@ Page({
       (resolve, reject) => {
         let that = this
         let query = new wx.BaaS.Query()
-        query.isNotNull('activity')
+        query.compare('isHaveActive','=',true)
         myfirst.getTableSelect(59863, 20, 0, '-updated_at', ['name', 'headimg', 'activity', 'public', 'id'], query).then(
           res => {
             that.setData({
@@ -226,6 +226,7 @@ Page({
       page:0,
       counselorId:0,
     })
+    let idx=that.data.curId
     switch (tag){
       case 0:
         that.getActivies().then(
@@ -236,6 +237,28 @@ Page({
         break;
       case 1:
         that.getHospital();
+        break;
+      case 2:
+        switch (idx) {
+          case 0:
+            that.getProject().then(
+              res => {
+                that.getProjectDetail()
+              }
+            )
+            break;
+          case 1:
+            // that.getMedicines();
+            break;
+          case 2:
+            // that.getMaterial();
+            break;
+          case 3:
+             
+            break;
+          // default:
+          //   n 与 case 1 和 case 2 不同时执行的代码
+        }
         break;
       case 3:
         that.getCounselor()
@@ -388,9 +411,13 @@ Page({
     that.setData({
       curId: idx,
     })
-    switch (idx) {
+    switch (idx){
       case 0:
-        that.getProject()
+        that.getProject().then(
+          res=>{
+            that.getProjectDetail()
+          }
+        )
         break;
       case 1:
         // that.getMedicines();
@@ -421,6 +448,28 @@ Page({
         )
       }
     )
+  },
+  getProjectDetail:function(){
+    let that=this
+    let query=new wx.BaaS.Query()
+    query.compare('proNumber','=',1)
+    return new Promise(
+      (resolve,reject)=>{
+        myfirst.getTableSelect(62878, 10, 0, 'create_at', ['id', 'sm_project', 'proName'], query).then(
+          res=>{
+            that.setData({
+              projectDetail:res.data.objects
+            })
+          }
+        )
+      }
+    )
+  },
+  alert:function(){
+     wx.showToast({
+       title: '百科即将上线，敬请期待',
+       icon:"none"
+     })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

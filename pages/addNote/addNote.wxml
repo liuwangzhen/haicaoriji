@@ -1,8 +1,9 @@
 <!--pages/addNote/addNote.wxml-->
-<cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
+<!-- <cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
   <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>添加日记</cover-view>
 </cover-view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view> -->
+<header canGoIndex="true" title="写日记"></header>
 <textarea cursor-spacing="10" bindtap='focusChange'  adjust-position='{{true}}' bindblur="content" name="content" value='{{content}}' maxlength='-1' class='textarea' placeholder-class='placeholder' placeholder='这一刻，想说点什么...'>
 <cover-view></cover-view>
 </textarea>

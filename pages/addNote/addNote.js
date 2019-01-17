@@ -27,6 +27,8 @@ Page({
    */
   onLoad: function(options) {
     this.getUserInfoByToken();
+    wx.hideShareMenu()
+
   },
   getUserInfoByToken: function () {
     let that = this

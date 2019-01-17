@@ -21,12 +21,6 @@ Page({
     content: "",
     share: 0,
     getshare: 0,
-    input: false,
-    commentVal: "",
-    commentVal2: "",
-    focus: false,
-    focus2: false,
-    input2: false,
     height4: getApp().globalData.height,
     isClick: true,
     isClick2: true,
@@ -69,7 +63,6 @@ Page({
           that.getEwrimg()
         }
       );
-      that.getcomment();
       that.getList();
       // that.getPoster();
       app.aldstat.sendEvent('日记打开', {
@@ -92,7 +85,6 @@ Page({
           that.getEwrimg()
         }
       );
-      that.getcomment();
       that.getList();
       // that.getPoster();
       app.aldstat.sendEvent('日记打开', {
@@ -557,27 +549,7 @@ that.setData({
       }
     })
   },
-  deleteComment: function(e) {
-    let that = this
-    wx.showModal({
-      title: '提示',
-      content: '确认删除',
-      success: function(res) {
-        if (res.confirm) {
-          let tableID = 56497
-          let recordID = e.currentTarget.dataset.id
-          let Product = new wx.BaaS.TableObject(tableID)
-          Product.delete(recordID).then(res => {
-            that.getcomment();
-          }, err => {
-            // err
-          })
-        } else if (res.cancel) {
-          console.log('用户点击取消')
-        }
-      }
-    })
-  },
+  
   ifcollect: function(e) {
     let that = this
     let isClick = that.data.isClick
@@ -686,7 +658,6 @@ that.setData({
   onShow: function() {
     let that = this
     that.getUserInfoByToken();
-    that.getcomment();
   },
   getUserInfoByToken() {
     return new Promise(
@@ -808,198 +779,9 @@ that.setData({
     str += '...'
     return str;
   },
-  comment: function() {
-    let that = this
-    that.setData({
-      input: true,
-      focus: true,
-      input2: false,
-      input4: false,
-    })
-
-  },
-  send: function() {
-    let that = this
-    setTimeout(
-      function() {
-        if (that.data.commentVal == "") {
-          wx.showToast({
-            title: '评论不能为空',
-            icon: "none"
-          })
-          //  that.setData({
-          //    input: true,
-          //    focus:true,
-          //  })
-        } else {
-          let comment = that.data.commentVal
-          let cid = that.data.id
-          let tableID = 56497
-          let Product = new wx.BaaS.TableObject(tableID)
-          let product = Product.create()
-          let apple = {
-            comment: comment,
-            cid: cid,
-          }
-          product.set(apple).save().then(res => {
-            that.getcomment()
-            that.setData({
-              input: false,
-              commentVal: "",
-            })
-          }, err => {
-            //err 为 HError 对象
-          })
-        }
-      }, 200)
-  },
-  inputVal: function(e) {
-    this.setData({
-      commentVal: e.detail.value,
-      input: false,
-    });
-  },
-  focusInput: function(e) {
-    this.setData({
-      height2: e.detail.height,
-    })
-  },
-  focusInput2: function(e) {
-    this.setData({
-      height3: e.detail.height,
-    })
-  },
-  inputVal2: function(e) {
-    this.setData({
-      commentVal2: e.detail.value,
-      input2: false,
-    });
-  },
-
-  answer: function(e) {
-    let that = this
-    let coid = e.currentTarget.dataset.id
-    that.setData({
-      input2: true,
-      focus2: true,
-      input: false,
-      input3: false,
-      coid: coid
-    })
-  },
-  moveOut: function() {
-    let that = this;
-    that.setData({
-      input: false
-    })
-  },
-  sendanswer: function() {
-    let that = this
-    setTimeout(
-      function() {
-        if (that.data.commentVal2 == "") {
-          wx.showToast({
-            title: '回复不能为空',
-            icon: "none"
-          })
-        } else {
-
-          let comment = that.data.commentVal2
-          let cid = that.data.coid
-          let tableID = 56584
-          let Product = new wx.BaaS.TableObject(tableID)
-          let product = Product.create()
-          let apple = {
-            answer: comment,
-            cid: cid,
-          }
-          product.set(apple).save().then(res => {
-            that.getcomment()
-            that.setData({
-              input2: false,
-              commentVal2: "",
-            })
-          }, err => {})
-        }
-      }, 200)
-  },
-  sendanswer2: function() {
-    let that = this;
-    that.setData({
-      input2: true,
-      input4: false,
-      focus4: false,
-    })
-  },
-  getcomment: function() {
-    let that = this
-    let id = that.data.id
-    let query = new wx.BaaS.Query()
-    query.compare("cid", "=", id)
-    let Product = new wx.BaaS.TableObject(56497)
-    let list = new Array
-    let list4 = new Array
-    Product.setQuery(query).find().then(res => {
-      that.setData({
-        commentslen: res.data.objects
-      })
-    }, err => {})
-    Product.setQuery(query).orderBy('-created_at').limit(3).offset(0).expand('created_by').find().then(res => {
-      let list0 = res.data.objects
-      for (let i = 0; i < res.data.objects.length; i++) {
-        list0[i].idx = i;
-        let i2 = res.data.objects.length - 1
-        let query2 = new wx.BaaS.Query()
-        query2.compare("cid", "=", list0[i].id)
-        let Product2 = new wx.BaaS.TableObject(56584)
-        Product2.setQuery(query2).expand('created_by').find().then(e => {
-          list0[i].answers = e.data.objects
-          list0[i].created_at = that.getDate(list0[i].created_at)
-          list.push(list0[i])
-          //  if (i == i2){    
-          that.setData({
-            comments: list.sort(compare('idx'))
-          })
-
-          function compare(property) {
-            return function(a, b) {
-              var value1 = a[property];
-              var value2 = b[property];
-              return value1 - value2;
-            }
-          }
-
-          // }
-        })
-        //  that.getCom(i,i2,list0); 
-      }
-    }, err => {})
-  },
-  getCom: function(i, i2, list0) {
-    let that = this
-    let query2 = new wx.BaaS.Query()
-    let list = new Array
-    query2.compare("cid", "=", list0[i].id)
-    let Product2 = new wx.BaaS.TableObject(56584)
-    Product2.setQuery(query2).expand('created_by').find().then(e => {
-      list0[i].answers = e.data.objects
-      list0[i].created_at = that.getDate(list0[i].created_at)
-      list.push(list0[i])
-      if (i == i2) {
-        that.setData({
-          comments: list
-        })
-      }
-    })
-  },
-  getAllComments: function() {
-    let that = this
-    let id = that.data.id
-    let canDele = that.data.candelete
-    wx.navigateTo({
-      url: '../comments/comments?id=' + id + "&canDele=" + canDele,
-    })
-  },
+  
+  
+  
   getDate: function(d) {
     var st = d
     var datetime = new Date(st * 1000);
