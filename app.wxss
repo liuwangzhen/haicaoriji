@@ -46,6 +46,9 @@
 .ml68{
   margin-left: 68rpx;
 }
+.pb{
+  padding-bottom: 10rpx;
+}
 .ml8{
   margin-left: 8rpx;
 }

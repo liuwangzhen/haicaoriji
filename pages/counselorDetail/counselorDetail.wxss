@@ -1,0 +1,75 @@
+/* pages/counselorDetail/counselorDetail.wxss */
+
+.consbtn {
+  width: 450rpx;
+  color: #fff;
+  /* opacity: 0.8; */
+  background-color: #000;
+  /* position:fixed;
+bottom:50rpx;
+left:150rpx; */
+  border-radius: 50rpx;
+  line-height: 80rpx;
+  font-size: 36rpx;
+}
+
+.counselor {
+  width: 550rpx;
+  margin-left: 100rpx;
+}
+
+.poster {
+  width: 550rpx;
+  height: 765rpx;
+}
+
+.line {
+  width: 750rpx;
+  height: 2rpx;
+  background-color: #ddd;
+}
+
+.skillpro {
+  width: 160rpx;
+  height: 32rpx;
+}
+
+.wrap {
+  flex-wrap: wrap;
+  height: 110rpx;
+}
+
+.skill {
+  padding-top: 4rpx;
+  text-align: center;
+  background-color: #ddd;
+  border-radius: 50rpx;
+  height: 40rpx;
+  padding-left: 15rpx;
+  padding-right: 15rpx;
+  margin-right: 20rpx;
+}
+
+.content {
+  width: 670rpx;
+  margin-top: 20rpx;
+  border: 1rpx solid #f5f5f5;
+  border-radius: 20rpx;
+  box-shadow: 1rpx 1rpx 20rpx #ddd;
+  padding-bottom: 46rpx;
+}
+
+.smcontent {
+  width: 630rpx;
+  margin-left: 20rpx;
+  margin-top: 20rpx;
+  font-size: 28rpx;
+  color: #9b9b9b;
+}
+
+.times {
+  position: absolute;
+  right: 60rpx;
+  font-size: 24rpx;
+  color: #9b9b9b;
+}

@@ -559,7 +559,14 @@ Page({
         break;
     }
   },
- 
+  goCounselorDetail:function(e){
+    let that=this
+     let id=e.currentTarget.dataset.id
+     console.log(id)
+     wx.navigateTo({
+       url: '../counselorDetail/counselorDetail?id='+id,
+     })
+  },
   /**
    * 用户点击右上角分享
    */

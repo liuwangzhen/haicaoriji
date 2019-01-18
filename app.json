@@ -33,7 +33,8 @@
     "pages/test/test",
     "pages/audio/audio",
     "pages/audioDetail/audioDetail",
-    "pages/activities/activities"
+    "pages/activities/activities",
+    "pages/counselorDetail/counselorDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -61,8 +62,12 @@
         "iconPath": "images/noserve.png",
         "selectedIconPath": "images/serve.png"
       },
-     
-      
+      {
+        "pagePath": "pages/audio/audio",
+        "text": "音频",
+        "iconPath": "images/noerji.png",
+        "selectedIconPath": "images/erji.png"
+      },
       {
         "pagePath": "pages/mine/mine",
         "text": "收藏",
@@ -71,6 +76,6 @@
       }
     ]},
   "requiredBackgroundModes":["audio"]
-    
+  
   
 }
