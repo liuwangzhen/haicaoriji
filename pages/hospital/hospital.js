@@ -465,6 +465,16 @@ Page({
       }
     )
   },
+  goProjectDetail:function(e){
+    let that=this
+    let key=e.currentTarget.dataset.key
+    let title=e.currentTarget.dataset.title
+    let idx=e.currentTarget.dataset.idx
+    wx.navigateTo({
+      url: '../projectDetail/projectDetail?key='+key+"&title="+title+"&idx="+idx,
+    })
+   
+  },
   alert:function(){
      wx.showToast({
        title: '百科即将上线，敬请期待',

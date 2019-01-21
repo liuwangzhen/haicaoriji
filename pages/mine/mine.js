@@ -79,7 +79,6 @@ Page({
     } else {
       that.getcol()
     }
-
   },
   getUserInfoByToken: function() {
     let that = this
@@ -120,23 +119,11 @@ Page({
               aid: res.data.id,
               attention: res.data.attention,
               age: age,
-              registers: res.data.register
             })
-            if (that.data.registers[0] == today) {
-              that.setData({
-                isregister: false
-              })
-            } else {
-              that.setData({
-                isregister: true
-              })
-            }
             resolve(res)
           }, err => {
             // err
           })
-
-
         }, err => {
           // 登录失败
         })
@@ -252,7 +239,6 @@ Page({
         })
       }
       let list0 = res.data.objects
-      
       for (var i = 0; i < res.data.objects.length; i++) {
         let collection = that.data.collection
         if (collection.indexOf(list0[i].id) > -1) {
@@ -269,19 +255,11 @@ Page({
         list: that.data.list.concat(list),
         ishavecollect: false,
       })
-      // if (list0.length == 0) {
-      //   that.setData({
-      //     ishavecollect: false,
-      //     isno: true,
-      //   })
-      // }
-
     }, err => {
       // err
     })
   },
   LimitNumbersadf(txt) {
-
     var str = txt;
     str = str.substr(0, 25);
     str += '...'
@@ -369,6 +347,7 @@ Page({
           ishavecollect: false,
           // isno: false,
         })
+        console.log(that.data.ishavecollect)
       if (that.data.list2 == 0) {
         that.setData({
           isno: true,
@@ -376,6 +355,7 @@ Page({
       } 
     }, err => {
       // err
+      console.log("err")
     })
   },
   

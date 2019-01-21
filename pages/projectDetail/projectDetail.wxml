@@ -1,0 +1,2 @@
+<header canGoIndex="true" title="{{title}}" />
+<view class=''>{{projectDetail.detail}}</view>

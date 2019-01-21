@@ -7,7 +7,7 @@ App({
     let that = this
 
     // 引入 BaaS SDK
-    require('./utils/sdk-v1.9.1')
+    require('./utils/sdk-v1.15.0.js')
     let clientId = this.globalData.clientId
     wx.BaaS.init(clientId)
     let MyUser = new wx.BaaS.User()

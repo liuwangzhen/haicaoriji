@@ -1,14 +1,15 @@
 <header canGoIndex="true" title="海草日记"></header>
 <view class='counselor mt30'>
   <image mode="aspectFill" class='poster' src='{{counselor.poster.path}}'></image>
-  <view class='mt20 r1 wrap'>
-    <view class='c9b f30 skillpro le3'>擅长项目:</view>
-    <view wx:key="{{index}}" wx:for="{{skills}}" class='skill f28'>{{item}}</view>
+  <view class='mt10 r1 wrap'>
+    <view class='c9b f30 skillpro le3 mt10'>擅长项目:</view>
+    <view wx:key="{{index}}" wx:for="{{skills}}" class='skill f28 mt10'>{{item}}</view>
     </view>
+    <text class='blo abstext f28 le3 mt20'>{{counselor.honor}}</text>
     <text class='blo abstext f28 le3 mt20'>{{counselor.abstract}}</text>
 </view>
-<view class='line mt40'></view>
-<view class='ml40 w670'>
+<view wx:if="{{counselor.comments.length!=0}}" class='line mt40'></view>
+<view wx:if="{{counselor.comments.length!=0}}" class='ml40 w670'>
   <view class='mt30 b c00 f32 le3 pb10'>客户评价</view>
   <view class='content' wx:key="{{index}}" wx:for="{{counselor.comments}}">
     <text class='blo smcontent'>{{item.content}}</text>
