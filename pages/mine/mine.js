@@ -37,17 +37,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // this.getInfo();
     let that = this
-    // that.getUserInfoByToken().then(
-    //   res => {
-    //     that.getAdmin().then(
-    //       res=>{
-    //         that.getcol()
-    //       }
-    //     )
-    //   }
-    // );
     that.getUserInfoByToken().then(
        r=>{ that.getAdmin()}
     ).then(r=>{that.getcol()}).catch(
@@ -341,13 +331,11 @@ Page({
           icon: "none"
         })
       }
-     
         that.setData({
           list2: that.data.list2.concat(list),
           ishavecollect: false,
           // isno: false,
         })
-        console.log(that.data.ishavecollect)
       if (that.data.list2 == 0) {
         that.setData({
           isno: true,
@@ -424,7 +412,6 @@ Page({
       }, 200)
     } else {
       setTimeout(function () {
-        console.log(that.data.page)
         that.getcol()
       }, 200)
     }
@@ -446,7 +433,6 @@ Page({
     })
     if (isAdmin == true && select == 'note') {
       setTimeout(function() {
-        console.log(that.data.page)
         that.getList()
       }, 200)
     } else {

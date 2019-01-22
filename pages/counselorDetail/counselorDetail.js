@@ -33,7 +33,7 @@ Page({
             if (res.data.is_authorized == false) {
               // if (res.data.jundge == false) {
               wx.redirectTo({
-                url: '../../pages/login/login?recomId=' + that.data.recommend,
+                url: '../../pages/login5/login5?recomId=' + that.data.recommend+"&id="+that.data.id,
               })
             }
             resolve(res)

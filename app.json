@@ -5,6 +5,7 @@
    "pages/login/login",
    "pages/login3/login3",
    "pages/login4/login4",
+   "pages/login5/login5",
     "pages/member/member",
    "pages/userinfo/userinfo",
     "pages/mine/mine",
@@ -63,12 +64,7 @@
         "iconPath": "images/noserve.png",
         "selectedIconPath": "images/serve.png"
       },
-      {
-        "pagePath": "pages/audio/audio",
-        "text": "音频",
-        "iconPath": "images/noerji.png",
-        "selectedIconPath": "images/erji.png"
-      },
+     
       {
         "pagePath": "pages/mine/mine",
         "text": "收藏",

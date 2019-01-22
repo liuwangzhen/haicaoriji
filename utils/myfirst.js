@@ -154,5 +154,22 @@ update(a,b,c){
     }
   )
 }
+
+// shangchaun
+upload(path,name){
+  return new Promise(
+    (resolve,reject)=>{
+  let MyFile = new wx.BaaS.File()
+  let fileParams = { filePath: path }
+  let metaData = { categoryName: name }
+  // upload API 返回一个 Promise，1.8.0 后返回值增加了 onProgressUpdate 和 abort 方法
+  let uploadTask = MyFile.upload(fileParams, metaData)
+  // 文件成功上传的回调
+  uploadTask.then(res => {
+     resolve(res)
+  })
+    }
+  )
+}
 }
 module.exports = Common;

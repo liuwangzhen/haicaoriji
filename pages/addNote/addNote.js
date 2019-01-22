@@ -2,6 +2,8 @@
 import regeneratorRuntime from '../../utils/runtime'
 var app = getApp();
 const Page = require('../../utils/ald-stat.js').Page;
+const myFirst = require('../../utils/myfirst');
+const myfirst = new myFirst()
 Page({
 
   /**
@@ -10,16 +12,17 @@ Page({
   data: {
     arr1: [],
     arr2: [],
-    arr3:[],
+    arr3: [],
     addDetail: "",
     check: true,
     content: "",
     height4: getApp().globalData.height,
-    focus1:true,
-    focus2:false,
-    focus3:false,
+    focus1: true,
+    focus2: false,
+    focus3: false,
     height4: getApp().globalData.height,
     isMakingPoster: false,
+    imgList: []
   },
 
   /**
@@ -28,19 +31,19 @@ Page({
   onLoad: function(options) {
     this.getUserInfoByToken();
     wx.hideShareMenu()
-
   },
-  getUserInfoByToken: function () {
+  getUserInfoByToken: function() {
     let that = this
     let MyUser = new wx.BaaS.User()
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
         that.setData({
-          author_head:res.data.headimg,
-          author_name:res.data.nick,
+          author_head: res.data.headimg,
+          author_name: res.data.nick,
         })
-        })
-        })},
+      })
+    })
+  },
   previewImage: function(e) {
     let current = e.currentTarget.dataset.item
     let arr1 = this.data.arr1
@@ -97,155 +100,297 @@ Page({
     var value = e.detail.value;
     this.setData({
       content: value,
-      focus1:true,
-      focus2:false,
-      focus3:false,
+      focus1: true,
+      focus2: false,
+      focus3: false,
     })
   },
   submit: function() {
-    let tableID = 55960
-    let Product = new wx.BaaS.TableObject(tableID)
-    let product = Product.create()
     let that = this
-    setTimeout(
-      function() {
+    return new Promise(
+      (resolve, reject) => {
         if (that.data.arr1 == '' || that.data.content == '') {
           wx.showToast({
             title: '请输入完整',
-            icon: 'none',
+            icon: "none",
             duration: 2000
           })
         } else {
           wx.showModal({
-            title: '提示',
+            title: "提示",
             content: '确认发布',
             success: function(res) {
               if (res.confirm) {
-                let arr1 = that.data.arr1
-                let n=arr1.length
-                let obj = {
-                  idx: "",
-                  src: ""
-                }
                 that.setData({
                   isMakingPoster: true,
                 })
-                let list = new Array(n)
-                let list0 = new Array
-                for(let i = 0; i < arr1.length; i++){
-                  let i2=arr1.length-1;
-                  list[i]=obj;
-                  let MyFile = new wx.BaaS.File()
-                  let fileParams = {
-                    filePath: arr1[i],
-                  }
-                  let metaData = {
-                    categoryName: 'SDK'
-                  }
-                  MyFile.upload(fileParams, metaData).then(e => {
-                    
-                      list[i].src = e.data.path
-                      list[i].idx = i;
-                        that.setData({
-                          arr3: that.data.arr3.concat(list[i]).sort(compare('idx'))
-                        })
-                        if(that.data.arr3.length==arr1.length){
-                         wait();
-                        }
-                        function compare(property) {
-                          return function (a, b) {
-                            var value1 = a[property];
-                            var value2 = b[property];
-                            return value1 - value2;
-                          }
-                        }  
-                    },
-                    err => {
-                      wx.showToast({
-                        title: '连接失败,请重新提交',
-                      })
-                      that.setData({
-                        isMakingPoster: false,
-                      })
-                    })
-                  }
-               function wait(){
-                    let list5=new Array
-                    let len2 = that.data.arr3.length
-                    let arr4=new Array
-                    let arr3=that.data.arr3
-                    for (let k = 0; k < len2; k++) {
-                      list5[k]=arr3[k].src
-                      arr4.push(list5[k])
-                      if(k==len2-1){
-                        that.setData({
-                          arr2:arr4
-                        })
-                      }
-                  }
-                 wait2();
-                }
-                function wait2(){
-                  let arr2 = that.data.arr2
-                  let content = that.data.content
-                  let address = that.data.addDetail
-                  let apple = {
-                    img: arr2,
-                    content: content,
-                    address: address,
-                    author_head:that.data.author_head,
-                    author_name: that.data.author_name,
-                  }
-                  product.set(apple).save().then(res => {
-                    wx.showToast({
-                      title: '提交成功..',
-                      icon: 'success',
-                      duration: 2000,
-                      success: function (res) {
-                        that.setData({
-                          isMakingPoster: false,
-                          arr1: [],
-                          addDetail: "",
-                          check: true,
-                          content: "",
-                          arr2: [],
-                          arr3:[],
-                        })
-                        wx.switchTab({
-                          url: '../../pages/indexo/indexo',
-                        })
-                      }
-                    })
-                  }, err => {
-                    wx.showToast({
-                      title: '连接失败,请重新提交',
-                    })
+                that.updataImg().then(
+                  res => {
+                    let arr = that.data.imgList.sort(that.compare('idx')).map(
+                      item=>{return item.path}
+                    )
                     that.setData({
-                      isMakingPoster: false,
-
+                      imgList:arr
                     })
-                  })
-                }
-              } else if (res.cancel) {}
+                  }
+                ).then(
+                  res=>{that.createdRecord()
+                  }
+                ).catch(
+                  err=>{
+                    that.setData({
+                      isMakingPoster: false
+                    })
+                      wx.showToast({
+                        title: '上传失败,请稍后再试',
+                        icon:"none",
+                      })
+                  }
+                )
+              }
             }
-
           })
         }
-      }, 200
+      }
     )
   },
-  focusText:function(e){
-    let that=this
+  // submit: function() {
+  //   let that = this
+  //   let steps = that.steps()
+  //   steps.next()
+  //   let arr = that.data.imgList.sort(that.compare('idx')).map(
+  //     item => {
+  //       return item.path
+  //     }
+  //   )
+  //   that.setData({
+  //     imgList: arr
+  //   })
+  //   steps.next()
+  // },
+  // steps: function*() {
+  //   let that = this
+  //   yield that.updataImg()
+  //   yield that.createdRecord()
+  // },
+  createdRecord: function() {
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        let tableID = 55960
+        let Product = new wx.BaaS.TableObject(tableID)
+        let product = Product.create()
+        // 设置方式一
+        let arr2 = that.data.imgList
+
+        let address = that.data.addDetail
+        let apple = {
+          img: arr2,
+          content: that.data.content,
+          address: address,
+          author_head: that.data.author_head,
+          author_name: that.data.author_name,
+        }
+        product.set(apple).save().then(res => {
+          wx.showToast({
+            title: '提交成功..',
+            icon: 'success',
+            duration: 2000,
+            success: function(res) {
+              that.setData({
+                isMakingPoster: false,
+                arr1: [],
+                addDetail: "",
+                check: true,
+                content: "",
+                imgList: [],
+              })
+              wx.switchTab({
+                url: '../../pages/indexo/indexo',
+              })
+              resolve(res)
+            }
+          })
+        })
+      }
+    )
+  },
+  updataImg: function() {
+    let that = this
+    let arr = that.data.arr1
+    let list = new Array
+    return new Promise(
+      (resolve, reject) => {
+        for (let i = 0; i < arr.length; i++) {
+          myfirst.upload(arr[i], 'cirtical').then(
+            res => {
+              list[i] = {
+                "idx": i,
+                "path": res.data.path
+              }
+              that.setData({
+                imgList: that.data.imgList.concat(list[i])
+              })
+              if (that.data.imgList.length == arr.length) {
+                resolve()
+              }
+            }
+          )
+        }
+      }
+    )
+  },
+  compare(property) {
+    return function(a, b) {
+      var value1 = a[property];
+      var value2 = b[property];
+      return value1 - value2;
+    }
+  },
+  // submit: function() {
+  //   let tableID = 55960
+  //   let Product = new wx.BaaS.TableObject(tableID)
+  //   let product = Product.create()
+  //   let that = this
+  //   setTimeout(
+  //     function() {
+  //       if (that.data.arr1 == '' || that.data.content == '') {
+  //         wx.showToast({
+  //           title: '请输入完整',
+  //           icon: 'none',
+  //           duration: 2000
+  //         })
+  //       } else {
+  //         wx.showModal({
+  //           title: '提示',
+  //           content: '确认发布',
+  //           success: function(res) {
+  //             if (res.confirm) {
+  //               let arr1 = that.data.arr1
+  //               let n=arr1.length
+  //               let obj = {
+  //                 idx: "",
+  //                 src: ""
+  //               }
+  //               that.setData({
+  //                 isMakingPoster: true,
+  //               })
+  //               let list = new Array(n)
+  //               let list0 = new Array
+  //               for(let i = 0; i < arr1.length; i++){
+  //                 let i2=arr1.length-1;
+  //                 list[i]=obj;
+  //                 let MyFile = new wx.BaaS.File()
+  //                 let fileParams = {
+  //                   filePath: arr1[i],
+  //                 }
+  //                 let metaData = {
+  //                   categoryName: 'SDK'
+  //                 }
+  //                 MyFile.upload(fileParams, metaData).then(e => {
+
+  //                     list[i].src = e.data.path
+  //                     list[i].idx = i;
+  //                       that.setData({
+  //                         arr3: that.data.arr3.concat(list[i]).sort(compare('idx'))
+  //                       })
+  //                       if(that.data.arr3.length==arr1.length){
+  //                        wait();
+  //                       }
+  //                       function compare(property) {
+  //                         return function (a, b) {
+  //                           var value1 = a[property];
+  //                           var value2 = b[property];
+  //                           return value1 - value2;
+  //                         }
+  //                       }  
+  //                   },
+  //                   err => {
+  //                     wx.showToast({
+  //                       title: '连接失败,请重新提交',
+  //                     })
+  //                     that.setData({
+  //                       isMakingPoster: false,
+  //                     })
+  //                   })
+  //                 }
+  //              function wait(){
+  //                   let list5=new Array
+  //                   let len2 = that.data.arr3.length
+  //                   let arr4=new Array
+  //                   let arr3=that.data.arr3
+  //                   for (let k = 0; k < len2; k++) {
+  //                     list5[k]=arr3[k].src
+  //                     arr4.push(list5[k])
+  //                     if(k==len2-1){
+  //                       that.setData({
+  //                         arr2:arr4
+  //                       })
+  //                     }
+  //                 }
+  //                wait2();
+  //               }
+  //               function wait2(){
+  //                 let arr2 = that.data.arr2
+  //                 let content = that.data.content
+  //                 let address = that.data.addDetail
+  //                 let apple = {
+  //                   img: arr2,
+  //                   content: content,
+  //                   address: address,
+  //                   author_head:that.data.author_head,
+  //                   author_name: that.data.author_name,
+  //                 }
+  //                 product.set(apple).save().then(res => {
+  //                   wx.showToast({
+  //                     title: '提交成功..',
+  //                     icon: 'success',
+  //                     duration: 2000,
+  //                     success: function (res) {
+  //                       that.setData({
+  //                         isMakingPoster: false,
+  //                         arr1: [],
+  //                         addDetail: "",
+  //                         check: true,
+  //                         content: "",
+  //                         arr2: [],
+  //                         arr3:[],
+  //                       })
+  //                       wx.switchTab({
+  //                         url: '../../pages/indexo/indexo',
+  //                       })
+  //                     }
+  //                   })
+  //                 }, err => {
+  //                   wx.showToast({
+  //                     title: '连接失败,请重新提交',
+  //                   })
+  //                   that.setData({
+  //                     isMakingPoster: false,
+
+  //                   })
+  //                 })
+  //               }
+  //             } else if (res.cancel) {}
+  //           }
+
+  //         })
+  //       }
+  //     }, 200
+  //   )
+  // },
+  focusText: function(e) {
+    let that = this
     that.setData({
-      height2:e.detail.height
+      height2: e.detail.height
     })
   },
-  focusChange:function(){
-    let that=this
+  focusChange: function() {
+    let that = this
     that.setData({
-      focus1:false,
-      focus2:true,
-      focus3:true,
+      focus1: false,
+      focus2: true,
+      focus3: true,
     })
   },
 
@@ -295,10 +440,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-    return {
-      title: '海草日记',
-      desc: '最具人气的小程序开发联盟!',
-      path: '/pages/indexo/indexo',
-    }
+
   }
 })
