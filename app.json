@@ -36,7 +36,8 @@
     "pages/audioDetail/audioDetail",
     "pages/activities/activities",
     "pages/counselorDetail/counselorDetail",
-    "pages/projectDetail/projectDetail"
+    "pages/projectDetail/projectDetail",
+    "pages/smprojectDetail/smprojectDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",

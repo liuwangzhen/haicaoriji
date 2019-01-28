@@ -1,0 +1,30 @@
+/* pages/smprojectDetail/smprojectDetail.wxss */
+.line{
+  width: 750rpx;
+  height: 20rpx;
+  background-color: #f0f9f8;
+}
+.document{
+  width: 690rpx;
+  height: 810rpx;
+  background-color: #f9f9f9;
+  border-top-left-radius:20rpx;
+}
+.item{
+  width: 645rpx;
+  height: 60rpx;
+  margin-left: 15rpx;
+  padding-left: 15rpx;
+  letter-spacing: 3rpx;
+  padding-top: 30rpx;
+}
+.ritem{
+  position: absolute;
+  right: 60rpx;
+}
+.iconf{
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  background-color: #50e2bf;
+}

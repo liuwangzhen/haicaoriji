@@ -1,0 +1,112 @@
+<wxs module="filter" src="../../utils/getdatr.wxs">
+</wxs>
+<header canGoIndex="true" title="{{title}}" />
+<view style='padding-bottom:120rpx;'>
+  <view class='ml30 w690'>
+    <view class='r1 mt30'>
+      <view class='iconf'>
+      <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-xiangmu'></view>
+      </view>
+      <view class='b c00 f30 le3 ml10'>项目概览</view>
+    </view>
+    <view class='f28 c00 mt30 le3'>项目简介</view>
+    <view class='mt20 f28 le3 lh40 c88'>{{project.detail}}</view>
+    <view class='f28  c00 mt30 le3'>项目特色</view>
+    <view class='mt20 f28 le3 lh40 c88'>{{project.feature}}</view>
+
+    <view class='f28  c00 mt30 le3'>项目别名</view>
+    <view class='mt20 f28 le3 lh40 c88'>{{project.otherName}}</view>
+    <view class='f28  c00 mt30 le3'>参考价格</view>
+    <view class='mt20 f28 le3 lh40 c88'>{{project.price}}</view>
+    <view class='r1 mt30'>
+      <view class='iconf'>
+      <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-dangan'></view>
+      </view>
+      <view class='b c00 f32 le3 ml10'>项目档案</view>
+    </view>
+    <view class='f28  c00 mt30 le3'>适合人群</view>
+    <view class='mt20'>
+      <view class='f28 le3 lh40 c88' wx:for="{{people}}" wx:key="{{index}}">{{item}}
+        <span wx:if="{{index<people.length-1}}">;</span>
+      </view>
+    </view>
+    <view class='f28  c00 mt30 le3'>禁忌人群</view>
+    <view class='mt20'>
+      <view class='f28 le3 lh40 c88' wx:for="{{taboo}}" wx:key="{{index}}">{{item}}
+        <span wx:if="{{index<taboo.length-1}}">;</span>
+      </view>
+    </view>
+    <view class='f28  c00 mt30 le3'>优点</view>
+    <view class='mt20'>
+      <view class='f28 le3 lh40 c88' wx:for="{{advantage}}" wx:key="{{index}}">{{item}}
+        <span wx:if="{{index<advantage.length-1}}">;</span>
+      </view>
+    </view>
+    <view class='f28  c00 mt30 le3'>缺点</view>
+    <view class='mt20'>
+      <view class='f28 le3 lh40 c88' wx:for="{{defect}}" wx:key="{{index}}">{{item}}
+        <span wx:if="{{index<defect.length-1}}">;</span>
+      </view>
+    </view>
+  </view>
+  <view class='mt20 line'></view>
+  <view class='ml30 w690'>
+    <view class='r1 mt30 '>
+    <view class='iconf'>
+      <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-yiyuan'></view>
+      </view>
+      <view class='f28 ml10 b c00 le3'>操作档案</view>
+      </view>
+    
+    <view class='mt20 document'>
+      <view class='r1 item'>
+        <view class='f28 c00 '>治疗时长</view>
+        <view class='f28 c88  ritem'>{{project.operate}}</view>
+      </view>
+      <view class='r1 item bgf'>
+        <view class='f28 c00 '>效果持续</view>
+        <view class='f28 c88 ritem'>{{project.duration}}</view>
+
+      </view>
+      <view class='r1 item'>
+        <view class='f28 c00 '>麻醉方式</view>
+        <view class='f28 c88 ritem'>{{project.type}}</view>
+
+      </view>
+      <view class='r1 item bgf'>
+        <view class='f28 c00 '>恢复时间</view>
+        <view class='f28 c88 ritem'>{{project.renew}}</view>
+
+      </view>
+      <view class='r1 item'>
+        <view class='f28 c00 '>治疗周期</view>
+        <view class='f28 c88 ritem'>{{project.cycle}}</view>
+
+      </view>
+      <view class='r1 item bgf'>
+        <view class='f28 c00 '>操作人员资质</view>
+        <view class='f28 c88 ritem'>{{project.intelligence}}</view>
+      </view>
+      <view class='r1 item '>
+        <view class='f28 c00 '>操作方式</view>
+        <view class='f28 c88 ritem'>{{project.type}}</view>
+
+      </view>
+      <view class='r1 item bgf'>
+        <view class='f28 c00 '>疼痛感</view>
+        <view class='f28 c88 ritem'>{{project.pain}}</view>
+      </view>
+      <view class='le3 mt30 cen f28 ccc'>— 以上信息均为参考，实际以到院操作为准 —</view>
+    </view>
+  </view>
+  <view class='mt20 line'></view>
+   <view class='ml30 w690'>
+   <view class='f28  c00 mt30 le3'>术前必读</view>
+   <text class='mt20 f28 c88 le3 lh40'>{{before}}</text>
+   </view>
+   <view class='mt20 line'></view>
+    <view class='ml30 w690'>
+   <view class='f28  c00 mt30 le3'>术后护理</view>
+   <text class='mt20 f28 c88 le3 lh40'>{{after}}</text>
+   </view>
+</view>

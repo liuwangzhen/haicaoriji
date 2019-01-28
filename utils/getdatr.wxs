@@ -40,6 +40,17 @@ var filter = {
     str += '...'
     return str;
   },
+  // 去换行
+  // deleteN:function(txt){
+  //     var phoneReplace = function (phoneNumber) {
+  //       var reg = getRegExp('/\n:/', "g");
+  //       console.log(2)
+  //     return phoneNumber.replace(reg, '');
+
+  //   }
+  //   phoneReplace(txt)
+  // },
+ 
   stohs: function(s){
     //计算分钟
     //算法：将秒数除以60，然后下舍入，既得到分钟数
@@ -63,4 +74,6 @@ module.exports = {
   Limit2: filter.LimitNumbersadf2,
   Limit3: filter.LimitNumbersadf3,
   stosh: filter.stohs,
+  deleteN:filter.deleteN,
+  
 }

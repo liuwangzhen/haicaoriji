@@ -9,6 +9,7 @@ Page({
   data: {
     height4: getApp().globalData.height,
     list:[],
+    projectDetail:[],
     page:0,
     isHospital:true,
     curId:0,
@@ -451,14 +452,15 @@ Page({
   },
   getProjectDetail:function(){
     let that=this
+    let page=that.data.page
     let query=new wx.BaaS.Query()
     query.compare('proNumber','=',1)
     return new Promise(
       (resolve,reject)=>{
-        myfirst.getTableSelect(62878, 10, 0, 'create_at', ['id', 'sm_project', 'proName'], query).then(
+        myfirst.getTableSelect(62878, 10, page*10, 'create_at', ['id', 'sm_project', 'proName'], query).then(
           res=>{
             that.setData({
-              projectDetail:res.data.objects
+              projectDetail:that.data.projectDetail.concat(res.data.objects)
             })
           }
         )
@@ -533,6 +535,15 @@ Page({
           }, 500
         )
         break;
+        case 2:
+        setTimeout(
+          function () {
+            that.setData({
+              projectDetail: [],
+            })
+            that.getProjectDetail();
+          }, 500
+        )
     }
     wx.showToast({
       title: '正在刷新',
@@ -564,6 +575,13 @@ Page({
         setTimeout(
           function () {
             that.getHospital();
+          }, 500
+        )
+        break;
+      case 2:
+        setTimeout(
+          function () {
+            that.getProjectDetail();
           }, 500
         )
         break;

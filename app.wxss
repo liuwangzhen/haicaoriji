@@ -9,6 +9,7 @@
 @import '/common/iconfont8.wxss';
 @import '/common/iconfont9.wxss';
 @import '/common/iconfont10.wxss';
+@import '/common/iconfont11.wxss';
 @import '/wxParser/index.wxss';
 /* {
         "pagePath": "pages/addNote/addNote",
@@ -34,6 +35,9 @@
 .w380{
   width: 380rpx;
 }
+.nowrap{
+  white-space:nowrap;
+}
 .w80{
   width: 80rpx;
 }
@@ -45,6 +49,36 @@
 }
 .ml68{
   margin-left: 68rpx;
+}
+.pr{
+  padding-right: 40rpx;
+}
+.c85e{
+  color: #85e4d2
+}
+.pb30{
+  padding-bottom: 30rpx
+}
+.c585{
+  color:#585858;
+}
+.w630{
+  width: 630rpx;
+}
+.w690{
+  width: 690rpx;
+}
+.lh40{
+  line-height: 40rpx;
+}
+.c88{
+  color: #888888;
+}
+.bgf{
+  background-color: #fff;
+}
+.ccc{
+  color:#cccccc;
 }
 .pb{
   padding-bottom: 10rpx;

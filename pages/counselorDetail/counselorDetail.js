@@ -20,6 +20,21 @@ Page({
      })
      that.getCounselor()
     that.getToken()
+    console.log(options.id)
+  },
+  getEwr:function(){
+    let that=this
+    wx.BaaS.getWXACode('wxacodeunlimit', params, true, '二维码').then(res => {
+      wx.getImageInfo({
+        src: res.download_url,
+        success: function (res) {
+          that.setData({
+            ewrImg: res.path
+          })
+          //  that.btnchose();
+        }
+      })
+    })
   },
   getToken(){
     let that = this
