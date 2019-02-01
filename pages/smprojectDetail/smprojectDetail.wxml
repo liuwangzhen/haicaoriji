@@ -18,6 +18,9 @@
     <view class='mt20 f28 le3 lh40 c88'>{{project.otherName}}</view>
     <view class='f28  c00 mt30 le3'>参考价格</view>
     <view class='mt20 f28 le3 lh40 c88'>{{project.price}}</view>
+    </view>
+    <view class='mt20 line'></view>
+    <view class='ml30 w690'>
     <view class='r1 mt30'>
       <view class='iconf'>
       <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-dangan'></view>

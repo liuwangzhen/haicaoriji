@@ -2,6 +2,8 @@
 import regeneratorRuntime from '../../utils/runtime'
 var app = getApp();
 const Page = require('../../utils/ald-stat.js').Page;
+const myFirst = require('../../utils/myfirst');
+const myfirst = new myFirst()
 Page({
 
   /**
@@ -363,6 +365,9 @@ that.setData({
   getPhoneNumber(e) {
     let that = this
     let isClick = that.data.isClick2
+    let b={
+      isGetPhone:false
+    }
     if (isClick == true) {
       that.setData({
         isClick2: false
@@ -380,11 +385,23 @@ that.setData({
             // age 为自定义字段
             currentUser.set({
               'phone': decrytedData.phoneNumber,
+              'isGetPhone':true
             }).update().then(res => {
               that.collect(a)
+              myfirst.renew(b).then(
+                res=>{
+                  console.log(res)
+                }
+              )
+              
             }, err => {})
           }, err => {
             // 失败的原因有可能是以下几种：用户未登录或 session_key 过期，微信解密插件未开启，提交的解密信息有误
+            wx.showToast({
+              title: '请重新收藏',
+              icon:"none"
+            })
+            console.log("4444")
           })　　　　
         },
         　fail: function(res) {　

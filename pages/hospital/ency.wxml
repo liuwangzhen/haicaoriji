@@ -2,7 +2,7 @@
 </wxs>
 <view class='w100p bg-fff'>
   <view class='r1 proency'>
-    <view bindtap='pickPro' data-idx="{{index}}" class='col proitem {{index==curId?"border":""}}' wx:for="{{title}}" wx:key="{{index}}">
+    <view bindtap='{{index==0?"pickPro":"alert"}}' data-idx="{{index}}" class='col proitem {{index==curId?"border":""}}' wx:for="{{title}}" wx:key="{{index}}">
       <image class='proimg mt10' src='{{item.src}}' mode='aspectFill'></image>
       <view class='{{index==curId?"f32 b c00":"c9b f32"}} cen mt20'>{{item.name}}</view>
     </view>

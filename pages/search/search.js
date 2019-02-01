@@ -292,7 +292,8 @@ Page({
    let that=this
    let page=that.data.page
    that.setData({
-     page:0
+    page:0,
+    list:[]
    })
     wx.stopPullDownRefresh();
     setTimeout(function () {

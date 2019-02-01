@@ -1,4 +1,4 @@
-// pages/chose/chose.js
+// pages/chose/chose.js;
 const myFirst = require('../../utils/myfirst');
 const myfirst = new myFirst()
 Page({

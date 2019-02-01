@@ -226,6 +226,7 @@ Page({
       list:[],
       page:0,
       counselorId:0,
+      projectDetail:[],
     })
     let idx=that.data.curId
     switch (tag){
@@ -411,6 +412,8 @@ Page({
     let idx = e.currentTarget.dataset.idx
     that.setData({
       curId: idx,
+      projectDetail: [],
+      page:0,
     })
     switch (idx){
       case 0:
@@ -479,10 +482,11 @@ Page({
   },
   alert:function(){
      wx.showToast({
-       title: '百科即将上线，敬请期待',
+       title: '即将上线，敬请期待',
        icon:"none"
      })
   },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

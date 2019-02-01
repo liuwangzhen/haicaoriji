@@ -15,15 +15,34 @@ Page({
    */
   onLoad: function (options) {
      let that=this
+     console.log(options.scene)
+     if(options.scene==undefined){
      that.setData({
        id:options.id
      })
-     that.getCounselor()
+     }
+     else{
+       that.setData({
+         id: options.scene
+       })
+     }
+    that.getCounselor()
     that.getToken()
-    console.log(options.id)
+    // that.getEwr()
+
   },
   getEwr:function(){
     let that=this
+    let scene = that.data.id
+    // let scene = that.data.id
+    let id = that.data.id
+    const params = {
+      scene: scene,
+      page: 'pages/counselorDetail/counselorDetail',
+      width: 250,
+      is_hyaline: false,
+      
+    }
     wx.BaaS.getWXACode('wxacodeunlimit', params, true, '二维码').then(res => {
       wx.getImageInfo({
         src: res.download_url,
@@ -31,7 +50,7 @@ Page({
           that.setData({
             ewrImg: res.path
           })
-          //  that.btnchose();
+          
         }
       })
     })

@@ -3,6 +3,7 @@ import regeneratorRuntime from '../../utils/runtime'
 const Page = require('../../utils/ald-stat.js').Page;
 const myFirst=require('../../utils/myfirst.js')
 const app = getApp();
+
 Page({
   /**
    * 页面的初始数据
@@ -65,9 +66,9 @@ Page({
     //   console.log("22")
     // }
     // awaitDemo();
-
-
+   
   },
+  
 
   showInput: function() {
     this.setData({
