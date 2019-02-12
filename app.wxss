@@ -38,6 +38,9 @@
 .nowrap{
   white-space:nowrap;
 }
+.cecf{
+  color:#70d6d1;
+}
 .w80{
   width: 80rpx;
 }

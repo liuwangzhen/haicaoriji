@@ -1,0 +1,201 @@
+<wxs module="filter" src="../../utils/getdatr.wxs">
+</wxs>
+<header canGoIndex="true" title="{{title}}" />
+<view style='padding-bottom:120rpx;'>
+  <view class='ml30 w690'>
+    <view class='r1 mt30'>
+      <view class='iconf'>
+        <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-xiangmu'></view>
+      </view>
+      <view class='b c00 f32 le3 ml10'>药品概要</view>
+    </view>
+
+    <view class='f28 c00 mt30 le3'>药品简介</view>
+    <view class='mt20 f28 le3 lh40 c88'>{{drugDetail.detail}}</view>
+    <view class='f28  c00 mt30 le3'>药品特色</view>
+    <view class='mt20 f28 le3 lh40 c88'>{{drugDetail.feature}}</view>
+    <block wx:if="{{drugDetail.otherName!=null}}">
+      <view class='f28  c00 mt30 le3'>药品别名</view>
+      <view class='mt20 f28 le3 lh40 c88'>{{drugDetail.otherName}}</view>
+    </block>
+    <view class='f28  c00 mt30 le3'>药品档案</view>
+    <view wx:if="{{drugDetail.brand!=null}}" class='mt20 f28 le3 lh40 c88'>品牌:
+      <span class="cecf">{{drugDetail.brand}}</span>
+    </view>
+    <view wx:if="{{drugDetail.place!=null}}" class='mt20 f28 le3 lh40 c88'>产地:{{drugDetail.place}}</view>
+    <view wx:if="{{drugDetail.appear!=null}}" class='mt20 f28 le3 lh40 c88'>上市时间:{{drugDetail.appear}}</view>
+    <view wx:if="{{drugDetail.company!=null}}" class='mt20 f28 le3 lh40 c88'>公司/厂商:{{drugDetail.company}}</view>
+    <view wx:if="{{drugDetail.certify!=null}}" class='mt20 f28 le3 lh40 c88'>CFDA认证时间:{{drugDetail.certify}}</view>
+    <view wx:if="{{drugDetail.price!=null}}" class='f28  c00 mt30 le3'>参考价格</view>
+    <view wx:if="{{drugDetail.price!=null}}" class='mt20 f28 le3 lh40 c88'>{{drugDetail.price}}</view>
+  </view>
+  <block wx:if="{{drugDetail.certify1!=null}}">
+    <view class='mt20 line'></view>
+    <view class='ml30 w690'>
+      <view class='r1 mt30'>
+        <view class='iconf'>
+          <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-dangan'></view>
+        </view>
+        <view class='b c00 f32 le3 ml10'>认证</view>
+      </view>
+      <view class='mt20 f28 le3 lh40 c88'>该药品已获得以下认证</view>
+      <block class="r1 mt10">
+        <image wx:if="{{'http://img2.soyoung.com/item/20171020/0/20171020203800705.png'==drugDetail.certify1||'http://img2.soyoung.com/item/20171020/0/20171020203800705.png'==drugDetail.certify2||'http://img2.soyoung.com/item/20171020/0/20171020203800705.png'==drugDetail.certify3}}"
+          class='img' src='../../images/cfda.jpg' mode="aspectFit" />
+        <image wx:if="{{'http://img2.soyoung.com/item/20171020/2/20171020203715511.png'==drugDetail.certify1||'http://img2.soyoung.com/item/20171020/2/20171020203715511.png'==drugDetail.certify2||'http://img2.soyoung.com/item/20171020/2/20171020203715511.png'==drugDetail.certify3}}"
+          class='img ml20' src='../../images/fda.jpg' mode="aspectFit" />
+        <image wx:if="{{'http://img2.soyoung.com/item/20171020/1/20171020203842657.png'==drugDetail.certify1||'http://img2.soyoung.com/item/20171020/1/20171020203842657.png'==drugDetail.certify2||'http://img2.soyoung.com/item/20171020/1/20171020203842657.png'==drugDetail.certify3}}"
+          class='img ml20' src='../../images/ce.jpg' mode="aspectFit" />
+        <image wx:if="{{'http://img2.soyoung.com/item/20171020/4/20171020203926467.png'==drugDetail.certify1||'http://img2.soyoung.com/item/20171020/4/20171020203926467.png'==drugDetail.certify2||'http://img2.soyoung.com/item/20171020/4/20171020203926467.png'==drugDetail.certify3}}"
+          class='img ml20' src='../../images/kfda.jpg' mode="aspectFit" />
+      </block>
+    </view>
+  </block>
+
+  <view class='mt20 line'></view>
+  <view class='ml30 w690'>
+    <view class='r1 mt30'>
+      <view class='iconf'>
+        <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-dangan'></view>
+      </view>
+      <view class='b c00 f32 le3 ml10'>药品参数</view>
+    </view>
+
+    <view wx:if="{{drugDetail.model!=null}}" class="r1 wauto">
+      <view class='mt20 f28 c00 le3 w200'>型号</view>
+      <view class='mt20 f28 c88 ml30 le3'>{{drugDetail.model}}</view>
+    </view>
+    <view wx:if="{{drugDetail.concentration!=null}}" class="r1 wauto">
+      <view class='mt20 f28 c00 le3 w200'>浓度</view>
+      <view class='mt20 f28 c88 ml30 le3'>{{drugDetail.concentration}}</view>
+    </view>
+    <view wx:if="{{drugDetail.molecular!=null}}" class="r1 wauto">
+      <view class='mt20 f28 c00 le3 w200'>分子量</view>
+      <view class='mt20 f28 c88 ml30 le3'>{{drugDetail.molecular}}</view>
+    </view>
+    <view wx:if="{{drugDetail.composition!=null}}" class="r1 wauto">
+      <view class='mt20 f28 c00 le3 w200'>成分</view>
+      <view class='mt20 f28 c88 ml30 le3'>{{drugDetail.composition}}</view>
+    </view>
+    <view wx:if="{{drugDetail.character!=null}}" class="r1 wauto">
+      <view class='mt20 f28 c00 le3 w200'>性质类型</view>
+      <view class='mt20 f28 c88 ml30 le3'>{{drugDetail.character}}</view>
+    </view>
+    <view wx:if="{{drugDetail.standare!=null}}" class="r1 wauto">
+      <view class='mt20 f28 c00 le3 w200'>规格</view>
+      <view class='mt20 f28 c88 ml30 le3'>{{drugDetail.standare}}</view>
+    </view>
+  </view>
+  <block wx:if="{{drugDetail.advantage!=null&&drugDetail.defect!=null}}">
+  <view class='mt20 line'></view>
+  <view class='ml30 w690'>
+    <view class='r1 mt30'>
+      <view class='iconf'>
+        <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-dangan'></view>
+      </view>
+      <view class='b c00 f32 le3 ml10'>优缺点</view>
+    </view>
+    <block wx:if="{{drugDetail.advantage!=null}}">
+      <view class='f28 c00 mt30 le3'>优点：</view>
+      <view class='mt20'>
+        <text class='f28 le3 lh40 c88'>{{drugDetail.advantage}}
+      </text>
+      </view>
+    </block>
+    <block wx:if="{{drugDetail.defect!=null}}">
+      <view class='f28  c00 mt30 le3'>缺点：</view>
+      <view class='mt20'>
+        <text class='f28 le3 lh40 c88'>{{drugDetail.defect}}
+      </text>
+      </view>
+    </block>
+  </view>
+  </block>
+  <block wx:if="{{drugDetail.theory!=null}}">
+  <view class='mt20 line'></view>
+  <view class='ml30 w690'>
+    <view class='r1 mt30 '>
+      <view class='iconf'>
+        <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-yiyuan'></view>
+      </view>
+      <view class='f32 ml10 b c00 le3'>药品原理</view>
+
+    </view>
+    <view class='f28 le3 lh40 c88 mt20'>{{drugDetail.theory}}</view>
+  </view>
+  </block>
+  <view class='mt20 line'></view>
+  <view class='ml30 w690'>
+    <view class='r1 mt30 '>
+      <view class='iconf'>
+        <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-yiyuan'></view>
+      </view>
+      <view class='f32 ml10 b c00 le3'>操作档案</view>
+    </view>
+
+    <view class='mt20 document'>
+      <view wx:if="{{drugDetail.type!=null}}" class='r1 item'>
+        <view class='f28 c00 '>操作方式</view>
+        <view class='f28 c88  ritem'>{{drugDetail.type}}</view>
+      </view>
+      <view wx:if="{{drugDetail.type!=operate}}" class='r1 item bgf'>
+        <view class='f28 c00 '>操作时长</view>
+        <view class='f28 c88 ritem'>{{drugDetail.operate}}</view>
+
+      </view>
+      <view wx:if="{{drugDetail.narcosis!=null}}" class='r1 item'>
+        <view class='f28 c00 '>麻醉方式</view>
+        <view class='f28 c88 ritem'>{{drugDetail.narcosis}}</view>
+
+      </view>
+      <view wx:if="{{drugDetail.renew!=null}}" class='r1 item bgf'>
+        <view class='f28 c00 '>恢复时间</view>
+        <view class='f28 c88 ritem'>{{drugDetail.renew}}</view>
+
+      </view>
+      <view wx:if="{{drugDetail.effect!=null}}" class='r1 item'>
+        <view class='f28 c00 '>效果持续</view>
+        <view class='f28 c88 ritem'>{{drugDetail.effect}}</view>
+
+      </view>
+      <view wx:if="{{drugDetail.cycle!=null}}" class='r1 item bgf'>
+        <view class='f28 c00 '>治疗周期</view>
+        <view class='f28 c88 ritem'>{{drugDetail.cycle}}</view>
+
+      </view>
+      <view wx:if="{{drugDetail.intelligence!=null}}" class='r1 item '>
+        <view class='f28 c00 '>操作人员资质</view>
+        <view class='f28 c88 ritem'>{{drugDetail.intelligence}}</view>
+      </view>
+
+      <view class='le3 mt30 cen f28 ccc'>— 以上信息均为参考，实际以到院操作为准 —</view>
+    </view>
+  </view>
+  <block wx:if="{{drugDetail.after!=null}}">
+  <view class='mt20 line'></view>
+  <view class='r1 mt30 ml30'>
+    <view class='iconf'>
+      <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-yiyuan'></view>
+    </view>
+    <view class='f32 ml10 b c00 le3'>术后反应</view>
+
+  </view>
+
+  <view class='ml30 w690'>
+    <text class='mt30 f28 c88 le3 lh40'>{{drugDetail.after}}</text>
+  </view>
+  </block>
+  <block wx:if="{{drugDetail.prompt!=null}}">
+  <view class='mt20 line'></view>
+  <view class='r1 mt30 ml30'>
+    <view class='iconf'>
+      <view style='color:#fff;font-size:26rpx;margin-left:7rpx;margin-top:8rpx;' class='iconfont icon-yiyuan'></view>
+    </view>
+    <view class='f32 ml10 b c00 le3'>安全提示</view>
+
+  </view>
+  <view class='ml30 w690'>
+    <text class='mt30 f28 c88 le3 lh40'>{{drugDetail.prompt}}</text>
+  </view>
+  </block>
+</view>

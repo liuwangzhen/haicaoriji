@@ -245,7 +245,7 @@ Page({
           case 0:
             that.getProject().then(
               res => {
-                that.getProjectDetail()
+                that.getProjectDetail(1)
               }
             )
             break;
@@ -425,6 +425,7 @@ Page({
         break;
       case 1:
         // that.getMedicines();
+        that.getProjectDetail()
         break;
       case 2:
         // that.getMaterial();
@@ -456,8 +457,10 @@ Page({
   getProjectDetail:function(){
     let that=this
     let page=that.data.page
+
+    let curId=Number(that.data.curId)+1
     let query=new wx.BaaS.Query()
-    query.compare('proNumber','=',1)
+    query.compare('proNumber','=',curId)
     return new Promise(
       (resolve,reject)=>{
         myfirst.getTableSelect(62878, 10, page*10, 'create_at', ['id', 'sm_project', 'proName'], query).then(
@@ -475,16 +478,40 @@ Page({
     let key=e.currentTarget.dataset.key
     let title=e.currentTarget.dataset.title
     let idx=e.currentTarget.dataset.idx
+    if(that.data.curId==0)
+    {
     wx.navigateTo({
       url: '../projectDetail/projectDetail?key='+key+"&title="+title+"&idx="+idx,
-    })
-   
+    })}
+    else{
+      wx.navigateTo({
+        url: '../drugDetail/drugDetail?key=' + key + "&title=" + title ,
+      })
+    }
   },
+  // tiaoyaoping详情
+  
   alert:function(){
      wx.showToast({
        title: '即将上线，敬请期待',
        icon:"none"
      })
+  },
+  // 药品名
+  getDrugName: function () {
+    let that = this
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getTable(64578, 10, 0, 'created_at').then(
+          res => {
+            console.log(res.data.objects)
+            that.setData({
+              drugName: res.data.objects
+            })
+          }
+        )
+      }
+    )
   },
 
   /**

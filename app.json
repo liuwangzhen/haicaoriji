@@ -37,7 +37,8 @@
     "pages/activities/activities",
     "pages/counselorDetail/counselorDetail",
     "pages/projectDetail/projectDetail",
-    "pages/smprojectDetail/smprojectDetail"
+    "pages/smprojectDetail/smprojectDetail",
+    "pages/drugDetail/drugDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
