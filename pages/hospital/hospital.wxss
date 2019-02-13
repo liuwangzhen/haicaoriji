@@ -315,3 +315,7 @@ border-radius:20rpx;
 .r-wrap{
   flex-wrap:wrap;
 }
+.direction{
+  margin-left: 311rpx;
+  width: 34rpx;
+}

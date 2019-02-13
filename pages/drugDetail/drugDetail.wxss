@@ -6,7 +6,7 @@
 }
 .document{
   width: 690rpx;
-  height: 720rpx;
+  /* height: 720rpx; */
   background-color: #f9f9f9;
   border-top-left-radius:20rpx;
 }

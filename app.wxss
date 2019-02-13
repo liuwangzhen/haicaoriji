@@ -50,6 +50,9 @@
 .ml5{
   margin-left: 5rpx;
 }
+.pdb30{
+  padding-bottom: 30rpx;
+}
 .ml68{
   margin-left: 68rpx;
 }

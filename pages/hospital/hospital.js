@@ -55,6 +55,7 @@ Page({
     ],
     valueName:"",
     queryProject:"",
+    spread:false
   },
 
 
@@ -243,14 +244,13 @@ Page({
       case 2:
         switch (idx) {
           case 0:
-            that.getProject().then(
-              res => {
-                that.getProjectDetail(1)
-              }
-            )
+            
+                that.getProjectDetail()
+           
             break;
           case 1:
             // that.getMedicines();
+            that.getProjectDetail()
             break;
           case 2:
             // that.getMaterial();
@@ -424,14 +424,13 @@ Page({
         )
         break;
       case 1:
-        // that.getMedicines();
         that.getProjectDetail()
         break;
       case 2:
-        // that.getMaterial();
+        that.getProjectDetail()
         break;
       case 3:
-        
+        that.getProjectDetail()
         break;
       // default:
       //   n 与 case 1 和 case 2 不同时执行的代码
@@ -512,6 +511,14 @@ Page({
         )
       }
     )
+  },
+  
+  downDirection:function(){
+     let that=this
+     let spread=that.data.spread
+     that.setData({
+       spread:!spread
+     })
   },
 
   /**
