@@ -1,0 +1,6 @@
+/* pages/explain/explain.wxss */
+.img{
+  width: 150rpx;
+  height: 100rpx;
+  margin-left: 300rpx;
+}

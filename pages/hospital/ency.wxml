@@ -29,12 +29,12 @@
       </view>
       <block wx:if="{{project.sm_project.length>16}}">
        <view wx:if="{{spread==false}}" bindtap='downDirection'  class='col direction mt20'>
-       <view  style='width:32rpx;transform:rotate(180deg)' class='iconfont icon-xiangshang'></view>
-       <view style='width:32rpx;transform:rotate(180deg);height:16rpx;' class='iconfont icon-xiangshang'></view>
+       <view  style='width:32rpx;transform:rotate(180deg);color:#888888;' class='iconfont icon-xiangshang'></view>
+       <view style='width:32rpx;transform:rotate(180deg);height:16rpx;color:#888888;' class='iconfont icon-xiangshang'></view>
        </view>
        <view wx:if="{{spread==true}}" bindtap='downDirection'  class='col direction mt20'>
-       <view  style='width:32rpx;height:16rpx;' class='iconfont icon-xiangshang'></view>
-       <view style='width:32rpx;' class='iconfont icon-xiangshang'></view>
+       <view  style='width:32rpx;height:16rpx;color:#888888;' class='iconfont icon-xiangshang'></view>
+       <view style='width:32rpx;color:#888888;' class='iconfont icon-xiangshang'></view>
        </view>
       </block>
     </view>

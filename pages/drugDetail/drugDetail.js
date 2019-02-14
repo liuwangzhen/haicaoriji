@@ -38,6 +38,13 @@ Page({
       }
     )
   },
+  goExplain:function(){
+     let that=this
+     wx.navigateTo({
+       url: '../explain/explain',
+      
+     })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

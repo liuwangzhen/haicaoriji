@@ -1,0 +1,44 @@
+<view data-id="{{item.id}}" bindtap='goProjectDetail' data-name="{{item.projectName}}" class='mt20 project ml40' wx:key="{{item.id}}" wx:for="{{projectSciences}}">
+  <view class='r1 pt20'>
+    <view class='line2'></view>
+    <view class='f30 c00 ml20 le3'>{{item.projectName}}</view>
+    <view class='c9b f26 detail '>详情<span style="margin-left:10rpx;font-size:26rpx;color:#ddd;" class="iconfont2 icon-qianjin"></span></view>
+  </view>
+  <view class='mt10 line3'></view>
+  <view class='ml20 w630 pb30'>
+  <view class='mt20 f28 c00 le3'><span class="le3 lh40" wx:if="{{item.detail.length<40}}">{{item.detail}}</span>
+  <span class="le3 lh40" wx:else>{{filter.Limit3(item.detail,39)}}</span></view>
+  <view class='mt20 f26 c00'>
+  项目特色：<span class="c9b f26 le3 lh40"><span class="le3 lh40" wx:if="{{item.feature.length<40}}">{{item.feature}}</span>
+  <span class="lh40 le3" wx:else>{{filter.Limit3(item.feature,39)}}</span></span>
+  </view>
+  <view class='mt20 f26 c00'>
+  适用人群：<span wx:if="{{item.people.length<40}}" class="c9b f26 le3 lh40">{{item.people}}</span>
+  <span wx:else class="c9b f26 le3 lh40">{{filter.Limit3(item.people,39)}}</span>
+
+  </view>
+  <view class='mt20 f26 c00'>
+  参考价格：<span class="c9b f26 le3 lh40">{{item.price}}</span>
+  </view>
+  </view>
+</view>
+<view data-id="{{item.id}}" bindtap='goDrugDetail' data-name="{{item.projectName}}" class='mt20 project ml40' wx:key="{{item.id}}" wx:for="{{drugSciences}}">
+  <view class='r1 pt20'>
+    <view class='line2'></view>
+    <view class='f30 c00 ml20 le3'>{{item.projectName}}</view>
+    <view class='c9b f26 detail '>详情<span style="margin-left:10rpx;font-size:26rpx;color:#ddd;" class="iconfont2 icon-qianjin"></span></view>
+  </view>
+  <view class='mt10 line3'></view>
+  <view class='ml20 w630 pb30'>
+  <view class='mt20 f28 c00 le3'><span class="le3 lh40" wx:if="{{item.detail.length<40}}">{{item.detail}}</span>
+  <span class="le3 lh40" wx:else>{{filter.Limit3(item.detail,39)}}</span></view>
+  <view class='mt20 f26 c00'>
+  特色：<span class="c9b f26 le3 lh40"><span class="le3 lh40" wx:if="{{item.feature.length<40}}">{{item.feature}}</span>
+  <span class="lh40 le3" wx:else>{{filter.Limit3(item.feature,39)}}</span></span>
+  </view>
+  <view class='mt20 f26 c00'>
+  参考价格：<span class="c9b f26 le3 lh40">{{item.price}}</span>
+  </view>
+  </view>
+</view>
+<view style='padding-top:50px;'></view>

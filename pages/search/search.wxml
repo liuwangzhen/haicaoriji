@@ -20,7 +20,7 @@
   </view>
   <view wx:if="{{height4<40}}" style='margin-top:-{{height4/2 + 4}}px;'></view>
   <view wx:else style='margin-top:-{{height4/2+14}}px;'></view>
-  <view  class='r1 newV'>
+  <view class='r1 newV'>
     <view style='position:absolute;font-size:50rpx;color:#9b9b9b;margin-top:15rpx;left:70rpx;' class='iconfont icon-sousuokuang'></view>
     <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
     <view bindtap="search" class='newSearch ab'>搜索</view>
@@ -42,7 +42,7 @@
   </view>
 </view>
 <view wx:if="{{height4<40}}" style='padding-top:{{height4*2+48+100-height4/2}}px;'></view>
-  <view wx:else style='padding-top:{{height4*2+48+90-height4/2}}px;'></view>
+<view wx:else style='padding-top:{{height4*2+48+90-height4/2}}px;'></view>
 <view style='padding-top:0px;' class='body'>
   <view class='wait' wx:if="{{jundge==0}}">
     <image mode='widthFix' src='../../images/loading.svg'></image>
@@ -57,36 +57,45 @@
       <view wx:else class='number'>为您推荐：</view>
       <view wx:if="{{list!=null}}" class="content">
         <view style='width:320rpx;' class="ml20 left">
-        <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
-          <template is="mytemp" data="{{item}}"></template>
+          <view wx:if="{{index%2==0}}" wx:for="{{list}}" wx:key="{{item.id}}">
+            <template is="mytemp" data="{{item}}"></template>
+          </view>
+          <view class='bottom'></view>
         </view>
-        <view class='bottom'></view>
-      </view>
-      <view style='width:320rpx;margin-right:20rpx;' class="right">
-        <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
-          <template is="mytemp" data="{{item}}"></template>
+        <view style='width:320rpx;margin-right:20rpx;' class="right">
+          <view wx:for="{{list}}" data-index="{{index}}" wx:if="{{index%2==1}}" wx:key="{{item.id}}">
+            <template is="mytemp" data="{{item}}"></template>
+          </view>
+          <view class='bottom'></view>
         </view>
-        <view class='bottom'></view>
-      </view>
       </view>
     </view>
     <view wx:if="{{curId==1}}">
-    <view wx:if="{{hospital.length==0}}">
-      <view class='number'>
-        暂无相关医院
+      <view wx:if="{{hospital.length==0}}">
+        <view class='number'>
+          暂无相关医院
         </view>
-         <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
-    </view>
+        <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
+      </view>
       <view wx:else class='number'>为您推荐：</view>
       <include src='hospital.wxml' />
     </view>
     <view wx:if="{{curId==2}}">
-    <view wx:if="{{doctors.length==0}}">
-      <view  class='number'>暂无相关医生</view>
-       <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
+      <view wx:if="{{doctors.length==0}}">
+        <view class='number'>暂无相关医生</view>
+        <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
       </view>
       <view wx:else class='number'>为您推荐：</view>
       <include src='doctor.wxml' />
+    </view>
+
+    <view wx:if="{{curId==3}}">
+      <view wx:if="{{drugSciences.length==0&&projectSciences.length==0}}">
+        <view class='number'>暂无相关百科</view>
+        <image class='simgback' mode='aspectFill' src='../../images/cat.png'></image>
+      </view>
+      <view wx:else class='number'>为您推荐：</view>
+      <include src='science.wxml' />
     </view>
   </view>
 </view>

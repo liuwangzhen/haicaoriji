@@ -48,9 +48,9 @@
         </view>
         <view class='b c00 f32 le3 ml10'>认证</view>
       </view>
-      <view wx:if="{{drugDetail.proNum==2}}" class='mt20 f28 le3 lh40 c88'>该药品已获得以下认证</view>
-      <view wx:if="{{drugDetail.proNum==3}}" class='mt20 f28 le3 lh40 c88'>该仪器已获得以下认证</view>
-      <view wx:if="{{drugDetail.proNum==4}}" class='mt20 f28 le3 lh40 c88'>该材料已获得以下认证</view>
+      <view wx:if="{{drugDetail.proNum==2}}" class='mt20 f28 le3 lh40 c88'>该药品已获得以下认证<span class="ml20 f26 cecf" bindtap="goExplain">查看认证说明<span style="color:#70d6d1;font-size:24rpx;position:relative;top:-2rpx;" class="iconfont2 icon-qianjin"></span></span></view>
+      <view wx:if="{{drugDetail.proNum==3}}" class='mt20 f28 le3 lh40 c88'>该仪器已获得以下认证<span class="ml20 f26 cecf" bindtap="goExplain">查看认证说明<span style="color:#70d6d1;font-size:24rpx;position:relative;top:-2rpx;" class="iconfont2 icon-qianjin"></span></span></view>
+      <view wx:if="{{drugDetail.proNum==4}}" class='mt20 f28 le3 lh40 c88'>该材料已获得以下认证<span class="ml20 f26 cecf" bindtap="goExplain">查看认证说明<span style="color:#70d6d1;font-size:24rpx;position:relative;top:-2rpx;" class="iconfont2 icon-qianjin"></span></span></view>
       <block class="r1 mt10">
         <image wx:if="{{'http://img2.soyoung.com/item/20171020/0/20171020203800705.png'==drugDetail.certify1||'http://img2.soyoung.com/item/20171020/0/20171020203800705.png'==drugDetail.certify2||'http://img2.soyoung.com/item/20171020/0/20171020203800705.png'==drugDetail.certify3}}"
           class='img' src='../../images/cfda.jpg' mode="aspectFit" />

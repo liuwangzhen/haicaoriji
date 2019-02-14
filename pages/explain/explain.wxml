@@ -1,0 +1,26 @@
+<header canGoIndex="true" title="认证说明" />
+<view wx:for="{{explain}}" wx:key="{{index}}">
+  <image mode='aspectFit' class='img mt20' src='{{item.path}}'></image>
+  <view class='c00 b f32 cen le3'>{{item.name}}</view>
+  <view class='ml30 w690'>
+    <view class='f30 c00 b le3 mt30'>意义：</view>
+    <text class='f28 c88 le3 blo mt30'>{{item.meaning}}</text>
+    <block wx:if="{{item.origin.length!=0}}">
+    <view class='f30 c00 b le3 mt30'>起源：</view>
+    <text class='f28 c88 le3 blo mt30'>{{item.origin}}</text>
+    </block>
+    <block wx:if="{{item.circulation.length!=0}}">
+    <view class='f30 c00 b le3 mt30'>流通国：</view>
+    <text class='f28 c88 le3 blo mt30'>{{item.circulation}}</text>
+    </block>
+    <block wx:if="{{item.mechanism.length!=0}}">
+    <view class='f30 c00 b le3 mt30'>监管机构：</view>
+    <text class='f28 c88 le3 blo mt30'>{{item.mechanism}}</text>
+    </block>
+    <block wx:if="{{item.advantage.length!=0}}">
+    <view class='f30 c00 b le3 mt30'>认证优势：</view>
+    <text class='f28 c88 le3 blo mt30'>{{item.advantage}}</text>
+    </block>
+  </view>
+</view>
+<view style='padding-top:100rpx;'></view>

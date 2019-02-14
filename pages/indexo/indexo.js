@@ -94,11 +94,15 @@ Page({
 
   },
   search: function() {
-    console.log('110')
+    let that=this
+   
+    
     let val = this.data.inputVal
     wx.navigateTo({
       url: '../search/search?val=' + val,
     })
+    
+    
   },
  
   getUserInfoByToken() {

@@ -18,11 +18,13 @@ Page({
     list:[],
     doctors:[],
     hospital:[],
+    drugSciences:[],
+    projectSciences:[],
     getshare:0,
     height4: getApp().globalData.height,
     isClick:true,
     jundge:0,
-    titles: [{ id: 0, title: "笔记" }, { id: 1, title: "医院" }, { id: 2, title: "医生" },],
+    titles: [{ id: 0, title: "笔记" }, { id: 1, title: "医院" }, { id: 2, title: "医生" }, { id: 3, title: "百科" }],
     curId:0,
   },
 
@@ -34,6 +36,11 @@ Page({
     if (options.getshare != undefined) {
       that.setData({
         getshare: 1
+      })
+    }
+    if(options.val==""){
+      that.setData({
+        jundge:1
       })
     }
     this.setData({
@@ -79,6 +86,9 @@ Page({
     if(idx==2){
       that.getDoctor()
     }
+      if (idx == 3) {
+        that.getSciences()
+      }
     }
   },
   getDoctor:function(){
@@ -168,6 +178,9 @@ Page({
     }
     if (idx == 2) {
       that.getDoctor()
+    }
+    if (idx == 3) {
+      that.getSciences()
     }
   },
   showInput: function () {
@@ -265,7 +278,74 @@ Page({
       }
     )
   },
-  
+  // 百科
+   getSciences:function(){
+     let that=this
+     that.getProjectSciences().then(
+       res=>{
+          that.getDrugSciences()
+       }
+     ).catch(
+       err=>{
+         console.log(err)
+       }
+     )
+   },
+  getProjectSciences: function () {
+    let that = this
+    let query = new wx.BaaS.Query()
+    query.contains('projectName', that.data.inputVal)
+    return new Promise(
+      (resolve, reject) => {
+        myfirst.getQueryTable(63531, query, 50, 0, 'created_at').then(
+          res => {
+            console.log(res.data.objects)
+            that.setData({
+              projectSciences: res.data.objects,
+              jundge: 1,
+            })
+            resolve(res)
+          }
+        )
+      }
+    )
+  },
+   getDrugSciences:function(){
+     let that=this
+     let query = new wx.BaaS.Query()
+     query.contains('projectName', that.data.inputVal)
+      return new Promise(
+        (resolve,reject)=>{
+          myfirst.getQueryTable(64308, query, 50, 0, 'created_at').then(
+            res=>{
+                console.log(res.data.objects)
+                that.setData({
+                  drugSciences:res.data.objects,
+                  jundge: 1,
+                })
+                resolve(res)
+            }
+          )
+        }
+      )
+   },
+  goProjectDetail: function (e) {
+    let that = this
+    let name = e.currentTarget.dataset.name
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: '../smprojectDetail/smprojectDetail?id=' + id + "&name=" + name,
+    })
+  },
+  goDrugDetail:function(e){
+    let that = this
+    let key = e.currentTarget.dataset.name
+    let title = e.currentTarget.dataset.title
+      wx.navigateTo({
+        url: '../drugDetail/drugDetail?key=' + key + "&title=" + title,
+      })
+    
+  },
   /**
    * 生命周期函数--监听页面显示
    */
@@ -307,10 +387,7 @@ Page({
       if (idx == 2) {
         that.getDoctor()
       }
-       wx.showToast({
-        title: '正在刷新',
-        duration: 2000,
-      })
+       
     }, 500);
   },
 
@@ -336,10 +413,7 @@ Page({
       if (idx == 2) {
         that.getDoctor()
       }
-      wx.showToast({
-        title: '正在加载',
-        duration: 2000,
-      })
+      
     }, 500);
   },
 
