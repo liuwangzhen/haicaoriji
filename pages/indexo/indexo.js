@@ -45,30 +45,12 @@ Page({
       }
     })
     that.getUserInfoByToken();
-    // wx.getMenuButtonBoundingClientRect()
-    // function sleep() {
-    //   return new Promise((resolve, reject) => {
-    //     setTimeout(() => {
-    //       that.setData({
-    //         k:20
-    //       })
-    //       resolve(' enough sleep~');
-    //     }, 200);
-    //   })
-    // }
-    // function normalFunc() {
-    //   console.log('normalFunc');
-    // }
-    // async function awaitDemo() {
-    //   await normalFunc();
-    //   let result = await sleep();
-    //   console.log(that.data.k);// 两秒之后会被打印出来
-    //   console.log("22")
-    // }
-    // awaitDemo();
-   
+    wx.BaaS.invokeFunction('helloWorld', { src:'http://v.douyin.com/j8URVG' }).then(res => {
+      console.log(res) // articles
+    })
+    
   },
-  
+ 
 
   showInput: function() {
     this.setData({

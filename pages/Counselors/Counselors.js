@@ -17,6 +17,7 @@ Page({
    */
   onLoad: function(options) {
     let that = this
+    // 判断是不是推荐来的
     if(options.recommend!=undefined){
       that.setData({
         recommend:options.recommend
@@ -29,7 +30,6 @@ Page({
       })
     } else {
       if (options.recommend != undefined) {
-        console.log(options.recommend)
         that.setData({
           recommend: options.recommend
         })
@@ -45,6 +45,7 @@ Page({
       curId:index
     })
   },
+  // 跳转咨询选项页面
   goCounselor: function(e) {
     let that = this
     let name = e.currentTarget.dataset.name
@@ -59,6 +60,7 @@ Page({
       })
     }
   },
+  // 得到咨询师信息
   getCounselor: function() {
     let that = this
     return new Promise(

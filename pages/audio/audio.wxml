@@ -27,6 +27,7 @@
     </view>
   </view>
 </view>
+<!-- 后台播放的音频 -->
 <view class='v-music' wx:if="{{music==true}}" bindtap='goMusic'>
 <image src='{{musicUrl}}' mode="aspectFill" class='goMusic {{canRotate==true?"rotate":""}}' ></image>
 <view class='w-line {{canRotate==true?"animate":""}}'></view>

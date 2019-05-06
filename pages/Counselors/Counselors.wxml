@@ -1,7 +1,5 @@
 <header canGoIndex="true" title="私人定制"></header>
-<!-- <view class='cbar f32 mt50 ml30'>您的咨询师</view> -->
 <view style='padding-bottom:150rpx;'>
-  <!-- <view class='b f44 le3 cpers'>您的专属咨询师</view> -->
   <swiper bindchange="intervalChange" next-margin="60rpx" class='cswiper mt30'>
     <swiper-item  data-name="{{item.name}}" class="{{index==curId ? 'citem' :'citem2'}}" wx:key="{{item.id}}" wx:for="{{counselors}}">
       <image mode="aspectFill" class="{{index==curId ? 'cimg' :'cimg2'}}" src='{{item.poster.path}}'></image>

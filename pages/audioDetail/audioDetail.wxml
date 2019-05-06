@@ -3,7 +3,6 @@
 <image mode='aspectFill' src='{{audio.poster.path}}' class='aswiper ml40 mt20'>
 </image>
 <slider block-color="#58e6c8" step='1' activeColor="#58c2db" class='slid' block-size="12"  value='{{value}}' disabled='{{canSlider}}' bindchange="slider4change" min="{{start}}" max="{{end}}"></slider>
-<!-- <view>{{filter.stosh(value)}}</view> -->
 
 <view class='r1 auplay mt50'>
 <image bindtap='back' class='auback mt20' mode="aspectFill" src='../../images/audioback.png'></image>
@@ -13,9 +12,6 @@
 </view>
 <button class='btn-share cff le3 f30 mt40' open-type='share'>一键分享</button>
 <view class='mid-line mt30'></view>
-<!-- <button bindtap='playBack'>播放背景乐</button>
-<button bindtap='pause'>暂停背景乐</button>
-<button bindtap='seek'>快进</button> -->
 <view class='w670 ml40'>
 <view class="f36 b c00  mt40">讲师简介</view>
   <text class='f32 c9b mt30 blo'>{{audio.synopsis}}</text>

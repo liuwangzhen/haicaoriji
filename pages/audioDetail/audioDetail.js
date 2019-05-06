@@ -150,6 +150,7 @@ Page({
       }
     )
   },
+  // 获取id
   getAudiosId: function () {
     let that = this
     let list = that.data.audios.map(
@@ -161,6 +162,7 @@ Page({
       listId: list
     })
   },
+  // 下一个
   next:function(){
     let that=this
     let auid=that.data.audioid
@@ -206,6 +208,7 @@ Page({
       })
     }
   },
+  // 播放
   Play:function(){
     let that = this
     if(backgroundAudioManager.paused==true){
@@ -224,6 +227,7 @@ Page({
       that.playBack()
     }
   },
+  // 暂停
   Pause: function () {
     let that = this
     backgroundAudioManager.pause()
@@ -236,6 +240,7 @@ Page({
       }
     )
   },
+  // 跳转
   seek: function () {
     let that = this
     backgroundAudioManager.seek(backgroundAudioManager.currentTime + 10)
@@ -304,6 +309,7 @@ Page({
   onReachBottom: function () {
   
   },
+  // 查看推荐
   getToken(){
     let that = this
     return new Promise(

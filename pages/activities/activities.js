@@ -36,6 +36,7 @@ Page({
       }
     )
   },
+  // 得到个人信息
   getToken() {
     let that = this
     return new Promise(
@@ -75,6 +76,7 @@ Page({
       }
     )
   },
+  // 获取活动海报
   getPosters:function(){
     return new Promise(
       (resolve,reject)=>{
@@ -98,7 +100,7 @@ Page({
       }
     )
   },
-  
+  // 预览
   preview: function (e) {
     let that=this
     let current = e.currentTarget.dataset.path

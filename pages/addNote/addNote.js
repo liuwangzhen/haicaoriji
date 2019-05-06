@@ -32,6 +32,7 @@ Page({
     this.getUserInfoByToken();
     wx.hideShareMenu()
   },
+  // 得到个人信息
   getUserInfoByToken: function() {
     let that = this
     let MyUser = new wx.BaaS.User()
@@ -44,6 +45,7 @@ Page({
       })
     })
   },
+  // 预览
   previewImage: function(e) {
     let current = e.currentTarget.dataset.item
     let arr1 = this.data.arr1
@@ -52,6 +54,7 @@ Page({
       urls: arr1 // 需要预览的图片http链接列表
     })
   },
+  // 位置选择
   addDetail() {
     var _this = this
     wx.chooseLocation({
@@ -62,6 +65,7 @@ Page({
       }
     })
   },
+  // 去除图片
   delete: function(e) {
     var that = this;
     let id = e.currentTarget.dataset.id;
@@ -75,6 +79,7 @@ Page({
       })
     }
   },
+  // 图片添加
   add: function() {
     var that = this;
     wx.chooseImage({
@@ -95,6 +100,7 @@ Page({
       }
     })
   },
+  // 添加内容
   content: function(e) {
     var that = this;
     var value = e.detail.value;
@@ -105,6 +111,7 @@ Page({
       focus3: false,
     })
   },
+  // 提交
   submit: function() {
     let that = this
     return new Promise(
@@ -154,7 +161,7 @@ Page({
       }
     )
   },
- 
+//  提交上传
   createdRecord: function() {
     let that = this
     return new Promise(
@@ -197,6 +204,7 @@ Page({
       }
     )
   },
+  // 上传图片
   updataImg: function() {
     let that = this
     let arr = that.data.arr1
@@ -222,6 +230,7 @@ Page({
       }
     )
   },
+  // 比较
   compare(property) {
     return function(a, b) {
       var value1 = a[property];

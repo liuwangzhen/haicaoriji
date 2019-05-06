@@ -29,6 +29,7 @@ Page({
       }
     )
   },
+  // 得到音频列表
   getAudioAd:function(){
     let that=this
     return new Promise(
@@ -45,6 +46,7 @@ Page({
       }
     )
   },
+  // 去音频详情页
   goAudioDe:function(e){
      let that=this
      let id=e.currentTarget.dataset.id
@@ -77,11 +79,11 @@ Page({
       that.getTime(i)
     }
   },
+  // 音频时间
   getTime:function(i){
     let that=this
     let ass=that.data.audios
     backgroundAudioManager.src=ass[i].music.path
-    console.log(backgroundAudioManager.duration)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -94,6 +96,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    // 关于后台缓存的音频
     let that=this
     wx.getStorage({
       key: 'audioId',

@@ -48,19 +48,19 @@ Page({
         }
     )
   },
+  // 得到咨询师信息
   getCounselor:function(){
     let that=this
     let id=that.data.id
-    console.log(id)
     myfirst.getRecord(60959, id).then(
       res=>{
-        console.log(res)
         that.setData({
           counselor:res.data
         })
       }
     )
   },
+  // 获取个人信息
   getToken() {
     let that = this
     return new Promise(

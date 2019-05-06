@@ -77,6 +77,7 @@ Page({
       delta: 1,
     })
   },
+  // 判断选择
   ischose: function(e) {
     let that = this
     let idx = e.currentTarget.dataset.index
@@ -108,6 +109,7 @@ Page({
       cdata: cdata,
     })
   },
+  // 聚焦情况
   getFocus: function() {
     let that = this
     that.setData({
@@ -150,6 +152,7 @@ Page({
       inputVal: e.detail.value
     })
   },
+  // 获取电话
   getPhoneNumber(e) {
     let that = this
     let a = e.currentTarget.dataset.id
@@ -226,12 +229,12 @@ Page({
       }
     })
   },
-  
+  // 提交
   submit:function(e){
-    console.log(e)
     let formID = e.detail.formId
     wx.BaaS.wxReportTicket(formID)
   },
+  // 上传
   upload: function() {
     let that = this
     let list = that.data.list

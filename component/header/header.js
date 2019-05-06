@@ -56,7 +56,7 @@ Component({
         this.setData({
           height4: res.statusBarHeight,
           model:res.model,
-          canGoBack: this.data.previousPage || getCurrentPages().length > 1,
+          canGoBack: getCurrentPages().length > 1,
         })
       }
     })
