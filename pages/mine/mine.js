@@ -4,9 +4,9 @@ const Page = require('../../utils/ald-stat.js').Page;
 var ex = require('../../common/common.js')
 const myDate = new Date()
 const myFirst = require('../../utils/myfirst.js')
+import regeneratorRuntime from '../../utils/runtime'
 const myfirst = new myFirst();
 const today = myDate.toLocaleDateString(); //获取当前日期
-// const today = '2018/12/2';     //获取当前日期
 
 
 Page({
@@ -20,7 +20,6 @@ Page({
     ishavecollect: true,
     list2: [],
     img: "",
-    sign: "",
     date: "",
     page: 0,
     page2: 0,
@@ -39,9 +38,13 @@ Page({
   onLoad: function(options) {
     let that = this
     that.getUserInfoByToken().then(
-       r=>{ that.getAdmin()}
-    ).then(r=>{that.getcol()}).catch(
-      err=>{console.log(err)}
+      r => {
+        that.getAdmin()
+      }
+    ).catch(
+      err => {
+        console.log(err)
+      }
     );
     wx.hideShareMenu();
   },
@@ -60,9 +63,9 @@ Page({
     var temp = event.currentTarget.dataset.id
     this.setData({
       select: temp,
-      page:0,
-      list:[],
-      list2:[],
+      page: 0,
+      list: [],
+      list2: [],
     })
     if (temp == 'note') {
       this.getList();
@@ -70,6 +73,7 @@ Page({
       that.getcol()
     }
   },
+  // 获取用户信息
   getUserInfoByToken: function() {
     let that = this
     return new Promise(
@@ -98,14 +102,14 @@ Page({
             let timestamp2 = new Date().getTime();
             let timestamp3 = new Date(res.data.birthday).getTime();
             let age = Math.floor((timestamp2 - timestamp3) / 31536000000);
+            
             that.setData({
               userInfo: res.data,
               img2: res.data.headimg.replace(/\"/g, ""),
               index: res.data.gender,
               date: dateformat,
-              sign: res.data.sign,
               nick: res.data.nick,
-              collection: res.data.collection,
+              collection: res.data.collection.reverse(),
               aid: res.data.id,
               attention: res.data.attention,
               age: age,
@@ -119,102 +123,13 @@ Page({
         })
       })
   },
-  ifcollect: function(e) {
-    let that = this
-    let isClick = that.data.isClick
-    let a = e.currentTarget.dataset.id
-    let b = e.currentTarget.dataset.index
-    if (isClick == true) {
-      that.setData({
-        isClick: false
-      })
-      if (e.currentTarget.dataset.collect == 0) {
-        that.collect(a, b)
-      } else {
-        that.nocollect(a, b)
-      }
-      setTimeout(function() {
-        that.setData({
-          isClick: true
-        })
-      }, 500)
-    }
-  },
-  collect: function(a, b) {
-    let that = this
-    let id = a
-    let idx = b
-    let collection = that.data.collection.concat(id)
-    let MyUser = new wx.BaaS.User()
-    let currentUser = MyUser.getCurrentUserWithoutData()
-    let list = that.data.list
-    let obj = list[idx]
-    currentUser.set('collection', collection).update().then(res => {
-      obj.collect = 1;
-      obj.collection = parseInt(obj.collection) + 1;
-      let collection = obj.collection
-      list.splice(idx, 1, obj)
-      that.setData({
-        list: list
-      })
-      that.getUserInfoByToken()
-      that.updatacollect(id, collection)
-    }, err => {
-      // err
-    })
-  },
-  updatacollect: function(id, collection) {
-    let tableID = 55960
-    let recordID = id
-    let Product = new wx.BaaS.TableObject(tableID)
-    let product = Product.getWithoutData(recordID)
-    product.set('collection', collection)
-    product.update().then(res => {}, err => {})
-  },
-  nocollect: function(a, b) {
-    let that = this
-    let id = a
-    let idx = b
-    let collection = that.data.collection
-    let distinct = function() {
-      let len = collection.length;
-      for (let i = 0; i < len; i++) {
-        for (let j = i + 1; j < len; j++) {
-          if (collection[i] == collection[j]) {
-            collection.splice(j, 1);
-            len--;
-            j--;
-          }
-        }
-      }
-      return collection;
-    };
-    distinct();
-    let index = collection.indexOf(id)
-    let list = that.data.list
-    let obj = list[idx]
-    collection.splice(index, 1);
-    let MyUser = new wx.BaaS.User()
-    let currentUser = MyUser.getCurrentUserWithoutData()
-    currentUser.set('collection', collection).update().then(res => {
-      // success
-      obj.collect = 0;
-      obj.collection = parseInt(obj.collection) - 1;
-      let collection = obj.collection
-      list.splice(idx, 1, obj)
-      that.setData({
-        list: list
-      })
-      that.getUserInfoByToken()
-      that.updatacollect(id, collection)
-    }, err => {
-      // err
-    })
-
-  },
+  // 判断是否收藏
+  
+  // 获取笔记列表
   getList: function() {
     let tableID = 55960
     let that = this
+    wx.showLoading()
     let page = that.data.page
     let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
@@ -222,12 +137,6 @@ Page({
     let userId = getApp().globalData.userId
     query.compare("created_by", '=', userId)
     Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
-      if (res.data.objects == "") {
-        wx.showToast({
-          title: '没有更多内容了',
-          icon: "none"
-        })
-      }
       let list0 = res.data.objects
       for (var i = 0; i < res.data.objects.length; i++) {
         let collection = that.data.collection
@@ -241,12 +150,48 @@ Page({
           list.push(list0[i]);
         }
       }
+      wx.hideLoading();
       that.setData({
         list: that.data.list.concat(list),
         ishavecollect: false,
       })
     }, err => {
       // err
+      wx.hideLoading();
+    })
+  },
+  getList: function() {
+    let tableID = 55960
+    let that = this
+    wx.showLoading()
+    let page = that.data.page
+    let Product = new wx.BaaS.TableObject(tableID)
+    let list = new Array;
+    let query = new wx.BaaS.Query()
+    let userId = getApp().globalData.userId
+    query.compare("created_by", '=', userId)
+    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
+      let list0 = res.data.objects
+      for (var i = 0; i < res.data.objects.length; i++) {
+        let collection = that.data.collection
+        if (collection.indexOf(list0[i].id) > -1) {
+          list0[i].collect = 1;
+          list0[i].content = that.LimitNumbersadf(list0[i].content);
+          list.push(list0[i]);
+        } else {
+          list0[i].collect = 0;
+          list0[i].content = that.LimitNumbersadf(list0[i].content);
+          list.push(list0[i]);
+        }
+      }
+      wx.hideLoading();
+      that.setData({
+        list: that.data.list.concat(list),
+        ishavecollect: false,
+      })
+    }, err => {
+      // err
+      wx.hideLoading();
     })
   },
   LimitNumbersadf(txt) {
@@ -255,20 +200,8 @@ Page({
     str += '...'
     return str;
   },
-  userinfo: function(e) {
-    let id = e.currentTarget.dataset.user
-    if (id == getApp().globalData.userId) {
-      wx.switchTab({
-        url: '../mine/mine',
-      })
-    } else {
-      wx.navigateTo({
-        url: '../userinfo/userinfo?id=' + id,
-      })
-    }
-  },
-  
-  // chankanshifouguanliyaun
+
+  // 管理员信息
   getAdmin: function() {
     let that = this
     let aid = that.data.aid
@@ -278,6 +211,7 @@ Page({
       (resolve, reject) => {
         myfirst.getTableSelect(58773, 200, 0, 'created_at', 'adminid', query).then(
           res => {
+            console.log('1')
             if (res.data.objects != "") {
               that.setData({
                 isAdmin: true
@@ -289,21 +223,17 @@ Page({
       }
     )
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
   onShow: function() {
     let MyUser = new wx.BaaS.User()
     let that = this
     wx.BaaS.login(false).then(res => {
       MyUser.get(res.id).then(res => {
         that.setData({
-          collection: res.data.collection
+          collection: res.data.collection.reverse()
         })
-        // this.getcol()
+        if(that.data.list2.length==0){
+          that.getcol()
+        }
       }, err => {
         // err
       })
@@ -312,40 +242,95 @@ Page({
     }, err => {
       // 登录失败
     })
-    this.getUserInfoByToken()
   },
-  getcol: function() {
-    let tableID = 55960
+  getcol:async function(){
     let that = this
-    let page = that.data.page
-    let collection = that.data.collection
-    let query = new wx.BaaS.Query()
-    query.in('id', collection)
-    let Product = new wx.BaaS.TableObject(tableID)
-    let list = new Array;
-    Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
-      let list = res.data.objects
-      if (res.data.objects == "") {
-        wx.showToast({
-          title: '没有更多内容了',
-          icon: "none"
-        })
-      }
-        that.setData({
-          list2: that.data.list2.concat(list),
-          ishavecollect: false,
-          // isno: false,
-        })
-      if (that.data.list2 == 0) {
-        that.setData({
-          isno: true,
-        })
-      } 
-    }, err => {
-      // err
-      console.log("err")
+    let col = that.data.collection
+    let aa = col.slice(that.data.page * 8, 8 * (that.data.page + 1))
+    let arr = new Array
+    for (let i of aa) {
+      await myfirst.getRecord('55960', i).then(
+        res => {
+          arr.push(res.data)
+          return arr
+        },err=>{
+        }
+      )
+    }
+    that.setData({
+      list2: that.data.list2.concat(arr),
+      ishavecollect: false,
     })
+    if (that.data.list2.length==0){
+      that.setData({
+        isno: true,
+      })
+    } else {
+      that.setData({
+        isno: false,
+      })
+    }
   },
+  getcol2: async function () {
+    let that = this
+    let col = that.data.collection
+    let aa = that.data.collection.slice(that.data.page * 8, 8 * (that.data.page + 1))
+    let arr = new Array
+    for (let i of aa) {
+      await myfirst.getRecord('55960', i).then(
+        res => {
+          arr.push(res.data)
+          return arr
+        }, err => {
+          return true
+        }
+      )
+    }
+    that.setData({
+      list2: arr,
+      ishavecollect: false,
+    })
+    if (arr.length == 0) {
+      that.setData({
+        isno: true,
+      })
+    } else {
+      that.setData({
+        isno: false,
+      })
+    }
+  },
+  // 获取收藏列表
+  // getcol: function() {
+  //   let tableID = 55960
+  //   let that = this
+  //   let page = that.data.page
+  //   let collection = that.data.collection
+  //   let query = new wx.BaaS.Query()
+  //   query.in('id', collection)
+  //   let Product = new wx.BaaS.TableObject(tableID)
+  //   let list = new Array;
+  //   Product.setQuery(query).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
+  //     let list = res.data.objects
+  //     that.setData({
+  //       list2: that.data.list2.concat(list),
+  //       ishavecollect: false,
+  //     })
+  //     console.log(that.data.list2)
+  //     if (that.data.list2.length == 0) {
+  //       that.setData({
+  //         isno: true,
+  //       })
+  //     }else{
+  //       that.setData({
+  //         isno: false,
+  //       })
+  //     }
+  //   }, err => {
+  //     // err
+  //     console.log("err")
+  //   })
+  // },
   
   nocollect2: function(e) {
     let that = this
@@ -379,19 +364,6 @@ Page({
       // err
     })
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -400,20 +372,24 @@ Page({
     wx.stopPullDownRefresh();
     let that = this;
     let isAdmin = that.data.isAdmin
-    let select=that.data.select
-    that.setData({
-      page: 0,
-      list:[],
-      list2:[],
-    })
+    let select = that.data.select
     if (isAdmin == true && select == 'note') {
-      setTimeout(function () {
+      setTimeout(function() {
+        that.setData({
+          page: 0,
+          list: [],
+          list2: [],
+        })
         that.getList()
-      }, 200)
+      }, 1000)
     } else {
-      setTimeout(function () {
-        that.getcol()
-      }, 200)
+      setTimeout(function() {
+        that.setData({
+          page: 0,
+          list: [],
+        })
+        that.getcol2()
+      }, 1000)
     }
 
   },
@@ -423,7 +399,7 @@ Page({
    */
   onReachBottom: function() {
     let that = this;
-    let isAdmin=that.data.isAdmin
+    let isAdmin = that.data.isAdmin
     let select = that.data.select
     wx.stopPullDownRefresh();
     let page = that.data.page
@@ -434,17 +410,11 @@ Page({
     if (isAdmin == true && select == 'note') {
       setTimeout(function() {
         that.getList()
-      }, 200)
+      }, 700)
     } else {
       setTimeout(function() {
         that.getcol()
-      }, 200)
+      }, 700)
     }
   },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-  }
 })

@@ -18,7 +18,7 @@
 </view>
 <view class='line'></view>
 <button bindtap='submit' class='btn'>发布</button>
-<navigator class='mt10 cen w100p' hover-class='none' url="../video/video">发视频</navigator>
+<navigator class='mt10 cen w100p' hover-class='none' url="../video/video">视频</navigator>
 <view style='padding-bottom:200rpx;'></view>
 <view style='top:{{height4*2+20}}px' class='mask2' wx:if='{{isMakingPoster}}'>
   <image src='../../images/loading2.svg' style='width:68px' mode='widthFix' />

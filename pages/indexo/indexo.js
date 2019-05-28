@@ -1,7 +1,8 @@
 // pages/indexo/indexo.js
 import regeneratorRuntime from '../../utils/runtime'
 const Page = require('../../utils/ald-stat.js').Page;
-const myFirst=require('../../utils/myfirst.js')
+const myFirst = require('../../utils/myfirst.js')
+const myfirst = new myFirst()
 const app = getApp();
 
 Page({
@@ -10,48 +11,89 @@ Page({
    */
   data: {
     list: [],
-    swiperIndex: 0,
+    swiperIndex: 1,
     inputShowed: false,
     inputVal: "",
     page: 0,
     collection: [],
     height4: getApp().globalData.height,
     isClick: true,
-    search:" ",
-    search2:" ",
-    ewrImg: "",  //小程序二维码图片
-    tphone:"",
-    scrolltop:0,
-    recomId:999,
-    curId:0,
-    titles: [{ id: 0, name: "推荐", search: ' ', search2: ',', }, { id: 1, name: "隆鼻", search: "鼻综合", search2: "隆鼻", }, { id: 2, name: "双眼皮", search: "双眼皮", search2: "眼综合" }, { id: 3, name: "脂肪填充", search: "脂肪填充", search2: "脂肪填充" }, { id: 4, name: "吸脂", search: "吸脂", search2: "吸脂", }, { id: 5, name: "瘦脸针", search: "瘦脸针", search2: "瘦脸针", }, { id: 6, name: "玻尿酸", search: "玻尿酸", search2: "玻尿酸", }, { id: 7, name: "水光针", search: "水光针", search2: "水光针", }]
+    search: " ",
+    search2: " ",
+    tphone: "",
+    recomId: 999,
+    titles: [{
+      id: 99,
+      name: "视频",
+    }, {
+      id: 0,
+      name: "推荐",
+    }, {
+      id: 1,
+      name: "隆鼻",
+      search: "鼻综合",
+      search2: "隆鼻",
+    }, {
+      id: 2,
+      name: "双眼皮",
+      search: "双眼皮",
+      search2: "眼综合"
+    }, {
+      id: 3,
+      name: "脂肪填充",
+      search: "脂肪填充",
+      search2: "脂肪填充"
+    }, {
+      id: 4,
+      name: "吸脂",
+      search: "吸脂",
+      search2: "吸脂",
+    }, {
+      id: 5,
+      name: "瘦脸针",
+      search: "瘦脸针",
+      search2: "瘦脸针",
+    }, {
+      id: 6,
+      name: "玻尿酸",
+      search: "玻尿酸",
+      search2: "玻尿酸",
+    }, {
+      id: 7,
+      name: "水光针",
+      search: "水光针",
+      search2: "水光针",
+    }]
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
     let that = this
-    if (options.recommend!=undefined)
-    {
-    that.setData({
-      recomId:options.recommend
-    })
+    if (options.recommend != undefined) {
+      that.setData({
+        recomId: options.recommend
+      })
     }
     wx.getSystemInfo({
       success: (res) => {
         that.setData({
-          tphone:res
+          tphone: res
         })
       }
     })
-    that.getUserInfoByToken();
-    wx.BaaS.invokeFunction('helloWorld', { src:'http://v.douyin.com/j8URVG' }).then(res => {
-      console.log(res) // articles
-    })
-    
+    that.getUserInfoByToken().then(
+      res=>{
+        let query = new wx.BaaS.Query()
+        query.isNull('video')
+        that.getList(query);
+      }
+    ).catch(
+      err=>{
+        console.log(err)
+      }
+    );
   },
- 
-
   showInput: function() {
     this.setData({
       inputShowed: true
@@ -69,30 +111,28 @@ Page({
     });
   },
   inputTyping: function(e) {
-    console.log('000')
     this.setData({
       inputVal: e.detail.value
     });
 
   },
   search: function() {
-    let that=this
-   
-    
+    let that = this
     let val = this.data.inputVal
     wx.navigateTo({
       url: '../search/search?val=' + val,
     })
-    
-    
   },
- 
+// 获取信息
   getUserInfoByToken() {
+    let that=this
+    return new Promise(
+      (resolve,reject)=>{
     let MyUser = new wx.BaaS.User()
     let that = this
     wx.BaaS.login(false).then(res => {
       that.setData({
-        recommend:res.id
+        recommend: res.id
       })
       MyUser.get(res.id).then(res => {
         // success
@@ -100,12 +140,11 @@ Page({
           collection: res.data.collection
         })
         if (res.data.is_authorized == false) {
-          // if (res.data.jundge == false) {
           wx.redirectTo({
             url: '../../pages/login/login?recomId=' + that.data.recomId,
           })
         }
-        that.getList(" ", " ")
+        resolve()
       }, err => {
         // err
       })
@@ -114,39 +153,12 @@ Page({
     }, err => {
       // 登录失败
     })
+      }
+    )
 
   },
-  change: function(e) {
-    let that = this;
-    let index = e.currentTarget.dataset.idx;
-    let id = e.currentTarget.dataset.id;
-    let search=e.currentTarget.dataset.search
-    let search2 = e.currentTarget.dataset.searchtwo
-    wx.pageScrollTo({
-      scrollTop:0
-    })
-    that.setData({
-      swiperIndex: index,
-      page:0,
-      search:search,
-      search2:search2,
-      scrolltop:0,
-      curId:id,
-    })
-    that.getList(search,search2);
-  },
-  
-
-  goDetail: function(e) {
-    let id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: "../detail/detail?id=" + id
-    })
-    app.aldstat.sendEvent('笔记' + id, {
-      '加入时间': Date.now()
-    });
-  },
-  ifcollect: function(e) {
+  // shoucang
+  ifcollect: function (e) {
     let that = this
     let isClick = that.data.isClick
     let a = e.currentTarget.dataset.id
@@ -157,17 +169,18 @@ Page({
       })
       if (e.currentTarget.dataset.collect == 0) {
         that.collect(a, b)
-      } else {
+      }
+      else {
         that.nocollect(a, b)
       }
-      setTimeout(function() {
+      setTimeout(function () {
         that.setData({
           isClick: true
         })
       }, 500)
     }
   },
-  collect: function(a, b) {
+  collect: function (a, b) {
     let that = this
     let id = a
     let idx = b
@@ -184,26 +197,32 @@ Page({
       that.setData({
         list: list
       })
+      wx.showToast({
+        title: '收藏成功',
+        icon:'success'
+      })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
     }, err => {
       // err
     })
   },
-  updatacollect: function(id, collection) {
+  updatacollect: function (id, collection) {
     let tableID = 55960
     let recordID = id
     let Product = new wx.BaaS.TableObject(tableID)
     let product = Product.getWithoutData(recordID)
     product.set('collection', collection)
-    product.update().then(res => {}, err => {})
+    product.update().then(res => {
+    }, err => {
+    })
   },
-  nocollect: function(a, b) {
+  nocollect: function (a, b) {
     let that = this
     let id = a
     let idx = b
     let collection = that.data.collection
-    let distinct = function() {
+    let distinct = function () {
       let len = collection.length;
       for (let i = 0; i < len; i++) {
         for (let j = i + 1; j < len; j++) {
@@ -224,13 +243,16 @@ Page({
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
     currentUser.set('collection', collection).update().then(res => {
-      
       obj.collect = 0;
       obj.collection = parseInt(obj.collection) - 1;
       let collection = obj.collection
       list.splice(idx, 1, obj)
       that.setData({
         list: list
+      })
+      wx.showToast({
+        title: '取消收藏',
+        icon: 'success'
       })
       that.getUserInfoByToken()
       that.updatacollect(id, collection)
@@ -240,30 +262,84 @@ Page({
     })
 
   },
-  getList: function(a,b) {
-    let tableID = 55960
+  // 菜单切换
+  change: function(e) {
+    let that = this;
+    let index = e.currentTarget.dataset.idx;
+    let id = e.currentTarget.dataset.id;
+    that.setData({
+      swiperIndex: index,
+      page: 0,
+      noMore:false,
+      list:[],
+    })
+    wx.pageScrollTo({
+      scrollTop: 0
+    })
+    if (index != 0 && index != 1) {
+      let search = e.currentTarget.dataset.search
+      let search2 = e.currentTarget.dataset.searchtwo
+      that.setData({
+        search: search,
+        search2: search2,
+      })
+      let query = new wx.BaaS.Query()
+      let query2 = new wx.BaaS.Query()
+      let query3 = new wx.BaaS.Query()
+      query.contains('content', search)
+      query2.contains('content', search2)
+      query3.isNull('video')
+      let andQuery = wx.BaaS.Query.or(query, query2)
+      let andQuery2 = wx.BaaS.Query.and(andQuery,query3)
+      that.getList(andQuery2);
+    } else if(index==1) {
+      let query = new wx.BaaS.Query()
+      query.isNull('video')
+      that.getList(query);
+     }else{
+      let query = new wx.BaaS.Query()
+      query.isNotNull('video')
+      that.getList(query);
+     }
+  },
+// 跳转详情页
+  goDetail: function(e) {
+    let id = e.currentTarget.dataset.id
+    wx.navigateTo({
+      url: "../detail/detail?id=" + id
+    })
+  },
+  // 随机排序
+  shuffle: function(arr) {
+    let i = arr.length,
+      t, j;
+    while (i) {
+      j = Math.floor(Math.random() * i--);
+      t = arr[i];
+      arr[i] = arr[j];
+      arr[j] = t;
+    }
+  },
+  // 获取文章列表
+  getList: function(query) {
     let that = this
-    let Product = new wx.BaaS.TableObject(tableID)
     let list = new Array;
-    let query = new wx.BaaS.Query()
-    let query2 = new wx.BaaS.Query()
-    query.contains('content', a)
-    query2.contains('content', b)
-    let andQuery = wx.BaaS.Query.or(query, query2)
-    if(a==" "){
-      Product.orderBy('-created_at').expand('created_by').limit(10).offset(0).find().then(res => {
+    if (that.data.list.length > 0) {
+      wx.showLoading()
+    }
+    myfirst.getTableAndQuery(55960, 6, that.data.page, '-created_at', '-address', query).then(
+      res => {
         let list0 = res.data.objects
-        function shuffle(arr) {
-          let i = arr.length,
-            t, j;
-          while (i) {
-            j = Math.floor(Math.random() * i--);
-            t = arr[i];
-            arr[i] = arr[j];
-            arr[j] = t;
-          }
+        if(list0.length<6){
+          that.setData({
+            noMore:true
+          })
+        }else{
+          that.setData({
+            noMore: false
+          })
         }
-        shuffle(list0);
+        that.shuffle(list0);
         for (let i = 0; i < res.data.objects.length; i++) {
           let collection = that.data.collection
           if (collection.indexOf(list0[i].id) > -1) {
@@ -275,225 +351,53 @@ Page({
           }
         }
         that.setData({
-          list: list,
-          page: 0
-        })
-      }, err => {
-        // err
-      })
-    }
-    else{
-    Product.orderBy('-created_at').setQuery(andQuery).expand('created_by').limit(10).offset(0).find().then(res => {
-      let list0 = res.data.objects
-      function shuffle(arr) {
-        let i = arr.length,
-          t, j;
-        while (i) {
-          j = Math.floor(Math.random() * i--);
-          t = arr[i];
-          arr[i] = arr[j];
-          arr[j] = t;
-        }
-      }
-      shuffle(list0);
-      for (let i = 0; i < res.data.objects.length; i++) {
-        let collection = that.data.collection
-        if (collection.indexOf(list0[i].id) > -1) {
-          list0[i].collect = 1;
-          list.push(list0[i]);
-        } else {
-          list0[i].collect = 0;
-          list.push(list0[i]);
-        }
-      }
-      that.setData({
-        list: list,
-        page: 0
-      })
-    }, err => {
-      // err
-    })
-    }
-  },
-  userinfo: function(e) {
-    let id = e.currentTarget.dataset.user
-    if (id == getApp().globalData.userId) {
-      wx.switchTab({
-        url: '../mine/mine',
-      })
-    } else {
-      wx.navigateTo({
-        url: '../userinfo/userinfo?id=' + id,
-      })
-    }
-  },
-  getList2: function(a,b) {
-    let tableID = 55960
-    let that = this
-    let Product = new wx.BaaS.TableObject(tableID)
-    let list = new Array;
-    let page = that.data.page
-    page++;
-    let query = new wx.BaaS.Query()
-    let query2 = new wx.BaaS.Query()
-    query.contains('content', a)
-    query2.contains('content', b)
-    let andQuery = wx.BaaS.Query.or(query, query2)
-    if(a==" "){
-      Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
-        // success  
-        if (res.data.objects == "") {
-          wx.showToast({
-            title: '亲，(╯-╰) 没有啦',
-            icon: 'none',
-          })
-        } else {
-          let list0 = res.data.objects
-
-          function shuffle(arr) {
-            let i = arr.length,
-              t, j;
-            while (i) {
-              j = Math.floor(Math.random() * i--);
-              t = arr[i];
-              arr[i] = arr[j];
-              arr[j] = t;
-            }
-          }
-          shuffle(list0);
-          for (var i = 0; i < res.data.objects.length; i++) {
-            let collection = that.data.collection
-            if (collection.indexOf(list0[i].id) > -1) {
-              list0[i].collect = 1;
-              list.push(list0[i]);
-            } else {
-              list0[i].collect = 0;
-              list.push(list0[i]);
-            }
-          }
-          that.setData({
-            list: that.data.list.concat(list),
-            page: page
-          })
-        }
-
-      }, err => {
-        // err
-      })
-    }
-    else{
-    Product.setQuery(andQuery).orderBy('-created_at').expand('created_by').limit(10).offset(page * 10).find().then(res => {
-      // success  
-      if (res.data.objects == "") {
-        wx.showToast({
-          title: '亲，(╯-╰) 没有啦',
-          icon: 'none',
-        })
-      } else {
-        let list0 = res.data.objects
-
-        function shuffle(arr) {
-          let i = arr.length,
-            t, j;
-          while (i) {
-            j = Math.floor(Math.random() * i--);
-            t = arr[i];
-            arr[i] = arr[j];
-            arr[j] = t;
-          }
-        }
-        shuffle(list0);
-        for (var i = 0; i < res.data.objects.length; i++) {
-          let collection = that.data.collection
-          if (collection.indexOf(list0[i].id) > -1) {
-            list0[i].collect = 1;
-            list.push(list0[i]);
-          } else {
-            list0[i].collect = 0;
-            list.push(list0[i]);
-          }
-        }
-        that.setData({
           list: that.data.list.concat(list),
-          page: page
+        })
+        wx.hideLoading()
+      }
+    ).catch(
+      err => {
+        console.log(err)
+        wx.hideLoading()
+        wx.showToast({
+          title: '加载失败',
         })
       }
-
-    }, err => {
-      // err
-    })
-    }
+    )
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-
- btnchose:function(e){
-   let that = this
-   let h1 = that.data.tphone.screenHeight
-   let w1 = that.data.tphone.screenWidth
-   let ewrImg = that.data.ewrImg
-      setTimeout(function(){
-      wx.canvasToTempFilePath({
-       canvasId: 'firstCanvas',
-       width: w1,
-       height: h1,
-       destWidth: w1 * 2,
-       destHeight: h1 * 2,
-       fileType: 'jpg',
-       quality: 1,
-       success: (res) => {
-         wx.previewImage({
-           urls: [res.tempFilePath]
-         });
-       }
-     })
-      },2000)
- },
- 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-  
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDown:function(){
-    wx.startPullDownRefresh()
-  },
-  
+
   onPullDownRefresh: function() {
     wx.stopPullDownRefresh();
     var that = this;
-    let a=that.data.search
-    let b=that.data.search2
-    setTimeout(function() {
-      that.getList(a,b);
-      wx.showToast({
-        title: '我们为您精心挑选了以下文章',
-        duration: 3000,
-        icon: 'none',
-      })
-    }, 500);
-
+    that.setData({
+      page: 0,
+      list: [],
+    })
+    let index=that.data.swiperIndex
+    if (index != 0 && index != 1) {
+      let search = that.data.search
+      let search2 = that.data.search2
+      let query = new wx.BaaS.Query()
+      let query2 = new wx.BaaS.Query()
+      query.contains('content', search)
+      query2.contains('content', search2)
+      let andQuery = wx.BaaS.Query.or(query, query2)
+      that.getList(andQuery);
+    } else if (index == 1) {
+      let query = new wx.BaaS.Query()
+      query.isNull('video')
+      that.getList(query);
+    } else {
+      let query = new wx.BaaS.Query()
+      query.isNotNull('video')
+      that.getList(query);
+    }
+    setTimeout(function () {
+    }, 500)
   },
 
   /**
@@ -501,24 +405,62 @@ Page({
    */
   onReachBottom: function() {
     var that = this;
-    let a = that.data.search
-    let b = that.data.search2
-    that.getList2(a,b);
+    wx.stopPullDownRefresh();
+    let page = that.data.page
+    page++
+    that.setData({
+      page: page
+    })
+    let index = that.data.swiperIndex
+    if (index != 0 && index != 1) {
+      let search = that.data.search
+      let search2 = that.data.search2
+      let query = new wx.BaaS.Query()
+      let query2 = new wx.BaaS.Query()
+      let query3 = new wx.BaaS.Query()
+      query.contains('content', search)
+      query2.contains('content', search2)
+      query3.isNull('video')
+      let andQuery = wx.BaaS.Query.or(query, query2)
+      let andQuery2 = wx.BaaS.Query.and(andQuery, query3)
+      that.getList(andQuery2);
+    } else if (index == 1) {
+      let query = new wx.BaaS.Query()
+      query.isNull('video')
+      that.getList(query);
+    } else {
+      let query = new wx.BaaS.Query()
+      query.isNotNull('video')
+      that.getList(query);
+    }
+    setTimeout(function(){
+
+    },500)
   },
 
   /**
    * 用户点击右上角分享
    */
-  onReady: function () {
+  onReady: function() {
 
   },
   onShareAppMessage: function(res) {
-   let that=this
-   let recommend=that.data.recommend
-        return {
-          title: '海草日记',
-          desc: '最具人气的小程序开发联盟!',
-          path: '/pages/indexo/indexo?recommend='+recommend,
-        }
+    let that = this
+    let recommend = that.data.recommend
+    if(res.from=='button'){
+      return {
+        title: res.target.dataset.text,
+        desc: '海草日记',
+        path: '/pages/detail/detail?id=' + res.target.dataset.content + "&getshare=" + 1 + "&recommend=" + recommend,
+        imageUrl: res.target.dataset.img,
+      }
     }
+    else{
+    return {
+      title: '海草日记',
+      desc: '最具人气的小程序开发联盟!',
+      path: '/pages/indexo/indexo?recommend=' + recommend,
+    }
+    }
+  }
 })

@@ -8,7 +8,6 @@ Page({
   },
   onLoad: function (e) {
     var that = this;
-   console.log(e)
    that.setData({
      id:e.id,
      recomId:e.recomId
@@ -37,13 +36,12 @@ Page({
               recomId:res.data.recommend
             })
           }
-          console.log(that.data.recomId)
           currentUser.set({
             'sex': sex,
             'country0': country,
             'province0': province,
             'city0': city,
-            'collection': ['ssss2'],
+            'collection': [],
             'nick': nick,
             'attention': [2],
             'jundge': true,

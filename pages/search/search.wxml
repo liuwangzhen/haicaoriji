@@ -4,8 +4,6 @@
 
 <view class='topone'>
   <view class='nav-wrap2'>
-    <!-- <view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>搜索</view> -->
-
     <view style='display: flex; justify-content: space-around;flex-direction: column'>
       <view class='nav-capsule' style='height:{{height4*2 + 44}}px;'>
         <view bindtap='goback'>
@@ -25,22 +23,23 @@
     <input value="{{inputVal}}" bindinput="inputTyping" class='newInput'></input>
     <view bindtap="search" class='newSearch ab'>搜索</view>
   </view>
-  <!-- <view class='trow'>
-    <view wx:key="{{item.id}}" data-id="{{item.id}}" bindtap='chose' wx:for="{{titles}}">{{item.title}}</view>
-  </view> -->
+
+
   <view class='recom2'>
-    <scroll-view scroll-x="true" class='srecommend'>
-      <view class='r1 cdc'>
-        <view wx:for="{{titles}}" wx:key="{{item.id}}" data-id='{{item.id}}' bindtap='chose' class="col f32 mt20 {{index == 0 ? '' : 'ml50'}}">
-          <view class="{{curId == index ? 'active' : 'c8a'}}">
-            {{item.title}}
-          </view>
-          <view class="{{curId == index ? 'lineT' : ''}}"></view>
+  <scroll-view scroll-x="true" class='srecommend'>
+    <view class='r1 cdc'>
+      <view wx:for="{{titles}}" wx:key="{{item.id}}" data-id='{{item.id}}' bindtap='chose' class="col f32 mt20 {{index == 0 ? '' : 'ml50'}}">
+        <view class="{{curId == index ? 'active' : 'c8a'}}">
+          {{item.title}}
         </view>
+        <view class="{{curId == index ? 'lineT' : ''}}"></view>
       </view>
-    </scroll-view>
-  </view>
+    </view>
+  </scroll-view>
 </view>
+</view>
+<!-- <view wx:if="{{height4<40}}" style='padding-top:calc({{height4 * 2 + 48 + 100 - height4/2}}px - 100rpx);'></view>
+<view wx:else style='padding-top:calc({{height4 * 2 + 48 + 90 - height4 / 2}}px - 100rpx);'></view> -->
 <view wx:if="{{height4<40}}" style='padding-top:{{height4*2+48+100-height4/2}}px;'></view>
 <view wx:else style='padding-top:{{height4*2+48+90-height4/2}}px;'></view>
 <view style='padding-top:0px;' class='body'>

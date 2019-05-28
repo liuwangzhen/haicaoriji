@@ -14,13 +14,13 @@ Page({
     rotate: false,
     getshare: 0,
     page: 0,
-    doctors:[]
+    doctors: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     let that = this
     let id = options.id
     if (options.getshare != undefined) {
@@ -45,15 +45,15 @@ Page({
     that.getHospital(59863, options.id)
     that.getDoctors(options.id, 0)
     that.getToken()
-   
+
   },
-  actPreview:function(e){
-    let that=this
+  actPreview: function (e) {
+    let that = this
     let current = e.currentTarget.dataset.path
     let activity = that.data.hospital.activity
-    let arr1=activity.map(
-      (item)=>{
-      return item.path
+    let arr1 = activity.map(
+      (item) => {
+        return item.path
       }
     )
     console.log(arr1)
@@ -78,7 +78,7 @@ Page({
       }
     )
   },
-  goDoctor: function(e) {
+  goDoctor: function (e) {
     let that = this
     let id = e.currentTarget.dataset.id
     let recommend = that.data.recommend
@@ -92,14 +92,14 @@ Page({
       })
     }
   },
-  goRotate: function() {
+  goRotate: function () {
     let that = this;
     let rotate = that.data.rotate
     that.setData({
       rotate: !rotate
     })
   },
-  getQualification: function() {
+  getQualification: function () {
     let that = this
     let list = that.data.hospital.qualification
     let list2 = new Array
@@ -111,7 +111,7 @@ Page({
       list2: list2
     })
   },
-  getPoster: function() {
+  getPoster: function () {
     let that = this
     let list = that.data.hospital.poster
     let list2 = new Array
@@ -123,7 +123,7 @@ Page({
       list: list2
     })
   },
-  getHospital: function(a, b) {
+  getHospital: function (a, b) {
     return new Promise(
       (resolve, reject) => {
         let that = this
@@ -142,7 +142,7 @@ Page({
       }
     )
   },
-  goDoctors: function() {
+  goDoctors: function () {
     let that = this
     let recommend = that.data.recommend
     console.log(recommend)
@@ -158,7 +158,7 @@ Page({
       })
     }
   },
-  getDoctors: function(id, page) {
+  getDoctors: function (id, page) {
     let that = this
     let tableId = 59866
     let a = 'hospital_id'
@@ -178,7 +178,7 @@ Page({
       }
     )
   },
-  previewImage: function(e) {
+  previewImage: function (e) {
     let that = this
     let current = e.currentTarget.dataset.path
     let arr1 = that.data.list
@@ -187,7 +187,7 @@ Page({
       urls: arr1 // 需要预览的图片http链接列表
     })
   },
-  preview: function() {
+  preview: function () {
     let that = this
     let current = that.data.list2[0]
     let arr1 = that.data.list2
@@ -196,12 +196,12 @@ Page({
       urls: arr1 // 需要预览的图片http链接列表
     })
   },
-  goback: function() {
+  goback: function () {
     wx.navigateBack({
       delta: 1,
     })
   },
-  goIndex: function() {
+  goIndex: function () {
     let that = this
     let recommend = that.data.recommend
     if (recommend != undefined) {
@@ -217,46 +217,46 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     let that = this
     let page = that.data.page
     that.setData({
       page: 0,
-      doctors:[]
+      doctors: []
     })
     wx.stopPullDownRefresh();
     setTimeout(
       function () {
         that.getDoctors(that.data.id, 0);
-        
+
       }, 500
     )
   },
@@ -264,16 +264,16 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
     let that = this
     let page = that.data.page
     page++
     wx.stopPullDownRefresh();
     setTimeout(
-      function() {
+      function () {
         that.getDoctors(that.data.id, page);
         that.setData({
-          page:page
+          page: page
         })
       }, 500
     )
@@ -282,14 +282,14 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
     let that = this
     let recommend = that.data.recomId
     let id = that.data.id
     return {
       title: '海草日记',
       desc: '最具人气的小程序开发联盟!',
-      path: '/pages/hosdetail/hosdetail?recommend=' + recommend + '&id=' + id ,
+      path: '/pages/hosdetail/hosdetail?recommend=' + recommend + '&id=' + id,
     }
   }
 })

@@ -72,6 +72,7 @@ Page({
       }
     )
   },
+  // 大海报
   getBigPoster:function(){
     let that=this
     return new Promise(
@@ -86,6 +87,7 @@ Page({
       }
     )
   },
+  // 切换
   aChange:function(e){
     let that=this
     let isHospital=e.currentTarget.dataset.ex
@@ -111,6 +113,7 @@ Page({
       }
     )
   },
+  // 医院信息
   getHospital: function(){
     let that = this
     let page=that.data.page
@@ -133,7 +136,7 @@ Page({
       }
     )
   },
-  
+  // 获取活动列表
   getActivies: function () {
     return new Promise(
       (resolve, reject) => {
@@ -151,6 +154,7 @@ Page({
       }
     )
   },
+  // 得到海报
   getPosters: function () {
     return new Promise(
       (resolve, reject) => {
@@ -258,8 +262,6 @@ Page({
           case 3:
              
             break;
-          // default:
-          //   n 与 case 1 和 case 2 不同时执行的代码
         }
         break;
       case 3:
@@ -267,8 +269,6 @@ Page({
       break;
       case 4:
       break;
-      // default:
-      //   n 与 case 1 和 case 2 不同时执行的代码
     }
   },
 
@@ -285,6 +285,7 @@ Page({
       queryProject: e.detail.value
     })
   },
+  // 电话
   getPhoneNumber(e) {
     let that = this
     let valueName = that.data.valueName
@@ -345,12 +346,13 @@ Page({
       }
     })
   },
- 
+//  提交
   submit: function (e) {
     console.log(e)
     let formID = e.detail.formId
     wx.BaaS.wxReportTicket(formID)
   },
+  // 上传
   upload: function () {
     let that = this
     let valueName = that.data.valueName
@@ -432,8 +434,6 @@ Page({
       case 3:
         that.getProjectDetail()
         break;
-      // default:
-      //   n 与 case 1 和 case 2 不同时执行的代码
     }
   },
   getProject:function(){
@@ -456,7 +456,6 @@ Page({
   getProjectDetail:function(){
     let that=this
     let page=that.data.page
-
     let curId=Number(that.data.curId)+1
     let query=new wx.BaaS.Query()
     query.compare('proNumber','=',curId)
@@ -521,33 +520,6 @@ Page({
      })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-    
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
@@ -587,11 +559,6 @@ Page({
       title: '正在刷新',
       duration:300,
     })
-    // setTimeout(
-    //   function () {
-    //     that.getHospital();
-    //   }, 500
-    // )
   },
 
   /**

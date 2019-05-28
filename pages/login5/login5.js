@@ -40,7 +40,7 @@ Page({
             'country0': country,
             'province0': province,
             'city0': city,
-            'collection': ['ssss2'],
+            'collection': [],
             'nick': nick,
             'attention': [2],
             'jundge': true,

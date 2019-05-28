@@ -1,5 +1,0 @@
-<cover-view style='height:{{height4*2+20}}px' class='nav-wrap'>
-  <cover-view class='nav-title' style='line-height:{{height4*2 + 44}}px;'>添加日记</cover-view>
-</cover-view>
-<view style='height:{{height4*2+20}}px;' class='pad'></view>
-<button></button>

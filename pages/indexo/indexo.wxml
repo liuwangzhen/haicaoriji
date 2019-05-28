@@ -23,7 +23,6 @@
       </view>
     </scroll-view>
   </view>
-
 </view>
-
+<!-- <include src=""> -->
 <include src="kind.wxml" />

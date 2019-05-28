@@ -13,10 +13,9 @@
         <image data-item="{{item}}" mode='widthFix' src="{{item}}" />
       </swiper-item>
     </swiper>
-    <video class='video' id="myVideo" controls poster='{{list.img[0]}}' wx:else src='{{list.video}}'>
+    <video class='video' enable-play-gesture="{{true}}" id="myVideo" loop="{{true}}" autoplay='{{true}}'  wx:else src='{{list.video}}'>
     </video>
     <canvas class='canvas' canvas-id='firstCanvas' style='width:{{w2/2}}px;height:{{h2/2}}px;position:fixed;top:-10000px;'></canvas>
-   
     <text class='content2'>
     {{list.content}}
   </text>
@@ -26,7 +25,7 @@
     </view>
     <view class='line2 mt30'></view>
   </view>
-  
+
 
   <view bindblur='inputVal3' style="bottom:{{height2}}px;" wx:if="{{input==true}}" class='comment-inp r1'>
     <image class='img2' src='{{user.headimg}}' mode='aspectFill'></image>

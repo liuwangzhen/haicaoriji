@@ -3,7 +3,7 @@
 <view style='height:{{height4*2+20}}px' class='mnav-wrap bg'>
   <view class='nav-title' style='line-height:{{height4*2 + 44}}px;color:#fff;'>收藏</view>
 </view>
-<view style='height:{{height4*2+20}}px;' class='pad bg'></view>
+<view style='height:{{height4*2+20}}px;' class='pad'></view>
 
 <view class='wait' wx:if="{{ishavecollect==true}}">
   <image mode='widthFix' src='../../images/loading.svg'></image>
@@ -31,7 +31,8 @@
       <view bindtap='updata' class='edit'>
         <text class='edit-text'>编辑资料</text>
       </view>
-      <navigator url='../addNote/addNote' wx:if="{{isAdmin==true}}" class='adminBtn f30'>笔记</navigator>
+      <!-- <navigator url='../addNote/addNote' wx:if="{{isAdmin==true}}" class='adminBtn f30'>笔记</navigator> -->
+      <navigator url='../audio/audio'  class='adminBtn f30'>音频</navigator>
     </view>
   
   </view>

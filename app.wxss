@@ -10,6 +10,7 @@
 @import '/common/iconfont9.wxss';
 @import '/common/iconfont10.wxss';
 @import '/common/iconfont11.wxss';
+@import '/common/iconfont12.wxss';
 @import '/wxParser/index.wxss';
 /* {
         "pagePath": "pages/addNote/addNote",
@@ -28,6 +29,12 @@
         "text": "咨询",
         "iconPath": "images/cons1.png",
         "selectedIconPath": "images/cons2.png"
+      }, */
+       /* {
+        "pagePath": "pages/hospital/hospital",
+        "text": "去变美",
+        "iconPath": "images/noserve.png",
+        "selectedIconPath": "images/serve.png"
       }, */
 .bold{
   font-weight: bold;

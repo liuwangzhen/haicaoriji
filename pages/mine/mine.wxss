@@ -57,6 +57,7 @@ page {
  background:linear-gradient(to right,#77d9dc, #58c2db);
  position: fixed;
  height: 134rpx;
+ z-index: 2;
 }
 
 .edit {

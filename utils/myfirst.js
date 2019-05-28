@@ -17,6 +17,31 @@ class Common{
     }
   )
 }
+  getTableAndQuery(tableId, limit, page, order, select,query){
+    return new Promise(
+      (resolve,reject)=>{
+        let Product = new wx.BaaS.TableObject(tableId)
+        if (query == '' || query == undefined) {
+          Product.limit(limit).offset(page * limit).select(select).orderBy(order).find().then(res => {
+            // success
+            resolve(res)
+          }, err => {
+            // err
+            reject(err)
+          })
+        }
+        else {
+          Product.setQuery(query).limit(limit).offset(page * limit).select(select).orderBy(order).find().then(res => {
+            // success
+            resolve(res)
+          }, err => {
+            reject(err)
+            // err
+          })
+        }
+      }
+    )
+}
   getTableSeleNoQuery(tableId, num1, num2, order,sele){
     return new Promise(
       (resolve, reject) => {

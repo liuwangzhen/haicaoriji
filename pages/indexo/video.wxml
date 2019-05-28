@@ -1,0 +1,20 @@
+<view  data-id='{{item.id}}' wx:key="{{item.id}}" class='video-kinds' wx:for="{{list}}">
+  <view class='abs bgmodel'></view>
+  <!-- <view class='abs bgmodel2'></view> -->
+  <view class="video-title le3 b abs">
+    <text class='video-itext'>{{filter.Limit3(item.content,30)}}</text>
+  </view>
+  <image class='video-img' mode='aspectFill' src='{{item.img[0]}}'>
+  </image>
+  <view class='bgradius'></view>
+  <view bindtap='goDetail' data-id='{{item.id}}' class='bg-play abs'></view>
+  <view bindtap='goDetail' data-id='{{item.id}}' style='position:absolute;margin-top:210rpx;margin-left:345rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang2'></view>
+  <view data-collect='{{item.collect}}' style='margin-top:416rpx;left:550rpx;' class='abs' data-id="{{item.id}}" data-index="{{index}}" bindtap='ifcollect'>
+    <view data-index="{{index}}" wx:if="{{item.collect==0}}" data-id="{{item.id}}" style='color:#ddd;font-size:50rpx;' class=' iconfont icon-xin1 '></view>
+    <view data-index="{{index}}" wx:if="{{item.collect==1}}" data-id="{{item.id}}" style='color:#ddd;font-size:52rpx;position:relative;top:-2rpx;' class='iconfont icon-xin '></view>
+  </view>
+  <button data-content='{{item.id}}' data-img="{{item.img[0]}}" data-text="{{item.content}}" open-type='share' class='btn-share abs'>
+  <view style='color:#ddd;font-size:38rpx;' class='iconfont icon-zhuanfa2'></view>
+  </button>
+</view>
+<view wx:if="{{noMore==true}}" style='color:rgb(185, 185, 185);font-family:KaiTi;' class="cen w100p f30 lh60 le3 mt40">没有内容了</view>

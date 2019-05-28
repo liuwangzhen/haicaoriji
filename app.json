@@ -13,7 +13,6 @@
     "pages/upnick/upnick",
     "pages/upsign/upsign",
     "pages/addNote/addNote",
-    "pages/register/register",
     "pages/video/video",
     "pages/detail/detail",
     "pages/content/content",
@@ -62,8 +61,7 @@
         "text": "去变美",
         "iconPath": "images/noserve.png",
         "selectedIconPath": "images/serve.png"
-      },
-     
+      }, 
       {
         "pagePath": "pages/mine/mine",
         "text": "收藏",
@@ -72,6 +70,8 @@
       }
     ]},
   "requiredBackgroundModes":["audio"]
+  
+  
   
   
 }

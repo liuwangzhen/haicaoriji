@@ -42,7 +42,7 @@
 <template name="mytemp">
    <navigator hover-class='none' url="../detail/detail?id={{item.id}}" class="item">
         <image class="item-img" src="{{item.img[0]}}" mode="widthFix"></image>
-        <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:275rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
+        <view wx:if="{{item.video!=null}}" style='position:absolute;margin-top:-80rpx;margin-left:250rpx;font-size:60rpx;color:#fff;' class='iconfont icon-bofang'></view>
         <view class="item-title-box">
           <view wx:if="{{item.content.length>24}}" class="item-title c9b">{{filter.Limit(item.content)}}</view>
           <view wx:else class="item-title c9b">{{item.content}}</view>

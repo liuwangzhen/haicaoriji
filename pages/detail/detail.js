@@ -12,7 +12,8 @@ Page({
   data: {
     richTextID: "",
     list: "",
-    getlist: "",
+    getlist: [],
+    page: 0,
     id: "",
     nick: "",
     headimg: "",
@@ -30,8 +31,8 @@ Page({
     showModal: false,
     tphone: "",
     isMakingPoster: false,
-    play:false,
-    recomId:999
+    play: false,
+    recomId: 999
   },
 
   /**
@@ -39,6 +40,7 @@ Page({
    */
   onLoad: function(options) {
     let scene = decodeURIComponent(options.scene)
+    console.log(options)
     let time = new Date()
     let that = this;
     wx.getSystemInfo({
@@ -48,29 +50,26 @@ Page({
         })
       }
     })
+    // 判断页面的入口，是由海报还是分享朋友或是跳转进入
     if (options.scene != undefined) {
       console.log(options.scene)
-      let id = options.scene.substr(0,scene.length - 8)
-      console.log(id)
-      let recomId = parseInt(options.scene.substr(scene.length - 8,8));
-      console.log(recomId)
       that.setData({
         getshare: 1,
-        // id: options.scene
-        id:id,
-        recomId:recomId,
+        id: options.scene,
       })
       that.getUserInfoByToken().then(
         res => {
+          that.getPic().then(
+            res => {
+              that.getList();
+            }
+          )
           that.getEwrimg()
         }
-      );
-      that.getList();
-      // that.getPoster();
-      app.aldstat.sendEvent('日记打开', {
-        '日记id': that.data.id,
-        '打开时间': time
-      });
+      ).catch(
+        err => {
+          console.log(err)
+        });
     } else {
       if (options.getshare != undefined) {
         console.log(options)
@@ -84,15 +83,18 @@ Page({
       })
       that.getUserInfoByToken().then(
         res => {
+          that.getPic().then(
+            res => {
+              that.getList();
+            }
+          );
           that.getEwrimg()
         }
+      ).catch(
+        err => {
+          console.log(err)
+        }
       );
-      that.getList();
-      // that.getPoster();
-      app.aldstat.sendEvent('日记打开', {
-        '日记id': that.data.id,
-        '打开时间': time
-      });
     }
   },
   onShare: function() {
@@ -110,11 +112,11 @@ Page({
       url: '../indexo/indexo',
     })
   },
-  bindplay:function(){
-let that=this
-that.setData({
-  play:true
-})
+  bindplay: function() {
+    let that = this
+    that.setData({
+      play: true
+    })
   },
   previewImage: function(e) {
     console.log(e.currentTarget.dataset.item)
@@ -125,7 +127,7 @@ that.setData({
       urls: arr1 // 需要预览的图片http链接列表
     })
   },
-  gochose:function(){
+  gochose: function() {
     wx.navigateTo({
       url: '../chose/chose',
     })
@@ -135,66 +137,46 @@ that.setData({
     wx.navigateTo({
       url: "../detail/detail?id=" + id
     })
-    app.aldstat.sendEvent('笔记' + id, {
-      '加入时间': Date.now()
-    });
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-   
-  },
-  getPoster:function(){
-    let that=this 
+  // 获取分享海报信息
+  getPoster: function() {
+    let that = this
     that.setData({
       isMakingPoster: true
     })
     let MyTableObject = new wx.BaaS.TableObject(59309)
     MyTableObject.find().then(res => {
-    let list0 = res.data.objects
-      function shuffle(arr) {
-        let i = arr.length,
-          t, j;
-        while (i) {
-          j = Math.floor(Math.random() * i--);
-          t = arr[i];
-          arr[i] = arr[j];
-          arr[j] = t;
-        }
-      }
-      shuffle(list0);
-      
-      shuffle(list0[0].content)
+      let list0 = res.data.objects
+      that.shuffle(list0);
+      that.shuffle(list0[0].content)
       let img2 = list0[0].image_all.path
-      // that.setData({
-      //   content2: list0[0].content[0]
-      // })
-     wx.getImageInfo({
-       src: img2,
-       success: function(res) {
-         that.setData({
-           img2:res.path,
-           w2:res.width,
-           h2:res.height
-         })
-         setTimeout(function(){that.btnchose2();},500)
-       },
-       fail: function(res) {
-         wx.showToast({
-           title: '加载失败，请重新合成',
-           success:function(){
-             that.setData({
-               isMakingPoster: false
-             })
-           }
-         })
-       },
-     })
+      wx.getImageInfo({
+        src: img2,
+        success: function(res) {
+          that.setData({
+            img2: res.path,
+            w2: res.width,
+            h2: res.height
+          })
+          setTimeout(function() {
+            that.btnchose2();
+          }, 500)
+        },
+        fail: function(res) {
+          wx.showToast({
+            title: '加载失败，请重新合成',
+            success: function() {
+              that.setData({
+                isMakingPoster: false
+              })
+            }
+          })
+        },
+      })
     }, err => {
       wx.showToast({
         title: '合成失败，请重新合成',
-        success: function () {
+        success: function() {
           that.setData({
             isMakingPoster: false
           })
@@ -202,154 +184,104 @@ that.setData({
       })
     })
   },
-  drawText: function (context,text,h1){
-    var chr = text.split("");//这个方法是将一个字符串分割成字符串数组
-    var temp = "";
-    var row = [];
-    context.setFontSize(18)
-    context.setFillStyle("#000")
-    for (var a = 0; a < chr.length; a++) {
-      if (context.measureText(temp).width < 250) {
-        temp += chr[a];
-      }
-      else {
-        a--; //这里添加了a-- 是为了防止字符丢失，效果图中有对比
-        row.push(temp);
-        temp = "";
-      }
-    }
-    row.push(temp);
-
-    //如果数组长度大于2 则截取前两个
-    if (row.length > 6) {
-      var rowCut = row.slice(0, 6);
-      var rowPart = rowCut[1];
-      var test = "";
-      var empty = [];
-      for (var a = 0; a < rowPart.length; a++) {
-        if (context.measureText(test).width < 220) {
-          test += rowPart[a];
-        }
-        else {
-          break;
-        }
-      }
-      empty.push(test);
-      var group = empty[0] + "..."//这里只显示两行，超出的用...表示
-      rowCut.splice(5, 1, group);
-      row = rowCut;
-    }
-    for (let b = 0; b < row.length; b++) {
-      context.fillText(row[b], 50, h1 + b * 30, 300);
-    }
-  },
-  btnchose2: function () {
+  // 生成海报
+  btnchose2: function() {
     let that = this
     let h1 = that.data.tphone.screenHeight
     let w1 = that.data.tphone.screenWidth
-    let w2=that.data.w2
-    let h2=that.data.h2
-    let ewrImg=that.data.ewrImg
-    if(ewrImg==undefined){
+    let w2 = that.data.w2
+    let h2 = that.data.h2
+    let ewrImg = that.data.ewrImg
+    if (ewrImg == undefined) {
       wx.showToast({
-        title: '网络不好，请重新合成',
-        icon:"loading"
+        title: '网络错误',
+        icon: "loading"
       })
-    }
-    else{
-    // let content2=that.data.content2
-    let Img2 = that.data.img2
-    wx.getImageInfo({
-      src: Img2,
-      success: function (res) {
-        that.setData({
-          ewrImg2: res.path
-        })
-        let ewrImg2 = res.path
-        let preview = function () {
-          return new Promise((resolve, reject) => {
-            prew().then((filePath) => {
-              wx.previewImage({
-                urls: [filePath]
-              });
-              resolve();
-            }).catch((err) => {
-              reject(err);
-            });
-          });
-        }
-        let prew = function () {
-          return new Promise((resolve, reject) => {
-            that.setData({
-              isMakingPoster: false
-            })
-            wx.canvasToTempFilePath({
-              canvasId: 'firstCanvas',
-              width: w2/2,
-              height: h2/2,
-              destWidth: w2,
-              destHeight: h2,
-              fileType: 'jpg',
-              quality: 1,
-              success: (res) => {
-                resolve(res.tempFilePath);
-              }
-            })
+       that.setData({
+         isMakingPoster: false
+       })
+    } else {
+      let Img2 = that.data.img2
+      wx.getImageInfo({
+        src: Img2,
+        success: function(res) {
+          that.setData({
+            ewrImg2: res.path
           })
-        }
-        let draw= async function(){
-          let ctx = wx.createCanvasContext('firstCanvas', this)
-          return ctx.draw(false,await preview())
-        }
-        let ctx = wx.createCanvasContext('firstCanvas', this)
-        let promise = function () {
-          return new Promise(
-            function (resolve, reject) {
-              // ctx.drawImage("../../images/bg.jpg", 0, 0, w1, h1)
-              // ctx.drawImage(ewrImg2, 0, 0, w1, 2 * w1 / 3)
-              ctx.drawImage(ewrImg2, 0, 0, w2/2,h2/2)
-              resolve(console.log("0000"))
-            })
-        }
-       
-       
-        let promise3 = function () {
-          return new Promise(
-            function (resolve, reject) {
-              // ctx.drawImage(ewrImg, 30, h1*2/3+50, 130, 130)
-              ctx.drawImage(ewrImg, w2*34/1000, h2*40/100, 200, 200)
-              resolve(console.log("222"))
-              reject(console.log("333"))
-            })
-        }
-        Promise.all([
-          promise(),
-          // promise2(),
-          // promise5(),
-          // promise4(),
-          promise3()
-        ]).then(
-          () =>
-          // {draw();}
-            ctx.draw(false,()=>{
-              preview();
-            })
-        ,err=>{
-          wx.showToast({
-            title: '合成失败',
-            success:function(){
+          let ewrImg2 = res.path
+          let preview = function() {
+            return new Promise((resolve, reject) => {
+              prew().then((filePath) => {
+                wx.previewImage({
+                  urls: [filePath]
+                });
+                resolve();
+              }).catch((err) => {
+                reject(err);
+              });
+            });
+          }
+          let prew = function() {
+            return new Promise((resolve, reject) => {
               that.setData({
                 isMakingPoster: false
               })
-            }
-          })
-        })
-      },
-
-    })
+              wx.canvasToTempFilePath({
+                canvasId: 'firstCanvas',
+                width: w2 / 2,
+                height: h2 / 2,
+                destWidth: w2,
+                destHeight: h2,
+                fileType: 'jpg',
+                quality: 1,
+                success: (res) => {
+                  resolve(res.tempFilePath);
+                }
+              })
+            })
+          }
+          let draw = async function() {
+            let ctx = wx.createCanvasContext('firstCanvas', this)
+            return ctx.draw(false, await preview())
+          }
+          let ctx = wx.createCanvasContext('firstCanvas', this)
+          let promise = function() {
+            return new Promise(
+              function(resolve, reject) {
+                ctx.drawImage(ewrImg2, 0, 0, w2 / 2, h2 / 2)
+                resolve()
+              })
+          }
+          let promise3 = function() {
+            return new Promise(
+              function(resolve, reject) {
+                ctx.drawImage(ewrImg, w2 * 34 / 1000, h2 * 40 / 100, 200, 200)
+                resolve()
+                reject()
+              })
+          }
+          Promise.all([
+            promise(),
+            promise3()
+          ]).then(
+            () =>
+            ctx.draw(false, () => {
+              preview();
+            }), err => {
+              wx.showToast({
+                title: '合成失败',
+                success: function() {
+                  that.setData({
+                    isMakingPoster: false
+                  })
+                }
+              })
+            })
+        },
+      })
     }
   },
- 
+
   goUser: function() {
     var id = this.data.userid;
     if (id == getApp().globalData.userId) {
@@ -362,11 +294,12 @@ that.setData({
       })
     }
   },
+  // 获取电话
   getPhoneNumber(e) {
     let that = this
     let isClick = that.data.isClick2
-    let b={
-      isGetPhone:false
+    let b = {
+      isGetPhone: false
     }
     if (isClick == true) {
       that.setData({
@@ -377,7 +310,6 @@ that.setData({
       let iv = e.detail.iv
       wx.checkSession({　　　
         success: function(res) {　　　　　　
-          console.log("处于登录态");
           wx.BaaS.wxDecryptData(encryptedData, iv, 'phone-number').then(decrytedData => {
             console.log(decrytedData)
             let MyUser = new wx.BaaS.User()
@@ -385,23 +317,21 @@ that.setData({
             // age 为自定义字段
             currentUser.set({
               'phone': decrytedData.phoneNumber,
-              'isGetPhone':true
+              'isGetPhone': true
             }).update().then(res => {
               that.collect(a)
               myfirst.renew(b).then(
-                res=>{
-                  console.log(res)
+                res => {
+                 
                 }
               )
-              
             }, err => {})
           }, err => {
             // 失败的原因有可能是以下几种：用户未登录或 session_key 过期，微信解密插件未开启，提交的解密信息有误
             wx.showToast({
               title: '请重新收藏',
-              icon:"none"
+              icon: "none"
             })
-            console.log("4444")
           })　　　　
         },
         　fail: function(res) {　
@@ -421,111 +351,124 @@ that.setData({
       }, 3000)
     }
   },
-  getList: function() {
-    let tableID = 55960
-    let that = this
-    let Product = new wx.BaaS.TableObject(tableID)
-    let list = new Array;
-    Product.orderBy('-collection').expand('created_by').limit(50).offset(0).find().then(res => {
-      let list0 = res.data.objects
-
-      function shuffle(arr) {
-        let i = arr.length,
-          t, j;
-        while (i) {
-          j = Math.floor(Math.random() * i--);
-          t = arr[i];
-          arr[i] = arr[j];
-          arr[j] = t;
-        }
-      }
-      shuffle(list0);
-      for (let i = 0; i < res.data.objects.length; i++) {
-        let collection = that.data.collection
-        if (collection.indexOf(list0[i].id) > -1) {
-          list0[i].collect = 1;
-          list.push(list0[i]);
-        } else {
-          list0[i].collect = 0;
-          list.push(list0[i]);
-        }
-      }
-      that.setData({
-        getlist: list,
-      })
-    }, err => {
-      // err
-    })
+  shuffle: function(arr) {
+    let i = arr.length,
+      t, j;
+    while (i) {
+      j = Math.floor(Math.random() * i--);
+      t = arr[i];
+      arr[i] = arr[j];
+      arr[j] = t;
+    }
   },
+  // 获取推荐列表
+  getList: function() {
+    let that = this
+    let list = new Array;
+    if (that.data.list.video!=undefined) {
+      var query1 = new wx.BaaS.Query()
+      query1.isNotNull('video')
+      var query2 = new wx.BaaS.Query()
+      query2.compare('id','!=',that.data.list.id)
+      var query = wx.BaaS.Query.and(query1, query2)
+    } else {
+      var query1 = new wx.BaaS.Query()
+      query1.isNull('video')
+      var query2 = new wx.BaaS.Query()
+      query2.compare('id', '!=', that.data.list.id)
+      var query = wx.BaaS.Query.and(query1, query2)
+    }
+    myfirst.getTableAndQuery(55960, 8, that.data.page, "-created_at", "-address", query).then(
+      res => {
+        let list0 = res.data.objects
+        that.shuffle(list0);
+        for (let i = 0; i < res.data.objects.length; i++) {
+          let collection = that.data.collection
+          if (collection.indexOf(list0[i].id) > -1) {
+            list0[i].collect = 1;
+            list.push(list0[i]);
+          } else {
+            list0[i].collect = 0;
+            list.push(list0[i]);
+          }
+        }
+        that.setData({
+          getlist: that.data.getlist.concat(list),
+        })
+      }
+    ).catch(
+      err => {
+        console.log(err)
+      }
+    )
+  },
+// 获取当前文章信息
   getPic: function() {
     let that = this
-    let tableID = 55960
-    let recordID = that.data.id
-    let Product = new wx.BaaS.TableObject(tableID)
-    Product.get(recordID).then(res => {
-      let list = res.data
-      let imgs=res.data.img
-      let collection = that.data.collection
-      let i = collection.indexOf(recordID)
-      if (i > -1) {
-        list.collect = 1;
-      } else {
-        list.collect = 0;
-      }
-      var datetime = new Date(res.data.created_at * 1000);
-      let id = res.data.created_by
-      let MyUser = new wx.BaaS.User()
-      that.setData({
-        userid: res.data.created_by
-      })
-      if (res.data.created_by == getApp().globalData.userId) {
-        that.setData({
-          candelete: true
-        })
-      }
-      MyUser.get(id).then(res => {
-        that.setData({
-          headimg: res.data.headimg,
-          nick: res.data.nick,
-        })
-      }, err => {
-        // err
-      })
-      var year = datetime.getFullYear();
-      var month = datetime.getMonth() + 1;
-      var hours = datetime.getHours();
-      var minutes = datetime.getMinutes();
-      if (hours <= 9) {
-        hours = "0" + hours;
-      }
-      if (minutes <= 9) {
-        minutes = "0" + minutes;
-      }
-      if (month <= 9) {
-        month = "0" + month;
-      }
-      var date = datetime.getDate();
-      if (date <= 9) {
-        date = "0" + date;
-      }
-      var dateformat = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
-      that.setData({
-        list: list,
-        // content:str,
-        share: list.share,
-        date: dateformat,
-        count: res.data.img.length
-      })
-      wx.getImageInfo({
-        src: res.data.img[0],
-        success: function(res) {
+    return new Promise(
+      (resolve, reject) => {
+        let tableID = 55960
+        let recordID = that.data.id
+        let Product = new wx.BaaS.TableObject(tableID)
+        Product.get(recordID).then(res => {
+          let list = res.data
+          let imgs = res.data.img
+          let collection = that.data.collection
+          let i = collection.indexOf(recordID)
+          if (i > -1) {
+            list.collect = 1;
+          } else {
+            list.collect = 0;
+          }
+          var datetime = new Date(res.data.created_at * 1000);
+          let id = res.data.created_by
+          let MyUser = new wx.BaaS.User()
           that.setData({
-            height: res.height / res.width,
+            userid: res.data.created_by
           })
-        }
-      })
-
-    }, err => {})
+          if (res.data.created_by == getApp().globalData.userId) {
+            that.setData({
+              candelete: true
+            })
+          }
+          var year = datetime.getFullYear();
+          var month = datetime.getMonth() + 1;
+          var hours = datetime.getHours();
+          var minutes = datetime.getMinutes();
+          if (hours <= 9) {
+            hours = "0" + hours;
+          }
+          if (minutes <= 9) {
+            minutes = "0" + minutes;
+          }
+          if (month <= 9) {
+            month = "0" + month;
+          }
+          var date = datetime.getDate();
+          if (date <= 9) {
+            date = "0" + date;
+          }
+          var dateformat = year + "-" + month + "-" + date + " " + hours + ":" + minutes;
+          that.setData({
+            list: list,
+            share: list.share,
+            date: dateformat,
+            count: res.data.img.length
+          })
+          wx.getImageInfo({
+            src: res.data.img[0],
+            success: function(res) {
+              that.setData({
+                height: res.height / res.width,
+              })
+            }
+          })
+          resolve(res)
+        }, err => {
+          reject(err)
+        })
+      }
+    )
   },
   delete: function() {
     let that = this
@@ -551,6 +494,7 @@ that.setData({
       }
     })
   },
+  // 滑动图片
   change: function(e) {
     var that = this
     var i = e.detail.current
@@ -566,7 +510,7 @@ that.setData({
       }
     })
   },
-  
+// 判断是否收藏
   ifcollect: function(e) {
     let that = this
     let isClick = that.data.isClick
@@ -609,7 +553,6 @@ that.setData({
         duration: 2000
       })
     }, err => {
-      // err
     })
   },
   updatacollect: function(collection) {
@@ -644,7 +587,6 @@ that.setData({
     };
     distinct();
     let index = collection.indexOf(id)
-    // 作孽啊 不能赋值 大爷的
     collection.splice(index, 1);
     let MyUser = new wx.BaaS.User()
     let currentUser = MyUser.getCurrentUserWithoutData()
@@ -672,74 +614,63 @@ that.setData({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-    let that = this
-    that.getUserInfoByToken();
-  },
+  onShow: function() {},
   getUserInfoByToken() {
     return new Promise(
-    (resolve,reject)=>{
-    let MyUser = new wx.BaaS.User()
-    let that = this
-    let id = that.data.id
-    wx.BaaS.login(false).then(res => {
-      MyUser.get(res.id).then(res => {
-        if (res.data.is_authorized == false) {
-          // if (res.data.jundge == false) {
-          wx.redirectTo({
-            url: '../../pages/login3/login3?id=' + that.data.id+"&recomId="+that.data.recomId,
+      (resolve, reject) => {
+        let MyUser = new wx.BaaS.User()
+        let that = this
+        let id = that.data.id
+        wx.BaaS.login(false).then(res => {
+          MyUser.get(res.id).then(res => {
+            if (res.data.is_authorized == false) {
+              wx.redirectTo({
+                url: '../../pages/login3/login3?id=' + that.data.id + "&recomId=" + that.data.recomId,
+              })
+            }
+            that.setData({
+              collection: res.data.collection,
+              user: res.data,
+              user2Id: res.data.id,
+              phone: res.data.phone
+            })
+            that.getAdmin();
+            resolve()
+          }, err => {
+            // err
           })
-        }
-        that.setData({
-          collection: res.data.collection,
-          user: res.data,
-          user2Id: res.data.id,
-          phone: res.data.phone
-        })
-        that.getPic();
-        that.getAdmin();
-        // that.getEwrimg();
-        resolve()
-      }, err => {
-        // err
-      })
-      // 登录成功
+          // 登录成功
 
-    }, err => {
-      // 登录失败
-    })
+        }, err => {
+          // 登录失败
+        })
       }
     )
   },
-  getEwrimg:function(){
+  // 获取二维码
+  getEwrimg: function() {
     let that = this
     let h1 = that.data.tphone.screenHeight
     let w1 = that.data.tphone.screenWidth
-    let user2 = (that.data.user2Id).toString()
-    
-    let scene = that.data.id  + user2
-    // let scene = that.data.id
-    let id = that.data.id
+    let scene = that.data.id
     const params = {
-      scene:scene,
+      scene: scene,
       page: 'pages/detail/detail',
       width: 250,
-      is_hyaline:false,
-      // auto_color:false,
-      // line_color: {"r": "128", "g": "0", "b": "0"},
+      is_hyaline: false,
     }
-    wx.BaaS.getWXACode('wxacodeunlimit', params, true,'二维码').then(res => {
+    wx.BaaS.getWXACode('wxacodeunlimit', params, true, '二维码').then(res => {
       wx.getImageInfo({
         src: res.download_url,
-        success: function (res) {
+        success: function(res) {
           that.setData({
             ewrImg: res.path
           })
-          //  that.btnchose();
         }
       })
     })
   },
+  // 获取管理员信息
   getAdmin: function() {
     let that = this
     let tableID = 58773
@@ -759,32 +690,28 @@ that.setData({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    wx.stopPullDownRefresh()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    let that = this
+    wx.stopPullDownRefresh()
+    let page = that.data.page
+    page++
+    that.setData({
+      page: page
+    })
+    setTimeout(function() {
+      that.getList();
+    }, 500)
   },
 
   /**
@@ -796,9 +723,6 @@ that.setData({
     str += '...'
     return str;
   },
-  
-  
-  
   getDate: function(d) {
     var st = d
     var datetime = new Date(st * 1000);
@@ -827,7 +751,7 @@ that.setData({
       showModal: false
     })
   },
-  
+
   onShareAppMessage: function() {
     let that = this
     let id = that.data.id
@@ -841,7 +765,7 @@ that.setData({
     return {
       title: title,
       // desc: '最具人气的小程序',
-      path: '/pages/detail/detail?id=' + id + "&getshare=" + 1+"&recommend="+recommend,
+      path: '/pages/detail/detail?id=' + id + "&getshare=" + 1 + "&recommend=" + recommend,
       imageUrl: that.data.list.img[0],
       success: (e) => {
         product.set('share', share)

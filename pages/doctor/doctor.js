@@ -40,6 +40,7 @@ Page({
     that.getToken()
     that.getDoctors(59866, options.hospital_id, 10, 0,'created_at');
   },
+  // 去医生详情页
   goDoctor:function(e){
     let that=this
     let id=e.currentTarget.dataset.id
@@ -55,6 +56,7 @@ Page({
       })
     }
   },
+  // 获取推荐id
   getToken() {
     let that = this
     return new Promise(
@@ -70,6 +72,7 @@ Page({
       }
     )
   },
+  // 医生列表
   getDoctors: function(tableId,id,a,b,c){
     let that = this
     return new Promise(
@@ -134,33 +137,6 @@ Page({
         url: '../indexo/indexo',
       })
     }
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
   },
 
   /**

@@ -36,21 +36,14 @@ var filter = {
   },
   LimitNumbersadf3: function(txt, num) {
     var str = txt;
-    str = str.substring(0, num);
-    str += '...'
-    return str;
+    if(str.length<num){
+      return str
+    }else{
+      str = str.substring(0, num);
+      str += '...'
+      return str;
+    }
   },
-  // 去换行
-  // deleteN:function(txt){
-  //     var phoneReplace = function (phoneNumber) {
-  //       var reg = getRegExp('/\n:/', "g");
-  //       console.log(2)
-  //     return phoneNumber.replace(reg, '');
-
-  //   }
-  //   phoneReplace(txt)
-  // },
- 
   stohs: function(s){
     //计算分钟
     //算法：将秒数除以60，然后下舍入，既得到分钟数
@@ -67,6 +60,18 @@ var filter = {
     s = (s.length == 1) ? '0' + s : s;
     return h + ':' + s;
   },
+
+ wxsFunction:function (event, ownerInstance) {
+  const instance = ownerInstance.selectComponent('.classSelector') // 返回组件的实例
+  instance.setStyle({
+    'font-size': '14px' // 支持rpx
+  })
+  instance.getDataset()
+  instance.setClass(className)
+  // ...
+  return false // 不往上冒泡，相当于调用了同时调用了stopPropagation和preventDefault
+}
+
 }
 module.exports = {
   getDate: filter.getDate,

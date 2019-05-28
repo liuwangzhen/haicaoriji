@@ -49,6 +49,7 @@ Page({
     })
     that.getProjectDetail(key)
   },
+  // 获取项目详情
   getProjectDetail: function (key) {
     let that = this
     let page=that.data.page
@@ -80,6 +81,7 @@ Page({
       url: '../smprojectDetail/smprojectDetail?id='+id+"&name="+name,
     })
   },
+  // 获取种类
   getKinds:function(){
      let that=this
      let query=new wx.BaaS.Query()
@@ -118,33 +120,6 @@ Page({
         )
       }
     )
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
   },
 
   /**
